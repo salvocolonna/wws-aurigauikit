@@ -16,6 +16,9 @@
     "postinstall": "yarn-local build"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
