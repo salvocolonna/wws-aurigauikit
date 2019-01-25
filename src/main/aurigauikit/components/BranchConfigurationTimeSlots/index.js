@@ -1,0 +1,2 @@
+import BranchConfigurationTimeSlots from "./BranchConfigurationTimeSlots"
+export default BranchConfigurationTimeSlots

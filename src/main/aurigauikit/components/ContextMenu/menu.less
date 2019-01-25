@@ -1,0 +1,119 @@
+/*
+ Auriga Web App Framework – UI Kit
+ Menu
+
+ Copyright 2016 Auriga S.p.A.
+ */
+
+@import "../../style/constants.less";
+@import "../../style/commons.less";
+@import "../../style/helpers.less";
+
+
+//@menu_hover_color: lighten(@accent_color, 45%);
+@menu_hover_color: @accent_color;
+
+
+.menu
+{
+	.standard-shadow();
+	.user-select-none();
+
+	font-weight: normal;
+	font-size: 13px;
+
+	position: absolute;
+	display: none;
+	z-index: 99999;
+
+	min-width: 200px;
+	overflow: hidden;
+
+	background-color: @background_1_color;
+	border: 1px solid @input_border_color;
+
+	/* for IE9+ */
+	border-collapse: separate;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li
+		{
+			.clickable();
+
+			display: block;
+			white-space: nowrap;
+
+			width: 100%;
+			min-height: 40px;
+
+			line-height: 40px;
+			text-decoration: none;
+
+			padding: 0 10px;
+			margin-right: 20px;
+
+			&:hover {
+				color: @background_1_color;
+				background-color: @menu_hover_color;
+			}
+
+			&.destructive {
+				color: @critical_color;
+
+				&:hover {
+					color: @background_1_color;
+					background-color: @critical_color;
+				}
+			}
+
+			&.confirmatory {
+				color: @confirmatory_color;
+
+				&:hover {
+					color: @background_1_color;
+					background-color: @confirmatory_color;
+				}
+			}
+
+			&.disabled {
+				.unclickable();
+				color: @disabled_1_color;
+
+				&:hover {
+					color: @disabled_1_color;
+					background-color: inherit;
+				}
+			}
+
+			&.hidden {
+				display: none;
+			}
+
+			&.separator {
+				border-bottom: 1px solid @separator_color;
+				min-height: 1px;
+				margin: 4px 0 4px 0;
+				cursor: default;
+			}
+
+			i {
+				margin-right: 10px;
+			}
+
+			a, a:visited, a:hover {
+				display: block;
+				text-decoration: none;
+				color: @primary_color;
+			}
+
+			a:hover {
+				color: @background_1_color;
+				background-color: @primary_color;
+			}
+		}
+	}
+}

@@ -1,0 +1,181 @@
+.text-disabled,
+.text-muted {
+    color: #ccc
+}
+.text-primary {
+    color: #2984c5
+}
+.text-primary-hover:hover {
+    color: #1e6292
+}
+.bg-primary {
+    background-color: #2984c5
+}
+.light-bg-primary {
+    background-color: #f1f7fc
+}
+.text-confirmatory {
+    color: #65c25a
+}
+.text-confirmatory-hover:hover {
+    color: #47a33c
+}
+.bg-confirmatory {
+    background-color: #65c25a
+}
+.light-bg-confirmatory {
+    background-color: #f0f9ef
+}
+.text-alternate {
+    color: #3c434a
+}
+.bg-alternate {
+    background-color: #3c434a
+}
+.text-info {
+    color: #2984c5
+}
+.text-info-hover:hover {
+    color: #1e6292
+}
+.bg-info {
+    background-color: #2984c5
+}
+.text-warning {
+    color: #e98036
+}
+.text-warning-hover:hover {
+    color: #cc6116
+}
+.bg-warning {
+    background-color: #e98036
+}
+.text-critical {
+    color: #dc402b
+}
+.text-critical-hover:hover {
+    color: #ad2e1d
+}
+.bg-critical {
+    background-color: #dc402b
+}
+.light-bg-critical {
+    background-color: #fdf1f0
+}
+.text-upper {
+    text-transform: uppercase
+}
+.align-left {
+    text-align: left
+}
+.align-center {
+    text-align: center
+}
+.align-right {
+    text-align: right
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    text-align: left;
+    transition: background-color .3s ease-in-out;
+    color: #666
+}
+.select2-container--default.select2-container--open.select2-container--above .select2-selection--single,
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+    border-color: #2984c5
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    color: #bbb;
+    font-size: 1.1em;
+    padding: 3px 2px;
+    height: 27px;
+    position: absolute;
+    top: .6em; /*MODIFICA Roland {.3em}*/
+    right: .3em;
+    width: 20px
+}
+.select2-container--default:focus {
+    outline: 0;
+    border: 1px solid #000;
+    box-shadow: 0 0 10px #719ECE
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 2.4em;
+}
+.select2-container--default .select2-selection--multiple {
+    padding-bottom: 4px;
+    padding-top: 4px
+}
+span.select2-selection--multiple[aria-expanded=true] {
+    border-color: #2984c5
+}
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 2px 8px
+}
+.select2-container .select2-selection--single {
+    padding-top: .15em;
+    height: 2.8em
+}
+.select2-container .select2-search--inline .select2-search__field {
+    margin-top: 0px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #fff;
+    border-radius: 1.5em;
+    display: inline-block;
+    padding: .4em.8em;
+    vertical-align: middle;
+    color: #2984c5;
+    border: 1px solid #2984c5;
+    list-style-type: none;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #2984c5
+}
+.select2-container {
+    width: 173px
+}
+span[aria-expanded=false] .fa-chevron-up,
+span[aria-expanded=true] .fa-chevron-down {
+    display: none
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #2984c5
+}
+.select2-container--open .select2-dropdown--above,
+.select2-container--open .select2-dropdown--below {
+    border-color: #2984c5
+}
+.select2-container--default .select2-selection--single .select2-selection__clear {
+    top: 2px;
+    font-size: 1.5em;
+    color: #bbb;
+    margin-right: 4px
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #2984c5;
+    transition: background-color .2s
+}
+.select2-container--default .select2-results__option[aria-disabled=true] {
+    color: #ccc
+}
+.select2-container--default.select2-container--disabled .select2-selection--multiple,
+.select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #ccc
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border-color: #2984c5
+}
+
+.select2-container {
+	/*width:200px!important; aggiunto Roland*/
+}
+
+.select2-container--default .select2-selection--multiple {
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}

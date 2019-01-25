@@ -1,0 +1,281 @@
+.Timeline{
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+  ul{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    li{
+      float: left;
+      width: 100%;
+      position: relative;
+      text-align: center;
+      list-style: none;    
+      opacity: 1;
+      pointer-events: none;
+      &.Timeline-actions{ 
+        color: white;
+        font-size: 18px;
+        .Timeline-leftArrow {
+          cursor: pointer;
+          transform: translateX(-1px) translateY(-38px);    
+          font-weight: bold;
+        }
+        .Timeline-rightArrow { 
+          cursor: pointer;
+          transform: translateX(1px) translateY(-38px);
+          font-weight: bold;
+        }
+        .Timeline-actionButton{
+          cursor: pointer;
+          pointer-events: all;
+          &:hover{
+            box-shadow: -1px 1px 4px #999;
+          }
+        }
+      }
+      &.active {
+        opacity: 1;
+        .Timeline-check{  
+          color: white;
+          position: absolute;
+          margin-top: 9px;
+          margin-left: -6px;
+        }
+      }
+      .Timeline-labelContainer {
+        padding: 0 10px;
+        margin-bottom: 29px;
+        .Timeline-label {
+          position: relative;
+          cursor: pointer;
+          pointer-events: all;
+          .Timeline-text{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          display: inline-grid;
+          background-color: #eee;
+          padding: 10px;
+          width: 100%;
+          max-width: 15em;
+          min-width: 80px;
+          margin: auto;
+          box-shadow: -1px 1px 3px #aaa;
+        }  
+      }
+      .Timeline-arrow {
+        position: absolute;
+        left: 50%;
+        border-left: 13px solid transparent;
+        border-right: 13px solid transparent;
+        border-top: 14px solid #ccc;
+        width: 0;
+        height: 0;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        &:after {
+          position: absolute;
+          top: -17px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-top: 15px solid #eee;
+          width: 0;
+          height: 0;
+          content: " ";
+        }
+      }
+      .Timeline-arrowUpsideDown {
+        position: absolute;
+        left: 50%;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid #aaa;
+        width: 0;
+        height: 0;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        &:after {
+          position: absolute;
+          top: -100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-bottom: 15px solid #eee;
+          width: 0;
+          height: 0;
+          content: " ";
+        }
+      }
+      .Timeline-ball{
+        position: relative;
+        content: '';
+        width: 30px;
+        height: 30px;
+        display: block;
+        margin: 0 auto 10px auto;
+        border-radius: 50%;
+        line-height: 27px;
+        background: #eee;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        width: calc(100% ~'-' 40px);
+        height: 3px;
+        background: #eee;
+        top: 80px;
+        left: calc(-50% ~'+' 20px);
+        z-index: -1;
+        border-color: white;
+        margin-top: -1px;
+      }
+      
+      &.active:after{
+        border-style: none;
+        border-color: none;
+        margin-top: 0;
+      }
+      &:nth-child(1):after{
+        content: none;
+      }
+      &.active:after{
+        background: #3498db;
+      }
+      &.active {
+        .Timeline-ball{
+          border-color: #3498db;
+          background: #3498db;
+          color: white;
+        }
+      }
+      &.disabled{
+        opacity: 0.5;
+        &:after{
+          border-style: dashed;
+        }
+        .Timeline-label {
+          cursor: not-allowed;
+        }
+      }
+      &.current{
+        .Timeline-label {
+          cursor: initial;
+          box-shadow: 0px 1px 1px #ccc;
+        }
+        .Timeline-arrow{
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-top: 13px solid #aaa;
+          &:after {
+            top: -16px;
+          }
+        }
+      }
+      &:hover{
+        &:not(.disabled){
+          .Timeline-label {
+            box-shadow: 0px 1px 1px #ccc;
+          }
+          .Timeline-arrow{
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 13px solid #aaa;
+            &:after {
+              top: -16px;
+            }
+          }
+        }
+      }
+      &.disabled{
+        opacity: 0.5;
+        &:after{
+          border-style: dashed;
+        }
+        .Timeline-label {
+          cursor: not-allowed;
+        }
+        &:hover{
+          
+        }
+      }
+    }
+  }
+}
+.TimelineMini{
+  margin: 0;
+  ul{
+    margin: 0;
+    padding: 0;
+    li{
+      opacity: 1;
+      list-style: none;    
+      display: flex;
+      justify-content: center;
+      align-items: center;  
+      position: relative;
+      
+      &.disabled{
+        opacity: 0.5;
+        .Timeline-label {
+          cursor: not-allowed;
+        }
+      }
+      .Timeline-ball{
+        border-radius: 50%;
+        background-color: #eee;  
+        width: 30px;
+        min-width: 30px;
+        height: 30px;  
+        margin-right: 20px;
+        position: relative;
+        .Timeline-check{  
+          color: white;
+          position: absolute;
+          margin-top: 9px;
+          margin-left: 9px;
+        }
+      }   
+      .Timeline-label{
+        cursor: pointer;
+        text-align: center;
+        background-color: #eee;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        box-shadow: -1px 1px 4px #999;
+        width: 100%;
+      }   
+      &.active{
+        opacity: 1; 
+        .Timeline-ball{
+          background-color: #3498db;     
+        }
+      }
+      &.current{
+        .Timeline-label {
+          cursor: initial;
+          box-shadow: 0px 1px 1px #ccc;
+        }
+      }
+      &:hover{
+        &:not(.disabled){
+          .Timeline-label {
+            box-shadow: 0px 1px 1px #ccc;
+          }
+        }
+      }
+    }
+  }
+}

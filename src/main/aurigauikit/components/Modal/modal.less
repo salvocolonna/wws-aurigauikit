@@ -1,0 +1,88 @@
+.narcissus_86uon7{
+	display: none !important;
+}
+.modal-on-body{
+	overflow: hidden !important;
+}
+.modal-on-body.need-scroll{
+	overflow: hidden !important;
+	#topbar{
+		ul{
+	    padding-right: 17px !important;
+		}
+	}
+	#content-dynamic{
+    margin-right: 17px !important;
+	}
+}
+
+.react-modal-panel {
+	-moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+	background-color: white;
+	border: 1px solid #2984c5;
+	padding: 40px !important;
+	cursor: default;
+	border-radius: 4px !important;
+	display: inline-block;
+
+	.dialog-header {
+		display: table;
+		font-size: 20px;
+		font-weight: bold;
+		padding-bottom: 20px;
+	}
+
+	.dialog-content {
+		margin-bottom: 40px;
+	}
+
+	.dialog-footer {
+		position: absolute;
+		width: 100%;
+		bottom: 20px;
+		margin-left: -80px;
+		text-align: right;
+	}
+
+	&-overlay{
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, .2);
+		cursor: pointer;
+		overflow: auto;
+    z-index: 1050;
+	}
+}
+
+@media (max-width: 767px){
+  .react-modal-panel {
+    border-radius: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin-bottom: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+			&-overlay{
+				bottom: 0 !important;
+			}
+			transform: none !important;
+			border: 0 !important;
+  }
+  .modal-on-body {
+    #app{
+      display: none;
+    }
+  }
+  #content-dynamic{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}

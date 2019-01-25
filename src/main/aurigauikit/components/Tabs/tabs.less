@@ -1,0 +1,52 @@
+ul.react-nav-tabs {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px 0 0 0;
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #ccc;
+
+	li {
+	  display: inline-block;
+	  margin: 0;
+	  padding: 0;
+
+		i {
+		  margin-right: 0.5em;
+		}
+		a {
+		  color: #888;
+		  padding: 0.7em 1.5em;
+		}
+
+		&.active{
+			i {
+			  color: #DC402B;
+			}
+			a {
+			  color: #3C434A;
+			  border: 1px solid #ccc;
+			  border-bottom: 1px solid white;
+			}
+		}
+		&.disabled{
+			a {
+				cursor: default;
+				pointer-events: none;
+				color: #ccc;
+				&:hover {
+				  color: #ccc;
+				}
+			}
+		}
+	}
+}
+
+div.react-nav-tab {
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+div.react-nav-content {
+  margin-top: 20px;
+}

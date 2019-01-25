@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch displays as expected 1`] = `
+<label
+  className="switch"
+>
+  <input
+    onChange={undefined}
+    type="checkbox"
+    value={true}
+  />
+  <span
+    className="slider round"
+  />
+</label>
+`;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader displays as expected 1`] = `
+<div
+  className="loader"
+  style={
+    Object {
+      "border": "10px solid #f3f3f3",
+      "borderRadius": "50%",
+      "borderRight": "10px solid #3498db",
+      "borderStyle": "double",
+      "borderTop": "10px solid #3498db",
+      "float": "right",
+      "height": "5px",
+      "width": "5px",
+    }
+  }
+/>
+`;
+
+exports[`Loader overrides and adds style attributes 1`] = `
+<div
+  className="loader"
+  style={
+    Object {
+      "border": "10px solid #f3f3f3",
+      "borderRadius": "50%",
+      "borderRight": "10px solid #3498db",
+      "borderStyle": "double",
+      "borderTop": "10px solid #3498db",
+      "float": "left",
+      "height": "5px",
+      "transform": "translateY(-50px)",
+      "width": "5px",
+    }
+  }
+/>
+`;

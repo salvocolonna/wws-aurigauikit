@@ -1,0 +1,19 @@
+:local(.grid){
+  display: flex;
+}
+:local(.map){
+  height: 100%;
+  width: 100%;
+  border-right: 1px solid #2984c5;
+}
+
+@media handheld, only screen and (max-width: 767px) {
+	:local(.grid){
+		display: block;
+  }
+  :local(.map){
+    height: 500px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}

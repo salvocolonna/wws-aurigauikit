@@ -1,0 +1,79 @@
+/*
+ Auriga Web App Framework – UI Kit 
+ Typography
+ 
+ Copyright 2016 Auriga S.p.A.
+ */
+
+@import "constants.less";
+@import "commons.less";
+
+/*
+ * Headers
+ */
+h1, h2, h3 {
+	padding: 0;
+	margin: 0.8em 0;
+	color: @alternate_color;
+}
+
+h1 {
+	font-size: 32px;
+	font-weight: 300;
+}
+
+h2 {
+	font-size: 22px;
+	font-weight: 400;
+}
+
+h3 {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+h4, h5, h6 {
+	padding: 0;
+	margin: 0;
+	color: @disabled_1_color;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+
+html {
+	font-family: @fontfamily;	
+	font-size: 13px;
+	font-weight: normal;
+}
+
+body {
+	color: @default_text_color;
+	background-color: @background_1_color;
+	text-rendering: optimizelegibility;
+}
+
+
+address {
+	margin-bottom: 20px;
+	font-style: normal;
+	line-height: 1.4em;
+	
+	a, a:visited {
+		font-weight: bold;
+		color: @accent_color;
+	}
+}
+
+a, a:visited {
+	color: @primary_color;
+	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+section {
+	margin: 0 0 3em 0;
+}

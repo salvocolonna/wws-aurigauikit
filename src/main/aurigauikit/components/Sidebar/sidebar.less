@@ -1,0 +1,522 @@
+/*
+ Auriga Web App Framework – UI Kit
+ Sidebar based layout
+
+ Copyright 2016 Auriga S.p.A.
+ */
+
+@import "../../style/constants.less";
+@import "../../style/commons.less";
+@import "../../style/helpers.less";
+
+
+@sidebar_width: 220px;
+@sidebar_active_text_color: @alternate_color;
+@sidebar_active_background_color: white;
+@sidebar_text_color: @secondary_text_color;
+//@logo_height: 130px;
+@logo_height: 80px;
+@content_padding: 40px;
+
+@topbar_text_color: white;
+@topbar_background_color: @alternate_color;
+
+#main{
+	overflow: hidden;
+}
+
+#container {
+	display: table;
+	width: 100%;
+	min-height: 100vh;
+	background-color: @background_2_color;
+}
+
+#react-sidebar {
+	display: table-cell;
+	vertical-align: top;
+	min-width: @sidebar_width;
+	border-right: 1px solid @separator_color;
+
+}
+
+#react-sidebar-horizontal {
+	min-width: @sidebar_width;
+	border-bottom: 1px solid #ccc;
+	background-color: #fafafa;
+}
+
+#react-sidebar-logo {
+	vertical-align: top;
+	position: relative;
+	height: @logo_height;
+	margin-right: -1px;
+
+	background-color: @brand_color;
+	text-align: center;
+
+	span {
+		display: inline-block;
+		height: 100%;
+		vertical-align: middle;
+	}
+
+	img {
+		vertical-align: middle;
+		margin-right: 10px;
+		height: @logo_height;
+	}
+	.fa.fa-bars{
+		display: none;
+	}
+}
+/*
+#content-dynamic{
+&::-webkit-scrollbar {
+	width: 10px;
+	background: #fafafa; 
+	border-left: 1px solid #ccc;
+}
+
+&::-webkit-scrollbar-thumb {
+	background: #ddd; 
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		border-left: 1px solid #ccc;
+}
+
+&::-webkit-scrollbar-thumb:hover {
+		background: #eee; 
+}
+}*/
+#react-sidebar-menu-wrapper {
+	ul.primary {
+		margin: 0 -1px 0 0;
+		padding: 0;
+		font-size: 1.4em;
+		list-style: none;
+		vertical-align: top;
+
+		
+	&::-webkit-scrollbar {
+    width: 10px;
+		background: #ddd; 
+		border-right: 1px solid #ccc;
+	}
+	
+	&::-webkit-scrollbar-thumb {
+		background: #fafafa; 
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			border-right: 1px solid #ccc;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+			background: #eee; 
+	}
+
+		li {
+			border-bottom: 1px solid @separator_color;
+			cursor: pointer;
+			color: @sidebar_text_color;
+			overflow: hidden;
+
+			&.active {
+				color: @sidebar_active_text_color;
+				background-color: @sidebar_active_background_color;
+				border-right: 1px solid transparent;
+
+				i {
+					color: @brand_color;
+				}
+			}
+
+			&.disabled {
+				color: @disabled_1_color;
+
+				a {
+					.unclickable();
+				}
+			}
+
+			i {
+				margin-right: 0.5em;
+			}
+
+			a, a:visited {
+				padding: 1.6em 1.1em;
+				display: block;
+				color: inherit;
+			}
+
+			span.react-sidebar-title {
+				padding: 1.6em 1.1em;
+				display: block;
+			}
+			span.react-sidebar-title.active,
+			span.react-sidebar-title.open {
+				padding: 1.6em 1.1em 0.5em 1.1em;
+			}
+		}
+
+	}
+	ul.secondary {
+		padding: 0 0 1.6em 1.5em;
+		font-size: 0.7em;
+		padding-left: 30px;
+
+		li {
+			border-bottom: 1px solid #eee;
+			i{
+					visibility: hidden;
+			}
+			&:last-child{
+				border-bottom: 0px;
+			}
+
+			&.active {
+				i {
+					visibility: visible;
+				}
+				a, a:visited {
+					i { color: @brand_color; }
+				}
+			}
+
+			&:hover{
+				i{
+					visibility: visible;
+				}
+				a, a:visited {
+					i {
+				    display: initial;
+					}
+				}
+			}
+
+			a, a:visited {
+				padding: 0.5em 0.5em;
+				padding-left: 0;
+
+				i {
+					width: 0.5em;
+					transform: translateX(-10px);
+			    margin-top: 3px;
+			    margin-right: 10px;
+			    position: absolute;
+			    display: none;
+				}
+			}
+		}
+	}
+}
+
+#react-sidebar-horizontal {
+	#react-sidebar-menu-wrapper {
+		margin-bottom: -6px;
+		li{
+			border-right: 1px solid #ccc;
+			&:last-child{
+				border-right: 0;
+			}
+		}
+		li.active{
+			border-right: 1px solid #ccc;
+			&:last-child{
+				border-right: 1px solid #ccc;
+			}
+			&:first-child{
+				border-left: 1px solid #ccc;
+			}
+		}
+	}
+}
+
+#react-sidebar-remainder {
+	display: table-cell;
+	vertical-align: top;
+	width: 100%;
+	height: 100%;
+}
+
+#main {
+	display: table-cell;
+    width: 100%;
+	background-color: @background_1_color;
+}
+
+#topbar {
+	text-align: right;
+	margin: 0;
+
+	>ul {
+		list-style: none;
+		min-height: 80px;
+
+		margin: 0;
+		padding: 2.2em 0;
+
+		color: @topbar_text_color;
+		background-color: @topbar_background_color;
+
+		>li {
+			.link-transition();
+
+			display: inline-block;
+
+			margin: 0;
+			padding: 0 0 0 0.1em;
+
+			&:after {
+				font-size: 10px;
+				content: "|";
+				color: @separator_color;
+				margin: 0 1.8em;
+			}
+
+			&:last-child {
+				padding-right: @content_padding;
+
+				&:after {
+					content: " ";
+					margin: 0;
+				}
+			}
+
+			&.clickable:hover {
+				.clickable();
+				color: #000;
+			}
+
+			&.notification-icon i {
+				width: 2em;
+				margin-right: -0.2em;
+				text-align: center;
+				vertical-align: middle;
+				position: relative;
+			}
+
+			&.notification-icon-has-notifications i:after {
+				content: " ";
+				position: absolute;
+				background: @brand_color;
+				height: 0.4em;
+				width: 0.4em;
+				top: 0;
+				right: 0;
+				border-radius: 50%;
+			}
+
+			&.notification-icon-offline i {
+				color: fade(@topbar_text_color, 30%);
+
+				&:after {
+					color: fade(@topbar_text_color, 30%) !important;
+				}
+			}
+
+			i {
+				font-size: 1.2em;
+				margin-right: 0.5em;
+			}
+
+      			/*
+
+			span.number-badge {
+				.border-radius(1.5em);
+
+				display: inline-block;
+				vertical-align: middle;
+
+				font-weight: 600;
+				font-size: 10px;
+				line-height: 1.5em;
+				text-align: center;
+
+				margin-top: -4px;
+				padding: 0.1em 0.8em;
+
+				color: white;
+				background-color: @critical_color;
+			}
+			*/
+		}
+	}
+}
+
+/*
+.notification-icon i {
+	width: 1.5em;
+	font-size: 1.2em;
+	margin-right: 0.5em;
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+}
+
+.notification-icon-has-notifications i:after {
+	content: " ";
+	position: absolute;
+	background: @brand_color;
+	height: 0.4em;
+	width: 0.4em;
+	top: 0;
+	right: 0;
+	border-radius: 50%;
+}
+*/
+
+#breadcrumb {
+	display: table;
+	width: 100%;
+	padding: 0 @content_padding;
+
+	ol.breadcrumb {
+		margin-right: 1em;
+	}
+}
+
+#breadcrumb-buttons {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: right;
+	white-space: nowrap;
+}
+
+#content, #content-dynamic {
+	padding: @content_padding / 2 @content_padding @content_padding @content_padding;
+}
+
+#content-dynamic {
+	display: none;
+}
+
+
+/*
+ Responsive
+ */
+ /*
+ @media (max-width: 667px) {
+	#react-sidebar-menu-wrapper {
+		display: none;
+	}
+	#react-sidebar-logo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 9999;
+		position: absolute;    
+		padding: 20px;
+		.fa.fa-bars{
+			display: block;
+		}
+	}
+ }*/
+
+@media (max-width: 1024px) {
+	#logo {
+		height: 1em;
+	}
+
+	#react-sidebar {
+		min-width: inherit;
+	}
+
+	#react-sidebar{
+		#app-logo-full {
+			display: none;
+		}
+	}
+
+	.react-sidebar-item {
+		display: none;
+	}
+
+	#react-sidebar-menu-wrapper ul.primary li a i {
+		margin-right: 0;
+	}
+
+	#react-sidebar-menu-wrapper {
+		width: 5em;
+
+		ul.primary li.submenu span.react-sidebar-title {
+			padding: 1.6em 1.1em;
+		}
+
+		ul li a {
+			text-decoration: none !important;
+		}
+
+		ul.secondary {
+			.standard-shadow();
+			.user-select-none();
+
+			position: absolute;
+			display: none;
+			z-index: 100;
+
+			min-width: 320px;
+			overflow: hidden;
+			padding: 10px;
+
+			background-color: @background_1_color;
+			border: 1px solid @input_border_color;
+
+			/* for IE9+ */
+			border-collapse: separate;
+
+			& li span.react-sidebar-item {
+				display: inline-block;
+			}
+
+			li a i {
+				margin-right: 0.5em;
+			}
+		}
+	}
+
+	#react-sidebar-horizontal{
+		#react-sidebar-menu-wrapper {
+			width: auto;
+		}
+	}
+
+	#react-sidebar ul li i {
+		margin-right: 0;
+	}
+
+	#topbar-buttons {
+		white-space: inherit;
+	}
+}
+
+
+@media (max-width: 1024px){
+	#react-sidebar-menu-wrapper ul.secondary {
+	    -moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+	    -webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+	    box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+	    -webkit-touch-callout: none;
+	    -webkit-user-select: none;
+	    -khtml-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    position: absolute;
+	    display: none;
+	    z-index: 100;
+	    min-width: 320px;
+			margin-left: 30px;
+			margin-top: -30px;
+	    overflow: hidden;
+	    padding-left: 25px;
+	    background-color: white;
+	    border: 1px solid #bbb;
+	    border-collapse: separate;
+	}
+}
+@media (min-width: 1024px){
+	#react-sidebar-menu-wrapper ul.secondary {
+	    display: block;
+	}
+}

@@ -1,0 +1,76 @@
+/*
+ Auriga Web App Framework – UI Kit 
+ Form elements, input and textarea
+ 
+ Copyright 2016 Auriga S.p.a.
+ */ 
+ 
+@import "constants.less";
+@import "commons.less";
+
+input,
+textarea {
+	.standard-radius();
+	
+	padding: 8px;
+	
+	color: @input_text_color;
+	border: 1px solid @input_border_color;
+	
+	&:focus {
+		color: @default_text_color;
+		background-color: white;
+		border-color: @accent_color;
+	
+		/* for IE9+ */
+		border-collapse: separate;
+		outline: none;
+	}
+	
+	&:disabled {
+		color: @default_text_color;
+		background-color: @background_2_color;
+	}
+	
+	&.validation-error {
+		border-color: @critical_color;
+	}
+
+	&.decorated {
+		padding-right: 30px;
+	}
+}
+
+input.dropdown:disabled {
+	cursor: pointer;	
+}
+
+i.input-decoration {
+	color: @input_border_color;
+	margin-left: -26px;
+	cursor: pointer;
+	
+	&.opened {
+		color: @accent_color;
+	}
+}
+
+ul.validation-errors-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	
+	li {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+
+/*
+i.add-button {
+	color: @confirmatory_color; 
+	margin-left: 20px; 
+	cursor: pointer;
+}
+*/

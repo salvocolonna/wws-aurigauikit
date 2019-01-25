@@ -1,0 +1,65 @@
+/*
+ Auriga Web App Framework – UI Kit 
+ Static Panels
+ (Bootstrap Alerts)
+ 
+ Copyright 2016 Auriga S.p.a.
+ */
+
+@import "constants.less";
+@import "commons.less";
+@import "helpers.less";
+
+div.static-panel {
+	.standard-radius();
+	
+	position: relative;
+	
+	//padding: 16px 20px;
+	//margin: 20px 0;
+	padding: 1em 1em 1em 3.5em;
+	margin: 2em 0;
+	
+	border: 1px solid black;
+	
+	i {
+		position: absolute;
+		top: 1.2em;
+		left: 20px;
+	}
+	
+	strong {
+		font-weight: 700;
+	}
+}
+
+div.static-panel-info {
+	color: @info_color_darken;
+	//.text-info();
+	.light-bg-info();
+	border-color: @info_color_darken;    
+	color: #20689b;
+	background-color: #f1f7fc;
+	border-color: #c7e1f3;
+}
+
+div.static-panel-confirmatory {
+	color: @confirmatory_color_darken;
+	//.text-confirmatory();
+	.light-bg-confirmatory();
+	border-color: @confirmatory_color_darken;
+}
+
+div.static-panel-warning {
+	color: @warning_color_darken;
+	//.text-warning();
+	.light-bg-warning();
+	border-color: @warning_color_darken;
+}
+
+div.static-panel-critical {
+	color: @critical_color_darken;
+	//.text-critical();
+	.light-bg-critical();
+	border-color: @critical_color_darken;
+}

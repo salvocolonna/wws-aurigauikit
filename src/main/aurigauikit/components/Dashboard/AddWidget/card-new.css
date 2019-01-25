@@ -1,0 +1,56 @@
+:local(.button) {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  border: 1px solid #cccccc;
+  background-color: #fafafa;
+  padding: 20px;
+  cursor: pointer;
+  border-color: #2984c5;
+}
+
+:local(.button):hover {
+  background-color: #ededed;
+  color: #8c8c8c;
+}
+
+:local(.icon) {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #f0f0f0;
+  font-size: 150px !important;
+  margin: 20px;
+  padding: 0;
+  margin-bottom: 10px;
+
+}
+
+:local(.button):hover :local(.icon) {
+  color: #e0e0e0;
+}
+
+:local(.button) {
+  border-style: dashed;
+}
+
+:local(.container) {
+  display: table;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+:local(.content){
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: -2px;
+  color: #999;
+  text-align: center;
+}

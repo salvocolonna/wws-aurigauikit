@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageViewer displays as expected 1`] = `
+<div
+  className="viewer "
+  style={undefined}
+>
+  Image {"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
+</div>
+`;
+
+exports[`ImageViewer displays as expected editable 1`] = `
+<div
+  className="viewer "
+  style={undefined}
+>
+  Image {"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
+  Overlay {"editable":true,"width":0,"height":0}
+  <input
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+</div>
+`;
+
+exports[`ImageViewer forewards style and className 1`] = `
+<div
+  className="viewer image-viewer"
+  style={undefined}
+>
+  Image {"style":{"borderRadius":50},"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
+</div>
+`;

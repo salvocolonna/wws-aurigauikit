@@ -1,0 +1,16 @@
+
+	.loader {
+    border: 9px solid #f3f3f3;
+    border-top: 9px solid #3498db;
+    border-right: 9px solid #3498db;
+    border-radius: 50%;
+    background-color: #fff;
+    animation: spin .5s linear infinite;
+    border-style: double;
+    margin-right: 5px;
+    margin-left: -8px;
+    margin-top: 0.5px;
+    float: left;
+    height: auto;
+    width: auto;
+}

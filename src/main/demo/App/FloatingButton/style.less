@@ -1,0 +1,171 @@
+
+:local(.floatingButton) {
+  bottom: 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: flex;
+  height: 56px;
+  left: 0px;
+  min-height: auto;
+  min-width: auto;
+  position: relative;
+  right: 0px;
+  text-decoration: none solid rgb(255, 255, 255);
+  top: 0px;
+  white-space: nowrap;
+  width: 56px;
+  will-change: transform, opacity;
+  column-rule-color: rgb(255, 255, 255);
+  align-items: center;
+  justify-content: center;
+  perspective-origin: 28px 28px;
+  transform-origin: 28px 28px;
+  user-select: none;
+  fill: rgb(255, 255, 255);
+  caret-color: rgb(255, 255, 255);
+  background: #2984C5 none repeat scroll 0% 0% / auto padding-box border-box;
+  border: 0px none rgb(255, 255, 255);
+  border-radius: 50% 50% 50% 50%;
+  font: normal normal 400 normal 24px / 24px "Material Icons";
+  outline: rgb(255, 255, 255) none 0px;
+  overflow: hidden;
+  padding: 0px;
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1) 0s, opacity 0.015s linear 0.03s, transform 0.27s cubic-bezier(0, 0, 0.2, 1) 0s, -webkit-transform 0.27s cubic-bezier(0, 0, 0.2, 1) 0s;
+  z-index: 99999;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+  }
+
+  &:active {
+    -webkit-box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0,0,0,.14), 0 5px 22px 4px rgba(0,0,0,.12);
+    box-shadow: 0 7px 8px -4px rgba(0,0,0,.2), 0 12px 17px 2px rgba(0,0,0,.14), 0 5px 22px 4px rgba(0,0,0,.12);
+    outline: none;
+    background: #2995E6 none repeat scroll 0% 0% / auto padding-box border-box;
+  }
+
+  &:after {
+    bottom: 22.4063px;
+    color: rgb(255, 255, 255);
+    content: '""';
+    cursor: pointer;
+    display: block;
+    height: 33.5938px;
+    left: 0px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 22.4063px;
+    text-decoration: none solid rgb(255, 255, 255);
+    top: 0px;
+    white-space: nowrap;
+    width: 33.5938px;
+    column-rule-color: rgb(255, 255, 255);
+    perspective-origin: 16.7969px 16.7969px;
+    transform: matrix(0, 0, 0, 0, 0, 0);
+    transform-origin: 16.7969px 16.7969px;
+    user-select: none;
+    fill: rgb(255, 255, 255);
+    caret-color: rgb(255, 255, 255);
+    background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(255, 255, 255);
+    border-radius: 50% 50% 50% 50%;
+    font: normal normal 400 normal 24px / 24px "Material Icons";
+    outline: rgb(255, 255, 255) none 0px;
+  }
+
+  &:before {
+    bottom: -28px;
+    color: rgb(255, 255, 255);
+    content: '""';
+    cursor: pointer;
+    display: block;
+    height: 112px;
+    left: -28px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: -28px;
+    text-decoration: none solid rgb(255, 255, 255);
+    top: -28px;
+    white-space: nowrap;
+    width: 112px;
+    z-index: 1;
+    column-rule-color: rgb(255, 255, 255);
+    perspective-origin: 56px 56px;
+    transform: matrix(2.65464, 0, 0, 2.65464, 0, 0);
+    transform-origin: 56px 56px;
+    user-select: none;
+    fill: rgb(255, 255, 255);
+    caret-color: rgb(255, 255, 255);
+    background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(255, 255, 255);
+    border-radius: 50% 50% 50% 50%;
+    font: normal normal 400 normal 24px / 24px "Material Icons";
+    outline: rgb(255, 255, 255) none 0px;
+    transition: opacity 0.015s linear 0s;
+  }
+
+  span {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: flex;
+    height: 24px;
+    min-height: auto;
+    min-width: auto;
+    text-align: center;
+    text-decoration: none solid rgb(255, 255, 255);
+    white-space: nowrap;
+    width: 24px;
+    will-change: transform;
+    column-rule-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    perspective-origin: 12px 12px;
+    transform-origin: 12px 12px;
+    user-select: none;
+    fill: rgb(255, 255, 255);
+    caret-color: rgb(255, 255, 255);
+    border: 0px none rgb(255, 255, 255);
+    font: normal normal 400 normal 24px / 24px "Material Icons";
+    outline: rgb(255, 255, 255) none 0px;
+    transition: transform 0.18s cubic-bezier(0, 0, 0.2, 1) 0.09s, -webkit-transform 0.18s cubic-bezier(0, 0, 0.2, 1) 0.09s;
+
+    &:after {
+      color: rgb(255, 255, 255);
+      cursor: pointer;
+      min-height: auto;
+      min-width: auto;
+      text-align: center;
+      text-decoration: none solid rgb(255, 255, 255);
+      white-space: nowrap;
+      column-rule-color: rgb(255, 255, 255);
+      user-select: none;
+      fill: rgb(255, 255, 255);
+      caret-color: rgb(255, 255, 255);
+      border: 0px none rgb(255, 255, 255);
+      font: normal normal 400 normal 24px / 24px "Material Icons";
+      outline: rgb(255, 255, 255) none 0px;
+    }
+
+    &:before {
+      color: rgb(255, 255, 255);
+      cursor: pointer;
+      min-height: auto;
+      min-width: auto;
+      text-align: center;
+      text-decoration: none solid rgb(255, 255, 255);
+      white-space: nowrap;
+      column-rule-color: rgb(255, 255, 255);
+      user-select: none;
+      fill: rgb(255, 255, 255);
+      caret-color: rgb(255, 255, 255);
+      border: 0px none rgb(255, 255, 255);
+      font: normal normal 400 normal 24px / 24px "Material Icons";
+      outline: rgb(255, 255, 255) none 0px;
+    }
+  }
+}

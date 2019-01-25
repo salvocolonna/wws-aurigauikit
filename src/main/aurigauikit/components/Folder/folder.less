@@ -1,0 +1,98 @@
+.react-folder {
+	background-color: #fafafa;
+	&-content{
+		position: relative;
+		height: 100%;
+		.card-icon-top-bottom{
+			position: absolute;
+			bottom: 20px;
+			right: 20px;
+			font-size: 100px;
+			color: #909090;
+			opacity: 0.1;
+		}
+    & > div:not(.react-folder-actions) > ul {
+        list-style: none;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 2em;
+        margin: 0;
+        padding: 0;
+        color: #999;
+        i {
+          padding-right: 5px;
+        }
+    }
+	}
+	&-actions {
+		position: absolute;
+		width: 70%;
+		float: right;
+		bottom: 32px;
+		right: -1px;
+		-moz-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+		-webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+		box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		font-weight: normal;
+		font-size: 13px;
+		min-width: 200px;
+		overflow: hidden;
+		background-color: white;
+		border: 1px solid #bbb;
+		border-collapse: separate;
+		z-index: 1;
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			li {
+				cursor: pointer;
+				pointer-events: auto;
+				display: block;
+				white-space: nowrap;
+				width: 100%;
+				min-height: 45px;
+				line-height: 45px;
+				text-decoration: none;
+				&:hover {
+					color: white;
+					background-color: #2984C5;
+				}
+				i {
+					margin-right: 10px;
+				}
+			}
+		}
+	}
+	a {
+		cursor: pointer;
+	}
+	a:hover {
+		font-size: larger;
+	}
+}
+.react-folder.clickable:hover{
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+.react-card.primary.react-folder  {
+	div.header {
+		div.title {
+			cursor: default !important;
+		}
+	}
+}
+.react-card.primary.react-folder.clickable  {
+	div.header {
+		div.title {
+			cursor: pointer !important;
+		}
+	}
+}

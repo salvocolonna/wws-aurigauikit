@@ -1,0 +1,24 @@
+
+:local(.deleteIcon) {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  right: 0;
+  padding: 0 3px 3px 0;
+  color: #DC402B;
+  box-sizing: border-box;
+  font-size: 1.8em !important;
+  margin-right: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+:local(.deleteIcon):hover {
+  font-size: 2.2em !important;
+}
+
+.react-grid-item .fa-external-link{
+  position: absolute;
+  right: 0;
+}

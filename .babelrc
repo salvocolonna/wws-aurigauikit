@@ -1,0 +1,33 @@
+{
+  "presets": [
+    "env",
+    "stage-2",
+    "react",
+    "flow"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "src/main",
+          "node_modules/aurigauikit/src/main"
+        ]
+      }
+    ],
+    "add-react-displayname",
+    [
+      "react-intl",
+      { "enforceDescriptions": false }
+    ]
+  ],
+  "env": {
+    "production": {
+      "presets": [
+        "minify"
+      ]
+    }
+  }
+}

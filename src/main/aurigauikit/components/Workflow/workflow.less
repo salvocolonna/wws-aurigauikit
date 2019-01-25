@@ -1,0 +1,56 @@
+.Workflow--horizontalLinker {
+	/*box-shadow: 0px 5px 10px -3px #ddd inset;*/
+	vertical-align: middle;
+	display: inline-block;
+	width: 90px;
+	height: 10px;
+	background-color: #fafafa;
+	border: 1px solid #ccc;
+	border-left: 0;
+	border-right: 0;
+}
+
+.Workflow--timelineIcon {
+	/*box-shadow: 0px 0px 10px #ddd inset;*/
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+	background-color: #fafafa;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	padding-top: 5px;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+  position: relative;
+  z-index: 2;
+	display: inline-block;
+}
+
+.Workflow--verticalLinker {
+	/*box-shadow: 0px 0px 15px -2px #ddd inset;*/
+	width: 10px;
+	height: 44px;
+	margin: -2px;
+	margin-left: 15px;
+	margin-right: 40px;
+	background-color: #fafafa;
+	border: 1px solid #ccc;
+	text-align: center;
+  position: relative;
+  z-index: -1;
+}
+
+.Workflow--workflowTitle{
+	margin-bottom: 10px;
+	text-align: center;
+	font-weight: bold;
+	height: 20px;
+
+	&.deleted{
+		color: #f00;
+		margin-top:10px;
+		margin-bottom: 0px;
+		transform: translateX(-45px)
+	}
+}

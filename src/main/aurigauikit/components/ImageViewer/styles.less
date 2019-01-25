@@ -1,0 +1,40 @@
+
+.ImageViewer{
+  pointer-events: none;
+  text-align: center;
+  img{ 
+    pointer-events: all; 
+    object-fit: contain;
+  }
+  .ImageViewer-overlay{
+    pointer-events: all;
+    margin: auto;
+    opacity: 0;
+    transition: opacity .5s ease;
+    background-color: rgba(41, 132, 197,.2);
+    transform: translateY(calc(-100% ~'-' 4px));
+    box-shadow: 0px 0px 10px #2984C5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    .ImageViewer-uploader{
+      font-weight: bold; 
+      font-size: 20px;
+      color: #fff;
+      background-color: #2984C5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%; 
+      height: 30%;
+    }
+  }
+  &:hover{
+    .ImageViewer-overlay {
+      opacity: 1;
+    }
+  }
+}
+

@@ -1,0 +1,61 @@
+/*
+ Auriga Web App Framework – UI Kit
+ Breadcrumbs
+
+ Copyright 2016 Auriga S.p.a.
+ */
+
+@import "../../../style/constants.less";
+@import "../../../style/commons.less";
+
+ol.breadcrumb {
+	font-size: 10px;
+	text-transform: uppercase;
+	color: @alternate_color;
+
+	margin: 0;
+	padding: 0;
+
+	li {
+		display: inline-block;
+		line-height: 1.5em;
+
+		a, a:visited {
+			color: @alternate_color;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		&:after {
+			padding: 0 .5em 0 .7em;
+			color: @separator_color;
+			font-family: FontAwesome;
+			content: "\f054";
+		}
+
+		&.line-last:after {
+			content: "";
+		}
+
+		&.current {
+			display: block;
+			font-size: 32px;
+			font-weight: 300;
+			line-height: 1.2em;
+			text-transform: none;
+			color: @brand_color;
+
+			h1 {
+				color: @brand_color;
+				margin: 0;
+			}
+
+			&:after {
+				content: "";
+			}
+		}
+	}
+}

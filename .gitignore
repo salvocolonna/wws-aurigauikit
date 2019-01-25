@@ -1,0 +1,13 @@
+
+_tmp
+target
+node_modules
+dev-server\node_modules
+node
+report.html
+yarn-error.log
+debug.log
+npm-debug.log
+src/main/demo/build
+dist
+.vscode
