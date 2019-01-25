@@ -12,9 +12,10 @@
     "build-local": "rimraf ./dist && yarn-local compile && yarn-local webpack",
     "watch": "concurrently \"babel ./src/main/aurigauikit -d ./dist --watch\" \"webpack --env=libDev --progress --colors --watch\"",
     "flow": "flow",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "yarn-local build"
   },
-  "main": "src/main/aurigauikit/index.js",
+  "main": "dist/index.js",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
