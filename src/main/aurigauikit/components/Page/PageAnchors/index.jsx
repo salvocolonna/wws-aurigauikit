@@ -22,12 +22,15 @@ export class AnchorsProvider extends React.Component {
   }
 
   removeAnchor = anchor => {
-    this.setState(state => {
-      const index = state.anchors.findIndex(a => a.id === anchor.id)
-      const anchors = state.anchors
-      anchors.splice(index, 1)
-      return { anchors }
-    }, () => this.props.onChange && this.props.onChange(this.state.anchors))
+    this.setState(
+      state => {
+        const index = state.anchors.findIndex(a => a.id === anchor.id)
+        const anchors = state.anchors
+        anchors.splice(index, 1)
+        return { anchors }
+      },
+      () => this.props.onChange && this.props.onChange(this.state.anchors)
+    )
   }
 
   getChildContext() {
@@ -159,7 +162,7 @@ export const PageAnchors = withAnchors(
           </label>
           {anchors.map(({ id, name }, index) => (
             <li key={index}>
-              <a href={"#" + id}>
+              <a href="javascript:void(0)" onClick={() => scrollTo(id)}>
                 <i className="fa fa-angle-right page-anchors-icon" />
                 <span>{name}</span>
               </a>
