@@ -162,7 +162,7 @@ export const PageAnchors = withAnchors(
           </label>
           {anchors.map(({ id, name }, index) => (
             <li key={index}>
-              <a href="javascript:void(0)" onClick={() => scrollTo(id)}>
+              <a href="javascript:void(0)" onClick={() => scrollTo({ id })}>
                 <i className="fa fa-angle-right page-anchors-icon" />
                 <span>{name}</span>
               </a>
