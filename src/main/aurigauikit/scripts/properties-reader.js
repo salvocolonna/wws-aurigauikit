@@ -18,16 +18,25 @@ export default function(dev, prod) {
 
   const fetchProperties = async () => {
     const staticProperties = await fetchStaticProd()
-    const contextPath = staticProperties.server["context-path"]
+    const contextPath = staticProperties.server.servlet["context-path"]
     const endpoint = contextPath + "/env"
     const env = await fetch(endpoint).then(j => j.json())
     const fetchProperty = key => fetch(endpoint + "/" + key).then(j => j.json())
     const propertiesKeys = {}
-    Object.keys(env)
-      .filter(env => env.startsWith("applicationConfig"))
-      .forEach(key => Object.keys(env[key]).forEach(key => (propertiesKeys[key] = true)))
+
+    env.propertySources
+      .filter(x => x.name.startsWith("applicationConfig"))
+      .forEach(x => Object.keys(x.properties).forEach(key => (propertiesKeys[key] = true)))
+
     const values = await Promise.all(Object.keys(propertiesKeys).map(fetchProperty))
-    const properties = values.reduce((properties, property) => ({ ...properties, ...property }))
+
+    const properties = values
+      .map(x => x.property.value)
+      .reduce(function(properties, p, i) {
+        properties[Object.keys(propertiesKeys)[i]] = p
+        return properties
+      }, {})
+
     const applicationProperties = expand(properties)
     return applicationProperties
   }
