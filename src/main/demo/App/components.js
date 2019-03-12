@@ -56,6 +56,13 @@ export default {
       code: () => import("!raw-loader!../components/Loader/Base")
     }
   },
+  Maps: {
+    metadata: {},
+    Simple: {
+      component: lazy(() => import("../components/Maps/Simple")),
+      code: () => import("!raw-loader!../components/Maps/Simple")
+    }
+  },
   OrganizationalUnit: {
     metadata: OrganizationalUnitMetadata,
     Base: {
