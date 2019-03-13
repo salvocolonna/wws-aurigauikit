@@ -1,10 +1,10 @@
 import React from "react"
 import { FormattedMessage } from "react-intl"
-import Map, { Marker, nominatim } from "aurigauikit-react/Maps"
+import Map, { Marker, nominatim } from "aurigauikit/components/Maps"
 import Address from "./components/Address/Address"
 import AddressElement from "./components/Address/AddressElement"
 import AddressModal from "./components/AddressModal"
-import Card from "aurigauikit-react/Card"
+import Card from "aurigauikit/components/Card"
 import styles from "./branch-configuration-map.less"
 
 class BranchConfigurationMap extends React.Component {
