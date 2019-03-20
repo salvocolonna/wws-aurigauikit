@@ -1,6 +1,9 @@
 {
   "name": "aurigauikit",
   "version": "3.0.0",
+  "publishConfig": {
+    "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
+  },
   "scripts": {
     "start": "concurrently \"yarn compile-demo --watch\" \"webpack-dev-server --hot --progress --colors\"",
     "compile-demo": "node src/main/demo/compile",
