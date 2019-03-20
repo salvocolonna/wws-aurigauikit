@@ -109,7 +109,7 @@ const demo = {
     sourceMapFilename: "aurigauikit-demo.bundle.js.map"
   },
   devServer: {
-    port: 3000,
+    port: 3100,
     inline: true,
     contentBase: ".",
     historyApiFallback: {

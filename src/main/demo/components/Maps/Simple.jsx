@@ -1,7 +1,6 @@
 import React from "react"
-import Map, { Marker, Popup } from "aurigauikit/components/Maps"
+import Map, { Marker, Popup,MarkerClusterGroup } from "aurigauikit/components/Maps"
 import Select2 from "aurigauikit/components/Select2"
-import MarkerClusterGroup from "react-leaflet-markercluster"
 import { latLngBounds } from "leaflet"
 const data = [1, 2]
 export default class extends React.Component {

@@ -8,8 +8,6 @@
 .leaflet-infowindow {
 	position:relative;
 	z-index: 999;
-	left:-50%;
-	margin-top:20px;
 	display: block;
 	padding:10px;
 	background-color: #FFF;
@@ -18,9 +16,6 @@
 .leaflet-infowindow::before{
 	content:"";
 	position: relative;
-	top: -40px;
-	left:calc(50% - 20px);
-
 	width:0;
 	height: 0;
 	border-bottom: 20px solid #FFF;
@@ -122,14 +117,15 @@
 	-moz-user-select: none;
 	}
 
-.leaflet-pane         { z-index: 400; }
+.leaflet-pane         { z-index: 400; width: 100% }
+.leaflet-pane .btn { font-size: small }
 
 .leaflet-tile-pane    { z-index: 200; }
 .leaflet-overlay-pane { z-index: 400; }
 .leaflet-shadow-pane  { z-index: 500; }
 .leaflet-marker-pane  { z-index: 600; }
 .leaflet-tooltip-pane   { z-index: 650; }
-.leaflet-popup-pane   { z-index: 700; }
+.leaflet-popup-pane   { z-index: 700; width: 100%; }
 
 .leaflet-map-pane canvas { z-index: 100; }
 .leaflet-map-pane svg    { z-index: 200; }
@@ -199,9 +195,9 @@
 	}
 .leaflet-fade-anim .leaflet-popup {
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
+	/* -webkit-transition: opacity 0.2s linear;
 	   -moz-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear; */
 	}
 .leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
 	opacity: 1;
@@ -484,7 +480,7 @@
 	text-align: left;
 	margin-bottom: 20px;
 	font-size: 2vh;
-	pointer-events: none;
+	/* pointer-events: none; */
 	}
 .leaflet-popup-content-wrapper {
 	padding: 1px;
@@ -494,6 +490,7 @@
 .leaflet-popup-content {
 	margin: 13px 19px;
 	line-height: 1.4;
+	width: 100% !important;
 	}
 .leaflet-popup-content p {
 	margin: 2px 0;
@@ -528,7 +525,6 @@
 	box-shadow: 0 2px 2 px rgba(0,0,0,0.4);
 	}
 .leaflet-container a.leaflet-popup-close-button {
-
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -542,6 +538,7 @@
 	text-decoration: none;
 	font-weight: bold;
 	background: transparent;
+	z-index: 1000;
 	}
 .leaflet-container a.leaflet-popup-close-button:hover {
 	color: #999;
@@ -590,7 +587,7 @@
 	color: #FFF;
 	white-space: nowrap;
 	user-select: none;
-	pointer-events: none;
+	/* pointer-events: none; */
 	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 	font-size: 2vh;
 	}
@@ -663,4 +660,12 @@
 	.leaflet-popup-content-wrapper {
 		width: 100%;
 		height: 100%;
+		margin:0!important;
+	}
+
+	
+	.leaflet-popup-content {
+		width: 100%;
+		height: 100%;
+		margin:0!important;
 	}
