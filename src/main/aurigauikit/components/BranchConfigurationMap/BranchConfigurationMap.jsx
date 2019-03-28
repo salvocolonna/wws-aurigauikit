@@ -5,7 +5,7 @@ import Address from "./components/Address/Address"
 import AddressElement from "./components/Address/AddressElement"
 import AddressModal from "./components/AddressModal"
 import Card from "aurigauikit/components/Card"
-import styles from "./branch-configuration-map.less"
+import "./branch-configuration-map.less"
 
 class BranchConfigurationMap extends React.Component {
   constructor(props) {
@@ -144,9 +144,9 @@ class BranchConfigurationMap extends React.Component {
   render() {
     return (
       <Card>
-        <div className={"grid " + styles.grid}>
+        <div className={"grid branch-configuration__grid"}>
           <div className="col-2-3">
-            <div className={styles.map}>
+            <div className="branch-configuration__map">
               <Map center={{ lat: this.state.latitude, lng: this.state.longitude }} zoom={14}>
                 <Marker
                   position={{
