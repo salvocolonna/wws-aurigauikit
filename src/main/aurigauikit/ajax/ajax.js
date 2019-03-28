@@ -9,6 +9,7 @@ import i18n from "../i18n"
 
 import { RESPONSE, REQUEST, API_KEY } from "./constants"
 import RequestMaker from "./request-builder"
+import { showCriticalPanel } from "aurigauikit/components/temporary-panels"
 
 import { getSessionToken, isResponseType } from "./utils"
 
@@ -119,6 +120,12 @@ class Ajax extends RequestMaker {
       }
     } else {
       const text = await response.text()
+      const lang = i18n.getCurrentLanguage()
+      const errors = { 
+        it: 'Si è verificato un errore. Si prega di riprovare più tardi.',
+        en: 'An internal error occourred, please try again later.'
+      }
+      showCriticalPanel(errors[lang])
       throw {
         status: response.status,
         statusText: response.statusText,

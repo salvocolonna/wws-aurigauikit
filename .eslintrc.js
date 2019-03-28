@@ -72,7 +72,6 @@ module.exports =  {
 		Symbol: true,
 		Promise: true,
 		guid: true,
-		google: true,
 		APP_CONFIG: true,
 		_appHostName: true
 	}

@@ -67,7 +67,7 @@ const Icon = ({ translate, className }) => (
       transform: `translateX(-${translate}px)`,
       marginRight: 10,
       float: "right",
-      marginTop: -23,
+      marginTop: 14,
       pointerEvents: "none"
     }}
   />
