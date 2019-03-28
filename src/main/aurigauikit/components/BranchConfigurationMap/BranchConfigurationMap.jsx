@@ -142,7 +142,6 @@ class BranchConfigurationMap extends React.Component {
   }
 
   render() {
-    const { Map } = this.props
     return (
       <Card>
         <div className={"grid " + styles.grid}>

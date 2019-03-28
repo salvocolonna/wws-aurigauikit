@@ -30,8 +30,8 @@ export {
 export * from "./components/Overall"
 export * from "./components/Page"
 export { default as PageAnchors } from "./components/Page/PageAnchors"
-export * from "./components/Parsley"
-export { default as Parsley } from "./components/Parsley"
+export * from "./components/parsley"
+export { default as Parsley } from "./components/parsley"
 // export { default as PivotTable } from "./components/PivotTable"  // Broken
 export { default as Popover } from "./components/Popover"
 export { default as Radio } from "./components/Radio"
