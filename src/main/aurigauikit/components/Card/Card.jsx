@@ -85,13 +85,12 @@ class Card extends React.Component {
                   )}
                   {title}
                 </div>
-                {isAction &&
-                  !loading && (
-                    <i
-                      className={`fa ${fullscreenIcon} ` + (onlyAction ? "hoverable-on-title" : "")}
-                      onClick={e => (!onlyAction ? this.callAction(e) : "")}
-                    />
-                  )}
+                {isAction && !loading && (
+                  <i
+                    className={`fa ${fullscreenIcon} ` + (onlyAction ? "hoverable-on-title" : "")}
+                    onClick={e => (!onlyAction ? this.callAction(e) : "")}
+                  />
+                )}
                 {loading && <Loader style={{ marginRight: 15 }} />}
               </h4>
             </div>

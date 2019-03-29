@@ -30,12 +30,10 @@ export default function(dev, prod) {
 
     const values = await Promise.all(Object.keys(propertiesKeys).map(fetchProperty))
 
-    const properties = values
-      .map(x => x.property.value)
-      .reduce(function(properties, p, i) {
-        properties[Object.keys(propertiesKeys)[i]] = p
-        return properties
-      }, {})
+    const properties = values.map(x => x.property.value).reduce((properties, p, i) => {
+      properties[Object.keys(propertiesKeys)[i]] = p
+      return properties
+    }, {})
 
     const applicationProperties = expand(properties)
     return applicationProperties

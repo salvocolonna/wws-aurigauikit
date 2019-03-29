@@ -25,8 +25,8 @@ export default sizeMe({
         position: { top, left }
       } = this.props.size
       const position = {
-        left: this.container.current.offsetLeft + width / 2,
-        top: this.container.current.offsetTop - height / 2
+        left: Math.round(this.container.current.offsetLeft + width / 2),
+        top: Math.round(this.container.current.offsetTop - height / 2)
       }
       this.setState({ menu: { context: { position } } })
     }

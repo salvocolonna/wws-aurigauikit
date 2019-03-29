@@ -1,7 +1,7 @@
-import React from 'react'
-import './leaflet.css'
+import React from "react"
+import "./leaflet.css"
 
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer } from "react-leaflet"
 
 class MapWrapper extends React.Component {
   static defaultProps = {
@@ -11,11 +11,16 @@ class MapWrapper extends React.Component {
   }
 
   render() {
-    const { innerRef, center, zoom, children, maxZoom,...props } = this.props
+    const { innerRef, center, zoom, children, maxZoom, ...props } = this.props
     return (
-      <Map ref={innerRef} center={[center.lat, center.lng]} zoom={zoom} maxZoom={maxZoom} {...props}>
+      <Map
+        ref={innerRef}
+        center={[center.lat, center.lng]}
+        zoom={zoom}
+        maxZoom={maxZoom}
+        {...props}>
         <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {children}
@@ -24,7 +29,7 @@ class MapWrapper extends React.Component {
   }
 }
 
-export default React.forwardRef((props, ref) => <MapWrapper innerRef={ref} {...props}/>)
+export default React.forwardRef((props, ref) => <MapWrapper innerRef={ref} {...props} />)
 
 export async function nominatim(search, use) {
   //TODO: stop if query is empty

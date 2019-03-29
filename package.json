@@ -1,6 +1,6 @@
 {
   "name": "aurigauikit",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "publishConfig": {
     "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
   },
@@ -13,7 +13,7 @@
     "webpack": "webpack --env=lib --progress --colors",
     "build": "rimraf ./dist && yarn compile && yarn webpack",
     "build-local": "rimraf ./dist && yarn-local compile && yarn-local webpack",
-    "watch": "concurrently \"babel ./src/main/aurigauikit -d ./dist --watch\" \"webpack --env=libDev --progress --colors --watch\"",
+    "watch": "concurrently \"webpack --env=libDev --progress --colors --watch\" \"babel ./src/main/aurigauikit -d ./dist --copy-files --watch\"",
     "flow": "flow",
     "test": "jest"
   },
