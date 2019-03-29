@@ -17,8 +17,9 @@ const getURL = ({
   protocol = "http",
   hostname = location.hostname,
   port = 8080,
-  ["context-path"]: contextPath = ""
-}) => `${protocol}://${hostname}:${port}${contextPath}/api/v1`
+  ["context-path"]: contextPath = "",
+  version = 1
+}) => `${protocol}://${hostname}:${port}${contextPath}/api/v${version}`
 
 class Ajax extends RequestMaker {
   constructor(frontend, backend) {
@@ -121,9 +122,9 @@ class Ajax extends RequestMaker {
     } else {
       const text = await response.text()
       const lang = i18n.getCurrentLanguage()
-      const errors = { 
-        it: 'Si è verificato un errore. Si prega di riprovare più tardi.',
-        en: 'An internal error occourred, please try again later.'
+      const errors = {
+        it: "Si è verificato un errore. Si prega di riprovare più tardi.",
+        en: "An internal error occourred, please try again later."
       }
       showCriticalPanel(errors[lang])
       throw {

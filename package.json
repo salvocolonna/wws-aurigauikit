@@ -13,7 +13,7 @@
     "webpack": "webpack --env=lib --progress --colors",
     "build": "rimraf ./dist && yarn compile && yarn webpack",
     "build-local": "rimraf ./dist && yarn-local compile && yarn-local webpack",
-    "watch": "concurrently \"babel ./src/main/aurigauikit -d ./dist --watch\" \"webpack --env=libDev --progress --colors --watch\"",
+    "watch": "concurrently \"webpack --env=libDev --progress --colors --watch\" \"babel ./src/main/aurigauikit -d ./dist --copy-files --watch\"",
     "flow": "flow",
     "test": "jest"
   },

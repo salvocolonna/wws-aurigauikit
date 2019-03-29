@@ -38,20 +38,18 @@ export default class extends React.Component {
           {display(min)}
         </span>
         <span style={{ position: "relative", width: "100%" }}>
-          {showValue &&
-            value > min &&
-            value < max && (
-              <span
-                style={{
-                  color: "#000",
-                  pointerEvents: "none",
-                  position: "absolute",
-                  transform: `translateX(calc(${(WIDTH - 1) / 2 +
-                    (width - WIDTH - 1) * (value / max)}px - 50%))`
-                }}>
-                {display(value)}
-              </span>
-            )}
+          {showValue && value > min && value < max && (
+            <span
+              style={{
+                color: "#000",
+                pointerEvents: "none",
+                position: "absolute",
+                transform: `translateX(calc(${(WIDTH - 1) / 2 +
+                  (width - WIDTH - 1) * ((value - min) / (max - min))}px - 50%))`
+              }}>
+              {display(value)}
+            </span>
+          )}
           <SizedInput
             min={min}
             max={max}
