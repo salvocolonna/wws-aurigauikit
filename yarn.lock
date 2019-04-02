@@ -6136,18 +6136,6 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet-engine@>=0.4.2:
-  version "0.4.5"
-  resolved "http://192.168.1.129:8081/repository/npm-public/leaflet-engine/-/leaflet-engine-0.4.5.tgz#5692a83921814f9087eca24857540747458d4a24"
-  integrity sha1-VpKoOSGBT5CH7KJIV1QHR0WNSiQ=
-
-leaflet-markercluster@^0.2.2:
-  version "0.2.2"
-  resolved "http://192.168.1.129:8081/repository/npm-public/leaflet-markercluster/-/leaflet-markercluster-0.2.2.tgz#29a4876b3c9a9b631a7f1f6289753b8f74f2290c"
-  integrity sha1-KaSHazyam2Mafx9iiXU7j3TyKQw=
-  dependencies:
-    leaflet-engine ">=0.4.2"
-
 leaflet.markercluster@^1.4.1:
   version "1.4.1"
   resolved "http://192.168.1.129:8081/repository/npm-public/leaflet.markercluster/-/leaflet.markercluster-1.4.1.tgz#b53f2c4f2ca7306ddab1dbb6f1861d5e8aa6c5e5"
