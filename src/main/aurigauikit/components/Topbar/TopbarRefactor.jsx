@@ -1,12 +1,13 @@
-import React from "react"
-import Notification from "aurigauikit/components/Notification"
-import MediaQuery from "react-responsive"
+import React from 'react'
+import Notification from 'aurigauikit/components/Notification'
+import MediaQuery from 'react-responsive'
 const bankImg = <i className="fa fa-bank" />
 
 class Topbar extends React.Component {
   render() {
     const {
       logo,
+      logoImage,
       onLogoClick,
       roleDescription,
       onLogout,
@@ -22,7 +23,7 @@ class Topbar extends React.Component {
       areaCode,
       areaDescription,
       branchCode,
-      branchDescription
+      branchDescription,
     } = this.props
     const hasNotification = notificationFrontend && notificationBackend
     const notification = hasNotification && (
@@ -35,30 +36,21 @@ class Topbar extends React.Component {
       />
     )
     return (
-      <header id="topbar" style={{ margin: "0px" }}>
+      <header id="topbar" style={{ display: 'flex', margin: '0px' }}>
         {logo && <Logo src={logo} onClick={onLogoClick} />}
-        <MediaQuery maxWidth={767}>
-          <ul
-            style={{
-              display: "inline-block",
-              width: `calc(100% - ${logo ? 200 : 0}px)`
-            }}>
+        {logoImage && logoImage.src && <LogoImage {...logoImage} />}
+        <ul
+          style={{
+            display: 'inline-block',
+            flex: '1 0 auto',
+          }}>
+          <MediaQuery maxWidth={767}>
             {hasNotification && <li> {notification} </li>}
             <li>
               <i className="fa fa-user" /> {userName}
             </li>
-            <li style={{ cursor: "pointer" }} onClick={() => onLogout && onLogout()}>
-              <i className="fa fa-sign-out" />
-              Logout
-            </li>
-          </ul>
-        </MediaQuery>
-        <MediaQuery minWidth={768}>
-          <ul
-            style={{
-              display: "inline-block",
-              width: `calc(100% - ${logo ? 200 : 0}px)`
-            }}>
+          </MediaQuery>
+          <MediaQuery minWidth={768}>
             {hasNotification && <li> {notification} </li>}
             {parentBankCode && (
               <li>
@@ -83,13 +75,13 @@ class Topbar extends React.Component {
             <li>
               <i className="fa fa-user" /> {userName}
             </li>
-            <li>{roleDescription && roleDescription.split("_").join(" ")}</li>
-            <li style={{ cursor: "pointer" }} onClick={() => onLogout && onLogout()}>
-              <i className="fa fa-sign-out" />
-              Logout
-            </li>
-          </ul>
-        </MediaQuery>
+            <li>{roleDescription && roleDescription.split('_').join(' ')}</li>
+          </MediaQuery>
+          <li style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
+            <i className="fa fa-sign-out" />
+            Logout
+          </li>
+        </ul>
       </header>
     )
   }
@@ -100,14 +92,32 @@ const Logo = ({ src, onClick }) => (
     id="react-sidebar-logo"
     onClick={() => onClick()}
     style={{
-      display: "inline-block",
-      cursor: "pointer",
+      display: 'inline-block',
+      cursor: 'pointer',
       width: 200,
-      margin: 0
+      margin: 0,
     }}>
     <span />
     <img id="app-logo-full" src={src} />
   </div>
 )
+
+const LogoImage = ({ src, onClick, marginLeft = '40px', maxWidth = '300px', imageStyle = {} }) => {
+  onClick = onClick || (() => {})
+
+  return (
+    <div
+      onClick={() => onClick()}
+      style={{
+        display: 'flex',
+        margin: 0,
+        alignItems: 'center',
+        marginLeft,
+      }}>
+      <span />
+      <img style={{ maxWidth, ...imageStyle }} src={src} />
+    </div>
+  )
+}
 
 export default Topbar
