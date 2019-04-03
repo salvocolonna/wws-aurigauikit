@@ -1,6 +1,6 @@
-import React from "react"
-import Table from "./components/Table"
-import "./styles/main.less"
+import React from 'react'
+import Table from './components/Table'
+import './styles/main.less'
 
 class SimpleTable extends React.Component {
   constructor(props) {
@@ -14,14 +14,14 @@ class SimpleTable extends React.Component {
       cellEditor: {
         isOpen: false,
         context: {
-          title: "Edit",
+          title: 'Edit',
           value: 0,
           rowIndex: 0,
           colIndex: 0,
-          position: { top: 0, left: 0 }
+          position: { top: 0, left: 0 },
         },
-        validations: {}
-      }
+        validations: {},
+      },
     }
 
     this.defaultSelectionFound = false
@@ -39,11 +39,11 @@ class SimpleTable extends React.Component {
   getDefaultSelection() {
     if (this.props.defaultSelection) {
       if (this.props.dataComparator === SimpleTable.defaultProps.dataComparator)
-        console.warn("I cannot compare selection without a data comparator") // eslint-disable-line no-console
+        console.warn('I cannot compare selection without a data comparator') // eslint-disable-line no-console
       const defaultSelection = this.props.data.filter(e1 => {
         const exist =
           typeof this.props.defaultSelection.find(e2 => this.props.dataComparator(e1, e2)) !==
-          "undefined"
+          'undefined'
         return exist
       })
       if (defaultSelection.length > 0) {
@@ -79,7 +79,6 @@ class SimpleTable extends React.Component {
   onMenuItemClick(rowIndex, position, target) {
     let realRowIndex = rowIndex
     if (!this.props.totalPages) realRowIndex += (this.state.page - 1) * this.props.pageSize
-    console.log({ target })
     this.setState(prevState => ({
       menu: {
         context: {
@@ -87,9 +86,9 @@ class SimpleTable extends React.Component {
           rowIndex: realRowIndex,
           currentRow: prevState.data[realRowIndex],
           position: position,
-          target
-        }
-      }
+          target,
+        },
+      },
     }))
   }
 
@@ -99,7 +98,7 @@ class SimpleTable extends React.Component {
     this.props.onRowClick({
       table: this,
       rowIndex: realRowIndex,
-      currentRow: this.state.data[realRowIndex]
+      currentRow: this.state.data[realRowIndex],
     })
   }
 
@@ -110,9 +109,8 @@ class SimpleTable extends React.Component {
 
   onUnselectAll(rows) {
     const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
-    let selectedRows = this.state.selectedRows.filter(
-      row =>
-        comparator ? !rows.find(r => this.props.dataComparator(row, r)) : rows.indexOf(row) < 0
+    let selectedRows = this.state.selectedRows.filter(row =>
+      comparator ? !rows.find(r => this.props.dataComparator(row, r)) : rows.indexOf(row) < 0
     )
     this.onSelectionChange(selectedRows)
   }
@@ -128,8 +126,8 @@ class SimpleTable extends React.Component {
 
   onRowUnselected(row) {
     const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
-    let selectedRows = this.state.selectedRows.filter(
-      r => (comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0)
+    let selectedRows = this.state.selectedRows.filter(r =>
+      comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0
     )
     this.onSelectionChange(selectedRows)
   }
@@ -141,13 +139,13 @@ class SimpleTable extends React.Component {
 
   evaluate = (data, column) => {
     let result = null
-    if (typeof column === "string") {
+    if (typeof column === 'string') {
       result = data[column]
     } else {
       const content = column.content
-      if (typeof content === "string") {
+      if (typeof content === 'string') {
         result = data[content]
-      } else if (typeof content === "function") {
+      } else if (typeof content === 'function') {
         result = content(data)
       }
     }
@@ -158,7 +156,7 @@ class SimpleTable extends React.Component {
     if (this.props.onSort) {
       this.props.onSort(sort)
       this.setState({
-        sort: sort
+        sort: sort,
       })
     } else {
       const column = this.props.columns[sort.index]
@@ -172,16 +170,16 @@ class SimpleTable extends React.Component {
             if (!isNaN(aValue)) {
               a = Number(aValue)
               b = Number(bValue)
-              result = sort.direction === "ASC" ? a - b : b - a
-            } else if (typeof aValue === "string") {
+              result = sort.direction === 'ASC' ? a - b : b - a
+            } else if (typeof aValue === 'string') {
               a = aValue.toUpperCase()
               b = bValue.toUpperCase()
-              if (a < b) result = sort.direction === "ASC" ? -1 : 1
-              if (a > b) result = sort.direction === "ASC" ? 1 : -1
+              if (a < b) result = sort.direction === 'ASC' ? -1 : 1
+              if (a > b) result = sort.direction === 'ASC' ? 1 : -1
             }
           }
           return result
-        })
+        }),
       })
     }
   }
@@ -190,9 +188,9 @@ class SimpleTable extends React.Component {
     this.setState({
       menu: {
         context: {
-          position: null
-        }
-      }
+          position: null,
+        },
+      },
     })
   }
 
@@ -201,21 +199,21 @@ class SimpleTable extends React.Component {
       cellEditor: {
         isOpen: true,
         context: context,
-        validations: this.getValidations(context.rowIndex, context.colIndex)
-      }
+        validations: this.getValidations(context.rowIndex, context.colIndex),
+      },
     })
   }
 
   onEditAborted() {
     this.setState(({ cellEditor }) => ({
-      cellEditor: { ...cellEditor, isOpen: false }
+      cellEditor: { ...cellEditor, isOpen: false },
     }))
   }
 
   getValidations(rowIndex, colIndex) {
     return this.props.validationAttributesForColumn(
       {
-        settings: { data: this.props.data }
+        settings: { data: this.props.data },
       },
       rowIndex,
       colIndex
@@ -255,7 +253,7 @@ class SimpleTable extends React.Component {
         onSort={sort => this.onSort(sort)}
         menu={{
           context: this.state.menu.context,
-          items: this.props.menu.items
+          items: this.props.menu.items,
         }}
         onMenuItemClick={(row, position, target) => this.onMenuItemClick(row, position, target)}
         onContextMenuCloseRequested={() => this.onContextMenuCloseRequested()}
@@ -315,7 +313,7 @@ SimpleTable.defaultProps = {
   /* eslint-disable no-unused-vars */
   onRowClick: null,
   shouldEditCell: (table, row, col) => true,
-  editorTitleForColumn: (table, col) => "Edit the value",
+  editorTitleForColumn: (table, col) => 'Edit the value',
   validationAttributesForColumn: (table, rowIndex, colIndex) => ({}),
   cellValueForEditor: (table, rowIndex, colIndex, column) => column,
   didEditCell: (table, rowIndex, colIndex, value) => {},
@@ -325,7 +323,7 @@ SimpleTable.defaultProps = {
   dataComparator: (e1, e2) => false,
   /* eslint-enable no-unused-vars */
 
-  className: ""
+  className: '',
 }
 
 export default SimpleTable
