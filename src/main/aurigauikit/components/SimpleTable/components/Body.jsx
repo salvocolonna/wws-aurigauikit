@@ -1,8 +1,8 @@
-import React from "react"
-import Checkbox from "../../Checkbox"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Checkbox from '../../Checkbox'
+import { FormattedMessage } from 'react-intl'
 
-import isFunction from "lodash/isFunction"
+import isFunction from 'lodash/isFunction'
 
 class Body extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Body extends React.Component {
     event.stopPropagation()
     const rect = event.target.getBoundingClientRect()
     const left = rect.left
-    const top = rect.top + document.getElementById("content-dynamic").scrollTop
+    const top = rect.top + document.getElementById('content-dynamic').scrollTop
     this.props.onMenuItemClick(rowIndex, { top: top, left: left }, event.target)
   }
 
@@ -25,7 +25,7 @@ class Body extends React.Component {
   }
 
   getCellEditorTitle(column) {
-    if (!this.props.editorTitleForColumn) return "Edit"
+    if (!this.props.editorTitleForColumn) return 'Edit'
     return this.props.editorTitleForColumn(this, column)
   }
 
@@ -43,16 +43,16 @@ class Body extends React.Component {
         rowIndex: rowIndex,
         colIndex: colIndex,
         position: {
-          top: rect.top + document.getElementById("content-dynamic").scrollTop,
-          left: rect.left
-        }
+          top: rect.top + document.getElementById('content-dynamic').scrollTop,
+          left: rect.left,
+        },
       })
     }
   }
 
   static getValue(row, column) {
     let field = column
-    if (typeof field === "object") {
+    if (typeof field === 'object') {
       field = column.content
       if (isFunction(field)) return field(row)
     }
@@ -60,22 +60,23 @@ class Body extends React.Component {
   }
 
   static getStyle(column) {
-    if (typeof column === "string") return {}
+    if (typeof column === 'string') return {}
     return column.cssStyle
   }
 
   static getClass(column) {
-    if (typeof column === "string") return ""
-    return column.cssClass
+    if (typeof column === 'string') return ''
+    if (column.cssClass) return column.cssClass
+    return ''
   }
   getLoadingOrEmptyMessage() {
     let toView
     if (this.props.loading) {
-      toView = this.props.loadingState || "simple-table.loading-state"
+      toView = this.props.loadingState || 'simple-table.loading-state'
     } else {
-      toView = this.props.emptyState || "simple-table.empty-state"
+      toView = this.props.emptyState || 'simple-table.empty-state'
     }
-    if (typeof toView === "string") {
+    if (typeof toView === 'string') {
       return <FormattedMessage id={toView} />
     } else {
       return toView
@@ -126,10 +127,10 @@ class Body extends React.Component {
             key={rowIndex}
             style={
               rowStyle(rowIndex, row) || {
-                backgroundColor: rowIndex % 2 === 0 ? "#fff" : "#fafafa"
+                backgroundColor: rowIndex % 2 === 0 ? '#fff' : '#fafafa',
               }
             }
-            className={this.props.onRowClick ? "clickable-row" : ""}
+            className={this.props.onRowClick ? 'clickable-row' : ''}
             onClick={e => this.onRowClick(e, rowIndex)}>
             {this.isSelectable(row) && (
               <td>
@@ -146,9 +147,9 @@ class Body extends React.Component {
                 style={Body.getStyle(column)}
                 className={
                   (this.isEditable(rowIndex + this.props.index, colIndex)
-                    ? "editable editable-left"
-                    : "") +
-                  " " +
+                    ? 'editable editable-left'
+                    : '') +
+                  ' ' +
                   Body.getClass(column)
                 }
                 onClick={event =>
@@ -162,7 +163,7 @@ class Body extends React.Component {
                 ref={this.menuRef}
                 className="icon-column clickable"
                 onClick={event => this.onMenuItemClick(event, rowIndex)}>
-                <i className="fa fa-ellipsis-h" style={{ pointerEvents: "none" }} />
+                <i className="fa fa-ellipsis-h" style={{ pointerEvents: 'none' }} />
               </td>
             )}
             {!this.props.menu.items.length > 0 && this.props.loading && <td />}

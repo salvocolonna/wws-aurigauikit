@@ -1,11 +1,11 @@
-import React from "react"
-import Head from "./Head"
-import Foot from "./Foot"
-import Body from "./Body"
-import Pagination from "./Pagination"
-import CellEditor from "./CellEditor"
-import ContextMenu from "../../ContextMenu/ContextMenu"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Head from './Head'
+import Foot from './Foot'
+import Body from './Body'
+import Pagination from './Pagination'
+import CellEditor from './CellEditor'
+import ContextMenu from '../../ContextMenu/ContextMenu'
+import { FormattedMessage } from 'react-intl'
 
 class Table extends React.Component {
   getTotalPages() {
@@ -54,11 +54,11 @@ class Table extends React.Component {
   getLoadingOrEmptyMessage() {
     let toView
     if (this.props.loading) {
-      toView = this.props.loadingState || "simple-table.loading-state"
+      toView = this.props.loadingState || 'simple-table.loading-state'
     } else {
-      toView = this.props.emptyState || "simple-table.empty-state"
+      toView = this.props.emptyState || 'simple-table.empty-state'
     }
-    if (typeof toView === "string") {
+    if (typeof toView === 'string') {
       return <FormattedMessage id={toView} />
     } else {
       return toView
@@ -69,23 +69,22 @@ class Table extends React.Component {
     const unselectedRows = this.getUnselectedRows()
     const hasMenu = this.props.menu.items.length > 0
     return (
-      <div style={{ width: "100%", overflowX: "auto", overflowY: "hidden", ...this.props.style }}>
-        {this.props.editable &&
-          this.props.cellEditor.context && (
-            <CellEditor
-              isOpen={this.props.cellEditor.isOpen}
-              title={this.props.cellEditor.context.title}
-              position={this.props.cellEditor.context.position}
-              validations={this.props.validations}
-              colIndex={this.props.cellEditor.context.colIndex}
-              rowIndex={this.props.cellEditor.context.rowIndex}
-              onEditAborted={() => this.props.onEditAborted()}
-              onEditConfirmed={(rowIndex, colIndex, value) =>
-                this.onCellEditConfirmed(rowIndex, colIndex, value)
-              }
-              value={this.props.cellEditor.context.value}
-            />
-          )}
+      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', ...this.props.style }}>
+        {this.props.editable && this.props.cellEditor.context && (
+          <CellEditor
+            isOpen={this.props.cellEditor.isOpen}
+            title={this.props.cellEditor.context.title}
+            position={this.props.cellEditor.context.position}
+            validations={this.props.validations}
+            colIndex={this.props.cellEditor.context.colIndex}
+            rowIndex={this.props.cellEditor.context.rowIndex}
+            onEditAborted={() => this.props.onEditAborted()}
+            onEditConfirmed={(rowIndex, colIndex, value) =>
+              this.onCellEditConfirmed(rowIndex, colIndex, value)
+            }
+            value={this.props.cellEditor.context.value}
+          />
+        )}
         {hasMenu && (
           <ContextMenu
             items={this.props.menu.items}
@@ -94,16 +93,16 @@ class Table extends React.Component {
           />
         )}
         <table className={`table table-striped ${this.props.className}`}>
-          {this.props.caption &&
-            this.props.caption != "" && (
-              <caption style={{ pointerEvents: "none" }}>
-                <div>{this.props.caption}</div>
-              </caption>
-            )}
+          {this.props.caption && this.props.caption != '' && (
+            <caption style={{ pointerEvents: 'none' }}>
+              <div>{this.props.caption}</div>
+            </caption>
+          )}
           <Head
             data={this.props.data}
             index={this.props.pageSize * (this.props.page - 1)}
             sliceData={this.props.pageSize > 0 && this.props.totalPages === 0}
+            groupHeaders={this.props.groupHeaders}
             headers={this.props.headers}
             sortable={this.props.sortable}
             onSort={sort => this.props.onSort(sort)}
@@ -147,14 +146,13 @@ class Table extends React.Component {
             loadingState={this.props.loadingState}
             loading={this.props.loading}
           />
-          {this.props.footers.length > 0 &&
-            this.props.loading && (
-              <tfoot>
-                <tr>
-                  <td colSpan={this.props.columns.length + 1} />
-                </tr>
-              </tfoot>
-            )}
+          {this.props.footers.length > 0 && this.props.loading && (
+            <tfoot>
+              <tr>
+                <td colSpan={this.props.columns.length + 1} />
+              </tr>
+            </tfoot>
+          )}
           {this.props.footers.length > 0 && (
             <Foot
               data={this.props.data}
