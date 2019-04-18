@@ -14,7 +14,6 @@ export default injectIntl(
     confirm = () => {
       const { onAdd } = this.props
       const { selectedWidget } = this.state
-      console.log(selectedWidget)
       onAdd(selectedWidget)
     }
 

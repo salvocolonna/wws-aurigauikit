@@ -277,9 +277,7 @@ class OrganizationalUnitModal extends React.Component {
                     onSelectionChange={selectedElements => this.onSelect(selectedElements)}
                     selectedRows={this.state.selectedElements}
                     headers={table.headers.map(
-                      header =>
-                        console.log({ header }) ||
-                        intl.formatMessage(messages.modal.headers[header])
+                      header => intl.formatMessage(messages.modal.headers[header])
                     )}
                     canSelect={element =>
                       this.state.selectedOption
