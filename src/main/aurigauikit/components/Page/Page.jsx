@@ -7,13 +7,12 @@ function Breadcrumb({ name, children }) {
       <ol className="breadcrumb">
         {children ? (
           children.length > 0 ? (
-            children.map(
-              (child, index) =>
-                index < children.length - 1 ? (
-                  <BreadcrumbLink {...child.props} key={index} />
-                ) : (
-                  <BreadcrumbLink {...child.props} key={index} last />
-                )
+            children.map((child, index) =>
+              index < children.length - 1 ? (
+                <BreadcrumbLink {...child.props} key={index} />
+              ) : (
+                <BreadcrumbLink {...child.props} key={index} last />
+              )
             )
           ) : (
             <BreadcrumbLink {...children.props} last />

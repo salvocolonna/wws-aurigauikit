@@ -1,3 +1,4 @@
+/** AUTO-GENERATED - do not modify */
 import { lazy } from "react"
 import ChartMetadata from "../components/Chart/meta.json"
 import CheckboxMetadata from "../components/Checkbox/meta.json"
@@ -83,6 +84,13 @@ export default {
     Base: {
       component: lazy(() => import("../components/Radio/Base")),
       code: () => import("!raw-loader!../components/Radio/Base")
+    }
+  },
+  ReactTable: {
+    metadata: {},
+    Basic: {
+      component: lazy(() => import("../components/ReactTable/Basic")),
+      code: () => import("!raw-loader!../components/ReactTable/Basic")
     }
   },
   Select2: {

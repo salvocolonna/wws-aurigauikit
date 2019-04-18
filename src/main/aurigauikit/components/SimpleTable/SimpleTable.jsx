@@ -110,9 +110,8 @@ class SimpleTable extends React.Component {
 
   onUnselectAll(rows) {
     const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
-    let selectedRows = this.state.selectedRows.filter(
-      row =>
-        comparator ? !rows.find(r => this.props.dataComparator(row, r)) : rows.indexOf(row) < 0
+    let selectedRows = this.state.selectedRows.filter(row =>
+      comparator ? !rows.find(r => this.props.dataComparator(row, r)) : rows.indexOf(row) < 0
     )
     this.onSelectionChange(selectedRows)
   }
@@ -128,8 +127,8 @@ class SimpleTable extends React.Component {
 
   onRowUnselected(row) {
     const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
-    let selectedRows = this.state.selectedRows.filter(
-      r => (comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0)
+    let selectedRows = this.state.selectedRows.filter(r =>
+      comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0
     )
     this.onSelectionChange(selectedRows)
   }
