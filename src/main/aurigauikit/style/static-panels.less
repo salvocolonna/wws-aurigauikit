@@ -12,24 +12,18 @@
 
 div.static-panel {
 	.standard-radius();
-	
-	position: relative;
-	
-	//padding: 16px 20px;
-	//margin: 20px 0;
-	padding: 1em 1em 1em 3.5em;
+	display: flex;
+	padding: 1em 0;
 	margin: 2em 0;
-	
-	border: 1px solid black;
-	
-	i {
-		position: absolute;
-		top: 1.2em;
-		left: 20px;
-	}
-	
+	border: 1px solid #000000;
+
 	strong {
 		font-weight: 700;
+	}
+
+	> i {
+		display: flex;
+		align-items: center;
 	}
 }
 
@@ -62,4 +56,11 @@ div.static-panel-critical {
 	//.text-critical();
 	.light-bg-critical();
 	border-color: @critical_color_darken;
+}
+
+.static-panel-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-basis: 3em;
 }
