@@ -10,7 +10,27 @@
 @import "commons.less";
 @import "helpers.less";
 
+
 div.static-panel {
+	.standard-radius();	
+	position: relative;
+	padding: 1em 1em 1em 3.5em;
+	margin: 2em 0;
+	border: 1px solid black;
+	
+	i {
+		position: absolute;
+		top: 1.2em;
+		left: 20px;
+	}
+	
+	strong {
+		font-weight: 700;
+	}
+}
+
+
+div.static-panel-flex {
 	.standard-radius();
 	display: flex;
 	padding: 1em 0;

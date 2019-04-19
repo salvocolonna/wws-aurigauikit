@@ -1,37 +1,41 @@
 import React from "react"
 
-export default function({ children, style, type = "info", fa = null }) {
-  let node = React.Children.toArray(children)
+const icons = {
+  info: "info",
+  confirmatory: "check",
+  critical: "times",
+  warning: "exclamation"
+}
 
-  const renderChildren = () => {
-    return node.filter(child => child.type !== "i")
-  }
+export default function StaticPanel(props) {
+  const { style, type = "info" } = props
+  const children = React.Children.toArray(props.children)
+  const content = children.find(({ type }) => type !== StaticPanel.Icon)
+  let icon = children.find(({ type }) => type === StaticPanel.Icon)
+  const flexClassName = icon ? "-flex" : ""
 
-  const renderIcon = () => {
-    if (fa) {
-      return <i className={`fa fa-lg fa-${fa}`} />
-    }
-    const i = node.filter(child => child.type === "i")[0]
-
-    if (!i) {
-      switch (type) {
-        case "confirmatory":
-          return <i className={`fa fa-lg fa-info`} />
-        case "critical":
-          return <i className={`fa fa-lg fa-times`} />
-        case "warning":
-          return <i className={`fa fa-lg fa-exclamation`} />
-        default:
-          return <i className={`fa fa-lg fa-question`} />
-      }
-    }
-    return i
-  }
-
+  if (icon) icon = React.cloneElement(icon, { type })
   return (
-    <div className={`static-panel static-panel-${type}`} style={{ margin: "0px", ...style }}>
-      <div className="static-panel-icon">{renderIcon()}</div>
-      {renderChildren()}
+    <div
+      className={`static-panel${flexClassName && flexClassName} static-panel-${type}`}
+      style={{ margin: "0px", ...style }}>
+      {icon ? (
+        <div style={{ display: "flex", flexBasis: "100%", marginRight: "1em" }}>
+          {icon} {content}
+        </div>
+      ) : (
+        props.children
+      )}
+    </div>
+  )
+}
+
+StaticPanel.Icon = ({ children, type }) => {
+  return children ? (
+    children
+  ) : (
+    <div className="static-panel-icon">
+      <i className={`fa fa-lg fa-${icons[type]}`} />
     </div>
   )
 }
