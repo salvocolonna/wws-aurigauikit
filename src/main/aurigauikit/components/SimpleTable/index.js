@@ -1,2 +1,2 @@
-export { default } from "./SimpleReactTable"
+export { default } from "./SimpleTable"
 export { default as Pagination } from "./components/Pagination"
