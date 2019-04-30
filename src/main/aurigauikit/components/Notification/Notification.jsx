@@ -19,7 +19,7 @@ const getURL = (
   appCode
 ) =>
   `${protocol ||
-    "http"}://${hostname}:${port}${contextPath}/api/v1/register/${appCode}/${userCode
+    "http"}://${hostname}:${port}${contextPath}/api/v1/notification/sse/${appCode}/${userCode
     .split(" ")
     .join("")}`
 
@@ -41,7 +41,7 @@ class Notification extends React.Component {
     const { userCode, appCode, backend, customUrl } = this.props
     let url =
       backend === "string"
-        ? `/${backend}/api/v1/register/${appCode}/${userCode}`
+        ? `/${backend}/api/v1/notification/sse/${appCode}/${userCode}`
         : getURL(backend, userCode, appCode)
     if (customUrl) url = customUrl
     if (!sse) {
