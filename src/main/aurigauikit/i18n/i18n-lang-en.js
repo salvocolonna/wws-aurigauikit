@@ -234,5 +234,7 @@ i18n.loadMessages("en", {
   "report.schedulation-table.report-name.head-table": "Schedulation name",
   "report.new-schedulation-form.report-duration": "Duration (days)",
   "report.new-schedulation-form.report-previous-month": "Previous Month",
-  "report-list-page.msg.pdf-view-error": "Error loading report"
+  "report-list-page.msg.pdf-view-error": "Error loading report",
+
+  "dashboard-page.add-widget.new": "New"
 })

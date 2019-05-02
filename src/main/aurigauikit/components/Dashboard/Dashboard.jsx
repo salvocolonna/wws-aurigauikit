@@ -82,6 +82,8 @@ export default class Dashboard extends React.Component {
   }
 
   addWidget = ({ name, defaultSize }) => {
+    console.log('adding wid')
+    
     const { cols } = this.props
     const { breakpoint, layouts: l } = this.state
     const currentLayouts = l || { lg: [], sm: [], xs: [] }
@@ -95,6 +97,7 @@ export default class Dashboard extends React.Component {
       ...currentLayouts,
       [breakpoint]: [...(currentLayouts[breakpoint] || []), widget]
     }
+    this.props.onSave(layouts)
     this.setState({ layouts, add: null })
   }
 
@@ -174,7 +177,6 @@ export default class Dashboard extends React.Component {
 
     const unAddedWidgets = this.getUnaddedWidgets()
     const widgets = this.getWidgets()
-
     return (
       <UnMarginDiv size={margin}>
         {!free && (
@@ -196,6 +198,7 @@ export default class Dashboard extends React.Component {
             messages={messages}
             onAdd={this.addWidget}
             onClose={this.undoAdd}
+            onBuild={onBuild}
           />
         )}
         <ResponsiveReactGridLayout
