@@ -36,10 +36,11 @@ class Select2 extends React.Component {
 
   onUnselect(e) {
     const options = Array.from(e.target.selectedOptions)
-    if (this.props.multiple)
+    if (this.props.multiple) {
       this.props.didSelect(
         this.props.value.filter(v => options.find(o => o.value === this.props.willDisplay(v)))
       )
+    }
   }
 
   render() {
@@ -50,6 +51,7 @@ class Select2 extends React.Component {
       value,
       loading,
       createOption, // eslint-disable-line no-unused-vars
+      multiple,
       ...props
     } = this.props
     return [
@@ -58,9 +60,10 @@ class Select2 extends React.Component {
         {...props}
         onClick={() => setTimeout(() => $(".select2-search__field").focus(), 50)}
         data={data.map(v => (v ? willDisplay(v) : ""))}
+        multiple={multiple}
         value={
           value
-            ? typeof value !== "string" && value.length > 0
+            ? typeof value !== "string" && multiple
               ? value.map(v => willDisplay(v))
               : willDisplay(value)
             : ""

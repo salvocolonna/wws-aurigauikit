@@ -8,34 +8,9 @@ import messages from "./messages"
 const show = org => (org.description ? org.description + " (" + org.code + ")" : org.code)
 
 class OrganizationalUnitSelect extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showModal: false,
-      selectedElements:
-        this.props.selectedElements ||
-        (this.props.defaultSelection ? [this.props.defaultSelection] : []),
-      selectedItem: this.props.selectedItem || this.props.defaultSelection
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    if (
-      this.props.selectedElements &&
-      (!isEqual(props.selectedElements, this.props.selectedElements) ||
-        !isEqual(props.selectedElements, this.state.selectedElements))
-    ) {
-      this.setState({ selectedElements: props.selectedElements })
-    }
-    if (
-      this.props.selectedItem &&
-      !(
-        this.props.selectedItem.type === props.selectedItem.type &&
-        this.props.selectedItem.id === props.selectedItem.id
-      )
-    ) {
-      this.setState({ selectedItem: props.selectedItem })
-    }
+  state = {
+    showModal: false,
+    selectedElements: this.props.defaultSelection ? [this.props.defaultSelection] : []
   }
 
   static defaultProps = {
@@ -52,19 +27,31 @@ class OrganizationalUnitSelect extends React.Component {
   }
 
   onConfirm(selectedElements) {
-    this.setState({ showModal: false, selectedElements, selectedItem: selectedElements[0] }, () => {
+    const previousSelectedElements = this.props.selectedElements || this.state.selectedElements
+    const newElements = this.props.multiple
+      ? [
+          ...this.props.selectedItem,
+          ...selectedElements.filter(
+            ({ id, type }) => !previousSelectedElements.find(e => e.id === id && e.type === type)
+          )
+        ]
+      : selectedElements
+
+    this.setState({ showModal: false, selectedElements }, () => {
       if (this.props.onSelectionChange) this.props.onSelectionChange(selectedElements)
       if (this.props.onSelect)
         this.props.onSelect(
-          this.props.all && this.state.selectedElements.length > 1 ? "ALL" : selectedElements[0]
+          this.props.all && newElements.length > 1
+            ? "ALL"
+            : this.props.multiple
+            ? newElements
+            : newElements[0]
         )
     })
   }
 
   onSelect(element) {
-    this.setState({ selectedItem: element }, () => {
-      if (this.props.onSelect) this.props.onSelect(element)
-    })
+    if (this.props.onSelect) this.props.onSelect(element)
   }
 
   isDefault = element => {
@@ -86,12 +73,15 @@ class OrganizationalUnitSelect extends React.Component {
       radioOptions,
       groupable,
       all,
+      multiple,
       intl
     } = this.props
     const style = {
       display: "inline-flex",
       width: "100%"
     }
+
+    const selectedElements = this.props.selectedElements || this.state.selectedElements
 
     const allMessage = intl.formatMessage(messages.type.ALL)
 
@@ -101,10 +91,10 @@ class OrganizationalUnitSelect extends React.Component {
     const display = element =>
       element === "ALL"
         ? allMessage
-        : this.isDefault(element) && !this.isEqual(element, this.state.selectedItem)
-          ? "[DEFAULT] " + typeMessage(element)
-          : typeMessage(element)
-    show
+        : this.isDefault(element) && !this.isEqual(element, this.props.selectedItem)
+        ? "[DEFAULT] " + typeMessage(element)
+        : typeMessage(element)
+
     return disabled ? (
       <input
         type="text"
@@ -123,35 +113,47 @@ class OrganizationalUnitSelect extends React.Component {
           onReset={() => this.onReset()}
           datasource={datasource}
           canSelect={element => canSelect(element)}
-          selectedElements={this.state.selectedElements}
+          selectedElements={selectedElements}
           defaultSelection={defaultSelection}
           dataComparator={dataComparator}
           onSelectionAborted={() => this.onAbort()}
           radioOptions={radioOptions}
         />
-        {this.state.selectedElements.length === 1 ? (
+        {selectedElements.length === 1 ? (
           <input
             type="text"
             disabled
             style={{ width: "100%", backgroundColor: "#fff" }}
-            value={`${intl.formatMessage(
-              messages.type[this.state.selectedElements[0].type]
-            )} - ${show(this.state.selectedElements[0])}`}
+            value={`${intl.formatMessage(messages.type[selectedElements[0].type])} - ${show(
+              selectedElements[0]
+            )}`}
           />
-        ) : (
+        ) : multiple && this.props.selectedItem.length === 1 ? (
           <Select2
             style={{ width: "100%" }}
-            data={all ? ["ALL", ...this.state.selectedElements] : this.state.selectedElements}
+            data={all ? ["ALL", ...selectedElements] : selectedElements}
             willDisplay={this.props.willDisplay || display}
-            value={this.state.selectedItem}
+            value={this.props.selectedItem[0]}
             options={{
               placeholder: this.props.placeHolder || intl.formatMessage(messages.type.placeholder)
             }}
+            didSelect={element => this.onSelect([this.props.selectedItem[0], element])}
+          />
+        ) : (
+          <Select2
+            key="single"
+            style={{ width: "100%" }}
+            data={all ? ["ALL", ...selectedElements] : selectedElements}
+            willDisplay={this.props.willDisplay || display}
+            value={this.props.selectedItem}
+            options={{
+              placeholder: this.props.placeHolder || intl.formatMessage(messages.type.placeholder)
+            }}
+            multiple={multiple}
             didSelect={element => this.onSelect(element)}
           />
         )}
-        {groupable &&
-          this.state.selectedElements.length > 1 && <GroupButton onClick={() => this.onShow()} />}
+        {groupable && selectedElements.length > 1 && <GroupButton onClick={() => this.onShow()} />}
         <ModalButton onClick={() => this.onShow()} />
       </div>
     )
