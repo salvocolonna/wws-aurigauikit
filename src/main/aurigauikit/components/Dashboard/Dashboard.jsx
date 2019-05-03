@@ -10,7 +10,7 @@ import "react-resizable/css/styles.css"
 import styles from "./styles.css"
 import { injectIntl } from "react-intl"
 
-const MARGIN = 40
+const MARGIN = 10
 
 class WidgetError extends React.Component {
   state = { error: false }
@@ -178,17 +178,19 @@ export default class Dashboard extends React.Component {
     return (
       <UnMarginDiv size={margin}>
         {!free && (
-          <Actions
-            canBuild={onBuild}
-            onBuild={onBuild}
-            canAdd={unAddedWidgets.length > 0}
-            onSave={this.save}
-            onUndo={this.undoEdit}
-            onEdit={this.edit}
-            onAdd={this.add}
-            editable={edit}
-            saving={saving}
-          />
+          <div style={{ marginBottom: 40 }}>
+            <Actions
+              canBuild={onBuild}
+              onBuild={onBuild}
+              canAdd={unAddedWidgets.length > 0}
+              onSave={this.save}
+              onUndo={this.undoEdit}
+              onEdit={this.edit}
+              onAdd={this.add}
+              editable={edit}
+              saving={saving}
+            />
+          </div>
         )}
         {add && (
           <AddWidgetModal
