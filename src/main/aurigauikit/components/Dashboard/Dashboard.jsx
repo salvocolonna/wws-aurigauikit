@@ -82,8 +82,6 @@ export default class Dashboard extends React.Component {
   }
 
   addWidget = ({ name, defaultSize }) => {
-    console.log('adding wid')
-    
     const { cols } = this.props
     const { breakpoint, layouts: l } = this.state
     const currentLayouts = l || { lg: [], sm: [], xs: [] }

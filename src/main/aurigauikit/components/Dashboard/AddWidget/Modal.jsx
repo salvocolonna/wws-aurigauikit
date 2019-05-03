@@ -71,18 +71,20 @@ export default injectIntl(
             )}
           </Modal.Content>
           <Modal.Footer>
-            <div
-              className="btn-group"
-              style={{
-                visibility: selectedWidget.name === intl.formatMessage(newId) ? "hidden" : "visible"
-              }}>
+            <div className="btn-group">
               <button
                 className="btn btn-warning-outline"
-                style={{ marginRight: "20px" }}
-                onClick={() => onClose()}>
+                onClick={() => onClose()}
+                style={{ marginRight: "20px" }}>
                 <Msg {...messages.modal.cancel} />
               </button>
-              <button className="btn btn-confirmatory" onClick={this.confirm}>
+              <button
+                className="btn btn-confirmatory"
+                onClick={this.confirm}
+                style={{
+                  display:
+                    selectedWidget.name === intl.formatMessage(newId) ? "none" : "inline-block"
+                }}>
                 <Msg {...messages.modal.confirm} />
               </button>
             </div>
