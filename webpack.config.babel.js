@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const module = {
   rules: [
     {
-      test: /\.(js|jsx)$/,
+      test: /\.(js|jsx|ts|tsx)$/,
       use: ["babel-loader"],
       exclude: /node_modules/
     },
@@ -68,7 +68,7 @@ const demoRules = [
 ]
 
 const resolve = {
-  extensions: [".js", ".jsx"]
+  extensions: [".js", ".jsx", ".ts", ".tsx"]
 }
 
 const plugins = [

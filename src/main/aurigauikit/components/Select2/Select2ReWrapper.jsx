@@ -44,11 +44,12 @@ class Select2 extends React.Component {
 
   render() {
     const {
-      didSelect, //eslint-disable-line no-unused-vars
+      didSelect, // eslint-disable-line no-unused-vars
       willDisplay,
       data,
       value,
       loading,
+      createOption, // eslint-disable-line no-unused-vars
       ...props
     } = this.props
     return [
