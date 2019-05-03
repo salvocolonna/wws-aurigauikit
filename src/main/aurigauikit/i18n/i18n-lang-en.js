@@ -114,7 +114,7 @@ i18n.loadMessages("en", {
 
   "organizational-unit-select.type.PRIVATE": "Private",
   "organizational-unit-select.type.PUBLIC": "Public",
-  "organizational-unit-select.type.ASSET_GROUP": "Asset group",
+  "organizational-unit-select.type.ASSET_GROUP": "Groups",
 
   "notification.emptyList": "No notifications",
 
