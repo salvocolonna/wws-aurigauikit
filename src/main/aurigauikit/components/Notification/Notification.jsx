@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createRef } from "react"
 import { FormattedMessage } from "react-intl"
 import { Pagination } from "aurigauikit/components/SimpleTable"
 import NotificationService2 from "./notification-service-new"
@@ -25,6 +25,8 @@ const getURL = (
 
 @withRouter
 class Notification extends React.Component {
+  notificationRef = createRef()
+
   constructor(props) {
     super(props)
     this.state = {
@@ -147,7 +149,13 @@ class Notification extends React.Component {
     const pageSize = 6
     const { notifications, page, position } = this.state
     const unreadCount = notifications.filter(n => !n.read).length
-    const openPopover = e => this.openPopover({ left: e.pageX, top: e.pageY + 15 })
+    const openPopover = () => {
+      const rect = this.notificationRef.current.getBoundingClientRect()
+      this.openPopover({
+        left: (rect.x || rect.left) + rect.width / 2,
+        top: (rect.y || rect.top) + rect.height + 5
+      })
+    }
     const content = (
       <React.Fragment>
         {notifications && notifications.length > 0 && (
@@ -229,7 +237,7 @@ class Notification extends React.Component {
             textShadow: unreadCount > 0 ? "0px 0px 10px #2984C5" : null,
             cursor: "pointer"
           }}>
-          <i className="fa fa-bell" style={{ marginLeft: 9 }} />
+          <i className="fa fa-bell" style={{ marginLeft: 9 }} ref={this.notificationRef} />
           <span
             style={{
               color: unreadCount > 0 ? "white" : "white",
