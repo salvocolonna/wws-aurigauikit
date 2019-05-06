@@ -134,7 +134,9 @@ i18n.loadMessages("it", {
 
   "organizational-unit-select.type.PRIVATE": "Privato",
   "organizational-unit-select.type.PUBLIC": "Pubblico",
-  "organizational-unit-select.type.ASSET_GROUP": "Grouppo di Asset",
+  "organizational-unit-select.type.ASSET_GROUP": "Gruppi",
 
-  "notification.emptyList": "Nessuna notifica"
+  "notification.emptyList": "Nessuna notifica",
+
+  "dashboard-page.add-widget.new": "Nuovo"
 })

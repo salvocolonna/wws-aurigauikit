@@ -21,6 +21,10 @@ export default {
     confirm: {
       id: `${PATH}.modal.confirm`,
       defaultMessage: "Confirm"
+    },
+    new: {
+      id: `${PATH}.modal.new`,
+      defaultMessage: "New"
     }
   })
 }
