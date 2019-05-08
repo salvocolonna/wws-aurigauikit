@@ -31,7 +31,7 @@ const getData = (data = []) => () => {
   })
 }
 
-const OuType = ({ name, items }) => {
+const OuType = ({ name, items, onRemove, canRemove }) => {
   const ref = useRef()
   const popover = usePopover(ref)
   const [search, setSearch] = useState("")
@@ -42,6 +42,7 @@ const OuType = ({ name, items }) => {
     }
     return items.filter(found)
   }, [items, search])
+  const scroll = useMemo(() => getScrollbarWidth(), [])
   return (
     <div
       className={"OuType" + (popover.position ? " OuTypeOpen" : "")}
@@ -54,7 +55,7 @@ const OuType = ({ name, items }) => {
             <div
               style={{
                 backgroundColor: "#fff",
-                width: items.length <= 3 ? null : `calc(100% - ${getScrollbarWidth()}px`,
+                width: items.length <= 3 ? null : `calc(100% - ${scroll}px`,
                 paddingTop: 1,
                 borderRadius: 4
               }}>
@@ -68,13 +69,17 @@ const OuType = ({ name, items }) => {
           </div>
           {currentItems.length > 0 ? (
             <div className="OuSearchItems">
-              {currentItems.map(
-                ({ code, description, id, title = description + " (" + code + ")" }) => (
+              {currentItems.map(item => {
+                const { code, description, id, title = description + " (" + code + ")" } = item
+                return (
                   <div className="OuItem" key={title + id}>
                     {title}
+                    {(canRemove ? canRemove(item) : true) && (
+                      <i className="fa fa-times feedback-icon" onClick={() => onRemove(item)} />
+                    )}
                   </div>
                 )
-              )}
+              })}
             </div>
           ) : (
             <div style={{ marginTop: 70 }} className="OuItem">
@@ -87,12 +92,12 @@ const OuType = ({ name, items }) => {
   )
 }
 
-export default ({ data }) => {
+export default ({ data, onRemove, canRemove }) => {
   const ouTypes = useMemo(getData(data))
   return (
     <div className="Ou">
       {ouTypes.map(({ type, items }) => (
-        <OuType key={type} name={type} items={items} />
+        <OuType key={type} name={type} items={items} onRemove={onRemove} canRemove={canRemove} />
       ))}
     </div>
   )

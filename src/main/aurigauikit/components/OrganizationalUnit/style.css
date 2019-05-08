@@ -50,6 +50,8 @@
   margin: 5px;
   padding: 10px;
   color: black;
+  display: flex;
+  justify-content: space-between;
 }
 
 .OuSearch{
@@ -75,4 +77,13 @@
 
 .OuSearchItems{
   margin-top: 70px;
+}
+
+.feedback-icon{
+  color: #dc402b;
+  cursor: pointer;
+}
+
+.feedback-icon:hover{
+  font-size: 1.2em;
 }

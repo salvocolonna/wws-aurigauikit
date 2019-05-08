@@ -18,6 +18,19 @@ const OuSelect = ({
     if (onSelectionChange) onSelectionChange(selectedElements)
     setShow(false)
   }
+
+  const unselect = item => {
+    const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
+    const items = [...selectedElements]
+    items.splice(index, 1)
+    onSelectionChange(items)
+  }
+
+  const canUnselect = item =>
+    defaultSelection
+      ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
+      : true
+
   return disabled ? (
     <input
       type="text"
@@ -38,13 +51,15 @@ const OuSelect = ({
           datasource={datasource}
           canSelect={canSelect}
           selectedElements={selectedElements}
+          onRemove={unselect}
+          canRemove={canUnselect}
           onAbort={() => setShow(false)}
         />
       )}
       {selectedElements.length === 1 ? (
         <Single element={selectedElements[0]} />
       ) : (
-        <OrganizationalUnit data={selectedElements} />
+        <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
       )}
       <ModalButton onClick={() => setShow(true)} />
     </div>

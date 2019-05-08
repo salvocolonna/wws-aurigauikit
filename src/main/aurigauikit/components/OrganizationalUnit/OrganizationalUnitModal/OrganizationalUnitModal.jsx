@@ -98,8 +98,8 @@ const useOuTree = (datasource, intl) => {
     const tree = await datasource.getNodes()
     const content = await fetchContent({ path: "0", node: tree[0] })
     if (request === currentRequest.current) {
-      setTree(tree => ({
-        ...tree,
+      setTree(state => ({
+        ...state,
         data: tree.map((element, index) => ({
           node: element,
           table: index === 0 ? content.table : null,
@@ -121,8 +121,10 @@ const OuModal = ({
   datasource,
   onAbort,
   onSelect,
+  onRemove,
   canSelect,
   canView,
+  canRemove,
   intl
 }) => {
   const intitialData = useMemo(() => selectedElements, [])
@@ -206,7 +208,7 @@ const OuModal = ({
           </div>
         </div>
         <div style={{ float: "left", marginTop: 20 }}>
-          <OrganizationalUnit data={selectedElements} />
+          <OrganizationalUnit data={selectedElements} onRemove={onRemove} canRemove={canRemove} />
         </div>
         <div style={{ float: "right", marginTop: 20 }}>
           <AbortButton
