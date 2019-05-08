@@ -1,12 +1,16 @@
-import React from "react"
-import Workflow from "aurigauikit/components/Workflow"
+import React from 'react'
+import Workflow from 'aurigauikit/components/Workflow'
 
 const BUTTON_WIDTH = 180
 
 export default class extends React.Component {
   back = () => {
-    const { onChange, currentState } = this.props
-    if (currentState > 0) onChange(currentState - 1)
+    const { onChange, currentState, initialBack } = this.props
+    if (currentState > 0) {
+      onChange(currentState - 1)
+    } else if (initialBack && typeof initialBack === 'function') {
+      initialBack()
+    }
   }
 
   next = () => {
@@ -15,12 +19,12 @@ export default class extends React.Component {
   }
 
   render() {
-    const { children, currentState, saving, states, canProceed, form } = this.props
+    const { children, currentState, saving, states, canProceed, form, initialBack } = this.props
     const lastStep = currentState >= states.length - 1
     return [
       <Main key="Wizard">
         <Left>
-          <Back onClick={this.back} disabled={currentState === 0 || saving} />
+          <Back onClick={this.back} disabled={(!initialBack && currentState === 0) || saving} />
         </Left>
         <Center>
           <Workflow raw showNext states={states} currentState={states[currentState - 1]} />
@@ -32,12 +36,12 @@ export default class extends React.Component {
               className="confirmatory"
               onClick={!form && this.next}
               disabled={!canProceed || currentState >= states.length || saving}
-              text={saving ? "Saving..." : "Save"}
+              text={saving ? 'Saving...' : 'Save'}
             />
           )}
         </Right>
       </Main>,
-      children
+      children,
     ]
   }
 }
@@ -52,7 +56,7 @@ const Back = ({ onClick, disabled }) => (
   </button>
 )
 
-const Next = ({ text = "Next", onClick, disabled, className = "primary-outline" }) => (
+const Next = ({ text = 'Next', onClick, disabled, className = 'primary-outline' }) => (
   <button
     className={`btn btn-${className}`}
     onClick={onClick}
@@ -66,9 +70,9 @@ const Main = ({ children }) => (
   <section style={{ marginTop: 40 }}>
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
       {children}
     </div>
@@ -80,8 +84,8 @@ const Left = ({ children }) => <div> {children} </div>
 const Center = ({ children }) => (
   <div
     style={{
-      width: "100%",
-      textAlign: "center"
+      width: '100%',
+      textAlign: 'center',
     }}>
     {children}
   </div>
