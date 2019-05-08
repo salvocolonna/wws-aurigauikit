@@ -11,7 +11,7 @@ const initialState = {
   reportName: "",
   template: null,
   organizationalUnit: null,
-  organizationalUnits: null,
+  organizationalUnits: [],
   startDate: null,
   endDate: null
 }

@@ -125,7 +125,9 @@ const OuModal = ({
   canSelect,
   canView,
   canRemove,
-  intl
+  radioOptions,
+  intl,
+  onSelectionConfirmed = () => {}
 }) => {
   const intitialData = useMemo(() => selectedElements, [])
   const touched = useMemo(() => !isEqual(selectedElements, intitialData), [selectedElements])
@@ -135,8 +137,8 @@ const OuModal = ({
   const tree = useOuTree(currentDatasource, intl)
 
   useEffect(() => {
-    if (isArray(datasource) && !option) {
-      const [firstOption] = datasource
+    if (radioOptions && !option) {
+      const [firstOption] = radioOptions
       setOption(firstOption)
     } else tree.fetch()
   }, [option])
@@ -174,7 +176,7 @@ const OuModal = ({
       <Modal.Content>
         {isArray(datasource) && (
           <DatasourceSelector
-            datasources={datasource}
+            datasources={radioOptions}
             datasource={currentDatasource}
             onChange={setOption}
           />
@@ -188,7 +190,7 @@ const OuModal = ({
               selectedPath={tree.selectedPath}
               willDisplay={node => `${node.getDescription()} (${node.getCode()})`}
               loadingPath={tree.loadingPath}
-              canView={option ? option.canView : canView}
+              canView={(option ? option.canView : canView) || canView}
               data={tree.data}
             />
           </div>
@@ -198,7 +200,7 @@ const OuModal = ({
                 selectable
                 pageable
                 pageSize={8}
-                canSelect={canSelect}
+                canSelect={(option ? option.canSelect : canSelect) || canSelect}
                 onSelectionChange={onSelect}
                 selectedRows={selectedElements}
                 dataComparator={dataComparator}
@@ -217,7 +219,13 @@ const OuModal = ({
               onAbort()
             }}
           />
-          <ConfirmButton disabled={!touched} onClick={onAbort} />
+          <ConfirmButton
+            disabled={!touched}
+            onClick={() => {
+              onAbort()
+              onSelectionConfirmed(selectedElements)
+            }}
+          />
         </div>
       </Modal.Content>
       <Modal.Footer />

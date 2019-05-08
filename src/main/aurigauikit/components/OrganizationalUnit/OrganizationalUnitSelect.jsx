@@ -1,17 +1,22 @@
-import React, { useState } from "react"
+import React, { useState, useCallback } from "react"
 import OrganizationalUnitModal from "./OrganizationalUnitModal/OrganizationalUnitModal"
 import { injectIntl } from "react-intl"
 import messages from "./messages"
 import OrganizationalUnit from "./OrganizationalUnit"
+import Select2 from "aurigauikit/components/Select2"
 
 const OuSelect = ({
-  selectedElements,
+  selectedElements = [],
   defaultSelection,
-  onSelectionChange,
   disabled,
   datasource,
-  canSelect,
-  intl
+  radioOptions,
+  selectedItem,
+  multiple,
+  intl,
+  onSelectionChange = () => true,
+  onSelect = () => {},
+  canSelect = () => true
 }) => {
   const [show, setShow] = useState(false)
   const confirm = selectedElements => {
@@ -31,6 +36,8 @@ const OuSelect = ({
       ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
       : true
 
+  const display = useCallback(v => `${v.description} (${v.code})`, [selectedElements, selectedItem])
+
   return disabled ? (
     <input
       type="text"
@@ -46,20 +53,29 @@ const OuSelect = ({
         <OrganizationalUnitModal
           show
           onConfirm={confirm}
-          onSelect={onSelectionChange}
+          onSelectionConfirmed={onSelectionChange}
           defaultSelection={defaultSelection}
+          radioOptions={radioOptions}
           datasource={datasource}
           canSelect={canSelect}
           selectedElements={selectedElements}
           onRemove={unselect}
           canRemove={canUnselect}
-          onAbort={() => setShow(false)}
+          onSelectionAborted={() => setShow(false)}
         />
       )}
       {selectedElements.length === 1 ? (
         <Single element={selectedElements[0]} />
-      ) : (
+      ) : multiple ? (
         <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
+      ) : (
+        <Select2
+          data={selectedElements}
+          value={selectedItem}
+          didSelect={onSelect}
+          willDisplay={display}
+          style={{ width: "100%" }}
+        />
       )}
       <ModalButton onClick={() => setShow(true)} />
     </div>
