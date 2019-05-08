@@ -1,8 +1,8 @@
-import React from "react"
-import _Select2 from "react-select2-wrapper"
-import $ from "jquery"
-import Loader from "aurigauikit/components/Loader"
-import "./style.css"
+import React from 'react'
+import _Select2 from 'react-select2-wrapper'
+import $ from 'jquery'
+import Loader from 'aurigauikit/components/Loader'
+import './style.css'
 
 class Select2 extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Select2 extends React.Component {
   static defaultProps = {
     data: [],
     willDisplay: element => element,
-    didSelect: element => element
+    didSelect: element => element,
   }
 
   contains(selected) {
@@ -56,19 +56,19 @@ class Select2 extends React.Component {
       <_Select2
         key="select"
         {...props}
-        onClick={() => setTimeout(() => $(".select2-search__field").focus(), 50)}
-        data={data.map(v => (v ? willDisplay(v) : ""))}
+        // onClick={() => setTimeout(() => $(".select2-search__field").focus(), 50)}
+        data={data.map(v => (v ? willDisplay(v) : ''))}
         value={
           value
-            ? typeof value !== "string" && value.length > 0
+            ? typeof value !== 'string' && value.length > 0
               ? value.map(v => willDisplay(v))
               : willDisplay(value)
-            : ""
+            : ''
         }
         onSelect={e => this.onSelect(e)}
         onUnselect={(e, a) => this.onUnselect(e, a)}
       />,
-      loading && <Loader key="loader" style={{ marginTop: -28, marginRight: 8 }} />
+      loading && <Loader key="loader" style={{ marginTop: -28, marginRight: 8 }} />,
     ]
   }
 }
