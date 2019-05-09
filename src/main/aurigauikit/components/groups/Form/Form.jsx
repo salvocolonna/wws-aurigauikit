@@ -11,6 +11,7 @@ const PARENT_BANK = "PARENT_BANK"
 const BANK = "BANK"
 const AREA = "AREA"
 const BRANCH = "BRANCH"
+const ASSET = "ASSET"
 
 export default class extends React.Component {
   state = { selectedElements: [], adding: false }
@@ -43,7 +44,9 @@ export default class extends React.Component {
       [PARENT_BANK]: type === PARENT_BANK,
       [BANK]: type === PARENT_BANK || type === BANK,
       [AREA]: type === PARENT_BANK || type === BANK || type === AREA,
-      [BRANCH]: type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH
+      [BRANCH]: type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH,
+      [ASSET]:
+        type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH || type === ASSET,
     }
     return selectable[groupType]
   }
