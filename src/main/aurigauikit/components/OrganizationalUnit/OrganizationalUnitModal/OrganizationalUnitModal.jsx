@@ -7,7 +7,6 @@ import Radio from 'aurigauikit/components/Radio'
 import Spinner from 'aurigauikit/components/Spinner'
 import messages from '../messages'
 import OrganizationalUnit from '../OrganizationalUnit'
-import { isArray } from 'util'
 import './organizational-unit-modal.less'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
@@ -64,9 +63,10 @@ const useOuTree = (datasource, intl) => {
       path: [path, index].join('-'),
       children: [],
     }))
-    const rows = table.getRowCount
+    const rows = (table.getRowCount
       ? Array.from(Array(table.getRowCount())).map((_, i) => table.getRow(i))
       : []
+    ).map((a, index) => ({ ...a, path: [path, index].join('-') }))
     const headers = table.getHeaders ? table.getHeaders() : []
     const columns = table.getColumns ? table.getColumns() : []
     return { children, table: { rows, headers, columns } }
@@ -145,16 +145,37 @@ const OuModal = ({
   }, [option])
 
   useEffect(() => {
-    if (defaultSelection) {
-      if (!selectedElements.find(e => dataComparator(e, defaultSelection)))
-        onSelect([defaultSelection, ...selectedElements])
-    }
+    if (defaultSelection && selectedElements.length === 0) onSelect([defaultSelection])
   }, [])
 
   const canReset = useMemo(() => {
     if (defaultSelection) return selectedElements.length > 1
     return selectedElements.length > 0
   })
+
+  const selectElements = elements => {
+    const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
+    const parents = newElements
+      .reduce((parents, e) => {
+        const paths = (e.path || '0').split('-')
+        paths.pop()
+        const parentPath = paths.join('-')
+        return [...parents, elements.find(e => (e.path || '0') === parentPath)]
+      }, [])
+      .filter(Boolean)
+    const children = newElements
+      .reduce((children, e) => {
+        return [
+          ...children,
+          ...elements.filter(n => n.path !== e.path && (n.path || '0').startsWith(e.path || '0')),
+        ]
+      }, [])
+      .filter(Boolean)
+    const filtered = elements.filter(e => {
+      return !(parents.find(a => dataComparator(a, e)) || children.find(a => dataComparator(a, e)))
+    })
+    onSelect(filtered.length === 0 ? [defaultSelection] : filtered)
+  }
 
   return (
     <Modal
@@ -202,7 +223,7 @@ const OuModal = ({
                 pageable
                 pageSize={8}
                 canSelect={(option ? option.canSelect : canSelect) || canSelect}
-                onSelectionChange={onSelect}
+                onSelectionChange={selectElements}
                 selectedRows={selectedElements}
                 dataComparator={dataComparator}
                 {...tree.table}
