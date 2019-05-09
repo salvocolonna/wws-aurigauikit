@@ -45,7 +45,7 @@ export default class extends React.Component {
       [AREA]: type === PARENT_BANK || type === BANK || type === AREA,
       [BRANCH]: type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH
     }
-    return selectable[groupType] || true
+    return selectable[groupType]
   }
 
   render() {
