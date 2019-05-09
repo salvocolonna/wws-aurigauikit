@@ -1,16 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 import ReactDOM from "react-dom"
 import "./style.less"
 import sizeMe from "react-sizeme"
 
 const ESC = 27
-const TRANSITION = 0.5
+const TRANSITION = 0.2
+
+export const usePopover = ref => {
+  const [position, setPosition] = useState(null)
+  const show = () => {
+    const rect = ref.current.getBoundingClientRect()
+    setPosition({
+      left: (rect.x || rect.left) + rect.width / 2,
+      top: (rect.y || rect.top) + rect.height / 2 + 5
+    })
+  }
+  const onClose = () => setPosition(null)
+  return { position, show, onClose }
+}
 
 export default class Popover extends React.Component {
   state = { size: { width: 0 }, opacity: 0 }
 
-  componentWillReceiveProps(props) {
-    const { position } = this.props
+  componentDidUpdate({ position }) {
+    const props = this.props
     const { opacity } = this.state
     const showing =
       props.position &&
@@ -56,7 +69,6 @@ export default class Popover extends React.Component {
     const animate = () => setTimeout(onClose, TRANSITION * 1000)
     if (close) {
       e.preventDefault()
-      e.stopPropagation()
       this.setState({ opacity: 0 }, animate)
     }
   }
@@ -65,7 +77,7 @@ export default class Popover extends React.Component {
     const { position } = this.props
     if (position) {
       const { width } = this.state.size
-      const PAD = 20
+      const PAD = 10
       const center = position.left - width / 2
       const maxLeft = Math.min(window.innerWidth - width - PAD, center)
       const left = Math.max(10 + PAD, maxLeft)
@@ -101,7 +113,7 @@ export default class Popover extends React.Component {
       position && (
         <div
           className="Popover-container"
-          style={{ ...fixedPosition, transition: `top,left ${TRANSITION}s` }}
+          style={{ ...fixedPosition }}
           ref={reference => (this.reference = reference)}>
           <SizedPopover onSize={this.onSize} opacity={opacity}>
             {!upsideDown && (
@@ -125,7 +137,7 @@ export default class Popover extends React.Component {
 const SizedPopover = sizeMe({
   monitorHeight: true
 })(({ children, opacity }) => (
-  <div className="Popover" style={{ opacity, transition: `opacity ${TRANSITION}s` }}>
+  <div className="Popover" style={{ opacity, transition: `opacity ${2 * TRANSITION}s` }}>
     {children}
   </div>
 ))

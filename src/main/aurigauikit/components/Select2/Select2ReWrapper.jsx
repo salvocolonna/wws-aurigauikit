@@ -36,10 +36,11 @@ class Select2 extends React.Component {
 
   onUnselect(e) {
     const options = Array.from(e.target.selectedOptions)
-    if (this.props.multiple)
+    if (this.props.multiple) {
       this.props.didSelect(
         this.props.value.filter(v => options.find(o => o.value === this.props.willDisplay(v)))
       )
+    }
   }
 
   render() {

@@ -83,17 +83,18 @@ export default class extends React.Component {
         <section style={{ paddingBottom: 20, marginTop: mode === "view" && 40 }}>
           {mode !== "view" && <AddButton disabled={loading} onClick={this.add} />}
           {children}
-          <OrganizationalUnitModal
-            show={this.state.adding}
-            onSelectionConfirmed={this.confirmSelection}
-            datasource={organizationalUnitDatasource}
-            dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
-            onSelectionAborted={this.undoAdd}
-            selectedElements={
-              getSelectedElements ? getSelectedElements() : this.state.selectedElements
-            }
-            canSelect={this.canSelect}
-          />
+          {this.state.adding && (
+            <OrganizationalUnitModal
+              onSelectionConfirmed={this.confirmSelection}
+              datasource={organizationalUnitDatasource}
+              dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
+              onSelectionAborted={this.undoAdd}
+              selectedElements={
+                getSelectedElements ? getSelectedElements() : this.state.selectedElements
+              }
+              canSelect={this.canSelect}
+            />
+          )}
         </section>
         {mode !== "view" && (
           <div className="btn-group" style={{ marginTop: 20 }}>
