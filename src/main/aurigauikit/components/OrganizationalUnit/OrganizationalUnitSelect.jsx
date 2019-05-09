@@ -43,9 +43,9 @@ const OuSelect = ({
       type="text"
       disabled
       style={{ width: '100%', backgroundColor: '#fff' }}
-      value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${show(
-        defaultSelection
-      )}`}
+      value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${
+        defaultSelection.description
+      } (${defaultSelection.code})`}
     />
   ) : (
     <div style={{ display: 'inline-flex', width: '100%' }}>
