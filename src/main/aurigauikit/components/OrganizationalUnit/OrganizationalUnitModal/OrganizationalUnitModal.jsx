@@ -149,19 +149,23 @@ const OuModal = ({
   }, [])
 
   const canReset = useMemo(() => {
-    if (defaultSelection) return selectedElements.length > 1
+    if (defaultSelection && selectedElements.find(a => dataComparator(a, defaultSelection)))
+      return selectedElements.length > 1
     return selectedElements.length > 0
   })
 
   const selectElements = elements => {
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
+    const getParents = path => {
+      if (path === '0') return []
+      const paths = (path || '0').split('-')
+      paths.pop()
+      const parentPath = paths.join('-')
+      const parent = elements.find(e => (e.path || '0') === parentPath)
+      return [...getParents(parentPath), parent]
+    }
     const parents = newElements
-      .reduce((parents, e) => {
-        const paths = (e.path || '0').split('-')
-        paths.pop()
-        const parentPath = paths.join('-')
-        return [...parents, elements.find(e => (e.path || '0') === parentPath)]
-      }, [])
+      .reduce((parents, e) => [...parents, ...getParents(e.path)], [])
       .filter(Boolean)
     const children = newElements
       .reduce((children, e) => {
@@ -171,6 +175,7 @@ const OuModal = ({
         ]
       }, [])
       .filter(Boolean)
+    console.log(parents)
     const filtered = elements.filter(e => {
       return !(parents.find(a => dataComparator(a, e)) || children.find(a => dataComparator(a, e)))
     })
