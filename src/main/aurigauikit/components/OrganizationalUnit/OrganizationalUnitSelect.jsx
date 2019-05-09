@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from "react"
-import OrganizationalUnitModal from "./OrganizationalUnitModal/OrganizationalUnitModal"
-import { injectIntl } from "react-intl"
-import messages from "./messages"
-import OrganizationalUnit from "./OrganizationalUnit"
-import Select2 from "aurigauikit/components/Select2"
+import React, { useState, useCallback } from 'react'
+import OrganizationalUnitModal from './OrganizationalUnitModal/OrganizationalUnitModal'
+import { injectIntl } from 'react-intl'
+import messages from './messages'
+import OrganizationalUnit from './OrganizationalUnit'
+import Select2 from 'aurigauikit/components/Select2'
 
 const OuSelect = ({
   selectedElements = [],
@@ -16,7 +16,7 @@ const OuSelect = ({
   intl,
   onSelectionChange = () => true,
   onSelect = () => {},
-  canSelect = () => true
+  canSelect = () => true,
 }) => {
   const [show, setShow] = useState(false)
   const confirm = selectedElements => {
@@ -42,18 +42,18 @@ const OuSelect = ({
     <input
       type="text"
       disabled
-      style={{ width: "100%", backgroundColor: "#fff" }}
+      style={{ width: '100%', backgroundColor: '#fff' }}
       value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${show(
         defaultSelection
       )}`}
     />
   ) : (
-    <div style={{ display: "inline-flex", width: "100%" }}>
+    <div style={{ display: 'inline-flex', width: '100%' }}>
       {show && (
         <OrganizationalUnitModal
           show
           onConfirm={confirm}
-          onSelectionConfirmed={onSelectionChange}
+          onSelect={onSelectionChange}
           defaultSelection={defaultSelection}
           radioOptions={radioOptions}
           datasource={datasource}
@@ -61,7 +61,7 @@ const OuSelect = ({
           selectedElements={selectedElements}
           onRemove={unselect}
           canRemove={canUnselect}
-          onSelectionAborted={() => setShow(false)}
+          onAbort={() => setShow(false)}
         />
       )}
       {selectedElements.length === 1 ? (
@@ -74,7 +74,7 @@ const OuSelect = ({
           value={selectedItem}
           didSelect={onSelect}
           willDisplay={display}
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
         />
       )}
       <ModalButton onClick={() => setShow(true)} />
@@ -86,7 +86,7 @@ const Single = injectIntl(({ element, intl }) => (
   <input
     type="text"
     disabled
-    style={{ width: "100%", backgroundColor: "#fff" }}
+    style={{ width: '100%', backgroundColor: '#fff' }}
     value={`${intl.formatMessage(messages.type[element.type])} - ${element.description} (${
       element.code
     })`}
@@ -95,22 +95,22 @@ const Single = injectIntl(({ element, intl }) => (
 
 const ModalButton = ({ onClick }) => {
   const style = {
-    marginLeft: "10px",
-    padding: "0 0.8em",
-    height: "2.8em",
-    cursor: "pointer"
+    marginLeft: '10px',
+    padding: '0 0.8em',
+    height: '2.8em',
+    cursor: 'pointer',
   }
   return (
     <a style={style} className="btn btn-primary" onClick={() => onClick()}>
       <i
         className="fa fa-bank"
         style={{
-          width: "100%",
-          textAlign: "center",
-          padding: "2px",
-          lineHeight: "32px",
-          cursor: "pointer",
-          margin: "0"
+          width: '100%',
+          textAlign: 'center',
+          padding: '2px',
+          lineHeight: '32px',
+          cursor: 'pointer',
+          margin: '0',
         }}
       />
     </a>

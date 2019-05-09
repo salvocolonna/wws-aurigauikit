@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo, useRef } from "react"
-import { FormattedMessage, injectIntl } from "react-intl"
-import SimpleTable from "../../SimpleTable/SimpleTable"
-import Tree from "../../Tree/Tree"
-import Modal from "../../Modal"
-import Radio from "aurigauikit/components/Radio"
-import Spinner from "aurigauikit/components/Spinner"
-import messages from "../messages"
-import OrganizationalUnit from "../OrganizationalUnit"
-import { isArray } from "util"
-import "./organizational-unit-modal.less"
+import React, { useState, useEffect, useMemo, useRef } from 'react'
+import { FormattedMessage, injectIntl } from 'react-intl'
+import SimpleTable from '../../SimpleTable/SimpleTable'
+import Tree from '../../Tree/Tree'
+import Modal from '../../Modal'
+import Radio from 'aurigauikit/components/Radio'
+import Spinner from 'aurigauikit/components/Spinner'
+import messages from '../messages'
+import OrganizationalUnit from '../OrganizationalUnit'
+import { isArray } from 'util'
+import './organizational-unit-modal.less'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
 const isEqual = (a, b) => a.reduce((equal, a, i) => equal && dataComparator(a, b[i]), true)
@@ -22,12 +22,12 @@ const useOuTree = (datasource, intl) => {
     data: [],
     openPath: null,
     selectedPath: null,
-    loadingPath: null
+    loadingPath: null,
   })
 
   const element = useMemo(() => search(tree.data, tree.selectedPath), [
     tree.data,
-    tree.selectedPath
+    tree.selectedPath,
   ])
 
   const table = useMemo(() => {
@@ -38,7 +38,7 @@ const useOuTree = (datasource, intl) => {
         columns: [],
         data: [],
         page,
-        onPageChange
+        onPageChange,
       }
     }
     const caption = `${intl.formatMessage(
@@ -50,7 +50,7 @@ const useOuTree = (datasource, intl) => {
     )
 
     const columns = element.table.columns.map(column => {
-      if (column === "type")
+      if (column === 'type')
         return { content: json => intl.formatMessage(messages.type[json.type]) }
       else return column
     })
@@ -61,8 +61,8 @@ const useOuTree = (datasource, intl) => {
     const [nodes, table] = await Promise.all([datasource.getNodes(node), datasource.getTable(node)])
     const children = nodes.map((child, index) => ({
       node: child,
-      path: [path, index].join("-"),
-      children: []
+      path: [path, index].join('-'),
+      children: [],
     }))
     const rows = table.getRowCount
       ? Array.from(Array(table.getRowCount())).map((_, i) => table.getRow(i))
@@ -77,7 +77,7 @@ const useOuTree = (datasource, intl) => {
     const newTree = {
       openPath: treeState.openPath,
       selectedPath: treeState.selectedPath,
-      loadingPath: null
+      loadingPath: null,
     }
     if (element.table && element.table.rows.length > 0) setTree(tree => ({ ...tree, ...newTree }))
     else {
@@ -96,16 +96,16 @@ const useOuTree = (datasource, intl) => {
     const request = (currentRequest.current = new Date().valueOf())
     setLoading(true)
     const tree = await datasource.getNodes()
-    const content = await fetchContent({ path: "0", node: tree[0] })
+    const content = await fetchContent({ path: '0', node: tree[0] })
     if (request === currentRequest.current) {
       setTree(state => ({
         ...state,
         data: tree.map((element, index) => ({
           node: element,
           table: index === 0 ? content.table : null,
-          path: index + "",
-          children: index === 0 ? content.children : []
-        }))
+          path: index + '',
+          children: index === 0 ? content.children : [],
+        })),
       }))
       table.onPageChange(1)
       setLoading(false)
@@ -127,7 +127,8 @@ const OuModal = ({
   canRemove,
   radioOptions,
   intl,
-  onSelectionConfirmed = () => {}
+  onSelectionConfirmed = () => {},
+  onSelectionAborted = () => {},
 }) => {
   const intitialData = useMemo(() => selectedElements, [])
   const touched = useMemo(() => !isEqual(selectedElements, intitialData), [selectedElements])
@@ -158,7 +159,7 @@ const OuModal = ({
   return (
     <Modal
       show
-      style={{ width: "70%" }}
+      style={{ width: '70%' }}
       onClose={() => {
         onSelect(intitialData)
         onAbort()
@@ -174,7 +175,7 @@ const OuModal = ({
         </div>
       </Modal.Header>
       <Modal.Content>
-        {isArray(datasource) && (
+        {radioOptions && option && (
           <DatasourceSelector
             datasources={radioOptions}
             datasource={currentDatasource}
@@ -182,7 +183,7 @@ const OuModal = ({
           />
         )}
         <div id="org-modal-body" className="grid organizational-unit-grid">
-          {tree.loading && <Spinner target="org-modal-body" config={{ top: "220px" }} />}
+          {tree.loading && <Spinner target="org-modal-body" config={{ top: '220px' }} />}
           <div className="col-7-12 organizational-unit-tree">
             <Tree
               onElementClick={tree.update}
@@ -209,14 +210,15 @@ const OuModal = ({
             )}
           </div>
         </div>
-        <div style={{ float: "left", marginTop: 20 }}>
+        <div style={{ float: 'left', marginTop: 20 }}>
           <OrganizationalUnit data={selectedElements} onRemove={onRemove} canRemove={canRemove} />
         </div>
-        <div style={{ float: "right", marginTop: 20 }}>
+        <div style={{ float: 'right', marginTop: 20 }}>
           <AbortButton
             onClick={() => {
               onSelect(intitialData)
               onAbort()
+              onSelectionAborted()
             }}
           />
           <ConfirmButton
@@ -234,11 +236,11 @@ const OuModal = ({
 }
 
 const DatasourceSelector = ({ datasource, datasources, onChange }) => (
-  <div style={{ display: "inline-block", width: "100%" }}>
+  <div style={{ display: 'inline-block', width: '100%' }}>
     {datasources.map((option, i) => (
       <Radio
         key={i}
-        style={{ float: "left", paddingRight: 20, paddingBottom: 10 }}
+        style={{ float: 'left', paddingRight: 20, paddingBottom: 10 }}
         isChecked={datasource === option.datasource}
         onChange={checked => checked && onChange(option)}>
         {option.i18nLabel ? <FormattedMessage id={option.i18nLabel} /> : option.label}
@@ -249,10 +251,10 @@ const DatasourceSelector = ({ datasource, datasources, onChange }) => (
 
 const ResetButton = ({ disabled, onClick }) => {
   const style = {
-    float: "right",
+    float: 'right',
     font: '13.3333px "Open Sans", sans-serif',
-    fontWeight: "bold",
-    margin: 10
+    fontWeight: 'bold',
+    margin: 10,
   }
   return (
     <button
@@ -268,7 +270,7 @@ const ResetButton = ({ disabled, onClick }) => {
 const AbortButton = ({ onClick }) => (
   <button
     className="btn btn-warning-outline"
-    style={{ marginRight: "20px" }}
+    style={{ marginRight: '20px' }}
     onClick={() => onClick()}>
     <FormattedMessage {...messages.modal.general.cancel} />
   </button>
