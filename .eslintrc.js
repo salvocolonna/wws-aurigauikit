@@ -29,7 +29,7 @@ module.exports = {
       ],
     },
   },
-  plugins: ['react', 'import', 'jest', 'flowtype', 'prettier'],
+  plugins: ['react', 'import', 'jest', 'flowtype', 'prettier', 'react-hooks'],
   rules: {
     indent: OFF,
     quotes: OFF,
@@ -47,7 +47,7 @@ module.exports = {
     'react/no-find-dom-node': OFF,
     'react/no-deprecated': WARN,
     'prettier/prettier': [
-      'error',
+      OFF,
       {
         printWidth: 100,
         tabWidth: 2,
@@ -59,9 +59,11 @@ module.exports = {
         // prettier-eslint doesn't currently support
         // inferring these two (Pull Requests welcome):
         parser: 'babylon',
-        jsxBracketSameLine: true,
+        jsxBracketSameLine: false,
       },
     ],
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },
   globals: {
     _userRoleMap: true,
