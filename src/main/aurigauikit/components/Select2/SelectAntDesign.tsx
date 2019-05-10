@@ -1,8 +1,6 @@
 import React, { CSSProperties } from 'react'
 import { Select } from 'antd'
-import { SelectValue, LabeledValue } from 'antd/lib/select'
-import 'antd/dist/antd.css'
-import './ant-select-override.css'
+import { SelectValue } from 'antd/lib/select'
 
 const Option = Select.Option
 
@@ -22,7 +20,7 @@ interface Record {
 
 interface SelectProps {
   didSelect?: (v: SelectValue) => void
-  willDisplay?: (v: string | number | Record) => string
+  willDisplay?: (v: any) => string
   scrollNode?: HTMLElement
   multiple?: boolean
   style: CSSProperties
@@ -32,21 +30,19 @@ interface SelectProps {
 }
 
 function SelectAnt(props: SelectProps) {
-  const [options, setOptions] = React.useState([] as JSX.Element[])
-  // const [container, setContainer] = React.useState(document.body)
-  // const container = React.useRef((null as unknown) as HTMLDivElement)
-
-  const willDisplay = (v: string | number | Record) => {
-    console.log(v)
+  const willDisplay = (v: any) =>  {
     if (props.willDisplay && v !== null && v !== undefined) {
-      return props.willDisplay(v)
+      const display = props.willDisplay
+      if (Array.isArray(v)) return v.map(v => display(v))
+      return display(v)
     } else {
       return v
     }
   }
+  console.log(props)
 
   const didSelect = React.useCallback(
-    (value: (string | number | Record)[]) => {
+    (value: (any)[]) => {
       console.log(value)
       let res
       if (Array.isArray(value) && typeof value[0] === 'string') {
@@ -71,28 +67,11 @@ function SelectAnt(props: SelectProps) {
         return res
       }
     },
-    [props.didSelect]
+    [props]
   )
 
-  // React.useEffect(() => {
-  //   const container = props.scrollNode || document.getElementById('#content-dynamic')
-  //   if (container) {
-  //     setContainer(container)
-  //   }
-  // })
-
-  function getDefaultValue(value: any) {
-    if (Array.isArray(value)) {
-      return value.map(v => willDisplay(v))
-    } else {
-      const v = willDisplay(value)
-      return [v]
-    }
-  }
-
-  React.useEffect(() => {
+  const options = React.useMemo(() => {
     const data = props.data
-    console.log('data', data)
     if (data && data.length) {
       const options = data.map(v => {
         let key = ''
@@ -103,39 +82,31 @@ function SelectAnt(props: SelectProps) {
         } else {
           key = v.key ? v.key : JSON.stringify(v)
         }
-
         return (
           <Option key={key} value={getValue(v)}>
             {willDisplay(v)}
           </Option>
         )
       })
-      console.log(options)
-      setOptions(options)
+      return options
     }
-  }, [props.data])
+    return []
+  }, [props.data, willDisplay])
 
-  console.log(document.querySelector('#content-dynamic'))
-  const container = document.querySelector('#content-dynamic > div') || document.body
-  console.log(container)
+  const value = React.useMemo(() => willDisplay(props.value), [props.value, willDisplay])
 
   return (
-    <>
-      {container ? (
-        <Select
-          defaultValue={getDefaultValue(props.value)}
-          mode={props.multiple ? 'multiple' : 'default'}
-          style={props.style}
-          showSearch
-          optionFilterProp="children"
-          getPopupContainer={trigger => trigger.parentElement as HTMLElement} // container as HTMLElement}
-          onChange={v => didSelect(v)}
-          loading={props.loading}
-        >
-          {options}
-        </Select>
-      ) : null}
-    </>
+    <Select
+      value={value}
+      mode={props.multiple ? 'multiple' : 'default'}
+      style={props.style}
+      showSearch
+      optionFilterProp="children"
+      loading={props.loading}
+      onChange={didSelect}
+    >
+      {options}
+    </Select>
   )
 }
 
