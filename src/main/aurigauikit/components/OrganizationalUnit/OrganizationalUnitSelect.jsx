@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import OrganizationalUnitModal from './OrganizationalUnitModal/OrganizationalUnitModal'
 import Select2 from '../Select2'
@@ -116,19 +117,77 @@ class OrganizationalUnitSelect extends React.Component {
       />
     ) : (
       <div style={style}>
+=======
+import React, { useState, useCallback } from 'react'
+import OrganizationalUnitModal from './OrganizationalUnitModal/OrganizationalUnitModal'
+import { injectIntl } from 'react-intl'
+import messages from './messages'
+import OrganizationalUnit from './OrganizationalUnit'
+import Select2 from 'aurigauikit/components/Select2'
+
+const OuSelect = ({
+  selectedElements = [],
+  defaultSelection,
+  disabled,
+  datasource,
+  radioOptions,
+  selectedItem,
+  multiple,
+  intl,
+  onSelectionChange = () => true,
+  onSelect = () => {},
+  canSelect = () => true,
+}) => {
+  const [show, setShow] = useState(false)
+  const confirm = selectedElements => {
+    if (onSelectionChange) onSelectionChange(selectedElements)
+    setShow(false)
+  }
+
+  const unselect = item => {
+    const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
+    const items = [...selectedElements]
+    items.splice(index, 1)
+    onSelectionChange(items)
+  }
+
+  const canUnselect = item =>
+    defaultSelection
+      ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
+      : true
+
+  const display = useCallback(v => `${v.description} (${v.code})`, [selectedElements, selectedItem])
+
+  return disabled ? (
+    <input
+      type="text"
+      disabled
+      style={{ width: '100%', backgroundColor: '#fff' }}
+      value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${
+        defaultSelection.description
+      } (${defaultSelection.code})`}
+    />
+  ) : (
+    <div style={{ display: 'inline-flex', width: '100%' }}>
+      {show && (
+>>>>>>> 79693f0685e43a40306dc4adf3e65ae2cf8f6026
         <OrganizationalUnitModal
-          groupable={groupable}
-          show={this.state.showModal}
-          onSelectionConfirmed={selectedElements => this.onConfirm(selectedElements)}
-          onReset={() => this.onReset()}
-          datasource={datasource}
-          canSelect={element => canSelect(element)}
-          selectedElements={this.state.selectedElements}
+          show
+          onConfirm={confirm}
+          onSelect={e => {
+            onSelectionChange(e)
+            onSelect(e[e.length - 1])
+          }}
           defaultSelection={defaultSelection}
-          dataComparator={dataComparator}
-          onSelectionAborted={() => this.onAbort()}
           radioOptions={radioOptions}
+          datasource={datasource}
+          canSelect={canSelect}
+          selectedElements={selectedElements}
+          onRemove={unselect}
+          canRemove={canUnselect}
+          onAbort={() => setShow(false)}
         />
+<<<<<<< HEAD
         {this.state.selectedElements.length === 1 ? (
           <input
             type="text"
@@ -157,7 +216,37 @@ class OrganizationalUnitSelect extends React.Component {
       </div>
     )
   }
+=======
+      )}
+      {selectedElements.length === 1 ? (
+        <Single element={selectedElements[0]} />
+      ) : multiple ? (
+        <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
+      ) : (
+        <Select2
+          data={selectedElements}
+          value={selectedItem}
+          didSelect={onSelect}
+          willDisplay={display}
+          style={{ width: '100%' }}
+        />
+      )}
+      <ModalButton onClick={() => setShow(true)} />
+    </div>
+  )
+>>>>>>> 79693f0685e43a40306dc4adf3e65ae2cf8f6026
 }
+
+const Single = injectIntl(({ element, intl }) => (
+  <input
+    type="text"
+    disabled
+    style={{ width: '100%', backgroundColor: '#fff' }}
+    value={`${intl.formatMessage(messages.type[element.type])} - ${element.description} (${
+      element.code
+    })`}
+  />
+))
 
 const ModalButton = ({ onClick }) => {
   const style = {
@@ -177,6 +266,7 @@ const ModalButton = ({ onClick }) => {
           lineHeight: '32px',
           cursor: 'pointer',
           margin: '0',
+<<<<<<< HEAD
         }}
       />
     </a>
@@ -201,10 +291,12 @@ const GroupButton = ({ onClick }) => {
           lineHeight: '32px',
           cursor: 'pointer',
           margin: '0',
+=======
+>>>>>>> 79693f0685e43a40306dc4adf3e65ae2cf8f6026
         }}
       />
     </a>
   )
 }
 
-export default injectIntl(OrganizationalUnitSelect)
+export default injectIntl(OuSelect)

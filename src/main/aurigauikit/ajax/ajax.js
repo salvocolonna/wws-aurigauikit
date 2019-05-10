@@ -126,7 +126,7 @@ class Ajax extends RequestMaker {
         it: "Si è verificato un errore. Si prega di riprovare più tardi.",
         en: "An internal error occourred, please try again later."
       }
-      showCriticalPanel(errors[lang])
+      if (response.status !== 404) showCriticalPanel(errors[lang])
       throw {
         status: response.status,
         statusText: response.statusText,

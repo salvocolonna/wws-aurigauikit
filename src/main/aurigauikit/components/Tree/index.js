@@ -1,2 +1,2 @@
-import Tree from "./Tree"
-export default Tree
+export { default } from "./Tree"
+export * from "./Tree"

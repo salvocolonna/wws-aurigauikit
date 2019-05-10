@@ -100,7 +100,6 @@ class Dialog extends React.Component {
     }
     return (
       <Panel onSize={this.recenter} style={modalStyle}>
-        <Style>{`body{ overflow: hidden !important; }`}</Style>
         <div ref={this.parentRef}> {children} </div>
       </Panel>
     )
@@ -112,30 +111,5 @@ const Panel = sizeMe({ monitorHeight: true, noPlaceholder: true })(({ children, 
     {children}
   </div>
 ))
-
-class Style extends React.Component {
-  id = guid()
-
-  componentDidMount() {
-    const style = document.createElement("style")
-    style.id = this.id
-    document.head.appendChild(style)
-    this.update()
-  }
-
-  update = () => (document.getElementById(this.id).innerHTML = this.props.children.toString())
-
-  componentDidUpdate({ children }) {
-    if (children !== this.props.children) this.update()
-  }
-
-  componentWillUnmount() {
-    document.getElementById(this.id).remove()
-  }
-
-  render() {
-    return null
-  }
-}
 
 export default Modal

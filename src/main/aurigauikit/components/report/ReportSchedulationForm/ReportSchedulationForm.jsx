@@ -18,7 +18,7 @@ export const defaultProps = {
     reportName: "",
     template: null,
     organizationalUnit: null,
-    organizationalUnits: null,
+    organizationalUnits: [],
     startDate: null,
     duration: 0,
     previousMonth: false,
