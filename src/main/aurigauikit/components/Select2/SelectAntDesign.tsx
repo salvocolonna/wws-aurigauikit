@@ -39,11 +39,9 @@ function SelectAnt(props: SelectProps) {
       return v
     }
   }
-  console.log(props)
 
   const didSelect = React.useCallback(
     (value: (any)[]) => {
-      console.log(value)
       let res
       if (Array.isArray(value) && typeof value[0] === 'string') {
         try {
@@ -67,7 +65,7 @@ function SelectAnt(props: SelectProps) {
         return res
       }
     },
-    [props]
+    [props.didSelect]
   )
 
   const options = React.useMemo(() => {
@@ -91,9 +89,9 @@ function SelectAnt(props: SelectProps) {
       return options
     }
     return []
-  }, [props.data, willDisplay])
+  }, [props.data])
 
-  const value = React.useMemo(() => willDisplay(props.value), [props.value, willDisplay])
+  const value = React.useMemo(() => willDisplay(props.value), [props.value])
 
   return (
     <Select
