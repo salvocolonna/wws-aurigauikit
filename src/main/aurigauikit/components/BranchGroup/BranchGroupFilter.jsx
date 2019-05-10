@@ -1,7 +1,7 @@
 import React from "react"
 import { BasicFilter, BasicFilterElement } from "aurigauikit/components/BasicFilter"
 import OrganizationalUnitSelect from "aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect"
-import Select2 from "aurigauikit/components/Select2/Select2ReWrapper"
+import Select2 from "aurigauikit/components/Select2"
 
 const ou = _userRoleMap.getOU()
 
