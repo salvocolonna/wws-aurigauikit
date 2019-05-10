@@ -1,11 +1,11 @@
-import React from "react"
-import OrganizationalUnitModal from "./OrganizationalUnitModal/OrganizationalUnitModal"
-import Select2 from "../Select2/Select2ReWrapper"
-import { injectIntl } from "react-intl"
-import isEqual from "lodash/isEqual"
-import messages from "./messages"
+import React from 'react'
+import OrganizationalUnitModal from './OrganizationalUnitModal/OrganizationalUnitModal'
+import Select2 from '../Select2'
+import { injectIntl } from 'react-intl'
+import isEqual from 'lodash/isEqual'
+import messages from './messages'
 
-const show = org => (org.description ? org.description + " (" + org.code + ")" : org.code)
+const show = org => (org.description ? org.description + ' (' + org.code + ')' : org.code)
 
 class OrganizationalUnitSelect extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class OrganizationalUnitSelect extends React.Component {
       selectedElements:
         this.props.selectedElements ||
         (this.props.defaultSelection ? [this.props.defaultSelection] : []),
-      selectedItem: this.props.selectedItem || this.props.defaultSelection
+      selectedItem: this.props.selectedItem || this.props.defaultSelection,
     }
   }
 
@@ -40,7 +40,7 @@ class OrganizationalUnitSelect extends React.Component {
 
   static defaultProps = {
     dataComparator: (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id,
-    canSelect: () => true
+    canSelect: () => true,
   }
 
   onShow() {
@@ -56,7 +56,7 @@ class OrganizationalUnitSelect extends React.Component {
       if (this.props.onSelectionChange) this.props.onSelectionChange(selectedElements)
       if (this.props.onSelect)
         this.props.onSelect(
-          this.props.all && this.state.selectedElements.length > 1 ? "ALL" : selectedElements[0]
+          this.props.all && this.state.selectedElements.length > 1 ? 'ALL' : selectedElements[0]
         )
     })
   }
@@ -86,11 +86,11 @@ class OrganizationalUnitSelect extends React.Component {
       radioOptions,
       groupable,
       all,
-      intl
+      intl,
     } = this.props
     const style = {
-      display: "inline-flex",
-      width: "100%"
+      display: 'inline-flex',
+      width: '100%',
     }
 
     const allMessage = intl.formatMessage(messages.type.ALL)
@@ -99,17 +99,17 @@ class OrganizationalUnitSelect extends React.Component {
       `${intl.formatMessage(messages.type[type])} - ${description} (${code})`
 
     const display = element =>
-      element === "ALL"
+      element === 'ALL'
         ? allMessage
         : this.isDefault(element) && !this.isEqual(element, this.state.selectedItem)
-          ? "[DEFAULT] " + typeMessage(element)
-          : typeMessage(element)
+        ? '[DEFAULT] ' + typeMessage(element)
+        : typeMessage(element)
     show
     return disabled ? (
       <input
         type="text"
         disabled
-        style={{ width: "100%", backgroundColor: "#fff" }}
+        style={{ width: '100%', backgroundColor: '#fff' }}
         value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${show(
           defaultSelection
         )}`}
@@ -133,25 +133,26 @@ class OrganizationalUnitSelect extends React.Component {
           <input
             type="text"
             disabled
-            style={{ width: "100%", backgroundColor: "#fff" }}
+            style={{ width: '100%', backgroundColor: '#fff' }}
             value={`${intl.formatMessage(
               messages.type[this.state.selectedElements[0].type]
             )} - ${show(this.state.selectedElements[0])}`}
           />
         ) : (
           <Select2
-            style={{ width: "100%" }}
-            data={all ? ["ALL", ...this.state.selectedElements] : this.state.selectedElements}
+            style={{ width: '100%' }}
+            data={all ? ['ALL', ...this.state.selectedElements] : this.state.selectedElements}
             willDisplay={this.props.willDisplay || display}
             value={this.state.selectedItem}
             options={{
-              placeholder: this.props.placeHolder || intl.formatMessage(messages.type.placeholder)
+              placeholder: this.props.placeHolder || intl.formatMessage(messages.type.placeholder),
             }}
             didSelect={element => this.onSelect(element)}
           />
         )}
-        {groupable &&
-          this.state.selectedElements.length > 1 && <GroupButton onClick={() => this.onShow()} />}
+        {groupable && this.state.selectedElements.length > 1 && (
+          <GroupButton onClick={() => this.onShow()} />
+        )}
         <ModalButton onClick={() => this.onShow()} />
       </div>
     )
@@ -160,22 +161,22 @@ class OrganizationalUnitSelect extends React.Component {
 
 const ModalButton = ({ onClick }) => {
   const style = {
-    marginLeft: "10px",
-    padding: "0 0.8em",
-    height: "2.8em",
-    cursor: "pointer"
+    marginLeft: '10px',
+    padding: '0 0.8em',
+    height: '2.8em',
+    cursor: 'pointer',
   }
   return (
     <a style={style} className="btn btn-primary" onClick={() => onClick()}>
       <i
         className="fa fa-bank"
         style={{
-          width: "100%",
-          textAlign: "center",
-          padding: "2px",
-          lineHeight: "32px",
-          cursor: "pointer",
-          margin: "0"
+          width: '100%',
+          textAlign: 'center',
+          padding: '2px',
+          lineHeight: '32px',
+          cursor: 'pointer',
+          margin: '0',
         }}
       />
     </a>
@@ -184,22 +185,22 @@ const ModalButton = ({ onClick }) => {
 
 const GroupButton = ({ onClick }) => {
   const style = {
-    marginLeft: "10px",
-    padding: "0 0.8em",
-    height: "2.8em",
-    cursor: "pointer"
+    marginLeft: '10px',
+    padding: '0 0.8em',
+    height: '2.8em',
+    cursor: 'pointer',
   }
   return (
     <a style={style} className="btn btn-confirmatory-outline" onClick={() => onClick()}>
       <i
         className="fa fa-compress"
         style={{
-          width: "100%",
-          textAlign: "center",
-          padding: "2px",
-          lineHeight: "32px",
-          cursor: "pointer",
-          margin: "0"
+          width: '100%',
+          textAlign: 'center',
+          padding: '2px',
+          lineHeight: '32px',
+          cursor: 'pointer',
+          margin: '0',
         }}
       />
     </a>

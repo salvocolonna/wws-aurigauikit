@@ -1,2 +1,2 @@
-import Select2 from "./Select2ReWrapper"
+import Select2 from './SelectAntDesign'
 export default Select2

@@ -1,5 +1,5 @@
 import React from "react"
-import Select2 from "aurigauikit/components/Select2/Select2ReWrapper"
+import Select2 from "aurigauikit/components/Select2"
 import Show from "./components/Show"
 
 const elements = ["First Element", "Second Element"]
