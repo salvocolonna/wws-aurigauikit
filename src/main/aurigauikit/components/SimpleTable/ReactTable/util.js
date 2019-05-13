@@ -1,15 +1,16 @@
 import React from "react"
 import Header from "./Header"
 import Pagination from "../components/Pagination"
+import isFunction from "lodash/isFunction"
 
 const countPages = (length, size) => Math.floor(length / size + (length % size > 0 ? 1 : 0))
 
 const getRawValue = (column, data) => {
-  if (column.props.rawValue) return column.props.rawValue(data)
+  if (column.props.value) return column.props.value
   else {
-    const value = column.props.children(data)
+    const value = isFunction(data) ? column.props.children(data) : column.props.children
     if (typeof value !== "number" && typeof value !== "string") {
-      console.warn("Not sortable column without rawValue prop")
+      console.warn("Not sortable column without a valid value prop")
       return null
     }
     return value
@@ -21,10 +22,15 @@ export const parseHeaders = (children, override) => {
   const headers = children
     .filter(({ type }) => type.displayName === Header.displayName)
     .map((header, index) => {
-      if (header.props.sortable) sortable = true
+      const isSortable =
+        (!override.sortable && header.props.sortable) ||
+        (override.sortable && header.props.sortable !== false)
+      if (isSortable) sortable = true
+      const sort = header.props.sort || override.sort
       return React.cloneElement(header, {
-        sort: header.props.sort || override.sort[index], //this.state.sort[index],
-        onClick: header.onClick || (() => override.onClick(index)) //(() => this.changeSort(index))
+        sortable: isSortable,
+        sort: sort.index === index && sort.direction,
+        onClick: header.onClick || (() => override.onClick(index))
       })
     })
   return { headers, sortable }

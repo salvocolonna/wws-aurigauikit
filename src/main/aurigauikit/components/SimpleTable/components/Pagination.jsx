@@ -60,7 +60,6 @@ class Pagination extends React.Component {
                 </div>
               )}
               <div>
-                {" "}
                 Page {this.props.page} of {this.props.totalPages}
               </div>
             </div>

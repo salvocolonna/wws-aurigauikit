@@ -11,6 +11,7 @@ const PARENT_BANK = "PARENT_BANK"
 const BANK = "BANK"
 const AREA = "AREA"
 const BRANCH = "BRANCH"
+const ASSET = "ASSET"
 
 export default class extends React.Component {
   state = { selectedElements: [], adding: false }
@@ -43,9 +44,11 @@ export default class extends React.Component {
       [PARENT_BANK]: type === PARENT_BANK,
       [BANK]: type === PARENT_BANK || type === BANK,
       [AREA]: type === PARENT_BANK || type === BANK || type === AREA,
-      [BRANCH]: type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH
+      [BRANCH]: type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH,
+      [ASSET]:
+        type === PARENT_BANK || type === BANK || type === AREA || type === BRANCH || type === ASSET,
     }
-    return selectable[groupType] || true
+    return selectable[groupType]
   }
 
   render() {
@@ -80,17 +83,18 @@ export default class extends React.Component {
         <section style={{ paddingBottom: 20, marginTop: mode === "view" && 40 }}>
           {mode !== "view" && <AddButton disabled={loading} onClick={this.add} />}
           {children}
-          <OrganizationalUnitModal
-            show={this.state.adding}
-            onSelectionConfirmed={this.confirmSelection}
-            datasource={organizationalUnitDatasource}
-            dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
-            onSelectionAborted={this.undoAdd}
-            selectedElements={
-              getSelectedElements ? getSelectedElements() : this.state.selectedElements
-            }
-            canSelect={this.canSelect}
-          />
+          {this.state.adding && (
+            <OrganizationalUnitModal
+              onSelectionConfirmed={this.confirmSelection}
+              datasource={organizationalUnitDatasource}
+              dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
+              onSelectionAborted={this.undoAdd}
+              selectedElements={
+                getSelectedElements ? getSelectedElements() : this.state.selectedElements
+              }
+              canSelect={this.canSelect}
+            />
+          )}
         </section>
         {mode !== "view" && (
           <div className="btn-group" style={{ marginTop: 20 }}>

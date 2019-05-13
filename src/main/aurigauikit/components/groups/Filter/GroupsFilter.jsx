@@ -32,6 +32,11 @@ class BranchGroupFilter extends React.Component {
     if (onChange) onChange({ ...filter, organizationalUnit })
   }
 
+  changeOrganizationalUnits = organizationalUnits => {
+    const { onChange, filter } = this.props
+    if (onChange) onChange({ ...filter, organizationalUnits })
+  }
+
   render() {
     const { customTypes, organizationalUnitDatasource, filter, onReset, onApply } = this.props
     return (
@@ -43,9 +48,12 @@ class BranchGroupFilter extends React.Component {
                 <Msg {...messages.organizationalUnit} />
               </label>
               <OrganizationalUnitSelect
+                multiple
                 datasource={organizationalUnitDatasource}
                 canSelect={element => element.type === "BRANCH"}
                 defaultSelection={filter.organizationalUnit}
+                selectedElements={filter.organizationalUnits}
+                onSelectionChange={this.changeOrganizationalUnits}
                 onSelect={this.changeOrganizationalUnit}
               />
             </Div>

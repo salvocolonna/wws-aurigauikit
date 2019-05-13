@@ -8,7 +8,7 @@ const isParam = value => !isNull(value) && !isUndefined(value) && value !== ""
 const param = (query, params, key, prefix = "", forcedKey) => {
   const param = forcedKey || (prefix ? `${prefix}.${key}` : key)
   const value = params[key]
-  return [query, `${param}=${value}`].join(query === "" ? "" : "&")
+  return [query, `${param}=${value.valueOf()}`].join(query === "" ? "" : "&")
 }
 
 const listParam = (query, params, key, prefix = "") => {

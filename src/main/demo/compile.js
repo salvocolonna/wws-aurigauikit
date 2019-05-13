@@ -14,8 +14,10 @@ const parse = () => {
     const COMPONENT = COMPONENTS + "/" + component
     parts[component] = []
     fs.readdirSync(COMPONENT).forEach(part => {
-      if (part.endsWith(".jsx")) {
-        const name = part.split(".jsx")[0]
+      const jsx = part.endsWith(".jsx")
+      const js = part.endsWith(".js")
+      if (jsx || js) {
+        const name = part.split(jsx ? ".jsx" : ".js")[0]
         const code = fs.readFileSync(COMPONENT + "/" + part).toString()
         parts[component].push(name)
         parts[component][name] = { code }
@@ -54,6 +56,7 @@ const compile = () => {
     .filter(Boolean)
     .join("\n")
   const code = `
+    /** AUTO-GENERATED - do not modify */
     import { lazy } from 'react' 
     ${metadata}
     export default { ${data.map(render)} }

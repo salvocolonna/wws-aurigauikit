@@ -50,6 +50,7 @@ class CellEditor extends React.Component {
   confirmed = () => {
     const input = document.getElementById(this.inputId)
     this.props.onEditConfirmed(this.props.rowIndex, this.props.colIndex, input.value)
+    console.log("LOL", this.props.rowIndex, this.props.colIndex, input.value)
     this.closeOnBodyClick({ target: null })
   }
 
