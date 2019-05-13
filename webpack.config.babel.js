@@ -1,28 +1,28 @@
-import webpack from "webpack"
-import path from "path"
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
+import webpack from 'webpack'
+import path from 'path'
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
 const module = {
   rules: [
     {
       test: /\.(js|jsx|ts|tsx)$/,
-      use: ["babel-loader"],
-      exclude: /node_modules/
+      use: ['babel-loader'],
+      exclude: /node_modules/,
     },
     {
       test: /\.(css|less)$/,
       use: [
-        "style-loader",
+        'style-loader',
         { loader: MiniCssExtractPlugin.loader },
         {
-          loader: "css-loader",
+          loader: 'css-loader',
           options: {
             minimize: true,
-            camelCase: "dashes",
-            localIdentName: "[name]__[local]___[hash:base64:5]"
-          }
+            camelCase: 'dashes',
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+          },
         },
         {
           loader: 'less-loader',
@@ -50,7 +50,7 @@ const module = {
               '@alert-success-icon-color': '#47A33C',
               '@alert-success-border-color': '#47A33C',
               '@normal-color': '#FAFAFA',
-              '@text-color': '#000000',
+              '@text-color': '#3c434a',
               '@btn-default-bg': '#FFFFFF',
               '@btn-default-color': '#2984C5',
               '@btn-default-border': '#2984C5',
@@ -64,10 +64,10 @@ const module = {
             },
             javascriptEnabled: true,
           },
-        }
-      ]
-    }
-  ]
+        },
+      ],
+    },
+  ],
 }
 
 const libRules = [
@@ -75,96 +75,96 @@ const libRules = [
     test: /\.(eot|svg|ttf|woff|woff2|jpg|pdf)$/,
     use: [
       {
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          publicPath: "./"
-        }
-      }
-    ]
+          publicPath: './',
+        },
+      },
+    ],
   },
   {
     test: /\.(png)$/,
     use: [
       {
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          publicPath: "./dist/"
-        }
-      }
-    ]
-  }
+          publicPath: './dist/',
+        },
+      },
+    ],
+  },
 ]
 
 const demoRules = [
   {
     test: /\.(eot|svg|ttf|woff|woff2|jpg|png|pdf)$/,
-    use: ["file-loader"]
-  }
+    use: ['file-loader'],
+  },
 ]
 
 const resolve = {
-  extensions: [".js", ".jsx", ".ts", ".tsx"]
+  extensions: ['.js', '.jsx', '.ts', '.tsx'],
 }
 
 const plugins = [
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-  new MiniCssExtractPlugin({ filename: "aurigauikit.bundle.css" })
+  new MiniCssExtractPlugin({ filename: 'aurigauikit.bundle.css' }),
   /*new BundleAnalyzerPlugin({ analyzerMode: "static" })*/
 ]
 
 const lib = {
-  mode: "production",
-  entry: "./src/main/aurigauikit",
+  mode: 'production',
+  entry: './src/main/aurigauikit',
   output: {
-    path: path.join(__dirname, "./dist"),
-    filename: "aurigauikit.bundle.js",
-    library: "AurigaUIKit",
-    libraryTarget: "umd",
-    publicPath: "/"
+    path: path.join(__dirname, './dist'),
+    filename: 'aurigauikit.bundle.js',
+    library: 'AurigaUIKit',
+    libraryTarget: 'umd',
+    publicPath: '/',
   },
   plugins,
   module: { ...module, rules: [...module.rules, ...libRules] },
   resolve,
-  externals: { react: "React", "react-dom": "ReactDOM" },
-  devtool: "source-map"
+  externals: { react: 'React', 'react-dom': 'ReactDOM' },
+  devtool: 'source-map',
 }
 
 const libDev = {
   ...lib,
-  mode: "development",
-  devtool: "inline-source-map"
+  mode: 'development',
+  devtool: 'inline-source-map',
 }
 
 const demo = {
-  mode: "development",
-  entry: "./src/main/demo/App",
+  mode: 'development',
+  entry: './src/main/demo/App',
   output: {
-    filename: "aurigauikit-demo.bundle.js",
-    publicPath: "/",
-    sourceMapFilename: "aurigauikit-demo.bundle.js.map"
+    filename: 'aurigauikit-demo.bundle.js',
+    publicPath: '/',
+    sourceMapFilename: 'aurigauikit-demo.bundle.js.map',
   },
   devServer: {
     port: 3100,
     inline: true,
-    contentBase: ".",
+    contentBase: '.',
     historyApiFallback: {
       rewrites: [
         {
           from: /.*\.html/,
-          to: "/index.html"
-        }
-      ]
-    }
+          to: '/index.html',
+        },
+      ],
+    },
   },
   plugins: [
     ...plugins,
     new HtmlWebpackPlugin({
-      template: "./index.html"
-    })
+      template: './index.html',
+    }),
   ],
   module: { ...module, rules: [...module.rules, ...demoRules] },
   resolve,
-  devtool: "inline-source-map"
+  devtool: 'inline-source-map',
 }
 
-export default env => (env === "lib" ? lib : env === "libDev" ? libDev : demo)
+export default env => (env === 'lib' ? lib : env === 'libDev' ? libDev : demo)
