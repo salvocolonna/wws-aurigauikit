@@ -60,6 +60,7 @@ interface SelectProps {
   willDisplay?: (v: string | number | Record) => string
   scrollNode?: HTMLElement
   multiple?: boolean
+  options?: { tags?: boolean }
   style: CSSProperties
   data: (number | string | Record)[]
   value?: any
@@ -84,7 +85,6 @@ function SelectAnt(props: SelectProps) {
   const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
       let res = normalizeResponse(value)
-      console.log('res:', res)
       if (props.didSelect && res) {
         return props.didSelect(res)
       } else {
@@ -94,11 +94,15 @@ function SelectAnt(props: SelectProps) {
     [props.didSelect]
   )
 
+  React.useEffect(() => {
+    if (isOpened === false) {
+      selectRef.current.blur()
+    }
+  }, [isOpened])
+
   function handleSelect() {
     if (!props.multiple) {
       setIsOpened(false)
-      console.log('blur')
-      selectRef.current.blur()
     }
   }
 
@@ -127,11 +131,17 @@ function SelectAnt(props: SelectProps) {
 
   const value = React.useMemo(() => normalizeValue(props.value), [props.value])
 
+  const mode = React.useMemo(() => {
+    if (props.options && props.options.tags) return 'tags'
+    if (props.multiple) return 'multiple'
+    return 'default'
+  }, [props.options, props.multiple])
+
   return (
     <Select
       ref={selectRef}
       value={value}
-      mode={props.multiple ? 'multiple' : 'default'}
+      mode={mode}
       style={props.style}
       showSearch
       optionFilterProp="children"
