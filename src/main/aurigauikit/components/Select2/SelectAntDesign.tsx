@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import { Select } from 'antd'
-import { SelectValue, LabeledValue } from 'antd/lib/select'
+import { SelectValue } from 'antd/lib/select'
 import 'antd/dist/antd.css'
 import './ant-select-override.css'
 
@@ -16,12 +16,49 @@ function getValue(value: number | string | Record): string {
   }
 }
 
+function convertToString(value: unknown): string {
+  if (typeof value === 'string') {
+    return value
+  } else if (typeof value === 'number') {
+    return value.toString()
+  } else {
+    return JSON.stringify(value)
+  }
+}
+
+function normalizeValue(value: any): string[] {
+  if (Array.isArray(value)) {
+    return value.map(v => convertToString(v))
+  } else {
+    return [convertToString(value)]
+  }
+}
+
+function normalizeResponse(value: any): string | string[] {
+  if (Array.isArray(value) && typeof value[0] === 'string') {
+    try {
+      return (value as string[]).map(v => JSON.parse(v))
+    } catch (error) {
+      return value
+    }
+  } else if (typeof value === 'string') {
+    try {
+      return JSON.parse(value)
+    } catch (error) {
+      return value
+    }
+  } else {
+    return value
+  }
+}
+
 interface Record {
+  key?: string | number
   [key: string]: any
 }
 
 interface SelectProps {
-  didSelect?: (v: SelectValue) => void
+  didSelect?: (v: SelectValue) => any
   willDisplay?: (v: string | number | Record) => string
   scrollNode?: HTMLElement
   multiple?: boolean
@@ -29,15 +66,16 @@ interface SelectProps {
   data: (number | string | Record)[]
   value?: any
   loading?: boolean
+  disabled?: boolean
 }
 
 function SelectAnt(props: SelectProps) {
   const [options, setOptions] = React.useState([] as JSX.Element[])
-  // const [container, setContainer] = React.useState(document.body)
-  // const container = React.useRef((null as unknown) as HTMLDivElement)
+  const [isOpened, setIsOpened] = React.useState(false)
+  const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
 
   const willDisplay = (v: string | number | Record) => {
-    console.log(v)
+    // console.log(v)
     if (props.willDisplay && v !== null && v !== undefined) {
       return props.willDisplay(v)
     } else {
@@ -45,27 +83,11 @@ function SelectAnt(props: SelectProps) {
     }
   }
 
-  const didSelect = React.useCallback(
+  const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
-      console.log(value)
-      let res
-      if (Array.isArray(value) && typeof value[0] === 'string') {
-        try {
-          res = (value as string[]).map(v => JSON.parse(v))
-        } catch (error) {
-          res = value
-        }
-      } else if (typeof value === 'string') {
-        try {
-          res = JSON.parse(value)
-        } catch (error) {
-          res = value
-        }
-      } else {
-        res = value
-      }
-
-      if (props.didSelect) {
+      let res = normalizeResponse(value)
+      console.log('res:', res)
+      if (props.didSelect && res) {
         return props.didSelect(res)
       } else {
         return res
@@ -74,19 +96,11 @@ function SelectAnt(props: SelectProps) {
     [props.didSelect]
   )
 
-  // React.useEffect(() => {
-  //   const container = props.scrollNode || document.getElementById('#content-dynamic')
-  //   if (container) {
-  //     setContainer(container)
-  //   }
-  // })
-
-  function getDefaultValue(value: any) {
-    if (Array.isArray(value)) {
-      return value.map(v => willDisplay(v))
-    } else {
-      const v = willDisplay(value)
-      return [v]
+  function handleSelect() {
+    if (!props.multiple) {
+      setIsOpened(false)
+      console.log('blur')
+      selectRef.current.blur()
     }
   }
 
@@ -101,7 +115,7 @@ function SelectAnt(props: SelectProps) {
         } else if (typeof v === 'number') {
           key = v.toString()
         } else {
-          key = v.key ? v.key : JSON.stringify(v)
+          key = v.key ? v.key.toString() : JSON.stringify(v)
         }
 
         return (
@@ -110,27 +124,30 @@ function SelectAnt(props: SelectProps) {
           </Option>
         )
       })
-      console.log(options)
       setOptions(options)
     }
   }, [props.data])
 
-  console.log(document.querySelector('#content-dynamic'))
   const container = document.querySelector('#content-dynamic > div') || document.body
-  console.log(container)
 
   return (
     <>
       {container ? (
         <Select
-          defaultValue={getDefaultValue(props.value)}
+          ref={selectRef}
+          value={normalizeValue(props.value)}
           mode={props.multiple ? 'multiple' : 'default'}
           style={props.style}
           showSearch
           optionFilterProp="children"
           getPopupContainer={trigger => trigger.parentElement as HTMLElement} // container as HTMLElement}
-          onChange={v => didSelect(v)}
+          onChange={v => handleChange(v)}
+          onSelect={() => handleSelect()}
+          onFocus={() => setIsOpened(true)}
+          onBlur={() => setIsOpened(false)}
+          open={isOpened}
           loading={props.loading}
+          disabled={props.disabled}
         >
           {options}
         </Select>
