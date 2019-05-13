@@ -175,7 +175,6 @@ const OuModal = ({
         ]
       }, [])
       .filter(Boolean)
-    console.log(parents)
     const filtered = elements.filter(e => {
       return !(parents.find(a => dataComparator(a, e)) || children.find(a => dataComparator(a, e)))
     })

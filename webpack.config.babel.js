@@ -25,10 +25,45 @@ const module = {
           }
         },
         {
-          loader: "less-loader",
+          loader: 'less-loader',
           options: {
-            minimize: true
-          }
+            minimize: true,
+            modifyVars: {
+              '@primary-color': '#2984C5',
+              '@info-color': '#2984C5',
+              '@link-color': '#2984C5',
+              '@success-color': '#65C25A',
+              '@error-color': '#DC402B',
+              '@warning-color': '#E98036',
+              '@border-color-base': '#AAAAAA',
+              '@border-color-split': '#CCCCCC',
+              '@alert-info-bg-color': '#F1F7FC',
+              '@alert-info-icon-color': '#20689B',
+              '@alert-info-border-color': '#C7E1F3',
+              '@alert-error-bg-color': '#FDF1F0',
+              '@alert-error-icon-color': '#AD2E1D',
+              '@alert-error-border-color': '#AD2E1D',
+              '@alert-warning-bg-color': '#FDF4EE',
+              '@alert-warning-icon-color': '#CC6116',
+              '@alert-warning-border-color': '#CC6116',
+              '@alert-success-bg-color': '#F0F9EF',
+              '@alert-success-icon-color': '#47A33C',
+              '@alert-success-border-color': '#47A33C',
+              '@normal-color': '#FAFAFA',
+              '@text-color': '#000000',
+              '@btn-default-bg': '#FFFFFF',
+              '@btn-default-color': '#2984C5',
+              '@btn-default-border': '#2984C5',
+              '@font-family': 'Open Sans,sans-serif',
+              '@font-size-base': '13px',
+              '@input-height-base': '37px',
+              '@btn-padding-base': '0 1.5em',
+              '@btn-height-base': '34px',
+              '@line-height-base': 1.4,
+              '@btn-font-weight': 700,
+            },
+            javascriptEnabled: true,
+          },
         }
       ]
     }

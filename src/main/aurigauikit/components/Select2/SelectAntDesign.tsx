@@ -1,8 +1,6 @@
 import React, { CSSProperties } from 'react'
 import { Select } from 'antd'
 import { SelectValue } from 'antd/lib/select'
-import 'antd/dist/antd.css'
-import './ant-select-override.css'
 
 const Option = Select.Option
 
@@ -70,14 +68,14 @@ interface SelectProps {
 }
 
 function SelectAnt(props: SelectProps) {
-  const [options, setOptions] = React.useState([] as JSX.Element[])
   const [isOpened, setIsOpened] = React.useState(false)
   const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
 
   const willDisplay = (v: string | number | Record) => {
-    // console.log(v)
     if (props.willDisplay && v !== null && v !== undefined) {
-      return props.willDisplay(v)
+      const display = props.willDisplay
+      if (Array.isArray(v)) return v.map(v => display(v))
+      return display(v)
     } else {
       return v
     }
@@ -104,9 +102,8 @@ function SelectAnt(props: SelectProps) {
     }
   }
 
-  React.useEffect(() => {
+  const options = React.useMemo(() => {
     const data = props.data
-    console.log('data', data)
     if (data && data.length) {
       const options = data.map(v => {
         let key = ''
@@ -117,42 +114,39 @@ function SelectAnt(props: SelectProps) {
         } else {
           key = v.key ? v.key.toString() : JSON.stringify(v)
         }
-
         return (
           <Option key={key} value={getValue(v)}>
             {willDisplay(v)}
           </Option>
         )
       })
-      setOptions(options)
+
+      return options
     }
+    return []
   }, [props.data])
 
-  const container = document.querySelector('#content-dynamic > div') || document.body
+  const value = React.useMemo(() => normalizeValue(props.value), [props.value])
 
   return (
-    <>
-      {container ? (
-        <Select
-          ref={selectRef}
-          value={normalizeValue(props.value)}
-          mode={props.multiple ? 'multiple' : 'default'}
-          style={props.style}
-          showSearch
-          optionFilterProp="children"
-          getPopupContainer={trigger => trigger.parentElement as HTMLElement} // container as HTMLElement}
-          onChange={v => handleChange(v)}
-          onSelect={() => handleSelect()}
-          onFocus={() => setIsOpened(true)}
-          onBlur={() => setIsOpened(false)}
-          open={isOpened}
-          loading={props.loading}
-          disabled={props.disabled}
-        >
-          {options}
-        </Select>
-      ) : null}
-    </>
+    <Select
+      ref={selectRef}
+      value={value}
+      mode={props.multiple ? 'multiple' : 'default'}
+      style={props.style}
+      showSearch
+      optionFilterProp="children"
+      getPopupContainer={trigger => trigger.parentElement as HTMLElement}
+      onChange={v => handleChange(v)}
+      onSelect={() => handleSelect()}
+      onFocus={() => setIsOpened(true)}
+      onBlur={() => setIsOpened(false)}
+      open={isOpened}
+      loading={props.loading}
+      disabled={props.disabled}
+    >
+      {options}
+    </Select>
   )
 }
 
