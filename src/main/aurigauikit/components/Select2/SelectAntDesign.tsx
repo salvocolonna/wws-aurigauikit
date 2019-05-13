@@ -56,8 +56,13 @@ interface Record {
 }
 
 interface SelectProps {
+<<<<<<< HEAD
   didSelect?: (v: SelectValue) => any
   willDisplay?: (v: string | number | Record) => string
+=======
+  didSelect?: (v: SelectValue) => void
+  willDisplay?: (v: any) => string
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
   scrollNode?: HTMLElement
   multiple?: boolean
   style: CSSProperties
@@ -68,10 +73,14 @@ interface SelectProps {
 }
 
 function SelectAnt(props: SelectProps) {
+<<<<<<< HEAD
   const [isOpened, setIsOpened] = React.useState(false)
   const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
 
   const willDisplay = (v: string | number | Record) => {
+=======
+  const willDisplay = (v: any) =>  {
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
     if (props.willDisplay && v !== null && v !== undefined) {
       const display = props.willDisplay
       if (Array.isArray(v)) return v.map(v => display(v))
@@ -81,11 +90,34 @@ function SelectAnt(props: SelectProps) {
     }
   }
 
+<<<<<<< HEAD
   const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
       let res = normalizeResponse(value)
       console.log('res:', res)
       if (props.didSelect && res) {
+=======
+  const didSelect = React.useCallback(
+    (value: (any)[]) => {
+      let res
+      if (Array.isArray(value) && typeof value[0] === 'string') {
+        try {
+          res = (value as string[]).map(v => JSON.parse(v))
+        } catch (error) {
+          res = value
+        }
+      } else if (typeof value === 'string') {
+        try {
+          res = JSON.parse(value)
+        } catch (error) {
+          res = value
+        }
+      } else {
+        res = value
+      }
+
+      if (props.didSelect) {
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
         return props.didSelect(res)
       } else {
         return res
@@ -94,6 +126,7 @@ function SelectAnt(props: SelectProps) {
     [props.didSelect]
   )
 
+<<<<<<< HEAD
   function handleSelect() {
     if (!props.multiple) {
       setIsOpened(false)
@@ -102,6 +135,8 @@ function SelectAnt(props: SelectProps) {
     }
   }
 
+=======
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
   const options = React.useMemo(() => {
     const data = props.data
     if (data && data.length) {
@@ -120,22 +155,33 @@ function SelectAnt(props: SelectProps) {
           </Option>
         )
       })
+<<<<<<< HEAD
 
+=======
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
       return options
     }
     return []
   }, [props.data])
 
+<<<<<<< HEAD
   const value = React.useMemo(() => normalizeValue(props.value), [props.value])
 
   return (
     <Select
       ref={selectRef}
+=======
+  const value = React.useMemo(() => willDisplay(props.value), [props.value])
+
+  return (
+    <Select
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
       value={value}
       mode={props.multiple ? 'multiple' : 'default'}
       style={props.style}
       showSearch
       optionFilterProp="children"
+<<<<<<< HEAD
       getPopupContainer={trigger => trigger.parentElement as HTMLElement}
       onChange={v => handleChange(v)}
       onSelect={() => handleSelect()}
@@ -144,6 +190,10 @@ function SelectAnt(props: SelectProps) {
       open={isOpened}
       loading={props.loading}
       disabled={props.disabled}
+=======
+      loading={props.loading}
+      onChange={didSelect}
+>>>>>>> 562352e614ccb81deaa69a4d4795688fb41bc7ea
     >
       {options}
     </Select>
