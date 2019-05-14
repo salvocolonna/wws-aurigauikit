@@ -36,7 +36,7 @@ const OuSelect = ({
       ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
       : true
 
-  const display = useCallback(v => `${v.description} (${v.code})`, [selectedElements, selectedItem])
+  const display = useCallback(v => `${v.description} (${v.code})`, [])
 
   return disabled ? (
     <input

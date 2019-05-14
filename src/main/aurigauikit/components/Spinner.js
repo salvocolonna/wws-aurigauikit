@@ -1,5 +1,5 @@
 import React from "react"
-import Spinner from "spin.js"
+import {Spinner} from "spin.js"
 
 export default class extends React.Component {
   static defaultProps = {
