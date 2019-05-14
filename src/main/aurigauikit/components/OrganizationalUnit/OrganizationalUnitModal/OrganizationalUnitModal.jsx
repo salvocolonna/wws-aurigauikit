@@ -80,9 +80,9 @@ const OuModal = ({
   onSelectionConfirmed = () => {},
   onSelectionAborted = () => {},
 }) => {
-  const intitialData = useMemo(() => (show ? selectedElements : intitialData), [show]) // eslint-disable-line react-hooks/exhaustive-deps
-  const touched = useMemo(() => intitialData && !isEqual(selectedElements, intitialData), [
-    intitialData,
+  const intitialData = useRef(selectedElements)
+  const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
+    intitialData.current,
     selectedElements,
   ])
   const [option, setOption] = useState(null)
@@ -90,21 +90,20 @@ const OuModal = ({
 
   const tree = useOuTree(currentDatasource, intl)
 
-  const options = useMemo(() => {
-    if (isDeepEqual(options, radioOptions)) return options
-    return radioOptions
-  }, [radioOptions])
+  useEffect(() => {
+    if (show) intitialData.current = selectedElements
+  }, [show])
 
   useEffect(() => {
-    if (options && !option) {
-      const [firstOption] = options
+    if (radioOptions && !option) {
+      const [firstOption] = radioOptions
       setOption(firstOption)
     } else tree.fetch()
-  }, [option, options]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [option])
 
   useEffect(() => {
     if (defaultSelection && selectedElements.length === 0) onSelect([defaultSelection])
-  }, [defaultSelection, onSelect, selectedElements.length])
+  }, [defaultSelection, selectedElements, onSelect])
 
   const canReset = useMemo(() => {
     if (defaultSelection && selectedElements.find(a => dataComparator(a, defaultSelection)))
@@ -145,13 +144,13 @@ const OuModal = ({
   }
 
   const close = () => {
-    onSelect(intitialData)
+    onSelect(intitialData.current)
     onClose()
     onSelectionAborted()
   }
 
   const abort = () => {
-    onSelect(intitialData)
+    onSelect(intitialData.current)
     onClose()
     onSelectionAborted()
   }
@@ -178,9 +177,9 @@ const OuModal = ({
         </div>
       </Modal.Header>
       <Modal.Content>
-        {options && option && (
+        {radioOptions && option && (
           <DatasourceSelector
-            datasources={options}
+            datasources={radioOptions}
             datasource={currentDatasource}
             onChange={changeOption}
           />
