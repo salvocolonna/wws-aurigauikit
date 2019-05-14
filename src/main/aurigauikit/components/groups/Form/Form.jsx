@@ -31,6 +31,8 @@ export default class extends React.Component {
     )
   }
 
+  changeSelectedElements = selectedElements => this.setState({ selectedElements })
+
   submit = () => {
     const { code, description, notPublic, onSave } = this.props
     if (onSave) onSave({ code, description, notPublic })
@@ -89,6 +91,7 @@ export default class extends React.Component {
             datasource={organizationalUnitDatasource}
             dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
             onSelectionAborted={this.undoAdd}
+            onSelect={this.changeSelectedElements}
             selectedElements={
               getSelectedElements ? getSelectedElements() : this.state.selectedElements
             }
