@@ -64,7 +64,7 @@ const OuSelect = ({
           selectedElements={selectedElements}
           onRemove={unselect}
           canRemove={canUnselect}
-          onAbort={() => setShow(false)}
+          onClose={() => setShow(false)}
         />
       )}
       {selectedElements.length === 1 ? (
