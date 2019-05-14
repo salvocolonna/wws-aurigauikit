@@ -14,11 +14,17 @@ const BRANCH = 'BRANCH'
 const ASSET = 'ASSET'
 
 export default class extends React.Component {
-  state = { selectedElements: [], adding: false }
+  state = { tempSelectedElements: null, selectedElements: [], adding: false }
 
-  add = () => this.setState({ adding: true })
+  add = () => {
+    const { getSelectedElements } = this.props
+    this.setState(({ selectedElements }) => ({
+      tempSelectedElements: getSelectedElements ? getSelectedElements() : selectedElements,
+      adding: true,
+    }))
+  }
 
-  undoAdd = () => this.setState({ adding: false })
+  undoAdd = () => this.setState({ tempSelectedElements: null, adding: false })
 
   changeCode = code => this.props.onChange({ code })
 
@@ -26,12 +32,13 @@ export default class extends React.Component {
 
   confirmSelection = selectedElements => {
     this.setState(
-      { adding: false, selectedElements },
+      { adding: false, selectedElements, tempSelectedElements: null },
       () => this.props.onAdd && this.props.onAdd(selectedElements)
     )
   }
 
-  changeSelectedElements = selectedElements => this.setState({ selectedElements })
+  changeSelectedElements = selectedElements =>
+    this.setState({ tempSelectedElements: selectedElements, selectedElements })
 
   submit = () => {
     const { code, description, notPublic, onSave } = this.props
@@ -68,7 +75,7 @@ export default class extends React.Component {
       children,
       saving,
     } = this.props
-
+    console.log(this.state.tempSelectedElements)
     return (
       <Form onSubmit={this.submit}>
         <Grid style={{ overflow: 'initial' }}>
@@ -93,7 +100,8 @@ export default class extends React.Component {
             onSelectionAborted={this.undoAdd}
             onSelect={this.changeSelectedElements}
             selectedElements={
-              getSelectedElements ? getSelectedElements() : this.state.selectedElements
+              this.state.tempSelectedElements ||
+              (getSelectedElements ? getSelectedElements() : this.state.selectedElements)
             }
             canSelect={this.canSelect}
           />

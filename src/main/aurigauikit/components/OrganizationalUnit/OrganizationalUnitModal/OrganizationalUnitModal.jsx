@@ -81,7 +81,7 @@ const OuModal = ({
   onSelectionAborted = () => {},
 }) => {
   const intitialData = useMemo(() => (show ? selectedElements : intitialData), [show]) // eslint-disable-line react-hooks/exhaustive-deps
-  const touched = useMemo(() => !isEqual(selectedElements, intitialData), [
+  const touched = useMemo(() => intitialData && !isEqual(selectedElements, intitialData), [
     intitialData,
     selectedElements,
   ])
@@ -136,7 +136,7 @@ const OuModal = ({
     const filtered = elements.filter(e => {
       return !(parents.find(a => dataComparator(a, e)) || children.find(a => dataComparator(a, e)))
     })
-    onSelect(filtered.length === 0 ? [defaultSelection] : filtered)
+    onSelect(filtered.length === 0 ? (defaultSelection ? [defaultSelection] : []) : filtered)
   }
 
   const changeOption = option => {
@@ -171,7 +171,10 @@ const OuModal = ({
     <Modal show={show} style={{ width: '70%' }} onClose={close}>
       <Modal.Header title={title}>
         <div style={{ marginRight: -10, marginTop: -40 }}>
-          <ResetButton disabled={!canReset} onClick={() => onSelect([defaultSelection])} />
+          <ResetButton
+            disabled={!canReset}
+            onClick={() => onSelect(defaultSelection ? [defaultSelection] : [])}
+          />
         </div>
       </Modal.Header>
       <Modal.Content>

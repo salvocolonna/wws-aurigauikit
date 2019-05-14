@@ -1,17 +1,17 @@
-import React, { useMemo, useState, useRef } from "react"
-import Popover, { usePopover } from "aurigauikit/components/Popover"
-import "./style.css"
+import React, { useMemo, useState, useRef } from 'react'
+import Popover, { usePopover } from 'aurigauikit/components/Popover'
+import './style.css'
 
 function getScrollbarWidth() {
-  let outer = document.createElement("div")
-  outer.style.visibility = "hidden"
-  outer.style.width = "100px"
-  outer.style.msOverflowStyle = "scrollbar"
+  let outer = document.createElement('div')
+  outer.style.visibility = 'hidden'
+  outer.style.width = '100px'
+  outer.style.msOverflowStyle = 'scrollbar'
   document.body.appendChild(outer)
   const widthNoScroll = outer.offsetWidth
-  outer.style.overflow = "scroll"
-  const inner = document.createElement("div")
-  inner.style.width = "100%"
+  outer.style.overflow = 'scroll'
+  const inner = document.createElement('div')
+  inner.style.width = '100%'
   outer.appendChild(inner)
   const widthWithScroll = inner.offsetWidth
   outer.parentNode.removeChild(outer)
@@ -21,7 +21,7 @@ function getScrollbarWidth() {
 const getData = (data = []) => () => {
   const types = Array.from(
     data.reduce((types, ou) => {
-      types.add(ou.type)
+      if (ou) types.add(ou.type)
       return types
     }, new Set())
   )
@@ -34,10 +34,10 @@ const getData = (data = []) => () => {
 const OuType = ({ name, items, onRemove, canRemove }) => {
   const ref = useRef()
   const popover = usePopover(ref)
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const currentItems = useMemo(() => {
     const found = ({ description, code }) => {
-      const value = description + " (" + code + ")"
+      const value = description + ' (' + code + ')'
       return value.toLowerCase().indexOf(search.toLowerCase()) > -1
     }
     return items.filter(found)
@@ -45,7 +45,7 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
   const scroll = useMemo(() => getScrollbarWidth(), [])
   return (
     <div
-      className={"OuType" + (popover.position ? " OuTypeOpen" : "")}
+      className={'OuType' + (popover.position ? ' OuTypeOpen' : '')}
       onClick={popover.show}
       ref={ref}>
       {items.length} {name}
@@ -54,10 +54,10 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
           <div className="OuSearchContainer">
             <div
               style={{
-                backgroundColor: "#fff",
+                backgroundColor: '#fff',
                 width: items.length <= 3 ? null : `calc(100% - ${scroll}px`,
                 paddingTop: 1,
-                borderRadius: 4
+                borderRadius: 4,
               }}>
               <label className="OuSearch">Search</label>
               <input
@@ -70,7 +70,7 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
           {currentItems.length > 0 ? (
             <div className="OuSearchItems">
               {currentItems.map(item => {
-                const { code, description, id, title = description + " (" + code + ")" } = item
+                const { code, description, id, title = description + ' (' + code + ')' } = item
                 return (
                   <div className="OuItem" key={title + id}>
                     {title}
@@ -94,6 +94,7 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
 
 export default ({ data, onRemove, canRemove }) => {
   const ouTypes = useMemo(getData(data))
+  if (ouTypes.length === 0) return null
   return (
     <div className="Ou">
       {ouTypes.map(({ type, items }) => (
