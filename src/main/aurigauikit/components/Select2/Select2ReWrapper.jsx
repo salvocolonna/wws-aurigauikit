@@ -1,6 +1,6 @@
 import React from 'react'
 import _Select2 from 'react-select2-wrapper'
-import $ from 'jquery'
+// import $ from 'jquery'
 import Loader from 'aurigauikit/components/Loader'
 import './style.css'
 

@@ -28,7 +28,7 @@ const OuSelect = ({
     const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
     const items = [...selectedElements]
     items.splice(index, 1)
-    onSelectionChange(items)
+    onSelectionChange(items.length > 0 ? items : [defaultSelection])
   }
 
   const canUnselect = item =>
@@ -36,7 +36,7 @@ const OuSelect = ({
       ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
       : true
 
-  const display = useCallback(v => `${v.description} (${v.code})`, [selectedElements, selectedItem])
+  const display = useCallback(v => `${v.description} (${v.code})`, [])
 
   return disabled ? (
     <input

@@ -1,29 +1,29 @@
-import React from "react"
-import sizeMe from "react-sizeme"
-import { withRouter } from "react-router-dom"
+import React from 'react'
+import sizeMe from 'react-sizeme'
+import { withRouter } from 'react-router-dom'
 
 export const PageHeader = ({ children }) => (
-  <section style={{ display: "flex", justifyContent: "space-between" }}>{children}</section>
+  <section style={{ display: 'flex', justifyContent: 'space-between' }}>{children}</section>
 )
 export const PageMain = ({ children }) => <section>{children}</section>
 export const PageFooter = ({ children }) => <section>{children}</section>
 export const PageActions = ({ children }) => (
-  <div style={{ float: "right", textAlign: "right" }}>{children}</div>
+  <div style={{ float: 'right', textAlign: 'right' }}>{children}</div>
 )
 export const ButtonsPanel = ({ children }) => (
-  <div style={{ textAlign: "right", marginTop: "20px", marginBottom: "10px" }}> {children} </div>
+  <div style={{ textAlign: 'right', marginTop: '20px', marginBottom: '10px' }}> {children} </div>
 )
 
-export * from "./Breadcrumb"
-export * from "./PageAnchors"
+export * from './Breadcrumb'
+export * from './PageAnchors'
 
 export const withParams = Component => props => <Component {...props.match.params} {...props} />
 
-export const authenticated = (key = "wwsis-auth") => Component => {
+export const authenticated = (key = 'wwsis-auth') => Component => {
   return withRouter(props => {
     const auth = localStorage.getObject(key)
     if (!auth) {
-      props.history.push("/login")
+      props.history.push('/login')
       return null
     }
     return (
@@ -47,12 +47,13 @@ export class Error extends React.Component {
       return (
         <pre
           style={{
-            whiteSpace: "pre-wrap",
-            color: "#DC402B",
-            fontSize: "1.15em",
-            fontFamily: "inherit",
-            fontWeight: 500
-          }}>
+            whiteSpace: 'pre-wrap',
+            color: '#DC402B',
+            fontSize: '1.15em',
+            fontFamily: 'inherit',
+            fontWeight: 500,
+          }}
+        >
           Errore
           {/*fatale {"\n\n" + error}*/}
         </pre>
@@ -71,7 +72,7 @@ export const createPage = (Topbar, Sidebar) => {
       onSidebar = size => this.setState({ sidebar: size.width })
       getSize = () => {
         const { topbar, sidebar } = this.state
-        if (topbar === 0 && sidebar === 0) return { width: "100%" }
+        if (topbar === 0 && sidebar === 0) return { width: '100%' }
         const width = `calc(100vw - ${sidebar}px)`
         const height = `calc(100vh - ${topbar}px)`
         const minWidtb = width
@@ -92,13 +93,15 @@ export const createPage = (Topbar, Sidebar) => {
               <div
                 id="content-dynamic"
                 style={{
-                  display: "block",
-                  overflowY: "auto",
-                  overflowX: "hidden",
+                  display: 'block',
+                  position: 'relative',
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
                   ...this.getSize(),
                   opacity: this.state.opacity,
-                  minWidth: 300
-                }}>
+                  minWidth: 300,
+                }}
+              >
                 <Component {...this.props} />
               </div>
             </div>
