@@ -14,24 +14,6 @@ function getValue(value: number | string | Record): string {
   }
 }
 
-function convertToString(value: unknown): string {
-  if (typeof value === 'string') {
-    return value
-  } else if (typeof value === 'number') {
-    return value.toString()
-  } else {
-    return JSON.stringify(value)
-  }
-}
-
-function normalizeValue(value: any): string[] {
-  if (Array.isArray(value)) {
-    return value.map(v => convertToString(v))
-  } else {
-    return [convertToString(value)]
-  }
-}
-
 function normalizeResponse(value: any): string | string[] {
   if (Array.isArray(value) && typeof value[0] === 'string') {
     try {
@@ -72,16 +54,6 @@ function SelectAnt(props: SelectProps) {
   const [isOpened, setIsOpened] = React.useState(false)
   const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
 
-  const willDisplay = (v: string | number | Record) => {
-    if (props.willDisplay && v !== null && v !== undefined) {
-      const display = props.willDisplay
-      if (Array.isArray(v)) return v.map(v => display(v))
-      return display(v)
-    } else {
-      return v
-    }
-  }
-
   const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
       let res = normalizeResponse(value)
@@ -91,7 +63,7 @@ function SelectAnt(props: SelectProps) {
         return res
       }
     },
-    [props.didSelect]
+    [props]
   )
 
   React.useEffect(() => {
@@ -120,16 +92,23 @@ function SelectAnt(props: SelectProps) {
         }
         return (
           <Option key={key} value={getValue(v)}>
-            {willDisplay(v)}
+            {props.willDisplay ? props.willDisplay(v) : v}
           </Option>
         )
       })
       return options
     }
     return []
-  }, [props.data])
+  }, [props])
 
-  const value = React.useMemo(() => normalizeValue(props.value), [props.value])
+  const value = React.useMemo(() => {
+    const display = (v: any) => (props.willDisplay ? props.willDisplay(v) : v)
+    if (Array.isArray(props.value)) {
+      return props.value.map(v => display(v))
+    } else {
+      return [display(props.value)]
+    }
+  }, [props])
 
   const mode = React.useMemo(() => {
     if (props.options && props.options.tags) return 'tags'
