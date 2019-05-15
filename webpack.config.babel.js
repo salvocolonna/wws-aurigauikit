@@ -59,7 +59,7 @@ const module = {
               '@input-height-base': '36.5px',
               '@btn-padding-base': '0 1.5em',
               '@btn-height-base': '34px',
-              '@line-height-base': 1.15,
+              '@line-height-base': 'normal',
               '@btn-font-weight': 700,
             },
             javascriptEnabled: true,
