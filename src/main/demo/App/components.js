@@ -149,6 +149,13 @@ export default {
       code: () => import('!raw-loader!../components/Spinner/Base'),
     },
   },
+  StaticPanel: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import("../components/StaticPanel/Base")),
+      code: () => import("!raw-loader!../components/StaticPanel/Base")
+    }
+  },
   Switch: {
     metadata: {},
     Base: {
