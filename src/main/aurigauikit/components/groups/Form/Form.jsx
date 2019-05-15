@@ -1,24 +1,30 @@
-import React from "react"
-import { FormattedMessage as Msg } from "react-intl"
-import messages from "./messages"
-import InfoLabel from "aurigauikit/components/InfoLabel"
-import { Grid, Div } from "aurigauikit/components/Grid"
-import { Form } from "aurigauikit/components/parsley"
-import OrganizationalUnitModal from "aurigauikit/components/OrganizationalUnit/OrganizationalUnitModal"
-import Checkbox from "aurigauikit/components/Checkbox"
+import React from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import messages from './messages'
+import InfoLabel from 'aurigauikit/components/InfoLabel'
+import { Grid, Div } from 'aurigauikit/components/Grid'
+import { Form } from 'aurigauikit/components/parsley'
+import OrganizationalUnitModal from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitModal'
+import Checkbox from 'aurigauikit/components/Checkbox'
 
-const PARENT_BANK = "PARENT_BANK"
-const BANK = "BANK"
-const AREA = "AREA"
-const BRANCH = "BRANCH"
-const ASSET = "ASSET"
+const PARENT_BANK = 'PARENT_BANK'
+const BANK = 'BANK'
+const AREA = 'AREA'
+const BRANCH = 'BRANCH'
+const ASSET = 'ASSET'
 
 export default class extends React.Component {
-  state = { selectedElements: [], adding: false }
+  state = { tempSelectedElements: null, selectedElements: [], adding: false }
 
-  add = () => this.setState({ adding: true })
+  add = () => {
+    const { getSelectedElements } = this.props
+    this.setState(({ selectedElements }) => ({
+      tempSelectedElements: getSelectedElements ? getSelectedElements() : selectedElements,
+      adding: true,
+    }))
+  }
 
-  undoAdd = () => this.setState({ adding: false })
+  undoAdd = () => this.setState({ tempSelectedElements: null, adding: false })
 
   changeCode = code => this.props.onChange({ code })
 
@@ -26,10 +32,13 @@ export default class extends React.Component {
 
   confirmSelection = selectedElements => {
     this.setState(
-      { adding: false, selectedElements },
+      { adding: false, selectedElements, tempSelectedElements: null },
       () => this.props.onAdd && this.props.onAdd(selectedElements)
     )
   }
+
+  changeSelectedElements = selectedElements =>
+    this.setState({ tempSelectedElements: selectedElements, selectedElements })
 
   submit = () => {
     const { code, description, notPublic, onSave } = this.props
@@ -64,12 +73,12 @@ export default class extends React.Component {
       description,
       notPublic,
       children,
-      saving
+      saving,
     } = this.props
-
+    console.log(this.state.tempSelectedElements)
     return (
       <Form onSubmit={this.submit}>
-        <Grid style={{ overflow: "initial" }}>
+        <Grid style={{ overflow: 'initial' }}>
           <Div col="1-4">
             <Code mode={mode} code={code} onChange={this.changeCode} />
           </Div>
@@ -80,29 +89,30 @@ export default class extends React.Component {
             <Private mode={mode} checked={notPublic} onChange={this.changePrivate} />
           </Div>
         </Grid>
-        <section style={{ paddingBottom: 20, marginTop: mode === "view" && 40 }}>
-          {mode !== "view" && <AddButton disabled={loading} onClick={this.add} />}
+        <section style={{ paddingBottom: 20, marginTop: mode === 'view' && 40 }}>
+          {mode !== 'view' && <AddButton disabled={loading} onClick={this.add} />}
           {children}
-          {this.state.adding && (
-            <OrganizationalUnitModal
-              onSelectionConfirmed={this.confirmSelection}
-              datasource={organizationalUnitDatasource}
-              dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
-              onSelectionAborted={this.undoAdd}
-              selectedElements={
-                getSelectedElements ? getSelectedElements() : this.state.selectedElements
-              }
-              canSelect={this.canSelect}
-            />
-          )}
+          <OrganizationalUnitModal
+            show={this.state.adding}
+            onSelectionConfirmed={this.confirmSelection}
+            datasource={organizationalUnitDatasource}
+            dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
+            onSelectionAborted={this.undoAdd}
+            onSelect={this.changeSelectedElements}
+            selectedElements={
+              this.state.tempSelectedElements ||
+              (getSelectedElements ? getSelectedElements() : this.state.selectedElements)
+            }
+            canSelect={this.canSelect}
+          />
         </section>
-        {mode !== "view" && (
+        {mode !== 'view' && (
           <div className="btn-group" style={{ marginTop: 20 }}>
             <SaveButton disabled={items.length === 0 || loading} saving={saving} />
             <UndoButton onClick={onAbort} saving={saving} />
           </div>
         )}
-        {mode === "view" && (
+        {mode === 'view' && (
           <div className="btn-group" style={{ marginTop: 20 }}>
             <BackButton onClick={onAbort} />
           </div>
@@ -117,7 +127,7 @@ const UndoButton = ({ onClick, saving }) => (
     className="btn btn-warning-outline"
     type="button"
     disabled={saving}
-    style={{ marginRight: "20px", float: "right" }}
+    style={{ marginRight: '20px', float: 'right' }}
     onClick={onClick}>
     <Msg {...messages.undo} />
   </button>
@@ -127,7 +137,7 @@ const BackButton = ({ onClick }) => (
   <button
     className="btn btn-primary-outline"
     type="button"
-    style={{ float: "right" }}
+    style={{ float: 'right' }}
     onClick={onClick}>
     <Msg {...messages.back} />
   </button>
@@ -137,14 +147,14 @@ const SaveButton = ({ disabled, saving }) => (
   <button
     className="btn btn-confirmatory"
     disabled={disabled || saving}
-    style={{ float: "right" }}
+    style={{ float: 'right' }}
     type="submit">
     {saving ? <Msg {...messages.saving} /> : <Msg {...messages.save} />}
   </button>
 )
 
 const Private = ({ checked, onChange, mode }) => {
-  return mode === "view" ? (
+  return mode === 'view' ? (
     <InfoLabel label={<Msg {...messages.private} />}>
       {checked ? (
         <i className="fa fa-check" style={{ marginRight: 15 }} />
@@ -153,7 +163,7 @@ const Private = ({ checked, onChange, mode }) => {
       )}
     </InfoLabel>
   ) : (
-    <Checkbox style={{ float: "left", marginTop: 26 }} isChecked={checked} onChange={onChange}>
+    <Checkbox style={{ float: 'left', marginTop: 26 }} isChecked={checked} onChange={onChange}>
       <Msg {...messages.private} />
     </Checkbox>
   )
@@ -165,8 +175,8 @@ const AddButton = ({ disabled, onClick }) => (
     type="button"
     style={{
       marginTop: 40,
-      float: "right",
-      marginBottom: 10
+      float: 'right',
+      marginBottom: 10,
     }}
     className="btn btn-primary"
     onClick={onClick}>
@@ -176,7 +186,7 @@ const AddButton = ({ disabled, onClick }) => (
 )
 
 const Code = ({ mode, code, onChange }) => {
-  return mode === "view" ? (
+  return mode === 'view' ? (
     <InfoLabel label={<Msg {...messages.code} />}>{code}</InfoLabel>
   ) : (
     <label>
@@ -184,7 +194,7 @@ const Code = ({ mode, code, onChange }) => {
       <input
         required
         className="filter-element"
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         type="text"
         value={code}
         onChange={e => onChange(e.target.value)}
@@ -194,7 +204,7 @@ const Code = ({ mode, code, onChange }) => {
 }
 
 const Description = ({ mode, description, onChange }) => {
-  return mode === "view" ? (
+  return mode === 'view' ? (
     <InfoLabel label={<Msg {...messages.description} />}>{description}</InfoLabel>
   ) : (
     <label>
@@ -202,7 +212,7 @@ const Description = ({ mode, description, onChange }) => {
       <input
         required
         className="filter-element"
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         type="text"
         value={description}
         onChange={e => onChange(e.target.value)}
