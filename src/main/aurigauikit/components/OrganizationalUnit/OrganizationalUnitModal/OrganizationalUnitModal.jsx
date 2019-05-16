@@ -232,7 +232,8 @@ const DatasourceSelector = ({ datasource, datasources, onChange }) => (
         key={i}
         style={{ float: 'left', paddingRight: 20, paddingBottom: 10 }}
         isChecked={datasource === option.datasource}
-        onChange={checked => checked && onChange(option)}>
+        onChange={checked => checked && onChange(option)}
+      >
         {option.i18nLabel ? <FormattedMessage id={option.i18nLabel} /> : option.label}
       </Radio>
     ))}
@@ -242,7 +243,6 @@ const DatasourceSelector = ({ datasource, datasources, onChange }) => (
 const ResetButton = ({ disabled, onClick }) => {
   const style = {
     float: 'right',
-    font: '13.3333px "Open Sans", sans-serif',
     fontWeight: 'bold',
     margin: 10,
   }
@@ -251,7 +251,8 @@ const ResetButton = ({ disabled, onClick }) => {
       disabled={disabled}
       className="btn btn-primary-outline"
       style={style}
-      onClick={() => onClick()}>
+      onClick={() => onClick()}
+    >
       <FormattedMessage {...messages.modal.general.reset} />
     </button>
   )
@@ -261,7 +262,8 @@ const AbortButton = ({ onClick }) => (
   <button
     className="btn btn-warning-outline"
     style={{ marginRight: '20px' }}
-    onClick={() => onClick()}>
+    onClick={() => onClick()}
+  >
     <FormattedMessage {...messages.modal.general.cancel} />
   </button>
 )

@@ -1,98 +1,94 @@
 .ant-btn {
-	line-height: 2.5em !important;
-	text-transform: uppercase;
+  line-height: 2.5em !important;
+  text-transform: uppercase;
 }
 
 .btn-warning-outline:hover {
-	background-color: #fdf4ee;
+  background-color: #fdf4ee;
 }
 
 .btn.btn-primary:hover {
-	color: white;
+  color: white;
 }
 
 .btn.btn-confirmatory:hover {
-	color: white;
+  color: white;
 }
 
 .btn.btn-critical:hover {
-	color: white;
+  color: white;
 }
 
 .btn.btn-warning:hover {
-	color: white;
+  color: white;
 }
 
 .ant-table thead th {
-	font-weight: bold !important;
+  font-weight: bold !important;
 }
 
 caption {
-	color: initial !important;
-	caption-side: top !important;
+  color: initial !important;
+  caption-side: top !important;
 }
 
 .ant-alert {
-	padding: 1em !important;
+  padding: 1em !important;
 }
 
 .ant-alert.ant-alert-info {
-	color: #20689b;
+  color: #20689b;
 }
 
 .ant-alert.ant-alert-error {
-	color: #ad2e1d;
+  color: #ad2e1d;
 }
 
 .ant-alert.ant-alert-warning {
-	color: #cc6116;
+  color: #cc6116;
 }
 
 .ant-alert.ant-alert-success {
-	color: #47a33c;
+  color: #47a33c;
 }
 
 .ant-alert-icon {
-	position: static !important;
-	padding-right: 10px;
+  position: static !important;
+  padding-right: 10px;
 }
 
 .ant-radio-button-wrapper {
-	font-weight: 700;
-	font-size: 13px;
-	color: #aaa !important;
+  font-weight: 700;
+  font-size: 13px;
+  color: #aaa !important;
 }
 
 .ant-radio-button-wrapper-checked {
-	color: #2984c5 !important;
+  color: #2984c5 !important;
 }
 
 .ant-badge-count {
-	box-shadow: none !important;
-	top: -34px !important;
+  box-shadow: none !important;
+  top: -34px !important;
 }
 
 label .ant-select {
-	margin-top: 4px;
-	font-weight: 400;
-}
-
-.ant-select-selection__rendered {
-	line-height: 37px !important;
+  margin-top: 4px;
+  font-weight: 400;
 }
 
 .ant-select input {
-	margin-top: 0px !important;
-	padding: 0px !important;
+  margin-top: 0px !important;
+  padding: 0px !important;
 }
- 
+
 .ant-select-selection__choice {
-	height: 28px !important;
-	line-height: 28px !important;
-	margin-bottom: 3px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  margin-bottom: 3px !important;
 }
 
 .ant-select-selection--multiple {
-	padding-bottom: 0 !important;
-	min-height: 27px !important;
+  padding-bottom: 0 !important;
+  min-height: 27px !important;
 }
