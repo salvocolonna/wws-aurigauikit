@@ -1,17 +1,17 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import sizeMe from "react-sizeme"
-import "./modal.less"
-import debounce from "lodash/debounce"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import sizeMe from 'react-sizeme'
+import './modal.less'
+import debounce from 'lodash/debounce'
 const ESC = 27
 
 class Modal extends React.Component {
   componentDidMount() {
-    document.addEventListener("keyup", this.closeOnEsc)
+    document.addEventListener('keyup', this.closeOnEsc)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keyup", this.closeOnEsc)
+    document.removeEventListener('keyup', this.closeOnEsc)
   }
 
   closeOnEsc = e => {
@@ -47,7 +47,8 @@ class Overlay extends React.Component {
         onClick={this.clicked}
         id={this.id}
         className="react-modal-panel-overlay"
-        style={{ height: "100vh", width: "100vw", overflow: "overlay" }}>
+        style={{ height: '100vh', width: '100vw', overflow: 'overlay' }}
+      >
         {children}
       </div>
     )
@@ -61,18 +62,18 @@ class Dialog extends React.Component {
     opacity: 0.5,
     fullscreen: true,
     top: null,
-    left: null
+    left: null,
   }
 
   recenter = () => {
     const node = this.parentRef.current
     const size = {
       height: window.innerHeight,
-      width: window.innerWidth
+      width: window.innerWidth,
     }
     this.setState({
       top: (size.height - node.clientHeight) / 2,
-      left: (size.width - node.clientWidth) / 2
+      left: (size.width - node.clientWidth) / 2,
     })
   }
 
@@ -80,12 +81,12 @@ class Dialog extends React.Component {
 
   componentDidMount() {
     this.recenter()
-    window.addEventListener("resize", this.debouncedResize)
+    window.addEventListener('resize', this.debouncedResize)
     setTimeout(() => this.setState({ opacity: 1 }), 50)
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.debouncedResize)
+    window.removeEventListener('resize', this.debouncedResize)
   }
 
   render() {
@@ -93,10 +94,13 @@ class Dialog extends React.Component {
     const { left, top } = this.state
     const modalStyle = {
       ...style,
-      transform: `translateX(${left - 40}px) translateY(${Math.max(top - 40, margin)}px)`,
+      transform: `translateX(${Math.round(left) - 40}px) translateY(${Math.max(
+        Math.round(top) - 40,
+        margin
+      )}px)`,
       marginBottom: Math.max(top, margin) === margin && margin,
       opacity: this.state.opacity,
-      transition: "opacity .2s" + (transitions ? ", transition .2s" : "")
+      transition: 'opacity .2s' + (transitions ? ', transition .2s' : ''),
     }
     return (
       <Panel onSize={this.recenter} style={modalStyle}>
