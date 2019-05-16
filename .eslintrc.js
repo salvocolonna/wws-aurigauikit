@@ -46,22 +46,7 @@ module.exports = {
     'react/display-name': OFF,
     'react/no-find-dom-node': OFF,
     'react/no-deprecated': WARN,
-    'prettier/prettier': [
-      OFF,
-      {
-        printWidth: 100,
-        tabWidth: 2,
-        singleQuote: true,
-        trailingComma: 'es5',
-        bracketSpacing: true,
-        semi: false,
-        useTabs: false,
-        // prettier-eslint doesn't currently support
-        // inferring these two (Pull Requests welcome):
-        parser: 'babylon',
-        jsxBracketSameLine: false,
-      },
-    ],
+    'prettier/prettier': WARN,
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },

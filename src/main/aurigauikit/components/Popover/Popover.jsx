@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import ReactDOM from "react-dom"
-import "./style.less"
-import sizeMe from "react-sizeme"
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+import './style.less'
+import sizeMe from 'react-sizeme'
 
 const ESC = 27
 const TRANSITION = 0.2
@@ -12,7 +12,7 @@ export const usePopover = ref => {
     const rect = ref.current.getBoundingClientRect()
     setPosition({
       left: (rect.x || rect.left) + rect.width / 2,
-      top: (rect.y || rect.top) + rect.height / 2 + 5
+      top: (rect.y || rect.top) + rect.height / 2 + 5,
     })
   }
   const onClose = () => setPosition(null)
@@ -34,16 +34,16 @@ export default class Popover extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keyup", this.closeOnEsc)
-    document.body.addEventListener("click", this.closeOnBodyClick)
-    window.addEventListener("resize", this.closeOnResize)
-    document.getElementById("content-dynamic").addEventListener("scroll", this.closeOnResize)
+    document.addEventListener('keyup', this.closeOnEsc)
+    document.body.addEventListener('click', this.closeOnBodyClick)
+    window.addEventListener('resize', this.closeOnResize)
+    document.getElementById('content-dynamic').addEventListener('scroll', this.closeOnResize)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keyup", this.closeOnEsc)
-    window.removeEventListener("resize", this.closeOnResize)
-    document.getElementById("content-dynamic").removeEventListener("scroll", this.closeOnResize)
+    document.removeEventListener('keyup', this.closeOnEsc)
+    window.removeEventListener('resize', this.closeOnResize)
+    document.getElementById('content-dynamic').removeEventListener('scroll', this.closeOnResize)
   }
 
   closeOnEsc = e => {
@@ -95,14 +95,14 @@ export default class Popover extends React.Component {
 
   isUpsideDown = (top, height) => {
     const pageHeight = document.body.scrollHeight
-    return pageHeight < height + top
+    return pageHeight < height + top + 20
   }
 
   render() {
     const { position, children } = this.props
     const {
       opacity,
-      size: { height }
+      size: { height },
     } = this.state
     const { offset, ...fixedPosition } = this.position
 
@@ -114,7 +114,8 @@ export default class Popover extends React.Component {
         <div
           className="Popover-container"
           style={{ ...fixedPosition }}
-          ref={reference => (this.reference = reference)}>
+          ref={reference => (this.reference = reference)}
+        >
           <SizedPopover onSize={this.onSize} opacity={opacity}>
             {!upsideDown && (
               <div className="Popover-arrow" style={{ transform: `translateX(${offset}px` }} />
@@ -135,7 +136,7 @@ export default class Popover extends React.Component {
 }
 
 const SizedPopover = sizeMe({
-  monitorHeight: true
+  monitorHeight: true,
 })(({ children, opacity }) => (
   <div className="Popover" style={{ opacity, transition: `opacity ${2 * TRANSITION}s` }}>
     {children}

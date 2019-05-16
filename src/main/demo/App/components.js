@@ -152,9 +152,9 @@ export default {
   StaticPanel: {
     metadata: {},
     Base: {
-      component: lazy(() => import("../components/StaticPanel/Base")),
-      code: () => import("!raw-loader!../components/StaticPanel/Base")
-    }
+      component: lazy(() => import('../components/StaticPanel/Base')),
+      code: () => import('!raw-loader!../components/StaticPanel/Base'),
+    },
   },
   Switch: {
     metadata: {},

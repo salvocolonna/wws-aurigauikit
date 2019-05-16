@@ -1,24 +1,24 @@
-const fs = require("fs")
-const path = require("path")
-const watcher = require("chokidar")
-const CLIEngine = require("eslint").CLIEngine
+const fs = require('fs')
+const path = require('path')
+const watcher = require('chokidar')
+const CLIEngine = require('eslint').CLIEngine
 const eslint = new CLIEngine({ fix: true })
 
-const COMPONENTS = path.join(__dirname, "./components")
-const DESTINATION = path.join(__dirname, "./App/components.js")
-const WATCH = process.argv[2] === "--watch" || process.argv[2] === "-w"
+const COMPONENTS = path.join(__dirname, './components')
+const DESTINATION = path.join(__dirname, './App/components.js')
+const WATCH = process.argv[2] === '--watch' || process.argv[2] === '-w'
 
 const parse = () => {
   const parts = {}
   fs.readdirSync(COMPONENTS).forEach(component => {
-    const COMPONENT = COMPONENTS + "/" + component
+    const COMPONENT = COMPONENTS + '/' + component
     parts[component] = []
     fs.readdirSync(COMPONENT).forEach(part => {
-      const jsx = part.endsWith(".jsx")
-      const js = part.endsWith(".js")
+      const jsx = part.endsWith('.jsx')
+      const js = part.endsWith('.js')
       if (jsx || js) {
-        const name = part.split(jsx ? ".jsx" : ".js")[0]
-        const code = fs.readFileSync(COMPONENT + "/" + part).toString()
+        const name = part.split(jsx ? '.jsx' : '.js')[0]
+        const code = fs.readFileSync(COMPONENT + '/' + part).toString()
         parts[component].push(name)
         parts[component][name] = { code }
       }
@@ -29,16 +29,16 @@ const parse = () => {
 }
 
 const renderMetadata = ({ displayName }) => {
-  const metaPath = displayName + "/meta.json"
+  const metaPath = displayName + '/meta.json'
   return (
-    fs.existsSync(COMPONENTS + "/" + metaPath) &&
+    fs.existsSync(COMPONENTS + '/' + metaPath) &&
     `import ${displayName}Metadata from '../components/${metaPath}'`
   )
 }
 
 const render = ({ displayName, parts }) => {
-  const metaPath = COMPONENTS + "/" + displayName + "/meta.json"
-  const meta = !fs.existsSync(metaPath) ? "{}" : `${displayName}Metadata`
+  const metaPath = COMPONENTS + '/' + displayName + '/meta.json'
+  const meta = !fs.existsSync(metaPath) ? '{}' : `${displayName}Metadata`
   const part = part => {
     const path = `../components/${displayName}/${part}`
     return `"${part}": {
@@ -54,23 +54,22 @@ const compile = () => {
   const metadata = data
     .map(renderMetadata)
     .filter(Boolean)
-    .join("\n")
+    .join('\n')
   const code = `
     /** AUTO-GENERATED - do not modify */
     import { lazy } from 'react' 
     ${metadata}
     export default { ${data.map(render)} }
   `
-  fs.writeFileSync(DESTINATION, code)
-  const [{ output: linted }] = eslint.executeOnFiles([DESTINATION]).results
-  fs.writeFileSync(DESTINATION, linted)
+  const [{ output }] = eslint.executeOnText(code).results
+  fs.writeFileSync(DESTINATION, output)
 }
 
 if (WATCH) {
   watcher
     .watch(COMPONENTS, { persistent: true, ignoreInitial: true })
-    .on("add", compile)
-    .on("unlink", compile)
+    .on('add', compile)
+    .on('unlink', compile)
 }
 
 compile()
