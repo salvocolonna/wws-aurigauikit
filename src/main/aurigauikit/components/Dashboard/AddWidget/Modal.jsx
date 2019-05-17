@@ -9,30 +9,36 @@ const newId = { id: "dashboard-page.add-widget.new" }
 
 export default injectIntl(
   class extends React.Component {
-    state = { selectedWidget: this.props.widgets[0] }
+    constructor(props) {
+      super(props)
+      const widget = this.props.widgets[0]
+      this.state = { selectedWidget: widget ? widget.name :  intl.formatMessage(newId)}
+    }
 
     changeWidget = selectedWidget => {
       const { intl } = this.props
-      return selectedWidget.name === intl.formatMessage(newId)
-        ? this.setState({ selectedWidget: { name: intl.formatMessage(newId) } })
+      return selectedWidget === intl.formatMessage(newId)
+        ? this.setState({ selectedWidget: intl.formatMessage(newId) })
         : this.setState({ selectedWidget })
     }
 
     confirm = () => {
       const { onAdd } = this.props
       const { selectedWidget } = this.state
-      onAdd(selectedWidget)
+      const widget = this.props.widgets.find(widget => widget.name === selectedWidget)
+      onAdd(widget)
     }
 
     getWidgets = () => {
       const { widgets, onBuild, intl } = this.props
-      const widgetList = widgets.filter(({ name }) => name !== "active-assets")
-      return onBuild ? [...widgetList, { name: intl.formatMessage(newId) }] : widgetList
+      const widgetList = widgets.filter(({ name }) => name !== "active-assets").map(widget => widget.name)
+      return onBuild ? [...widgetList, intl.formatMessage(newId) ] : widgetList
     }
 
     render() {
       const { onClose, messages: widgetsMessages, intl } = this.props
       const { selectedWidget } = this.state
+      const currentWidget = this.props.widgets.find(widget => widget.name === selectedWidget)
       return (
         <Modal show onClose={() => onClose()} style={{ width: "70%" }}>
           <Modal.Header title={<Msg {...messages.modal.title} />} />
@@ -44,7 +50,7 @@ export default injectIntl(
                   data={this.getWidgets()}
                   value={selectedWidget}
                   didSelect={this.changeWidget}
-                  willDisplay={({ name }) =>
+                  willDisplay={name =>
                     widgetsMessages
                       ? widgetsMessages[name]
                         ? intl.formatMessage(widgetsMessages[name])
@@ -54,7 +60,7 @@ export default injectIntl(
                 />
               </Div>
             </Grid>
-            {selectedWidget.name === intl.formatMessage(newId) ? (
+            {selectedWidget === intl.formatMessage(newId) ? (
               <this.props.onBuild />
             ) : (
               <div
@@ -66,7 +72,7 @@ export default injectIntl(
                   justifyContent: "center",
                   alignItems: "center"
                 }}>
-                {selectedWidget.widget}
+                {currentWidget.widget}
               </div>
             )}
           </Modal.Content>
@@ -83,7 +89,7 @@ export default injectIntl(
                 onClick={this.confirm}
                 style={{
                   display:
-                    selectedWidget.name === intl.formatMessage(newId) ? "none" : "inline-block"
+                    selectedWidget === intl.formatMessage(newId) ? "none" : "inline-block"
                 }}>
                 <Msg {...messages.modal.confirm} />
               </button>

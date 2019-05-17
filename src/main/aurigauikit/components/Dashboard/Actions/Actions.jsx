@@ -3,8 +3,8 @@ import { FormattedMessage as Msg } from "react-intl"
 import Loader from "aurigauikit/components/Loader"
 import messages from "./messages"
 
-export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = true, saving }) => (
-  <div style={{ textAlign: "right", marginTop: 40, marginRight: 40 }}>
+export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = true, saving, margin = 40 }) => (
+  <div style={{ textAlign: "right" }}>
     {/* {!editable && canBuild && (
       <button
         style={{ width: 180, marginRight: canEdit ? 20 : 0 }}
