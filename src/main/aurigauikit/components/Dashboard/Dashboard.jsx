@@ -96,8 +96,6 @@ export default class Dashboard extends React.Component {
       ...currentLayouts,
       [breakpoint]: [...(currentLayouts[breakpoint] || []), widget],
     }
-    //this.props.onSave(layouts)
-    console.log({layouts,breakpoint})
     this.setState({ layouts, add: null, edit: true })
   }
 
@@ -231,7 +229,7 @@ export default class Dashboard extends React.Component {
 }
 
 const getBreakpoint = () =>
-  window.innerWidth <= 768 ? 'xs' : (window.innerWidth - 280) <= 1200 ? 'sm' : 'lg'
+  window.innerWidth <= 768 ? 'xs' : window.innerWidth - 280 <= 1200 ? 'sm' : 'lg'
 
 const collide = ({ x: x2, y: y2, w: w2, h: h2 }, { x: x1, y: y1, w: w1, h: h1 }) =>
   x1 + w1 - 1 >= x2 && x1 <= x2 + w2 - 1 && y1 + h1 - 1 >= y2 && y1 <= y2 + h2 - 1
@@ -244,7 +242,6 @@ const findEmptySpace = (layout, size, res) => {
       let found = false
       const position = { ...size, x, y }
       for (let size of layout) if (collide(position, size)) found = true
-      console.log({x,y,found})
       if (!found) return position
     }
     y++
