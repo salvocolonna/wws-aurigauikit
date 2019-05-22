@@ -7,7 +7,6 @@ import Spinner from 'aurigauikit/components/Spinner'
 import messages from '../messages'
 import OrganizationalUnit from '../OrganizationalUnit'
 import './organizational-unit-modal.less'
-import isDeepEqual from 'lodash/isEqual'
 import Tree from 'aurigauikit/components/Tree'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
@@ -83,7 +82,6 @@ const OuModal = ({
 }) => {
   const intitialData = useRef(selectedElements)
   const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
-    intitialData.current,
     selectedElements,
   ])
   const [option, setOption] = useState(null)
@@ -93,14 +91,14 @@ const OuModal = ({
 
   useEffect(() => {
     if (show) intitialData.current = selectedElements
-  }, [show])
+  }, [show]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (radioOptions && !option) {
       const [firstOption] = radioOptions
       setOption(firstOption)
     } else tree.fetch()
-  }, [option])
+  }, [option]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (defaultSelection && selectedElements.length === 0) onSelect([defaultSelection])
