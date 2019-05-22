@@ -14,6 +14,7 @@ const OuSelect = ({
   selectedItem,
   multiple,
   intl,
+  selectableType = 'multiple',
   onSelectionChange = () => true,
   onSelect = () => {},
   canSelect = () => true,
@@ -61,6 +62,7 @@ const OuSelect = ({
           radioOptions={radioOptions}
           datasource={datasource}
           canSelect={canSelect}
+          selectableType={selectableType}
           selectedElements={selectedElements}
           onRemove={unselect}
           canRemove={canUnselect}

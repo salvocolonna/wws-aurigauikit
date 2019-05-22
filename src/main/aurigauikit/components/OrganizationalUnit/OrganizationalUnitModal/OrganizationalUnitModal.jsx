@@ -71,6 +71,7 @@ const OuModal = ({
   datasource,
   radioOptions,
   intl,
+  selectableType,
   canSelect = () => true,
   canView = () => true,
   canRemove = () => true,
@@ -112,6 +113,7 @@ const OuModal = ({
   }, [defaultSelection, selectedElements])
 
   const selectElements = elements => {
+    console.log(elements)
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
       if (path === '0') return []
@@ -160,6 +162,12 @@ const OuModal = ({
     onSelectionConfirmed(selectedElements)
   }
 
+  const checkSelectableType = (tree, type) => {
+    if (tree.hasChildren() && tree.children[0] && typeof tree.children[0].getType === 'function') {
+      return tree.children[0].getType === type
+    }
+  }
+
   const title = (
     <span>
       <FormattedMessage {...messages.general.title} />
@@ -201,6 +209,7 @@ const OuModal = ({
             {tree.element && tree.element.table && (
               <SimpleTable
                 selectable
+                selectableType={selectableType}
                 pageable
                 pageSize={8}
                 canSelect={(option ? option.canSelect : canSelect) || canSelect}
