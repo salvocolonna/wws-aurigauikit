@@ -37,8 +37,10 @@ class Topbar extends React.Component {
     )
     return (
       <header id="topbar" style={{ display: 'flex', margin: '0px' }}>
-        {logo && <Logo src={logo} onClick={onLogoClick} />}
-        {logoImage && logoImage.src && <LogoImage {...logoImage} />}
+        <MediaQuery minWidth={1024}>
+          {logo && <Logo src={logo} onClick={onLogoClick} />}
+          {logoImage && logoImage.src && <LogoImage {...logoImage} />}
+        </MediaQuery>
         <ul
           style={{
             display: 'inline-block',

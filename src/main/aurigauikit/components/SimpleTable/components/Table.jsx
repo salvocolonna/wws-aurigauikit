@@ -102,6 +102,7 @@ class Table extends React.Component {
             data={this.props.data}
             index={this.props.pageSize * (this.props.page - 1)}
             sliceData={this.props.pageSize > 0 && this.props.totalPages === 0}
+            groupHeaders={this.props.groupHeaders}
             headers={this.props.headers}
             sortable={this.props.sortable}
             onSort={sort => this.props.onSort(sort)}

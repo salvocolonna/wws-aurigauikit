@@ -67,7 +67,8 @@ class Body extends React.Component {
 
   static getClass(column) {
     if (typeof column === 'string') return ''
-    return column.cssClass
+    if (column.cssClass) return column.cssClass
+    return ''
   }
   getLoadingOrEmptyMessage() {
     let toView

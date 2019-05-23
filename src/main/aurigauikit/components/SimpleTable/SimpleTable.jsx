@@ -242,6 +242,7 @@ class SimpleTable extends React.Component {
         caption={this.props.caption}
         emptyState={this.props.emptyState}
         data={this.state.data}
+        groupHeaders={this.props.groupHeaders}
         headers={this.props.headers}
         footers={this.props.footers}
         columns={this.props.columns}

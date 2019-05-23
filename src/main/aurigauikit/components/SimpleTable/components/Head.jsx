@@ -56,7 +56,8 @@ class Head extends React.Component {
 
   static getClass(header) {
     if (typeof header === 'string') return ''
-    return header.cssClass
+    if (header.cssClass) return header.cssClass
+    return ''
   }
 
   render() {
@@ -74,6 +75,7 @@ class Head extends React.Component {
     const {
       loading,
       menu,
+      groupHeaders,
       headers,
       sort,
       sortable,
@@ -84,6 +86,20 @@ class Head extends React.Component {
     const extra = menu.items.length > 0
     return (
       <thead>
+        {groupHeaders && (
+          <tr>
+            {groupHeaders.map((group, index) => (
+              <th
+                key={index}
+                className={Head.getClass(group)}
+                style={Head.getStyle(group)}
+                colSpan={group.colSpan}
+              >
+                {group.content}
+              </th>
+            ))}
+          </tr>
+        )}
         <tr>
           {selectable && allSelectable && (
             <th>
