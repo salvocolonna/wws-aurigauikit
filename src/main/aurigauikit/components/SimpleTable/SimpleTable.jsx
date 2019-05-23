@@ -129,7 +129,7 @@ class SimpleTable extends React.Component {
   }
 
   onRowUnselected(row) {
-    if (!this.props.selectableType || this.props.selectableType !== 'single') {
+    if (this.props.selectableType !== 'single') {
       const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
       let selectedRows = this.state.selectedRows.filter(r =>
         comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0

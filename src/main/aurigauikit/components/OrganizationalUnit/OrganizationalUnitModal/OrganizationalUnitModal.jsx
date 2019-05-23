@@ -111,7 +111,6 @@ const OuModal = ({
   }, [defaultSelection, selectedElements])
 
   const selectElements = elements => {
-    console.log(elements)
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
       if (path === '0') return []
@@ -158,12 +157,6 @@ const OuModal = ({
   const confirm = () => {
     onClose()
     onSelectionConfirmed(selectedElements)
-  }
-
-  const checkSelectableType = (tree, type) => {
-    if (tree.hasChildren() && tree.children[0] && typeof tree.children[0].getType === 'function') {
-      return tree.children[0].getType === type
-    }
   }
 
   const title = (
