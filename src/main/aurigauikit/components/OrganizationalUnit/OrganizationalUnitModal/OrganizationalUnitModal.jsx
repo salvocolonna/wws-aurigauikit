@@ -70,6 +70,7 @@ const OuModal = ({
   datasource,
   radioOptions,
   intl,
+  selectableType,
   canSelect = () => true,
   canView = () => true,
   canRemove = () => true,
@@ -199,6 +200,7 @@ const OuModal = ({
             {tree.element && tree.element.table && (
               <SimpleTable
                 selectable
+                selectableType={selectableType}
                 pageable
                 pageSize={8}
                 canSelect={(option ? option.canSelect : canSelect) || canSelect}

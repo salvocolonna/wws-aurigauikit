@@ -1,5 +1,5 @@
-import React from "react"
-import "./checkbox.less"
+import React from 'react'
+import './checkbox.less'
 
 class Checkbox extends React.Component {
   constructor(props) {
@@ -12,13 +12,15 @@ class Checkbox extends React.Component {
     return (
       <div
         style={{
-          cursor: isDisabled ? "default" : "pointer",
-          ...style
-        }}>
+          cursor: isDisabled ? 'default' : 'pointer',
+          ...style,
+        }}
+      >
         <input
           type="checkbox"
           id={this.id}
-          onClick={e => onChange(e.target.checked)}
+          onChange={e => onChange(e.target.checked)}
+          // onClick={e => onChange(e.target.checked)}
           checked={isChecked}
           disabled={isDisabled}
         />

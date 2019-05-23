@@ -14,6 +14,7 @@ const OuSelect = ({
   selectedItem,
   multiple,
   intl,
+  selectableType = 'multiple',
   onSelectionChange = () => true,
   onSelect = () => {},
   canSelect = () => true,
@@ -28,7 +29,8 @@ const OuSelect = ({
     const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
     const items = [...selectedElements]
     items.splice(index, 1)
-    onSelectionChange(items.length > 0 ? items : [defaultSelection])
+    // onSelectionChange(items.length > 0 ? items : [defaultSelection])
+    onSelectionChange(items)
   }
 
   const canUnselect = item =>
@@ -61,6 +63,7 @@ const OuSelect = ({
           radioOptions={radioOptions}
           datasource={datasource}
           canSelect={canSelect}
+          selectableType={selectableType}
           selectedElements={selectedElements}
           onRemove={unselect}
           canRemove={canUnselect}

@@ -1,11 +1,11 @@
-import React from "react"
-import Head from "./Head"
-import Foot from "./Foot"
-import Body from "./Body"
-import Pagination from "./Pagination"
-import CellEditor from "./CellEditor"
-import ContextMenu from "../../ContextMenu/ContextMenu"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Head from './Head'
+import Foot from './Foot'
+import Body from './Body'
+import Pagination from './Pagination'
+import CellEditor from './CellEditor'
+import ContextMenu from '../../ContextMenu/ContextMenu'
+import { FormattedMessage } from 'react-intl'
 
 class Table extends React.Component {
   getTotalPages() {
@@ -54,11 +54,11 @@ class Table extends React.Component {
   getLoadingOrEmptyMessage() {
     let toView
     if (this.props.loading) {
-      toView = this.props.loadingState || "simple-table.loading-state"
+      toView = this.props.loadingState || 'simple-table.loading-state'
     } else {
-      toView = this.props.emptyState || "simple-table.empty-state"
+      toView = this.props.emptyState || 'simple-table.empty-state'
     }
-    if (typeof toView === "string") {
+    if (typeof toView === 'string') {
       return <FormattedMessage id={toView} />
     } else {
       return toView
@@ -69,7 +69,7 @@ class Table extends React.Component {
     const unselectedRows = this.getUnselectedRows()
     const hasMenu = this.props.menu.items.length > 0
     return (
-      <div style={{ width: "100%", overflowX: "auto", overflowY: "hidden", ...this.props.style }}>
+      <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', ...this.props.style }}>
         {this.props.editable && this.props.cellEditor.context && (
           <CellEditor
             isOpen={this.props.cellEditor.isOpen}
@@ -93,8 +93,8 @@ class Table extends React.Component {
           />
         )}
         <table className={`table table-striped ${this.props.className}`}>
-          {this.props.caption && this.props.caption != "" && (
-            <caption style={{ pointerEvents: "none" }}>
+          {this.props.caption && this.props.caption != '' && (
+            <caption style={{ pointerEvents: 'none' }}>
               <div>{this.props.caption}</div>
             </caption>
           )}
@@ -108,6 +108,7 @@ class Table extends React.Component {
             onSelectAll={() => this.onSelectAll()}
             allSelected={unselectedRows.length === 0}
             selectable={this.props.selectable}
+            selectableType={this.props.selectableType}
             menu={this.props.menu}
             canSelect={element => this.props.canSelect(element)}
             sort={this.props.sort}
@@ -134,6 +135,7 @@ class Table extends React.Component {
               this.props.cellValueForEditor(table, rowIndex, colIndex, column)
             }
             selectable={this.props.selectable}
+            selectableType={this.props.selectableType}
             canSelect={element => this.props.canSelect(element)}
             menu={this.props.menu}
             onMenuItemClick={(row, position, target) =>
