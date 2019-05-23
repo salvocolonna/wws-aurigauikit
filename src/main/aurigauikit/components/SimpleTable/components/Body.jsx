@@ -1,5 +1,6 @@
 import React from 'react'
 import Checkbox from '../../Checkbox'
+import Radio from '../../Radio'
 import { FormattedMessage } from 'react-intl'
 
 import isFunction from 'lodash/isFunction'
@@ -131,14 +132,23 @@ class Body extends React.Component {
               }
             }
             className={this.props.onRowClick ? 'clickable-row' : ''}
-            onClick={e => this.onRowClick(e, rowIndex)}>
+            onClick={e => this.onRowClick(e, rowIndex)}
+          >
             {this.isSelectable(row) && (
               <td>
-                <Checkbox
-                  isChecked={this.isRowChecked(row)}
-                  isDisabled={this.isRowCheckDisabled(row)}
-                  onChange={() => this.props.onRowSelected(row)}
-                />
+                {this.props.selectableType === 'multiple' ? (
+                  <Checkbox
+                    isChecked={this.isRowChecked(row)}
+                    isDisabled={this.isRowCheckDisabled(row)}
+                    onChange={() => this.props.onRowSelected(row)}
+                  />
+                ) : (
+                  <Radio
+                    isChecked={this.isRowChecked(row)}
+                    isDisabled={this.isRowCheckDisabled(row)}
+                    onChange={() => this.props.onRowSelected(row)}
+                  />
+                )}
               </td>
             )}
             {this.props.columns.map((column, colIndex) => (
@@ -154,7 +164,8 @@ class Body extends React.Component {
                 }
                 onClick={event =>
                   this.onEditCellClicked(this.props.index + rowIndex, colIndex, row, column, event)
-                }>
+                }
+              >
                 {Body.getValue(row, column)}
               </td>
             ))}
@@ -162,7 +173,8 @@ class Body extends React.Component {
               <td
                 ref={this.menuRef}
                 className="icon-column clickable"
-                onClick={event => this.onMenuItemClick(event, rowIndex)}>
+                onClick={event => this.onMenuItemClick(event, rowIndex)}
+              >
                 <i className="fa fa-ellipsis-h" style={{ pointerEvents: 'none' }} />
               </td>
             )}

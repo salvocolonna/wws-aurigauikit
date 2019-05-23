@@ -50,7 +50,7 @@ export default class {
       method,
       api,
       { ...headers, ...this.requestHolder.get(CUSTOMHEADERS) },
-      withParams(resource, { _metadata: false, ...params }),
+      withParams(resource, { _: Date.now().valueOf(), _metadata: false, ...params }),
       data && this.requestHolder.get(RAWBODY) ? data : JSON.stringify(data)
     )
 

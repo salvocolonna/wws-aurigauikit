@@ -109,6 +109,7 @@ class Table extends React.Component {
             onSelectAll={() => this.onSelectAll()}
             allSelected={unselectedRows.length === 0}
             selectable={this.props.selectable}
+            selectableType={this.props.selectableType}
             menu={this.props.menu}
             canSelect={element => this.props.canSelect(element)}
             sort={this.props.sort}
@@ -135,6 +136,7 @@ class Table extends React.Component {
               this.props.cellValueForEditor(table, rowIndex, colIndex, column)
             }
             selectable={this.props.selectable}
+            selectableType={this.props.selectableType}
             canSelect={element => this.props.canSelect(element)}
             menu={this.props.menu}
             onMenuItemClick={(row, position, target) =>

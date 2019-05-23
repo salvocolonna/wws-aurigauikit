@@ -65,9 +65,13 @@ class Head extends React.Component {
     let rows = this.props.data
     if (this.props.sliceData) rows = this.props.data.slice(this.props.index, last)
     let allSelectable = false
+    let oneSelectable = false
     rows.forEach(row => {
-      if (this.props.canSelect(row)) allSelectable = true
+      if (this.props.canSelect(row) && this.props.selectableType === 'multiple')
+        allSelectable = true
+      if (this.props.canSelect(row) && this.props.selectableType === 'single') oneSelectable = true
     })
+    // if (allSelectable) allSelectable = this.props.selectableType === 'multiple'
     const {
       loading,
       menu,
@@ -89,7 +93,8 @@ class Head extends React.Component {
                 key={index}
                 className={Head.getClass(group)}
                 style={Head.getStyle(group)}
-                colSpan={group.colSpan}>
+                colSpan={group.colSpan}
+              >
                 {group.content}
               </th>
             ))}
@@ -101,6 +106,7 @@ class Head extends React.Component {
               <Checkbox isChecked={allSelected} onChange={() => onSelectAll()} />
             </th>
           )}
+          {selectable && oneSelectable && <th />}
           {this.props.headers.map((header, index) => (
             <th
               key={index}
@@ -115,7 +121,8 @@ class Head extends React.Component {
               onClick={() =>
                 (header.sortable || (typeof header.sortable === 'undefined' && sortable)) &&
                 this.onSort(header)
-              }>
+              }
+            >
               <div style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
                 {(header.sortable || (typeof header.sortable === 'undefined' && sortable)) &&
                   Head.getSortImage(headers.indexOf(header), sort)}
@@ -123,7 +130,8 @@ class Head extends React.Component {
                   style={{
                     marginRight: index < this.props.headers.length - 1 && 5,
                     display: 'inline-block',
-                  }}>
+                  }}
+                >
                   {Head.getValue(header)}
                 </div>
               </div>

@@ -121,15 +121,21 @@ class SimpleTable extends React.Component {
   }
 
   onRowSelected(row) {
-    this.onSelectionChange([row, ...this.state.selectedRows])
+    if (this.props.selectableType && this.props.selectableType === 'single') {
+      this.onSelectionChange([row])
+    } else {
+      this.onSelectionChange([row, ...this.state.selectedRows])
+    }
   }
 
   onRowUnselected(row) {
-    const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
-    let selectedRows = this.state.selectedRows.filter(r =>
-      comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0
-    )
-    this.onSelectionChange(selectedRows)
+    if (this.props.selectableType !== 'single') {
+      const comparator = this.props.dataComparator !== SimpleTable.defaultProps.dataComparator
+      let selectedRows = this.state.selectedRows.filter(r =>
+        comparator ? !this.props.dataComparator(row, r) : selectedRows.indexOf(r) < 0
+      )
+      this.onSelectionChange(selectedRows)
+    }
   }
 
   onSelectionChange(selectedRows) {
@@ -259,6 +265,7 @@ class SimpleTable extends React.Component {
         onMenuItemClick={(row, position, target) => this.onMenuItemClick(row, position, target)}
         onContextMenuCloseRequested={() => this.onContextMenuCloseRequested()}
         selectable={this.props.selectable}
+        selectableType={this.props.selectableType ? this.props.selectableType : 'multiple'}
         selectedRows={this.state.selectedRows}
         defaultSelection={this.props.defaultSelection}
         dataComparator={this.props.dataComparator}

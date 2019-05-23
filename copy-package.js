@@ -13,3 +13,4 @@ delete pkg.scripts
 delete pkg.devDependencies
 
 fs.writeFileSync("dist/package.json", JSON.stringify(pkg, 0, 2))
+fs.writeFileSync("dist/.npmrc", fs.readFileSync("./.npmrc", "utf-8"))

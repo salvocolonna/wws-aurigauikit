@@ -107,7 +107,7 @@ export default {
     },
     ASSET_GROUP: {
       id: `${SELECT_PATH}.type.ASSET_GROUP`,
-      defaultMessage: "Asset group"
+      defaultMessage: "Groups"
     },
     PUBLIC: {
       id: `${SELECT_PATH}.type.PUBLIC`,

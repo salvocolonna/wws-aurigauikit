@@ -1,16 +1,17 @@
-import React from "react"
-import Spinner from "spin.js"
+import React from 'react'
+import { Spinner } from 'spin.js'
+import 'spin.js/spin.css'
 
 export default class extends React.Component {
   static defaultProps = {
     config: {},
-    color: "black"
+    color: 'black',
   }
 
   state = { opacity: 0 }
 
   componentDidMount() {
-    const { target = "content-dynamic", color = "#999", config } = this.props
+    const { target = 'content-dynamic', color = '#999', config } = this.props
     const spinConfig = {
       lines: 13,
       length: 56,
@@ -26,12 +27,12 @@ export default class extends React.Component {
       trail: 100,
       fps: 20,
       zIndex: 2e9,
-      className: "spinner",
-      position: "relative",
+      className: 'spinner',
+      position: 'relative',
       //shadow: true,
       hwaccel: true,
       // config will overwrite anything else
-      ...config
+      ...config,
     }
 
     this.spinner = new Spinner(spinConfig)
@@ -47,15 +48,15 @@ export default class extends React.Component {
     <div
       onClick={this.props.onClick}
       style={{
-        position: "absolute",
+        position: 'absolute',
         zIndex: 199999999,
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
         top: 0,
         left: 0,
-        height: "100%",
-        width: "100%",
+        height: '100%',
+        width: '100%',
         opacity: this.state.opacity,
-        transition: "opacity 1s"
+        transition: 'opacity 1s',
       }}
     />
   )

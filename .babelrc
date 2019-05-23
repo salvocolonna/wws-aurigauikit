@@ -1,13 +1,18 @@
 {
   "presets": [
-    "env",
-    "stage-2",
-    "react",
-    "flow"
+    "@babel/typescript", "@babel/env", "@babel/react"
   ],
   "plugins": [
-    "transform-decorators-legacy",
-    "transform-class-properties",
+    [
+			"import",
+			{ "libraryName": "antd", "libraryDirectory": "es", "style": true }
+		],
+    ["@babel/plugin-proposal-decorators", {
+      "legacy": true
+    }],
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
     [
       "module-resolver",
       {

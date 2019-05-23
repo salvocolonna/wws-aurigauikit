@@ -1,21 +1,11 @@
-// @flow
 import Ajax from "aurigauikit/ajax"
-
-type Notification = {
-  id: number,
-  type: string,
-  refDate: number,
-  message: string,
-  ref: string,
-  read: boolean
-}
 
 class NotificationService2 {
   constructor(frontend, backend) {
     this.ajax = Ajax(frontend)(backend)
   }
 
-  fetchNotification = async (app, user): Notification[] => {
+  fetchNotification = async (app, user) => {
     const result = await this.ajax.get(`notification/${app}/${user.split(" ").join("")}`)
     return result.notifications
   }
