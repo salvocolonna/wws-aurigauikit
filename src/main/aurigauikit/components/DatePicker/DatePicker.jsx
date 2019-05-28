@@ -1,9 +1,9 @@
-import React from "react"
-import ReactDatePicker from "react-datepicker"
+import React from 'react'
+import ReactDatePicker from 'react-datepicker'
 
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 
-import "./datepicker.less"
+import './datepicker.less'
 
 class DatePicker extends React.Component {
   constructor(props) {
@@ -16,11 +16,11 @@ class DatePicker extends React.Component {
   onFocusIn = () => this.setState({ focus: true })
 
   componentDidMount() {
-    this.container.addEventListener("focusin", this.onFocusIn)
-    this.container.addEventListener("focusout", this.onFocusOut)
+    this.container.addEventListener('focusin', this.onFocusIn)
+    this.container.addEventListener('focusout', this.onFocusOut)
     if (this.props.time) {
-      const timeElements = document.querySelectorAll("div.react-datepicker__time > div > ul > li")
-      for (let timeElement of timeElements) timeElement.addEventListener("click", this.timeClicked)
+      const timeElements = document.querySelectorAll('div.react-datepicker__time > div > ul > li')
+      for (let timeElement of timeElements) timeElement.addEventListener('click', this.timeClicked)
     }
   }
 
@@ -30,12 +30,12 @@ class DatePicker extends React.Component {
   }
 
   componentWillUnmount() {
-    this.container.removeEventListener("focusin", this.onFocusIn)
-    this.container.removeEventListener("focusout", this.onFocusOut)
+    this.container.removeEventListener('focusin', this.onFocusIn)
+    this.container.removeEventListener('focusout', this.onFocusOut)
     if (this.props.time) {
-      const timeElements = document.querySelectorAll("div.react-datepicker__time > div > ul > li")
+      const timeElements = document.querySelectorAll('div.react-datepicker__time > div > ul > li')
       for (let timeElement of timeElements)
-        timeElement.removeEventListener("click", this.timeClicked)
+        timeElement.removeEventListener('click', this.timeClicked)
     }
   }
 
@@ -44,16 +44,17 @@ class DatePicker extends React.Component {
     return (
       <div
         ref={container => (this.container = container)}
-        className={"auriga-date-picker " + (time ? "only-time" : "")}>
+        className={'auriga-date-picker ' + (time ? 'only-time' : '')}
+      >
         <ReactDatePicker
           ref={instance => (this.instance = instance)}
           {...this.props}
           showTimeSelect={time || this.props.showTimeSelect}
-          dateFormat={time ? "HH:mm" : this.props.dateFormat}
+          dateFormat={time ? 'HH:mm' : this.props.dateFormat}
         />
         <Icon
           translate={props.isClearable && props.selected !== null ? 20 : 0}
-          className={this.state.focus ? "opened" : ""}
+          className={this.state.focus ? 'opened' : ''}
         />
       </div>
     )
@@ -66,9 +67,9 @@ const Icon = ({ translate, className }) => (
     style={{
       transform: `translateX(-${translate}px)`,
       marginRight: 10,
-      float: "right",
-      marginTop: 14,
-      pointerEvents: "none"
+      float: 'right',
+      marginTop: 12,
+      pointerEvents: 'none',
     }}
   />
 )
