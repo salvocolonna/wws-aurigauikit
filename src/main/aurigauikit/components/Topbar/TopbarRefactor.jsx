@@ -39,13 +39,16 @@ class Topbar extends React.Component {
       <header id="topbar" style={{ display: 'flex', margin: '0px' }}>
         <MediaQuery minWidth={1024}>
           {logo && <Logo src={logo} onClick={onLogoClick} />}
-          {logoImage && logoImage.src && <LogoImage {...logoImage} />}
+          {logoImage && logoImage.src && (
+            <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
+          )}
         </MediaQuery>
         <ul
           style={{
             display: 'inline-block',
             flex: '1 0 auto',
-          }}>
+          }}
+        >
           <MediaQuery maxWidth={767}>
             {hasNotification && <li> {notification} </li>}
             <li>
@@ -98,13 +101,14 @@ const Logo = ({ src, onClick }) => (
       cursor: 'pointer',
       width: 200,
       margin: 0,
-    }}>
+    }}
+  >
     <span />
     <img id="app-logo-full" src={src} />
   </div>
 )
 
-const LogoImage = ({ src, onClick, marginLeft = '40px', maxWidth = '300px', imageStyle = {} }) => {
+const LogoImage = ({ src, onClick, marginLeft = 40, maxWidth = 300, style = {} }) => {
   onClick = onClick || (() => {})
 
   return (
@@ -115,9 +119,10 @@ const LogoImage = ({ src, onClick, marginLeft = '40px', maxWidth = '300px', imag
         margin: 0,
         alignItems: 'center',
         marginLeft,
-      }}>
+      }}
+    >
       <span />
-      <img style={{ maxWidth, ...imageStyle }} src={src} />
+      <img style={{ maxWidth, ...style }} src={src} />
     </div>
   )
 }
