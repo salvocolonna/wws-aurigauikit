@@ -1,0 +1,15 @@
+[
+  {
+    "profile": "manager",
+    "permissions": [{ "object": "order", "actions": ["create", "read"] }]
+  },
+  {
+    "profile": "admin",
+    "permissions": [
+      { "object": "order", "actions": ["create", "read", "edit", "delete"] },
+      { "object": "cashpoint", "actions": ["create", "read", "edit", "delete"] },
+      { "object": "branch", "actions": ["create", "read", "edit", "delete"] }
+    ],
+    "exceptions": [""]
+  }
+]
