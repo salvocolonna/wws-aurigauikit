@@ -52,8 +52,6 @@ export default function(dev, prod = dev) {
     if (fileType === 'yaml') {
       const text = await fetch(path).then(j => j.text())
       const properties = yaml.safeLoad(text)
-      console.log('.yaml')
-      console.log(properties)
       return properties
     } else {
       const text = await fetch(path).then(j => j.text())
@@ -66,8 +64,6 @@ export default function(dev, prod = dev) {
           return { ...properties, [key]: value }
         }, {})
       const applicationProperties = expand(properties)
-      console.log('.properties')
-      console.log(applicationProperties)
       return applicationProperties
     }
   }
