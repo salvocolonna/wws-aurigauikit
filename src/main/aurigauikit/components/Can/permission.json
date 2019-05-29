@@ -1,7 +1,8 @@
 [
   {
     "profile": "manager",
-    "permissions": [{ "object": "order", "actions": ["create", "read"] }]
+    "permissions": [{ "object": "order", "actions": ["create", "read"] }],
+    "exceptions": []
   },
   {
     "profile": "admin",
@@ -10,6 +11,6 @@
       { "object": "cashpoint", "actions": ["create", "read", "edit", "delete"] },
       { "object": "branch", "actions": ["create", "read", "edit", "delete"] }
     ],
-    "exceptions": [""]
+    "exceptions": []
   }
 ]

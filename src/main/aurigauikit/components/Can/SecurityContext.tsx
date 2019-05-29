@@ -1,34 +1,36 @@
 import * as React from 'react'
-import { Permission } from './Can'
+import { ProfilePermission } from './Can'
 
 interface SecurityContext {
   user?: string
   setUser: (user: string) => void
-  permissions?: Permission[]
-  setPermissions: (permissions: Permission[]) => void
+  profilePermissions?: ProfilePermission[]
+  setProfilePermissions: (permissions: ProfilePermission[]) => void
 }
 
-const initialContext = {
+const initialContext: SecurityContext = {
   user: undefined,
   setUser: () => {},
-  permissions: undefined,
-  setPermissions: () => {},
-} as SecurityContext
+  profilePermissions: undefined,
+  setProfilePermissions: () => {},
+}
 
 const SecurityContext = React.createContext(initialContext)
 
 const SecurityContextController = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState((undefined as unknown) as string)
-  const [permissions, setPermissions] = React.useState((undefined as unknown) as Permission[])
+  const [profilePermissions, setProfilePermissions] = React.useState(
+    (undefined as unknown) as ProfilePermission[]
+  )
 
   const value = React.useMemo<SecurityContext>(
     () => ({
       user,
       setUser,
-      permissions,
-      setPermissions,
+      profilePermissions,
+      setProfilePermissions,
     }),
-    [user, permissions]
+    [user, profilePermissions]
   )
   return <SecurityContext.Provider value={value}>{children}</SecurityContext.Provider>
 }
