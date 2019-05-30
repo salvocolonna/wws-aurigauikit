@@ -40,6 +40,12 @@ class ContextMenu extends React.Component {
     this.props.onCloseRequested()
   }
 
+  title(title) {
+    if (title && typeof title === 'function') {
+      return title(this.props.context)
+    } else return title
+  }
+
   render() {
     const { context, items, size, center } = this.props
     const { position } = context
@@ -75,7 +81,7 @@ class ContextMenu extends React.Component {
                     style={{ marginLeft: item.iconName ? '5px' : '' }}
                     className={item.iconName ? 'fa fa-' + item.iconName : 'fa fa-fw'}
                   />
-                  {item.title}
+                  {this.title(item.title)}
                 </li>
               ) : (
                 <li key={index} style={{ margin: 0 }} className="separator" />
