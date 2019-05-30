@@ -39,8 +39,8 @@ class WidgetError extends React.Component {
         </button>
       </div>
     ) : (
-      children
-    )
+        children
+      )
   }
 }
 
@@ -148,26 +148,26 @@ export default class Dashboard extends React.Component {
                 <WidgetError>{children(this.state, () => this.removeWidget(name))}</WidgetError>
               </Wrapper>
             ) : (
-              <React.Fragment>
-                {!loading && (
-                  <DeleteWidget
-                    show={edit && !add && !saving}
+                <React.Fragment>
+                  {!loading && (
+                    <DeleteWidget
+                      show={edit && !add && !saving}
+                      name={name}
+                      onClick={this.removeWidget}
+                    />
+                  )}
+                  <Wrapper
+                    title={title}
+                    edit={edit}
+                    add={add}
                     name={name}
-                    onClick={this.removeWidget}
-                  />
-                )}
-                <Wrapper
-                  title={title}
-                  edit={edit}
-                  add={add}
-                  name={name}
-                  loading={loading}
-                  {...wrapperProps}
-                >
-                  <WidgetError>{children}</WidgetError>
-                </Wrapper>
-              </React.Fragment>
-            )}
+                    loading={loading}
+                    {...wrapperProps}
+                  >
+                    <WidgetError>{children}</WidgetError>
+                  </Wrapper>
+                </React.Fragment>
+              )}
           </div>
         )
       })
@@ -299,19 +299,19 @@ const WidgetCard = ({ edit, children, add, ...props }) => (
     {add === name ? (
       children
     ) : (
-      <div
-        style={{
-          padding: 20,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
-        {children}
-      </div>
-    )}
+        <div
+          style={{
+            padding: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+        >
+          {children}
+        </div>
+      )}
   </Card>
 )
 
