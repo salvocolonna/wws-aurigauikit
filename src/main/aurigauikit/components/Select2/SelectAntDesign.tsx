@@ -139,6 +139,7 @@ function SelectAnt(props: SelectProps) {
 
   return (
     <Select
+      {...props}
       ref={selectRef}
       value={value}
       mode={mode}
