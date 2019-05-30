@@ -10,6 +10,28 @@ export default function(dev, prod = dev) {
     return expanded
   }
 
+  const fetchStaticProperties = async (path = dev) => {
+    const fileType = path.includes('.yml') ? 'yaml' : 'properties'
+
+    if (fileType === 'yaml') {
+      const text = await fetch(path).then(j => j.text())
+      const properties = yaml.safeLoad(text)
+      return properties
+    } else {
+      const text = await fetch(path).then(j => j.text())
+      const properties = text
+        .split('\n')
+        .map(line => line.replace(/#.*/, '').trim())
+        .filter(Boolean)
+        .reduce((properties, line) => {
+          const [key, value] = line.split('=')
+          return { ...properties, [key]: value }
+        }, {})
+      const applicationProperties = expand(properties)
+      return applicationProperties
+    }
+  }
+
   const fetchStaticProd = async () => {
     const staticProperties = await fetchStaticProperties(dev)
     const staticProd = await fetchStaticProperties(prod)
@@ -17,11 +39,16 @@ export default function(dev, prod = dev) {
     return staticProperties
   }
 
-  const fetchProperties = async (ignoreStaticFile = false) => {
+  const fetchProperties = async (contextPathMethod = 'standard') => {
     let contextPath = ''
-    if (!ignoreStaticFile) {
+    if (contextPathMethod === 'standard') {
       const staticProperties = await fetchStaticProd()
       contextPath = staticProperties.server.servlet['context-path']
+    } else if (contextPathMethod === 'static') {
+      const staticProperties = await fetchStaticProperties(prod)
+      contextPath = staticProperties.server.servlet['context-path']
+    } else if (contextPathMethod === 'dynamic') {
+      contextPath = '/' + window.location.pathname.split('/')[1]
     }
 
     const endpoint = contextPath + '/env'
@@ -44,28 +71,6 @@ export default function(dev, prod = dev) {
 
     const applicationProperties = expand(properties)
     return applicationProperties
-  }
-
-  const fetchStaticProperties = async (path = dev) => {
-    const fileType = path.includes('.yml') ? 'yaml' : 'properties'
-
-    if (fileType === 'yaml') {
-      const text = await fetch(path).then(j => j.text())
-      const properties = yaml.safeLoad(text)
-      return properties
-    } else {
-      const text = await fetch(path).then(j => j.text())
-      const properties = text
-        .split('\n')
-        .map(line => line.replace(/#.*/, '').trim())
-        .filter(Boolean)
-        .reduce((properties, line) => {
-          const [key, value] = line.split('=')
-          return { ...properties, [key]: value }
-        }, {})
-      const applicationProperties = expand(properties)
-      return applicationProperties
-    }
   }
 
   return { fetchProperties, fetchStaticProperties }
