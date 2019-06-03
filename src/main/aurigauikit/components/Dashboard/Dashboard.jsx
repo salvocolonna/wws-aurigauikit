@@ -1,16 +1,16 @@
-import React from "react"
-import { Responsive, WidthProvider } from "react-grid-layout"
-const ResponsiveReactGridLayout = WidthProvider(Responsive)
-import Actions from "./Actions"
-import { AddWidgetModal } from "./AddWidget"
-import isFunction from "lodash/isFunction"
-import Card from "aurigauikit/components/Card"
-import "react-grid-layout/css/styles.css"
-import "react-resizable/css/styles.css"
-import styles from "./styles.css"
-import { injectIntl } from "react-intl"
+import React from 'react'
+import { Responsive, WidthProvider } from 'react-grid-layout'
+import Actions from './Actions'
+import { AddWidgetModal } from './AddWidget'
+import isFunction from 'lodash/isFunction'
+import Card from 'aurigauikit/components/Card'
+import 'react-grid-layout/css/styles.css'
+import 'react-resizable/css/styles.css'
+import styles from './styles.css'
+import { injectIntl } from 'react-intl'
 
-const MARGIN = 10
+const ResponsiveReactGridLayout = WidthProvider(Responsive)
+const MARGIN = 40
 
 class WidgetError extends React.Component {
   state = { error: false }
@@ -23,14 +23,15 @@ class WidgetError extends React.Component {
     const { children } = this.props
     const { error } = this.state
     return error ? (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: 'center' }}>
         <div
           style={{
-            color: "#DC402B",
-            fontWeight: "bold",
+            color: '#DC402B',
+            fontWeight: 'bold',
             fontSize: 18,
-            marginBottom: 10
-          }}>
+            marginBottom: 10,
+          }}
+        >
           Error rendering data
         </div>
         <button className="btn btn-primary-outline" onClick={this.refresh}>
@@ -38,8 +39,8 @@ class WidgetError extends React.Component {
         </button>
       </div>
     ) : (
-      children
-    )
+        children
+      )
   }
 }
 
@@ -50,13 +51,13 @@ export default class Dashboard extends React.Component {
     edit: false,
     add: false,
     layouts: this.props.layouts,
-    saving: false
+    saving: false,
   }
 
   static defaultProps = {
     layouts: { lg: [], sm: [], xs: [] },
     breakpoints: { lg: 1200, sm: 768, xs: 480 },
-    cols: { lg: 12, sm: 6, xs: 3 }
+    cols: { lg: 12, sm: 6, xs: 3 },
   }
 
   isAdded = name => {
@@ -93,10 +94,9 @@ export default class Dashboard extends React.Component {
     const widget = { i: name, ...position }
     const layouts = {
       ...currentLayouts,
-      [breakpoint]: [...(currentLayouts[breakpoint] || []), widget]
+      [breakpoint]: [...(currentLayouts[breakpoint] || []), widget],
     }
-    this.props.onSave(layouts)
-    this.setState({ layouts, add: null })
+    this.setState({ layouts, add: null, edit: true })
   }
 
   undoEdit = () => {
@@ -110,8 +110,12 @@ export default class Dashboard extends React.Component {
     const { layouts, breakpoint } = this.state
     const { onSave } = this.props
     this.setState({ saving: true }, async () => {
-      await onSave(layouts, breakpoint)
-      this.setState({ edit: false, saving: false })
+      try {
+        await onSave(layouts, breakpoint)
+        this.setState({ edit: false, saving: false })
+      } catch (e) {
+        this.setState({ saving: false })
+      }
     })
   }
 
@@ -125,7 +129,7 @@ export default class Dashboard extends React.Component {
       .map(({ props: { name, children, defaultSize = {} } }) => ({
         name,
         defaultSize,
-        widget: isFunction(children) ? children(true, true) : children
+        widget: isFunction(children) ? children(true, true) : children,
       }))
   }
 
@@ -135,7 +139,7 @@ export default class Dashboard extends React.Component {
     return React.Children.toArray(children)
       .filter(({ props: { name } }) => this.isAdded(name))
       .map(({ props: { name, loading, children, ...wrapperProps }, type: { displayName } }) => {
-        const Wrapper = displayName === WidgetCard.displayName ? WidgetCard : "div"
+        const Wrapper = displayName === WidgetCard.displayName ? WidgetCard : 'div'
         const title = messages ? (messages[name] ? intl.formatMessage(messages[name]) : name) : name
         return (
           <div key={name}>
@@ -144,25 +148,26 @@ export default class Dashboard extends React.Component {
                 <WidgetError>{children(this.state, () => this.removeWidget(name))}</WidgetError>
               </Wrapper>
             ) : (
-              <React.Fragment>
-                {!loading && (
-                  <DeleteWidget
-                    show={edit && !add && !saving}
+                <React.Fragment>
+                  {!loading && (
+                    <DeleteWidget
+                      show={edit && !add && !saving}
+                      name={name}
+                      onClick={this.removeWidget}
+                    />
+                  )}
+                  <Wrapper
+                    title={title}
+                    edit={edit}
+                    add={add}
                     name={name}
-                    onClick={this.removeWidget}
-                  />
-                )}
-                <Wrapper
-                  title={title}
-                  edit={edit}
-                  add={add}
-                  name={name}
-                  loading={loading}
-                  {...wrapperProps}>
-                  <WidgetError>{children}</WidgetError>
-                </Wrapper>
-              </React.Fragment>
-            )}
+                    loading={loading}
+                    {...wrapperProps}
+                  >
+                    <WidgetError>{children}</WidgetError>
+                  </Wrapper>
+                </React.Fragment>
+              )}
           </div>
         )
       })
@@ -176,7 +181,7 @@ export default class Dashboard extends React.Component {
     const unAddedWidgets = this.getUnaddedWidgets()
     const widgets = this.getWidgets()
     return (
-      <UnMarginDiv size={margin}>
+      <>
         {!free && (
           <div style={{ marginBottom: 40 }}>
             <Actions
@@ -189,38 +194,42 @@ export default class Dashboard extends React.Component {
               onAdd={this.add}
               editable={edit}
               saving={saving}
+              margin={margin}
             />
           </div>
         )}
-        {add && (
-          <AddWidgetModal
-            widgets={unAddedWidgets}
-            messages={messages}
-            onAdd={this.addWidget}
-            onClose={this.undoAdd}
-            onBuild={onBuild}
-          />
-        )}
-        <ResponsiveReactGridLayout
-          layouts={edit ? currentLayouts : layouts}
-          breakpoints={breakpoints}
-          onLayoutChange={(_, layouts) => this.changeLayouts(layouts)}
-          onBreakpointChange={this.changeBreakpoint}
-          margin={[margin, margin]}
-          measureBeforeMount
-          useCSSTransforms
-          isDraggable={!saving && (free || edit)}
-          isResizable={!saving && (free || edit)}
-          cols={cols}>
-          {widgets}
-        </ResponsiveReactGridLayout>
-      </UnMarginDiv>
+        <UnMarginDiv size={margin}>
+          {add && (
+            <AddWidgetModal
+              widgets={unAddedWidgets}
+              messages={messages}
+              onAdd={this.addWidget}
+              onClose={this.undoAdd}
+              onBuild={onBuild}
+            />
+          )}
+          <ResponsiveReactGridLayout
+            layouts={edit ? currentLayouts : layouts}
+            breakpoints={breakpoints}
+            onLayoutChange={(_, layouts) => this.changeLayouts(layouts)}
+            onBreakpointChange={this.changeBreakpoint}
+            margin={[margin, margin]}
+            measureBeforeMount
+            useCSSTransforms
+            isDraggable={!saving && (free || edit)}
+            isResizable={!saving && (free || edit)}
+            cols={cols}
+          >
+            {widgets}
+          </ResponsiveReactGridLayout>
+        </UnMarginDiv>
+      </>
     )
   }
 }
 
 const getBreakpoint = () =>
-  window.innerWidth <= 480 ? "xs" : window.innerWidth <= 768 ? "sm" : "lg"
+  window.innerWidth <= 768 ? 'xs' : window.innerWidth - 280 <= 1200 ? 'sm' : 'lg'
 
 const collide = ({ x: x2, y: y2, w: w2, h: h2 }, { x: x1, y: y1, w: w1, h: h1 }) =>
   x1 + w1 - 1 >= x2 && x1 <= x2 + w2 - 1 && y1 + h1 - 1 >= y2 && y1 <= y2 + h2 - 1
@@ -228,7 +237,7 @@ const collide = ({ x: x2, y: y2, w: w2, h: h2 }, { x: x1, y: y1, w: w1, h: h1 })
 const findEmptySpace = (layout, size, res) => {
   let y = 0
   if (!layout || layout.length === 0) return { x: 0, y, ...size }
-	while (true) { // eslint-disable-line
+  while (true) { // eslint-disable-line
     for (let x = 0; x < res - size.w + 1; x++) {
       let found = false
       const position = { ...size, x, y }
@@ -244,7 +253,7 @@ const DeleteWidget = ({ show, name, onClick, style }) => {
   return (
     <i
       style={{ zIndex: 1000, ...style }}
-      className={"fa fa-remove " + styles.deleteIcon}
+      className={'fa fa-remove ' + styles.deleteIcon}
       onClick={e => {
         e.preventDefault()
         onClick(name)
@@ -259,7 +268,7 @@ const UnMarginDiv = ({ size, children, ...props }) => {
     marginTop: -size,
     marginLeft: -size,
     height: offset,
-    width: offset
+    width: offset,
   }
   return (
     <div style={style} {...props}>
@@ -276,36 +285,39 @@ const WidgetCard = ({ edit, children, add, ...props }) => (
         style={{
           minHeight: 500,
           padding: 20,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%"
-        }}>
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+        }}
+      >
         {children}
       </div>
     }
-    {...props}>
+    {...props}
+  >
     {add === name ? (
       children
     ) : (
-      <div
-        style={{
-          padding: 20,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          height: "100%"
-        }}>
-        {children}
-      </div>
-    )}
+        <div
+          style={{
+            padding: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+        >
+          {children}
+        </div>
+      )}
   </Card>
 )
 
 const Widget = ({ name, defaultSize = {} }) => null // eslint-disable-line no-unused-vars
-Widget.displayName = "Widget"
-WidgetCard.displayName = "WidgetCard"
+Widget.displayName = 'Widget'
+WidgetCard.displayName = 'WidgetCard'
 Dashboard.Widget = Widget
 Dashboard.WidgetCard = WidgetCard
 Dashboard.DeleteWidget = DeleteWidget

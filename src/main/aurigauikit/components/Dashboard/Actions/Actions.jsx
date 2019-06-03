@@ -1,10 +1,21 @@
-import React from "react"
-import { FormattedMessage as Msg } from "react-intl"
-import Loader from "aurigauikit/components/Loader"
-import messages from "./messages"
+import React from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import Loader from 'aurigauikit/components/Loader'
+import messages from './messages'
+import './style.less'
 
-export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = true, saving }) => (
-  <div style={{ textAlign: "right", marginTop: 40, marginRight: 40 }}>
+export default ({
+  onSave,
+  onAdd,
+  onEdit,
+  onUndo,
+  editable,
+  canAdd,
+  canEdit = true,
+  saving,
+  margin = 40,
+}) => (
+  <div className="dashboard-actions" style={{ textAlign: 'right' }}>
     {/* {!editable && canBuild && (
       <button
         style={{ width: 180, marginRight: canEdit ? 20 : 0 }}
@@ -14,11 +25,7 @@ export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = tru
       </button>
     )} */}
     {!editable && canAdd && (
-      <button
-        disabled={saving}
-        style={{ width: 180, marginRight: 20 }}
-        className="btn btn-primary"
-        onClick={onAdd}>
+      <button disabled={saving} style={{ width: 180 }} className="btn btn-primary" onClick={onAdd}>
         <Msg {...messages.addWidget} />
       </button>
     )}
@@ -30,16 +37,17 @@ export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = tru
     {editable && (
       <button
         disabled={saving}
-        style={{ width: 180, marginRight: 20 }}
+        style={{ width: 180 }}
         className="btn btn-primary-outline"
-        onClick={onUndo}>
+        onClick={onUndo}
+      >
         <Msg {...messages.undoEditLayout} />
       </button>
     )}
     {/* {editable && canAdd && (
       <button
         disabled={saving}
-        style={{ width: 180, marginRight: 20 }}
+        style={{ width: 180 }}
         className="btn btn-primary"
         onClick={onAdd}>
         <Msg {...messages.addWidget} />
@@ -50,7 +58,8 @@ export default ({ onSave, onAdd, onEdit, onUndo, editable, canAdd, canEdit = tru
         disabled={saving}
         style={{ width: 180 }}
         className="btn btn-confirmatory"
-        onClick={onSave}>
+        onClick={onSave}
+      >
         {saving ? <Msg {...messages.saving} /> : <Msg {...messages.saveLayout} />}
       </button>
     )}
