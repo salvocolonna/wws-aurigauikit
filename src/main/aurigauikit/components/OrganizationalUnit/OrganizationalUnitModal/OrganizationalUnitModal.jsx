@@ -245,6 +245,8 @@ const ResetButton = ({ disabled, onClick }) => {
     float: 'right',
     fontWeight: 'bold',
     margin: 10,
+    lineHeight: 'inherit',
+    fontSize: '0.8em',
   }
   return (
     <button
