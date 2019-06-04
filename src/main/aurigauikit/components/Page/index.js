@@ -1,6 +1,9 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
+import errorPic from './images/error.png'
+
+import './style.less'
 
 export const PageHeader = ({ children }) => (
   <section style={{ display: 'flex', justifyContent: 'space-between' }}>{children}</section>
@@ -45,18 +48,20 @@ export class Error extends React.Component {
     const { error } = this.state
     if (error)
       return (
-        <pre
-          style={{
-            whiteSpace: 'pre-wrap',
-            color: '#DC402B',
-            fontSize: '1.15em',
-            fontFamily: 'inherit',
-            fontWeight: 500,
-          }}
-        >
-          Errore
-          {/*fatale {"\n\n" + error}*/}
-        </pre>
+        <div className="error">
+          <div className="error__img-container">
+            <img src={errorPic} alt="error" />
+          </div>
+          <div className="error__wrapper">
+            <div className="error__title error--align">Ops!</div>
+            <div className="error__text error--align">Qualcosa è andato storto!</div>
+            <div className="error__text error--align">Riprova oppure CHIUDI</div>
+            <div className="error__img-container--mobile">
+              <img src={errorPic} alt="error" />
+            </div>
+            <div className="error__button btn btn-destructive">Segnala errore</div>
+          </div>
+        </div>
       )
     return this.props.children
   }
