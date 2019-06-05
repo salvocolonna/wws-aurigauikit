@@ -245,7 +245,7 @@ i18n.loadMessages('en', {
 
   'error-page.title': 'Ops!',
   'error-page.subtitle': 'Something went wrong!',
-  'error-page.text': 'Refresh the page or go to',
-  'error-page.link': 'dashboard',
+  'error-page.text': 'Refresh the page or go to the',
+  'error-page.link': 'homepage',
   'error-page.button': 'Report error',
 })

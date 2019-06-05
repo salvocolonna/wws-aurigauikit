@@ -147,7 +147,7 @@ i18n.loadMessages('it', {
 
   'error-page.title': 'Ops!',
   'error-page.subtitle': 'Qualcosa è andato storto!',
-  'error-page.text': 'Riprova oppure',
-  'error-page.link': 'chiudi',
+  'error-page.text': 'Riprova oppure vai alla',
+  'error-page.link': 'pagina iniziale',
   'error-page.button': 'Segnala errore',
 })
