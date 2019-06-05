@@ -2,7 +2,8 @@ import React from 'react'
 import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
 import errorPic from './images/error.png'
-
+import { FormattedMessage as Msg } from 'react-intl'
+import messages from './messages'
 import './style.less'
 
 export const PageHeader = ({ children }) => (
@@ -53,13 +54,24 @@ export class Error extends React.Component {
             <img src={errorPic} alt="error" />
           </div>
           <div className="error__wrapper">
-            <div className="error__title error--align">Ops!</div>
-            <div className="error__text error--align">Qualcosa è andato storto!</div>
-            <div className="error__text error--align">Riprova oppure CHIUDI</div>
+            <div className="error__title error--align">
+              <Msg {...messages.title} />
+            </div>
+            <div className="error__text error--align">
+              <Msg {...messages.subtitle} />
+            </div>
+            <div className="error__text error--align">
+              <Msg {...messages.text} />{' '}
+              <a href="./dashboard">
+                <Msg {...messages.link} />
+              </a>
+            </div>
             <div className="error__img-container--mobile">
               <img src={errorPic} alt="error" />
             </div>
-            <div className="error__button btn btn-destructive">Segnala errore</div>
+            <button disabled className="error__button btn btn-destructive">
+              <Msg {...messages.button} />
+            </button>
           </div>
         </div>
       )

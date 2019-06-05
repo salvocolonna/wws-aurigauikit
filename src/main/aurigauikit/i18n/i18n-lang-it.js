@@ -144,4 +144,10 @@ i18n.loadMessages('it', {
   'status-code.WARN': 'Warning',
   'status-code.CRITICAL': 'Critical',
   'status-code.WAITING': 'Info',
+
+  'error-page.title': 'Ops!',
+  'error-page.subtitle': 'Qualcosa è andato storto!',
+  'error-page.text': 'Riprova oppure',
+  'error-page.link': 'chiudi',
+  'error-page.button': 'Segnala errore',
 })
