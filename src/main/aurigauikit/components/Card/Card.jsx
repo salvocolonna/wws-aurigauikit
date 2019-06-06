@@ -1,7 +1,7 @@
-import React from "react"
-import Modal from "aurigauikit/components/Modal"
-import Loader from "aurigauikit/components/Loader"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import Modal from 'aurigauikit/components/Modal'
+import Loader from 'aurigauikit/components/Loader'
+import { FormattedMessage } from 'react-intl'
 
 class Card extends React.Component {
   constructor(props) {
@@ -32,18 +32,19 @@ class Card extends React.Component {
   render() {
     const {
       children,
+      header,
       title,
       action,
       className,
       onClick,
-      fullscreenIcon = "fa-external-link",
+      fullscreenIcon = 'fa-external-link',
       fullscreen,
       collapsable,
       loading,
-      mode = "primary",
+      mode = 'primary',
       bordered = true,
       fullscreenContent,
-      fullscreenStyle: { content: fullscreenContentStyle, ...fullscreenStyle } = {}
+      fullscreenStyle: { content: fullscreenContentStyle, ...fullscreenStyle } = {},
     } = this.props
 
     let { style } = this.props
@@ -54,47 +55,58 @@ class Card extends React.Component {
     return (
       <div
         style={{
-          border: !bordered ? "0" : undefined,
-          boxShadow: !bordered ? "none" : undefined,
-          ...style
+          border: !bordered ? '0' : undefined,
+          boxShadow: !bordered ? 'none' : undefined,
+          ...style,
         }}
-        className={["react-card", mode, className, collapsable && "collapsable"].join(" ")}
-        onClick={e => (onClick ? onClick(e) : "")}>
-        {title && (
-          <div className="header">
-            <div
-              className={`title ${onlyAction ? "only-action" : isAction ? "action" : ""}`}
-              onClick={onlyAction && (() => this.onClick())}
-              style={{ cursor: "pointer" }}>
-              <h4 style={{ position: "relative" }}>
+        className={['react-card', mode, className, collapsable && 'collapsable'].join(' ')}
+        onClick={e => (onClick ? onClick(e) : '')}
+      >
+        {header ? (
+          <>{header}</>
+        ) : (
+          <>
+            {title && (
+              <div className="header">
                 <div
-                  style={{
-                    display: "inline-block",
-                    height: "100%"
-                  }}
-                  onClick={() => this.onClick()}>
-                  {collapsable && (
-                    <i
-                      className={`fa fa-angle-${this.state.collapsed ? "right" : "down"}`}
+                  className={`title ${onlyAction ? 'only-action' : isAction ? 'action' : ''}`}
+                  onClick={onlyAction && (() => this.onClick())}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <h4 style={{ position: 'relative' }}>
+                    <div
                       style={{
-                        position: "absolute",
-                        right: 0,
-                        top: -2
+                        display: 'inline-block',
+                        height: '100%',
                       }}
-                    />
-                  )}
-                  {title}
+                      onClick={() => this.onClick()}
+                    >
+                      {collapsable && (
+                        <i
+                          className={`fa fa-angle-${this.state.collapsed ? 'right' : 'down'}`}
+                          style={{
+                            position: 'absolute',
+                            right: 0,
+                            top: -2,
+                          }}
+                        />
+                      )}
+                      {title}
+                    </div>
+                    {isAction && !loading && (
+                      <i
+                        className={
+                          `fa ${fullscreenIcon} ` + (onlyAction ? 'hoverable-on-title' : '')
+                        }
+                        onClick={e => (!onlyAction ? this.callAction(e) : '')}
+                      />
+                    )}
+                    {loading && <Loader style={{ marginRight: 15 }} />}
+                  </h4>
                 </div>
-                {isAction && !loading && (
-                  <i
-                    className={`fa ${fullscreenIcon} ` + (onlyAction ? "hoverable-on-title" : "")}
-                    onClick={e => (!onlyAction ? this.callAction(e) : "")}
-                  />
-                )}
-                {loading && <Loader style={{ marginRight: 15 }} />}
-              </h4>
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         )}
         {(!collapsable || (collapsable && !this.state.collapsed)) && (
           <CardContent title={title} onClick={() => this.onClick()}>
@@ -103,8 +115,9 @@ class Card extends React.Component {
         )}
         <Modal
           show={this.state.modal}
-          style={{ width: "calc(70%)", ...fullscreenStyle }}
-          onClose={() => this.onModalClose()}>
+          style={{ width: 'calc(70%)', ...fullscreenStyle }}
+          onClose={() => this.onModalClose()}
+        >
           <Modal.Header title={title} />
           <Modal.Content style={fullscreenContentStyle}>
             <CardContent title={title} onClick={() => this.onClick()}>
@@ -131,7 +144,7 @@ const CloseButton = ({ onClick }) => (
   </button>
 )
 const CardContent = ({ children, title }) => (
-  <div className="content" style={{ height: !title ? "100%" : undefined }}>
+  <div className="content" style={{ height: !title ? '100%' : undefined }}>
     {children}
   </div>
 )
