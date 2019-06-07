@@ -113,7 +113,7 @@ const OuModal = ({
   const selectElements = elements => {
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
-      if (path === '0') return []
+      if (!path || path === '0') return []
       const paths = (path || '0').split('-')
       paths.pop()
       const parentPath = paths.join('-')
