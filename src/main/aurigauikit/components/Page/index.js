@@ -23,7 +23,7 @@ export * from './PageAnchors'
 
 export const withParams = Component => props => <Component {...props.match.params} {...props} />
 
-export const authenticated = (key = 'wwsis-auth', errorPath = './dashboard') => Component => {
+export const authenticated = (key = 'wwsis-auth', errorPath = '/dashboard') => Component => {
   return withRouter(props => {
     const auth = localStorage.getObject(key)
     if (!auth) {
@@ -31,7 +31,7 @@ export const authenticated = (key = 'wwsis-auth', errorPath = './dashboard') => 
       return null
     }
     return (
-      <Error path={errorPath}>
+      <Error path={errorPath} history={props.history}>
         <Component {...props} />
       </Error>
     )
@@ -47,7 +47,8 @@ export class Error extends React.Component {
 
   render() {
     const { error } = this.state
-    const { path } = this.props
+    const { path, history } = this.props
+
     if (error)
       return (
         <div className="error">
@@ -63,7 +64,7 @@ export class Error extends React.Component {
             </div>
             <div className="error__text error--align">
               <Msg {...messages.text} />{' '}
-              <a href={path}>
+              <a onClick={() => history.push(path)}>
                 <Msg {...messages.link} />
               </a>
             </div>
