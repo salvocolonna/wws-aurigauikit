@@ -19,8 +19,9 @@ class Checkbox extends React.Component {
         <input
           type="checkbox"
           id={this.id}
-          onChange={e => onChange(e.target.checked)}
-          // onClick={e => onChange(e.target.checked)}
+          // IF YOU DELETE THIS YOU WILL BE FIRED (avoid react warning)
+          onChange={() => {}}
+          onClick={e => onChange(e.target.checked)}
           checked={isChecked}
           disabled={isDisabled}
         />
