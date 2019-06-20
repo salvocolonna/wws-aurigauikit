@@ -36,7 +36,6 @@ export default class extends React.Component {
 
   changeReportName = reportName => this.change({ reportName })
   changeTemplate = template => this.change({ template })
-  changeOrganizationalUnit = organizationalUnit => this.change({ organizationalUnit })
   changeOrganizationalUnits = organizationalUnits => this.change({ organizationalUnits })
   changeStartDate = startDate => this.change({ startDate })
   changeEndDate = endDate => this.change({ endDate })
@@ -48,7 +47,6 @@ export default class extends React.Component {
       templates,
       template,
       reportName,
-      organizationalUnit,
       organizationalUnits,
       startDate,
       endDate
@@ -62,8 +60,6 @@ export default class extends React.Component {
                 <Msg {...messages.organizationalUnit} />
               </label>
               <OrganizationalUnitSelect
-                selectedItem={organizationalUnit}
-                onSelect={this.changeOrganizationalUnit}
                 selectedElements={organizationalUnits}
                 onSelectionChange={this.changeOrganizationalUnits}
                 {...organizationalUnitProps}
