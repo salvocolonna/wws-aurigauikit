@@ -187,7 +187,7 @@ export default class Dashboard extends React.Component {
             <Actions
               canBuild={onBuild}
               onBuild={onBuild}
-              canAdd={unAddedWidgets.length > 0}
+              canAdd={true}
               onSave={this.save}
               onUndo={this.undoEdit}
               onEdit={this.edit}

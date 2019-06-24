@@ -12,7 +12,7 @@ export default injectIntl(
     constructor(props) {
       super(props)
       const widget = this.props.widgets[0]
-      this.state = { selectedWidget: widget ? widget.name : intl.formatMessage(newId) }
+      this.state = { selectedWidget: widget ? widget.name : props.intl.formatMessage(newId) }
     }
 
     changeWidget = selectedWidget => {
