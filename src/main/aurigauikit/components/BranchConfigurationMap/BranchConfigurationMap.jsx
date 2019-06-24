@@ -106,7 +106,6 @@ class BranchConfigurationMap extends React.Component {
   }
 
   convertAddress(obj) {
-    console.log(obj)
     if (!obj.address.street && !obj.address.road) return null
     return {
       place_id: obj.place_id,
@@ -124,10 +123,8 @@ class BranchConfigurationMap extends React.Component {
   }
 
   setAddress(place_id) {
-    console.log({ place_id })
     if (!place_id) return
     const newAddress = this.state.addressList.find(address => address.place_id === place_id)
-    console.log({ newAddress })
     if (newAddress) {
       this.setState({ ...newAddress, addressModalVisible: false }, () =>
         this.props.onAddressChange(newAddress)
