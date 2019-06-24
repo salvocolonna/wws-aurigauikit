@@ -45,9 +45,17 @@ export class Error extends React.Component {
     this.setState({ error: stack + componentStack })
   }
 
+  refreshPage = () => {
+    const { path, history } = this.props
+    if (path === '/dashboard') {
+      window.location.reload()
+    } else {
+      history.push(path)
+    }
+  }
+
   render() {
     const { error } = this.state
-    const { path, history } = this.props
 
     if (error)
       return (
@@ -64,7 +72,7 @@ export class Error extends React.Component {
             </div>
             <div className="error__text error--align">
               <Msg {...messages.text} />{' '}
-              <a onClick={() => history.push(path)}>
+              <a onClick={this.refreshPage}>
                 <Msg {...messages.link} />
               </a>
             </div>
