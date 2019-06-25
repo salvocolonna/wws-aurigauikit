@@ -19,7 +19,6 @@ class BranchGroupFilter extends React.Component {
   }
 
   onOUSelected(selectedItem) {
-    console.log(selectedItem)
     this.setState({
       organizationalUnit: selectedItem,
     })
