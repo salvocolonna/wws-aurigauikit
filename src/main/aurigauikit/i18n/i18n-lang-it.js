@@ -32,6 +32,7 @@ i18n.loadMessages('it', {
   'report.report-table.columns.state': 'Stato',
   'report.report-table.columns.date': 'Data aggiornamento stato',
   'report.report-table.report-state.COMPLETED': 'Completato',
+  'report.report-table.report-state.ERROR': 'Errore',
   'report.report-table.report-state.WAITING': 'Da elaborare',
   'report.report-table.report-state.IN_CREATION': 'In elaborazione',
   'report.report-table.report-state.READY': 'Pronto',
