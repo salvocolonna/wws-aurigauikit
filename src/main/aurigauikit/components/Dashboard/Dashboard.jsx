@@ -175,11 +175,10 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { layouts, breakpoints, cols, margin = MARGIN, messages, onBuild, free } = this.props
-
     const { edit, layouts: currentLayouts, add, saving } = this.state
-
     const unAddedWidgets = this.getUnaddedWidgets()
     const widgets = this.getWidgets()
+
     return (
       <>
         {!free && (
@@ -187,7 +186,7 @@ export default class Dashboard extends React.Component {
             <Actions
               canBuild={onBuild}
               onBuild={onBuild}
-              canAdd={true}
+              canAdd={onBuild || unAddedWidgets.length > 0}
               onSave={this.save}
               onUndo={this.undoEdit}
               onEdit={this.edit}
