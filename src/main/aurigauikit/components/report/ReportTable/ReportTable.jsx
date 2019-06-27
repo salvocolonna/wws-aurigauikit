@@ -1,23 +1,23 @@
-import React from "react"
-import { FormattedDate, FormattedMessage } from "react-intl"
-import SimpleTable from "aurigauikit/components/SimpleTable"
-import DeleteReportModal from "./DeleteReportModal"
+import React from 'react'
+import { FormattedDate, FormattedMessage } from 'react-intl'
+import SimpleTable from 'aurigauikit/components/SimpleTable'
+import DeleteReportModal from './DeleteReportModal'
 
 const ICONS = {
-  COMPLETED: "confirmatory",
-  WAITING: "warning",
-  READY: "info",
-  START: "info",
-  IN_CREATION: "info",
-  DELETED: "critical",
-  ERROR: "critical"
+  COMPLETED: 'confirmatory',
+  WAITING: 'warning',
+  READY: 'info',
+  START: 'info',
+  IN_CREATION: 'info',
+  DELETED: 'critical',
+  ERROR: 'critical',
 }
 
 const StatusLabel = ({ status }) => (
-  <span style={{ textTransform: "uppercase" }}>
-    <span style={{ margin: "0 8px 0 0" }} className={`dot dot-${ICONS[status]}`} />
+  <span style={{ textTransform: 'uppercase' }}>
+    <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
     <span className="asset-label">
-      <FormattedMessage id={"report.report-table.report-state." + status} />
+      <FormattedMessage id={'report.report-table.report-state.' + status} />
     </span>
   </span>
 )
@@ -27,30 +27,30 @@ const headers = [
   { content: <FormattedMessage id="report.report-table.report-name.head-table" /> },
   { content: <FormattedMessage id="report.report-table.columns.report-template" /> },
   { content: <FormattedMessage id="report.report-table.columns.period" /> },
-  { content: <FormattedMessage id="report.report-table.columns.date" /> }
+  { content: <FormattedMessage id="report.report-table.columns.date" /> },
 ]
 
 const columns = [
   {
     content: report => <StatusLabel status={report.status} />,
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       return report.report.reportName
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       return report.report.template.name
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       if (!report.report.dataSourceParameters.parameters.startCreationDate) {
-        return <FormattedMessage id={"report.report-table.columns.end-date.unvalued"} />
+        return <FormattedMessage id={'report.report-table.columns.end-date.unvalued'} />
       } else {
         let startDate = (
           <FormattedDate
@@ -68,7 +68,7 @@ const columns = [
             day="2-digit"
           />
         ) : (
-          <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
+          <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
         )
         return (
           <div>
@@ -77,7 +77,7 @@ const columns = [
         )
       }
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
@@ -93,8 +93,8 @@ const columns = [
         />
       )
     },
-    cssClass: "no-wrap"
-  }
+    cssClass: 'no-wrap',
+  },
 ]
 
 const emptyState = <FormattedMessage id="report.report-table.empty-state" />
@@ -105,7 +105,7 @@ class ReportListTable extends React.Component {
     this.state = {
       menu: { items: [] },
       showDelete: false,
-      deletingReport: null
+      deletingReport: null,
     }
   }
 
@@ -123,58 +123,58 @@ class ReportListTable extends React.Component {
     items: [
       {
         title: <FormattedMessage id="report.report-table.menu.view" />,
-        iconName: "eye",
-        hidden: context => context.currentRow && context.currentRow.status !== "COMPLETED",
+        iconName: 'eye',
+        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
-          const report = context.currentRow.contents.find(x => x.type === "PDF")
+          const report = context.currentRow.contents.find(x => x.type === 'PDF')
           this.props.onPDFView(report.reportContentId)
-        }
+        },
       },
       {
         title: <FormattedMessage id="report.report-table.menu.download.pdf" />,
-        iconName: "file-pdf-o",
-        hidden: context => context.currentRow && context.currentRow.status !== "COMPLETED",
+        iconName: 'file-pdf-o',
+        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
-          const report = context.currentRow.contents.find(x => x.type === "PDF")
+          const report = context.currentRow.contents.find(x => x.type === 'PDF')
           this.props.onPDFDownload(report.reportContentId)
-        }
+        },
       },
       {
         title: <FormattedMessage id="report.report-table.menu.download.csv" />,
-        iconName: "file-text-o",
-        hidden: context => context.currentRow && context.currentRow.status !== "COMPLETED",
+        iconName: 'file-text-o',
+        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
-          const report = context.currentRow.contents.find(x => x.type === "CSV")
+          const report = context.currentRow.contents.find(x => x.type === 'CSV')
           this.props.onCSVDownload(report.reportContentId)
-        }
+        },
       },
       {},
       {
         title: <FormattedMessage id="report.report-table.menu.delete" />,
-        iconName: "trash-o",
-        style: "destructive",
-        action: context => this.setState({ showDelete: true, deletingReport: context.currentRow })
-      }
-    ]
+        iconName: 'trash-o',
+        style: 'destructive',
+        action: context => this.setState({ showDelete: true, deletingReport: context.currentRow }),
+      },
+    ],
   }
 
   onSort = sort => {
     let sortParam
     switch (sort.index) {
       case 0:
-        sortParam = "report.reportName"
+        sortParam = 'report.reportName'
         break
       case 1:
-        sortParam = "report.template.name"
+        sortParam = 'report.template.name'
         break
       case 2:
-        sortParam = "report.schedulingStartDate"
+        sortParam = 'report.schedulingStartDate'
         break
       case 3:
-        sortParam = "status"
+        sortParam = 'status'
         break
       case 4:
-        sortParam = "renderingEndDate"
+        sortParam = 'renderingEndDate'
         break
       default:
         break
@@ -185,11 +185,11 @@ class ReportListTable extends React.Component {
   }
 
   static sort = [
-    "status",
-    "report.reportName",
-    "report.template.name",
-    "report.schedulingStartDate",
-    "renderingEndDate"
+    'status',
+    'report.reportName',
+    'report.template.name',
+    'report.schedulingStartDate',
+    'renderingEndDate',
   ]
 
   render() {
@@ -202,14 +202,17 @@ class ReportListTable extends React.Component {
       page,
       sort,
       totalElements,
-      totalPages
+      totalPages,
     } = this.props
+    const { deletingReport } = this.state
+
     return (
       <section>
         <DeleteReportModal
           show={this.state.showDelete}
           onConfirm={() => this.onDeleteConfirm()}
           onClose={() => this.onDeleteUndo()}
+          reportName={deletingReport && deletingReport.report && deletingReport.report.reportName}
         />
         <SimpleTable
           sortable
