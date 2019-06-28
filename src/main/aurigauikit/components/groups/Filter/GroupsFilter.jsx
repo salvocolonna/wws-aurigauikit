@@ -54,7 +54,6 @@ class BranchGroupFilter extends React.Component {
                 defaultSelection={filter.organizationalUnit}
                 selectedElements={filter.organizationalUnits}
                 onSelectionChange={this.changeOrganizationalUnits}
-                onSelect={this.changeOrganizationalUnit}
               />
             </Div>
             <Div col="1-2">
