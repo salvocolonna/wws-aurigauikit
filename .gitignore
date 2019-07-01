@@ -11,3 +11,4 @@ npm-debug.log
 src/main/demo/build
 dist
 .vscode
+deploy-config.js
