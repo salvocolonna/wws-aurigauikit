@@ -10,7 +10,7 @@
   WHEN TO RUN THE SCRIPT
   - Run the script when the update of the version in the AurigaUIKit (in package.json) has been merged into master.
 
-  HOW TO RUN THE THE SCRIPT
+  HOW TO RUN THE SCRIPT
   - Run node deploy.js in order to run the script.
 
 */
