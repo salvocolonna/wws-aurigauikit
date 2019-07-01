@@ -1,7 +1,11 @@
 /*
   REQUIREMENTS
-  - Any change in the projects (related to the script) needs to be either committed or discarded.
-  - A PATH needs to be set. It has to be the path of the project where you want to update the version of the AurigaUIKit.
+  - Any change in the projects needs to be either committed or discarded before running the script.
+  - A configuration file (name it deploy-config.js) with a variable which is an object as follows:   
+      const wwsDir = { cwd: wwsPath }
+    where wwsPath is the path of the project which you want to update after the new version of the aurigauikit is deployed.
+    wwsDir needs to be exported as follows:
+      module.exports = wwsDir
 
   WHEN TO RUN THE SCRIPT
   - Run the script when the update of the version in the AurigaUIKit (in package.json) has been merged into master.
@@ -11,9 +15,8 @@
 
 */
 
+const wwsDir = require('./deploy-config')
 const { execSync } = require('child_process')
-import { wwsDir } from './deploy-config'
-
 const aurigaDist = { cwd: `./dist` }
 
 const logExec = (...arg) => {
