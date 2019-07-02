@@ -9,7 +9,7 @@ export default defineMessages({
   },
   code: {
     id: `${PATH}.code`,
-    defaultMessage: 'Code',
+    defaultMessage: 'Name',
   },
   private: {
     id: `${PATH}.private`,
