@@ -4,7 +4,7 @@ const PATH = 'report.delete-schedulation-modal'
 
 export default defineMessages({
   title: {
-    id: `${PATH}.saving`,
+    id: `${PATH}.title`,
     defaultMessage: 'Delete Schedulation',
   },
   content1: {

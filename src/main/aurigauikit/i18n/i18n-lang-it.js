@@ -161,9 +161,12 @@ i18n.loadMessages('it', {
   'error-page.text': 'Riprova oppure vai alla',
   'error-page.link': 'pagina iniziale',
   'error-page.button': 'Segnala errore',
-
   'report.report-table.report-name.head-table': 'Nome report',
+  'report.schedulation-table.menu.edit': 'Modifica',
+  'report.schedulation-table.menu.enable': 'Attiva',
+  'report.schedulation-table.menu.delete': 'Elimina',
   'report.schedulation-table.columns.state': 'Stato',
+  'report.schedulation-table.report-state.DISABLED': 'Disabilitato',
   'report.schedulation-table.report-name.head-table': 'Nome della pianificazione',
   'report.schedulation-table.columns.report-template': 'Template',
   'report.schedulation-table.columns.start-date': 'Data inizio',
