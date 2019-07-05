@@ -1,6 +1,6 @@
 const { execSync } = require('child_process')
 const fs = require('fs')
-const aurigaDist = { cwd: `./dist` }
+const aurigaDist = { cwd: `../../dist` }
 const CONFIG_PATH = './deploy-config.js'
 const option = process.argv.slice(2)[0]
 
