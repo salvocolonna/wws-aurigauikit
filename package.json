@@ -16,7 +16,8 @@
     "watch": "concurrently \"webpack --env=libDev --progress --colors --watch\" \"babel ./src/main/aurigauikit -d ./dist --copy-files --source-maps inline --extensions \".js,.jsx,.ts,.tsx\" --watch\"",
     "flow": "flow",
     "test": "jest",
-    "tsc": "tsc --strict"
+    "tsc": "tsc --strict",
+    "deploy": "node deploy.js"
   },
   "main": "src/main/aurigauikit/index.js",
   "devDependencies": {
