@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { SecurityContext } from './SecurityContext'
-type Action = 'create' | 'read' | 'edit' | 'delete'
+type ActionType = 'create' | 'read' | 'edit' | 'delete'
+
+interface Action {
+  action: ActionType
+  level: number
+}
 
 export interface ProfilePermission {
   profile: string
@@ -18,33 +23,45 @@ interface CanProps {
   read?: boolean
   edit?: boolean
   delete?: boolean
-  actions: Action[]
+  actions: ActionType[]
   objects: string[]
+  exception?: string
   children: React.ReactNode
   [name: string]: any
 }
 
 export function isUserAllowed(params: {
-  user?: string
-  profilePermissions?: ProfilePermission[]
-  actions: Action[]
-  objects: string[]
+  profilePermission?: ProfilePermission
+  actions?: ActionType[]
+  objects?: string[]
+  exception?: string
 }): boolean {
-  const { user, profilePermissions, actions, objects } = params
-  if (typeof user === 'undefined' || typeof profilePermissions === 'undefined') return false
+  const { profilePermission, actions, objects, exception } = params
+  if (typeof profilePermission === 'undefined') return false
 
-  const profile = profilePermissions.find(p => p.profile === user)
-  if (profile) {
-    objects.forEach(obj => {
-      const permission = profile.permissions.find(p => p.object === obj)
+  let validPermissions = true
+  if (objects && actions) {
+    validPermissions = objects.every(obj => {
+      const permission = profilePermission.permissions.find(p => p.object === obj)
       if (permission) {
-        const allow = actions.every(action => permission.actions.includes(action))
+        const allow = actions.every(action =>
+          permission.actions.find(pAction => pAction.action === action)
+        )
         return allow
       }
     })
+  } else {
+    validPermissions = false
   }
 
-  return false
+  let validExceptions = true
+  if (exception && profilePermission.exceptions) {
+    validExceptions = profilePermission.exceptions.includes(exception)
+  } else {
+    validExceptions = false
+  }
+
+  return validExceptions || validPermissions
 }
 
 /*
@@ -60,8 +77,8 @@ export function isUserAllowed(params: {
 */
 
 function Can(props: CanProps) {
-  const { objects } = props
-  const { user, profilePermissions } = React.useContext(SecurityContext)
+  const { objects, exception } = props
+  const { profilePermission } = React.useContext(SecurityContext)
 
   const actions = React.useMemo(() => {
     const actions = []
@@ -70,12 +87,12 @@ function Can(props: CanProps) {
     if (props.edit) actions.push('edit')
     if (props.delete) actions.push('delete')
 
-    return Array.from(new Set([...actions, ...props.actions])) as Action[]
+    return Array.from(new Set([...actions, ...props.actions])) as ActionType[]
   }, [props.actions, props.create, props.read, props.edit, props.delete])
 
   const isAllowed = React.useMemo<boolean>(
-    () => isUserAllowed({ user, profilePermissions, actions, objects }),
-    [user, profilePermissions, actions, objects]
+    () => isUserAllowed({ profilePermission, actions, objects, exception }),
+    [profilePermission, actions, objects, exception]
   )
 
   return isAllowed ? props.children : null

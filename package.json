@@ -16,6 +16,7 @@
     "watch": "concurrently \"webpack --env=libDev --progress --colors --watch\" \"babel ./src/main/aurigauikit -d ./dist --copy-files --source-maps inline --extensions \".js,.jsx,.ts,.tsx\" --watch\"",
     "flow": "flow",
     "test": "jest",
+    "ts-test": "jest --config ts-jest.config.js",
     "tsc": "tsc --strict"
   },
   "main": "src/main/aurigauikit/index.js",
@@ -30,7 +31,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "^7.4.0",
     "@types/chart.js": "^2.7.50",
-    "@types/jest": "^24.0.11",
+    "@types/jest": "^24.0.15",
     "@types/react": "^16.8.12",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
@@ -124,6 +125,7 @@
     "react-tooltip": "^3.6.1",
     "recompose": "^0.27.1",
     "spin.js": "^4.0.0",
+    "ts-jest": "^24.0.2",
     "whatwg-fetch": "^2.0.4"
   }
 }
