@@ -1,11 +1,11 @@
-import React from "react"
-import { FormattedHTMLMessage, FormattedMessage } from "react-intl"
-import Modal from "aurigauikit/components/Modal"
-import OrganizationalUnitModal from "aurigauikit/components/OrganizationalUnit/OrganizationalUnitModal"
-import SelectedBranchesTable from "./components/SelectedBranchesTable"
-import Checkbox from "aurigauikit/components/Checkbox"
-import InfoLabel from "aurigauikit/components/InfoLabel"
-import { ButtonsPanel } from "aurigauikit/components/Page"
+import React from 'react'
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl'
+import Modal from 'aurigauikit/components/Modal'
+import OrganizationalUnitModal from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitModal'
+import SelectedBranchesTable from './components/SelectedBranchesTable'
+import Checkbox from 'aurigauikit/components/Checkbox'
+import InfoLabel from 'aurigauikit/components/InfoLabel'
+import { ButtonsPanel } from 'aurigauikit/components/Page'
 
 const ou = _userRoleMap.getOU()
 
@@ -20,7 +20,7 @@ class GroupModal extends React.Component {
       groupCode: this.props.branchGroupCode,
       groupDescription: this.props.branchGroupDescription,
       selectedBranches: this.props.branches || [],
-      notPublic: this.props.notPublic
+      notPublic: this.props.notPublic,
     }
   }
 
@@ -29,31 +29,31 @@ class GroupModal extends React.Component {
     if (this.state.branches !== props.branches) {
       newState = {
         selectedBranches: props.branches || [],
-        branches: props.branches
+        branches: props.branches,
       }
     }
     if (this.state.groupCode !== props.branchGroupCode) {
       newState = {
         ...newState,
-        groupCode: props.branchGroupCode
+        groupCode: props.branchGroupCode,
       }
     }
     if (this.state.groupDescription !== props.branchGroupDescription) {
       newState = {
         ...newState,
-        groupDescription: props.branchGroupDescription
+        groupDescription: props.branchGroupDescription,
       }
     }
     if (this.state.mode !== props.mode) {
       newState = {
         ...newState,
-        mode: props.mode
+        mode: props.mode,
       }
     }
     if (this.state.notPublic != props.notPublic) {
       newState = {
         ...newState,
-        notPublic: props.notPublic
+        notPublic: props.notPublic,
       }
     }
     this.setState(newState)
@@ -67,7 +67,7 @@ class GroupModal extends React.Component {
       groupCode: null,
       groupDescription: null,
       selectedBranches: [],
-      notPublic: false
+      notPublic: false,
     })
   }
 
@@ -80,13 +80,13 @@ class GroupModal extends React.Component {
     this.setState({
       loading: false,
       showModal: false,
-      selectedBranches
+      selectedBranches,
     })
   }
 
   removeBranch(branchId) {
     this.setState(prevState => ({
-      selectedBranches: prevState.selectedBranches.filter(row => row.branchId !== branchId)
+      selectedBranches: prevState.selectedBranches.filter(row => row.branchId !== branchId),
     }))
   }
 
@@ -95,9 +95,9 @@ class GroupModal extends React.Component {
       branchGroupCode: this.state.groupCode,
       branchGroupDescription: this.state.groupDescription,
       branches: this.state.selectedBranches.map(b => ({
-        branchId: b.branchId
+        branchId: b.branchId,
       })),
-      notPublic: this.state.notPublic
+      notPublic: this.state.notPublic,
     }
     await service.saveBranchGroup(branchGroupBeanRequest)
     this.props.onSave()
@@ -108,9 +108,9 @@ class GroupModal extends React.Component {
       branchGroupCode: this.state.groupCode,
       branchGroupDescription: this.state.groupDescription,
       branches: this.state.selectedBranches.map(b => ({
-        branchId: b.branchId
+        branchId: b.branchId,
       })),
-      notPublic: this.state.notPublic
+      notPublic: this.state.notPublic,
     }
     await service.editBranchGroup(this.props.branchGroupId, branchGroupBeanRequest)
     this.props.onSave()
@@ -118,18 +118,18 @@ class GroupModal extends React.Component {
 
   render() {
     const style = {
-      minHeight: "500px",
-      width: this.state.selectedBranches.length !== 0 ? "70%" : "50%"
+      minHeight: '500px',
+      width: this.state.selectedBranches.length !== 0 ? '70%' : '50%',
     }
     if (!this.state.mode) return null
     return (
       <Modal style={style} show={this.props.show} onClose={() => this.onSelectionAborted()}>
-        {this.state.mode === "create" && (
+        {this.state.mode === 'create' && (
           <section>
             <Modal.Header
               title={<FormattedMessage id="branch-groups-page.group-modal.create-group-title" />}
             />
-            <Modal.Content style={{ minHeight: "300px" }}>
+            <Modal.Content style={{ minHeight: '300px' }}>
               <section>
                 <div className="grid">
                   <div className="col-1-1">
@@ -137,17 +137,17 @@ class GroupModal extends React.Component {
                       <FormattedMessage id="branch-groups-page.group-modal.insert-code" />
                     </label>
                     <input
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       type="text"
                       onChange={e => this.setState({ groupCode: e.target.value })}
                     />
                   </div>
-                  <div className="col-1-1" style={{ marginTop: "10px" }}>
+                  <div className="col-1-1" style={{ marginTop: '10px' }}>
                     <label>
                       <FormattedMessage id="branch-groups-page.group-modal.insert-desc" />
                     </label>
                     <input
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       type="text"
                       onChange={e => this.setState({ groupDescription: e.target.value })}
                     />
@@ -158,7 +158,8 @@ class GroupModal extends React.Component {
                 <ButtonsPanel>
                   <button
                     className="btn btn-confirmatory"
-                    onClick={() => this.setState({ showModal: true })}>
+                    onClick={() => this.setState({ showModal: true })}
+                  >
                     <FormattedMessage id="branch-groups-page.group-modal.button-add-branch" />
                   </button>
                   <OrganizationalUnitModal
@@ -167,13 +168,11 @@ class GroupModal extends React.Component {
                       this.fetchData(selectedElements, this.props.service)
                     }
                     datasource={this.props.organizationalUnitDatasource}
-                    canSelect={element => element.type === "BRANCH"}
+                    canSelect={element => element.type === 'BRANCH'}
                     dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
                     onSelectionAborted={() => this.setState({ showModal: false })}
-                    selectedElements={this.state.selectedBranches.map(branch => ({
-                      id: branch.branchId,
-                      type: "BRANCH"
-                    }))}
+                    selectedElements={this.state.selectedBranches}
+                    onSelect={items => this.setState({ selectedBranches: items })}
                   />
                 </ButtonsPanel>
                 <SelectedBranchesTable
@@ -189,7 +188,8 @@ class GroupModal extends React.Component {
               <section>
                 <Checkbox
                   isChecked={this.state.notPublic}
-                  onChange={notPublic => this.setState({ notPublic: notPublic })}>
+                  onChange={notPublic => this.setState({ notPublic: notPublic })}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>
               </section>
@@ -198,41 +198,46 @@ class GroupModal extends React.Component {
               <div className="btn-group">
                 <button
                   className="btn btn-warning-outline"
-                  style={{ marginRight: "20px" }}
-                  onClick={() => this.onSelectionAborted()}>
+                  style={{ marginRight: '20px' }}
+                  onClick={() => this.onSelectionAborted()}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-cancel" />
                 </button>
                 <button
                   className="btn btn-confirmatory"
                   disabled={!this.state.groupCode || this.state.selectedBranches.length === 0}
-                  onClick={() => this.saveGroup(this.props.service)}>
+                  onClick={() => this.saveGroup(this.props.service)}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-save" />
                 </button>
               </div>
             </Modal.Footer>
           </section>
         )}
-        {this.state.mode === "view" && (
+        {this.state.mode === 'view' && (
           <section>
             <Modal.Header
               title={<FormattedMessage id="branch-groups-page.group-modal.view-group-title" />}
             />
-            <Modal.Content style={{ minHeight: "300px" }}>
+            <Modal.Content style={{ minHeight: '300px' }}>
               <section>
                 <div className="grid">
                   <InfoLabel
                     className="col-1-3"
-                    label={<FormattedMessage id="branch-groups-page.info-label.group-code" />}>
+                    label={<FormattedMessage id="branch-groups-page.info-label.group-code" />}
+                  >
                     {this.props.branchGroupCode}
                   </InfoLabel>
                   <InfoLabel
                     className="col-1-3"
-                    label={<FormattedMessage id="branch-groups-page.info-label.group-desc" />}>
+                    label={<FormattedMessage id="branch-groups-page.info-label.group-desc" />}
+                  >
                     {this.props.branchGroupDescription}
                   </InfoLabel>
                   <InfoLabel
                     className="col-1-3"
-                    label={<FormattedMessage id="branch-groups-page.info-label.group-notPublic" />}>
+                    label={<FormattedMessage id="branch-groups-page.info-label.group-notPublic" />}
+                  >
                     {this.props.notPublic ? (
                       <i className="fa fa-check" />
                     ) : (
@@ -253,25 +258,27 @@ class GroupModal extends React.Component {
               <div className="btn-group">
                 <button
                   className="btn btn-warning-outline"
-                  style={{ marginRight: "20px" }}
-                  onClick={() => this.onSelectionAborted()}>
+                  style={{ marginRight: '20px' }}
+                  onClick={() => this.onSelectionAborted()}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-back" />
                 </button>
                 <button
                   className="btn btn-confirmatory"
-                  onClick={() => this.setState({ mode: "edit" })}>
+                  onClick={() => this.setState({ mode: 'edit' })}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-edit" />
                 </button>
               </div>
             </Modal.Footer>
           </section>
         )}
-        {this.state.mode === "edit" && (
+        {this.state.mode === 'edit' && (
           <section>
             <Modal.Header
               title={<FormattedMessage id="branch-groups-page.group-modal.edit-group-title" />}
             />
-            <Modal.Content style={{ minHeight: "300px" }}>
+            <Modal.Content style={{ minHeight: '300px' }}>
               <section>
                 <div className="grid">
                   <div className="col-1-1">
@@ -279,18 +286,18 @@ class GroupModal extends React.Component {
                       <FormattedMessage id="branch-groups-page.group-modal.insert-code" />
                     </label>
                     <input
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       type="text"
                       defaultValue={this.props.branchGroupCode}
                       onChange={e => this.setState({ groupCode: e.target.value })}
                     />
                   </div>
-                  <div className="col-1-1" style={{ marginTop: "10px" }}>
+                  <div className="col-1-1" style={{ marginTop: '10px' }}>
                     <label>
                       <FormattedMessage id="branch-groups-page.group-modal.insert-desc" />
                     </label>
                     <input
-                      style={{ width: "100%" }}
+                      style={{ width: '100%' }}
                       type="text"
                       defaultValue={this.props.branchGroupDescription}
                       onChange={e => this.setState({ groupDescription: e.target.value })}
@@ -302,7 +309,8 @@ class GroupModal extends React.Component {
                 <ButtonsPanel>
                   <button
                     className="btn btn-confirmatory"
-                    onClick={() => this.setState({ showModal: true })}>
+                    onClick={() => this.setState({ showModal: true })}
+                  >
                     <FormattedMessage id="branch-groups-page.group-modal.button-add-branch" />
                   </button>
                   <OrganizationalUnitModal
@@ -311,12 +319,12 @@ class GroupModal extends React.Component {
                       this.fetchData(selectedElements, this.props.service)
                     }
                     datasource={this.props.organizationalUnitDatasource}
-                    canSelect={element => element.type === "BRANCH"}
+                    canSelect={element => element.type === 'BRANCH'}
                     dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
                     onSelectionAborted={() => this.setState({ showModal: false })}
                     selectedElements={this.state.selectedBranches.map(branch => ({
                       id: branch.branchId,
-                      type: "BRANCH"
+                      type: 'BRANCH',
                     }))}
                   />
                 </ButtonsPanel>
@@ -335,7 +343,8 @@ class GroupModal extends React.Component {
                 <Checkbox
                   isChecked={this.state.notPublic}
                   onChange={notPublic => this.setState({ notPublic: notPublic })}
-                  isDisabled={!this.state.notPublic}>
+                  isDisabled={!this.state.notPublic}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>
               </section>
@@ -344,13 +353,15 @@ class GroupModal extends React.Component {
               <div className="btn-group">
                 <button
                   className="btn btn-warning-outline"
-                  style={{ marginRight: "20px" }}
-                  onClick={() => this.onSelectionAborted()}>
+                  style={{ marginRight: '20px' }}
+                  onClick={() => this.onSelectionAborted()}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-cancel" />
                 </button>
                 <button
                   className="btn btn-confirmatory"
-                  onClick={() => this.editGroup(this.props.service)}>
+                  onClick={() => this.editGroup(this.props.service)}
+                >
                   <FormattedMessage id="branch-groups-page.group-modal.button-save" />
                 </button>
               </div>

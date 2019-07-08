@@ -113,7 +113,7 @@ const OuModal = ({
   const selectElements = elements => {
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
-      if (path === '0') return []
+      if (!path || path === '0') return []
       const paths = (path || '0').split('-')
       paths.pop()
       const parentPath = paths.join('-')
@@ -245,6 +245,8 @@ const ResetButton = ({ disabled, onClick }) => {
     float: 'right',
     fontWeight: 'bold',
     margin: 10,
+    lineHeight: 'inherit',
+    fontSize: '0.8em',
   }
   return (
     <button
@@ -308,30 +310,38 @@ const parseTable = (element, intl) => {
 }
 
 async function fetchContent(datasource, { node, path }) {
-  const [nodes, table] = await Promise.all([datasource.getNodes(node), datasource.getTable(node)])
-  const children = nodes.map((child, index) => ({
-    node: child,
-    path: [path, index].join('-'),
-    children: [],
-  }))
-  const rows = (table && table.getRowCount
-    ? Array.from(Array(table.getRowCount())).map((_, i) => table.getRow(i))
-    : []
-  ).map((a, index) => ({ ...a, path: [path, index].join('-') }))
-  const headers = table.getHeaders ? table.getHeaders() : []
-  const columns = table.getColumns ? table.getColumns() : []
-  return { children, table: { rows, headers, columns } }
+  try {
+    const [nodes, table] = await Promise.all([datasource.getNodes(node), datasource.getTable(node)])
+    const children = nodes.map((child, index) => ({
+      node: child,
+      path: [path, index].join('-'),
+      children: [],
+    }))
+    const rows = (table && table.getRowCount
+      ? Array.from(Array(table.getRowCount())).map((_, i) => table.getRow(i))
+      : []
+    ).map((a, index) => ({ ...a, path: [path, index].join('-') }))
+    const headers = table.getHeaders ? table.getHeaders() : []
+    const columns = table.getColumns ? table.getColumns() : []
+    return { children, table: { rows, headers, columns } }
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 async function fetchRoot(datasource) {
-  const tree = await datasource.getNodes()
-  const content = await fetchContent(datasource, { path: '0', node: tree[0] })
-  return tree.map((element, index) => ({
-    node: element,
-    table: index === 0 ? content.table : null,
-    path: index + '',
-    children: index === 0 ? content.children : [],
-  }))
+  try {
+    const tree = await datasource.getNodes()
+    const content = await fetchContent(datasource, { path: '0', node: tree[0] })
+    return tree.map((element, index) => ({
+      node: element,
+      table: index === 0 ? content.table : null,
+      path: index + '',
+      children: index === 0 ? content.children : [],
+    }))
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const filterSelection = (elements, newElements) => {

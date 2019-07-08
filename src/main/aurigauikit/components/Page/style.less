@@ -1,0 +1,59 @@
+@import "../../style/constants.less";
+
+.error {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  
+  img {
+    max-height: 350px;
+  }
+}
+
+.error__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.error__title {
+  font-size: 4em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.error__text {
+  margin-bottom: 10px;
+  color: @secondary_text_color;
+}
+
+.error__button {
+  margin-top: 20px;
+}
+
+.error__img-container--mobile {
+  display: none;
+}
+
+@media (max-width: 768px){
+  .error {
+    img {
+      max-height: 250px;
+    }
+  }
+  .error__wrapper {
+    align-items: center;
+  }
+  .error__button {
+    width: 50%;
+  }
+  .error__img-container--mobile {
+    display: flex;
+  }
+  .error__img-container {
+    display: none;
+  }
+  .error--align {
+    text-align: center;
+  }
+}

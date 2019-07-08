@@ -1,21 +1,21 @@
-import React from "react"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
-import Modal from "aurigauikit/components/Modal"
-import AddressTable from "./AddressTable"
+import Modal from 'aurigauikit/components/Modal'
+import AddressTable from './AddressTable'
 
 class AddressModal extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      selectedPlaceId: this.props.data.length !== 0 ? this.props.data[0].place_id : null
+      selectedPlaceId: this.props.data.length !== 0 ? this.props.data[0].place_id : null,
     }
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      selectedPlaceId: nextProps.data.length !== 0 ? nextProps.data[0].place_id : null
+      selectedPlaceId: nextProps.data.length !== 0 ? nextProps.data[0].place_id : null,
     })
   }
 
@@ -23,7 +23,8 @@ class AddressModal extends React.Component {
     return (
       <Modal
         show={this.props.show}
-        onClose={() => this.setState({ addressModalVisible: false, addressList: [] })}>
+        onClose={() => this.setState({ addressModalVisible: false, addressList: [] })}
+      >
         <section>
           {!this.props.error && (
             <Modal.Header
@@ -39,7 +40,7 @@ class AddressModal extends React.Component {
               />
             )}
             {this.props.error && (
-              <span style={{ fontSize: "2em", color: "#DC402B" }}>
+              <span style={{ fontSize: '2em', color: '#DC402B' }}>
                 <FormattedMessage id="branch-configuration-page.address-modal.error" />
               </span>
             )}
@@ -48,19 +49,21 @@ class AddressModal extends React.Component {
             <div className="btn-group">
               <button
                 className="btn btn-warning-outline"
-                style={{ marginRight: "20px" }}
-                onClick={() => this.props.onClose()}>
+                style={{ marginRight: '20px' }}
+                onClick={() => this.props.onClose()}
+              >
                 <FormattedMessage
                   id={
-                    "branch-configuration-page.address-modal.button-" +
-                    (this.props.error ? "error-ok" : "cancel")
+                    'branch-configuration-page.address-modal.button-' +
+                    (this.props.error ? 'error-ok' : 'cancel')
                   }
                 />
               </button>
               {!this.props.error && (
                 <button
                   className="btn btn-confirmatory"
-                  onClick={() => this.props.onSelect(this.state.selectedPlaceId)}>
+                  onClick={() => this.props.onSelect(this.state.selectedPlaceId)}
+                >
                   <FormattedMessage id="branch-configuration-page.address-modal.button-confirm" />
                 </button>
               )}

@@ -1,6 +1,10 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
+import errorPic from './images/error.png'
+import { FormattedMessage as Msg } from 'react-intl'
+import messages from './messages'
+import './style.less'
 
 export const PageHeader = ({ children }) => (
   <section style={{ display: 'flex', justifyContent: 'space-between' }}>{children}</section>
@@ -19,7 +23,7 @@ export * from './PageAnchors'
 
 export const withParams = Component => props => <Component {...props.match.params} {...props} />
 
-export const authenticated = (key = 'wwsis-auth') => Component => {
+export const authenticated = (key = 'wwsis-auth', errorPath = '/dashboard') => Component => {
   return withRouter(props => {
     const auth = localStorage.getObject(key)
     if (!auth) {
@@ -27,7 +31,7 @@ export const authenticated = (key = 'wwsis-auth') => Component => {
       return null
     }
     return (
-      <Error>
+      <Error path={errorPath} history={props.history}>
         <Component {...props} />
       </Error>
     )
@@ -41,22 +45,45 @@ export class Error extends React.Component {
     this.setState({ error: stack + componentStack })
   }
 
+  refreshPage = () => {
+    const { path, history } = this.props
+    if (path === '/dashboard') {
+      window.location.reload()
+    } else {
+      history.push(path)
+    }
+  }
+
   render() {
     const { error } = this.state
+
     if (error)
       return (
-        <pre
-          style={{
-            whiteSpace: 'pre-wrap',
-            color: '#DC402B',
-            fontSize: '1.15em',
-            fontFamily: 'inherit',
-            fontWeight: 500,
-          }}
-        >
-          Errore
-          {/*fatale {"\n\n" + error}*/}
-        </pre>
+        <div className="error">
+          <div className="error__img-container">
+            <img src={errorPic} alt="error" />
+          </div>
+          <div className="error__wrapper">
+            <div className="error__title error--align">
+              <Msg {...messages.title} />
+            </div>
+            <div className="error__text error--align">
+              <Msg {...messages.subtitle} />
+            </div>
+            <div className="error__text error--align">
+              <Msg {...messages.text} />{' '}
+              <a onClick={this.refreshPage}>
+                <Msg {...messages.link} />
+              </a>
+            </div>
+            <div className="error__img-container--mobile">
+              <img src={errorPic} alt="error" />
+            </div>
+            <button disabled className="error__button btn btn-destructive">
+              <Msg {...messages.button} />
+            </button>
+          </div>
+        </div>
       )
     return this.props.children
   }

@@ -1,40 +1,44 @@
-import React from "react"
-import { FormattedMessage } from "react-intl"
+import React from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import messages from './messages'
 
-import Modal from "aurigauikit/components/Modal"
+import Modal from 'aurigauikit/components/Modal'
 
 class DeleteReportModal extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
-    const { show, onClose, onConfirm } = this.props
+    const { show, onClose, onConfirm, reportName } = this.props
     return (
-      <Modal show={show} onClose={() => onClose()} style={{ width: "40%", borderColor: "#DC402B" }}>
-        <Modal.Header>
-          <i
-            style={{ float: "left", color: "#DC402B", marginRight: 20 }}
-            className="fa fa-trash fa-4x"
-          />
-          <div style={{ color: "#DC402B" }} className="dialog-title-content">
-            <FormattedMessage id="report.delete-report-modal.title" />
-          </div>
-        </Modal.Header>
+      <Modal show={show} onClose={() => onClose()} style={{ width: '40%', borderColor: '#DC402B' }}>
+        <Modal.Header
+          title={
+            <div className="dialog-title-content">
+              <Msg {...messages.title} />
+            </div>
+          }
+        />
+
         <Modal.Content>
-          <div className="text">
-            <FormattedMessage id="report.delete-report-modal.content" />
-          </div>
+          <Modal.Content>
+            <h3>
+              <Msg {...messages.content1} /> {reportName}
+              <Msg {...messages.content3} /> <Msg {...messages.content2} />
+            </h3>
+          </Modal.Content>
         </Modal.Content>
         <Modal.Footer>
           <div className="btn-group">
             <button
               className="btn btn-warning-outline"
-              style={{ marginRight: "20px" }}
-              onClick={() => onClose()}>
-              <FormattedMessage id="report.delete-report-modal.cancel-button" />
+              style={{ marginRight: '20px' }}
+              onClick={() => onClose()}
+            >
+              <Msg {...messages.cancel} />
             </button>
             <button className="btn btn-destructive" onClick={() => onConfirm()}>
-              <FormattedMessage id="report.delete-report-modal.confirm-button" />
+              <Msg {...messages.confirm} />
             </button>
           </div>
         </Modal.Footer>
