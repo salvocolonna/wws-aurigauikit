@@ -23,8 +23,8 @@ interface CanProps {
   read?: boolean
   edit?: boolean
   delete?: boolean
-  actions: ActionType[]
-  objects: string[]
+  actions?: ActionType[]
+  objects?: string[]
   exception?: string
   children: React.ReactNode
   [name: string]: any
@@ -82,12 +82,13 @@ function Can(props: CanProps) {
 
   const actions = React.useMemo(() => {
     const actions = []
+    const propsActions = props.actions || []
+
     if (props.read) actions.push('read')
     if (props.create) actions.push('create')
     if (props.edit) actions.push('edit')
     if (props.delete) actions.push('delete')
-
-    return Array.from(new Set([...actions, ...props.actions])) as ActionType[]
+    return Array.from(new Set([...actions, ...propsActions])) as ActionType[]
   }, [props.actions, props.create, props.read, props.edit, props.delete])
 
   const isAllowed = React.useMemo<boolean>(
