@@ -28,4 +28,11 @@ const SecurityContextController = ({ children }: { children: React.ReactNode }) 
   return <SecurityContext.Provider value={value}>{children}</SecurityContext.Provider>
 }
 
-export { SecurityContextController, SecurityContext }
+
+const withSecurityContext = (Component: React.FC) => (props: any) => (
+  <SecurityContext.Consumer>
+    {securityContext => <Component {...props} securityContext={securityContext} />}
+  </SecurityContext.Consumer>
+)
+
+export { SecurityContextController, SecurityContext, withSecurityContext }
