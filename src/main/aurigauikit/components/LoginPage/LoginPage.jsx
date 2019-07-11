@@ -1,4 +1,5 @@
 import React from 'react'
+import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 import temporaryPanels from '../temporary-panels'
 import './style.css'
 
@@ -49,7 +50,7 @@ function LoginPage(props) {
     try {
       const authResponse = await fetch(authUrl, authOptions)
       const authData = await authResponse.json()
-      localStorage.setItem('wws-auth-token', authData)
+      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(authData))
 
       const userResponse = await fetch(`${basepath}/${contextPathApp}/api/v1/user`, {
         headers: {
