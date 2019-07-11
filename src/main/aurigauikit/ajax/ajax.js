@@ -5,48 +5,70 @@ Session storage support
 Copyright 2016-2018 Auriga S.p.A.
 */
 
-import i18n from "../i18n"
+import i18n from '../i18n'
 
-import { RESPONSE, REQUEST, API_KEY } from "./constants"
-import RequestMaker from "./request-builder"
-import { showCriticalPanel } from "aurigauikit/components/temporary-panels"
+import { RESPONSE, REQUEST, API_KEY } from './constants'
+import RequestMaker from './request-builder'
+import { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
 
-import { getSessionToken, isResponseType } from "./utils"
+import { isResponseType } from './utils'
+
+function getAuthToken() {
+  // TODO: check expire time
+
+  const storage = localStorage.getItem('wws-auth-token')
+  if (storage) {
+    try {
+      const auth = JSON.parse(storage)
+      return auth.access_token
+    } catch (error) {
+      return false
+    }
+  }
+  return false
+}
 
 const getURL = ({
-  protocol = "http",
+  protocol = 'http',
   hostname = location.hostname,
   port = 8080,
-  ["context-path"]: contextPath = "",
-  version = 1
+  ['context-path']: contextPath = '',
+  version = 1,
 }) => `${protocol}://${hostname}:${port}${contextPath}/api/v${version}`
 
 class Ajax extends RequestMaker {
   constructor(frontend, backend) {
     super()
 
-    this.api = typeof backend === "string" ? `/${backend}/api/v1` : getURL(backend)
+    this.api = typeof backend === 'string' ? `/${backend}/api/v1` : getURL(backend)
 
+    /* old token
     const apiKey = API_KEY[frontend]
     const sessionToken = getSessionToken()
     const authorization = sessionToken ? `${apiKey}, ${sessionToken}` : apiKey
+    */
+    const authorization = getAuthToken()
+    if (!authorization) console.error('There is no token!')
 
     this.headers = {
-      "Content-Type": "application/json",
-      "Accept-Language": i18n.getCurrentLanguage(),
-      Authorization: authorization
+      'Content-Type': 'application/json',
+      'Accept-Language': i18n.getCurrentLanguage(),
+    }
+
+    if (authorization) {
+      this.headers.Authorization = 'Bearer ' + authorization
     }
   }
 
   http = (method, resourceOrType, { data, params, options }) => {
     if (isResponseType(resourceOrType)) {
       const type = resourceOrType
-      if (method === "GET" || method === "DELETE") {
+      if (method === 'GET' || method === 'DELETE') {
         return (resource, params, options) => {
           return this[REQUEST](method, resource, {
             params,
             options,
-            type
+            type,
           })
         }
       } else {
@@ -55,7 +77,7 @@ class Ajax extends RequestMaker {
             params,
             data,
             options,
-            type
+            type,
           })
         }
       }
@@ -66,20 +88,20 @@ class Ajax extends RequestMaker {
       params,
       data,
       options,
-      type
+      type,
     })
   }
 
-  get = (resourceOrType, params, options) => this.http("GET", resourceOrType, { params, options })
+  get = (resourceOrType, params, options) => this.http('GET', resourceOrType, { params, options })
 
   delete = (resourceOrType, params, options) =>
-    this.http("DELETE", resourceOrType, { params, options })
+    this.http('DELETE', resourceOrType, { params, options })
 
   post = (resourceOrType, data, params, options) =>
-    this.http("POST", resourceOrType, { data, params, options })
+    this.http('POST', resourceOrType, { data, params, options })
 
   put = (resourceOrType, data, params, options) =>
-    this.http("PUT", resourceOrType, { data, params, options })
+    this.http('PUT', resourceOrType, { data, params, options })
 
   getRaw = this.get(RESPONSE.RAW)
   deleteRaw = this.delete(RESPONSE.RAW)
@@ -104,7 +126,7 @@ class Ajax extends RequestMaker {
       resource,
       data,
       params,
-      options
+      options,
     })
     const response = await fetch(request, fetchOptions)
     if (response.ok) {
@@ -116,21 +138,21 @@ class Ajax extends RequestMaker {
           },
           [RESPONSE.TEXT]: () => response.text(),
           [RESPONSE.BLOB]: () => response.blob(),
-          [RESPONSE.RAW]: () => response
+          [RESPONSE.RAW]: () => response,
         }[type]()
       }
     } else {
       const text = await response.text()
       const lang = i18n.getCurrentLanguage()
       const errors = {
-        it: "Si è verificato un errore. Si prega di riprovare più tardi.",
-        en: "An internal error occourred, please try again later."
+        it: 'Si è verificato un errore. Si prega di riprovare più tardi.',
+        en: 'An internal error occourred, please try again later.',
       }
       if (response.status !== 404) showCriticalPanel(errors[lang])
       throw {
         status: response.status,
         statusText: response.statusText,
-        errors: text === "" ? [] : JSON.parse(text).errors
+        errors: text === '' ? [] : JSON.parse(text).errors,
       }
     }
   }
@@ -138,10 +160,10 @@ class Ajax extends RequestMaker {
 
 const instances = {}
 
-export * from "./constants"
-export * from "./utils"
+export * from './constants'
+export * from './utils'
 export default frontend => backend => {
-  const key = `${typeof backend === "string" ? `/${backend}/api/v1` : getURL(backend)}_${frontend}`
+  const key = `${typeof backend === 'string' ? `/${backend}/api/v1` : getURL(backend)}_${frontend}`
   if (!instances[key]) instances[key] = new Ajax(frontend, backend)
   return instances[key]
 }
