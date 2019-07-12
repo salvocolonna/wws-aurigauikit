@@ -1,6 +1,7 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
+import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 import errorPic from './images/error.png'
 import { FormattedMessage as Msg } from 'react-intl'
 import messages from './messages'
@@ -23,7 +24,7 @@ export * from './PageAnchors'
 
 export const withParams = Component => props => <Component {...props.match.params} {...props} />
 
-export const authenticated = (key = 'wwsis-auth', errorPath = '/dashboard') => Component => {
+export const authenticated = (key = TOKEN_STORAGE_KEY, errorPath = '/dashboard') => Component => {
   return withRouter(props => {
     const auth = localStorage.getObject(key)
     if (!auth) {

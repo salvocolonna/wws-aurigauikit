@@ -10,13 +10,14 @@ import i18n from '../i18n'
 import { RESPONSE, REQUEST, API_KEY } from './constants'
 import RequestMaker from './request-builder'
 import { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
+import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 
 import { isResponseType } from './utils'
 
 function getAuthToken() {
   // TODO: check expire time
 
-  const storage = localStorage.getItem('wws-auth-token')
+  const storage = localStorage.getItem(TOKEN_STORAGE_KEY)
   if (storage) {
     try {
       const auth = JSON.parse(storage)

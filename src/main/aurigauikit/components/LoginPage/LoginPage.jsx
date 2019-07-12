@@ -1,8 +1,7 @@
 import React from 'react'
+import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 import temporaryPanels from '../temporary-panels'
 import './style.css'
-
-// TODO: option to remove basic auth
 
 /* 
 logo: {src: image, alt: string}
@@ -14,6 +13,7 @@ function LoginPage(props) {
     contextPathAuthServer,
     basepath,
     authParams,
+    type = 'basic',
     onLogin = data => console.log('login successful', data),
     onError,
   } = props
@@ -26,16 +26,29 @@ function LoginPage(props) {
     const queryParams = Object.entries(authParams).reduce((string, [key, value]) => {
       return string + key + '=' + value + '&'
     }, '?')
-    const url = `${basepath}/${contextPathAuthServer}/oauth/token` + queryParams
-    const basic = btoa(`${username}:${password}`)
+
+    let authUrl = `${basepath}/${contextPathAuthServer}/oauth/token` + queryParams
+
+    const authOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    }
+
+    switch (type) {
+      case 'basic':
+        authOptions.headers['X-Authorization'] = btoa(`${username}:${password}`)
+        break
+      case 'query':
+        authUrl = authUrl + `username=${username}&password=${password}`
+        break
+      default:
+        break
+    }
 
     try {
-      const authResponse = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Authorization': basic },
-      })
+      const authResponse = await fetch(authUrl, authOptions)
       const authData = await authResponse.json()
-      localStorage.setItem('wws-auth-token')
+      localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(authData))
 
       const userResponse = await fetch(`${basepath}/${contextPathApp}/api/v1/user`, {
         headers: {
@@ -51,6 +64,7 @@ function LoginPage(props) {
       if (onError && typeof onError === 'function') {
         onError(error)
       } else {
+        console.log(error.message)
         temporaryPanels.showCriticalTemporaryPanel('Invalid username or password!')
       }
     }
