@@ -10,7 +10,7 @@ const permissions1: ProfilePermission = {
   exceptions: ['fancyButton'],
 }
 
-describe('Can component', () => {
+describe('isUserAllowed', () => {
   it('check permissions', () => {
     const allowed = isUserAllowed({
       profilePermission: permissions1,
