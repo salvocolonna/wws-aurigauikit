@@ -3,8 +3,6 @@ import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 import temporaryPanels from '../temporary-panels'
 import './style.css'
 
-// TODO: option to remove basic auth
-
 /* 
 logo: {src: image, alt: string}
 */
@@ -20,8 +18,8 @@ function LoginPage(props) {
     onError,
   } = props
 
-  const [username, setUsername] = React.useState('user_bank_manager')
-  const [password, setPassword] = React.useState('test')
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
   async function submit(event) {
     event.preventDefault()
