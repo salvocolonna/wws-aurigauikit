@@ -44,7 +44,7 @@ function update() {
     e.message
   }
   const wwsDir = require(CONFIG_PATH)
-  logExec('yarn add aurigauikit', wwsDir)
-  logExec('yarn link aurigauikit', wwsDir)
-  logExec('git status', wwsDir)
+  logExec('yarn add aurigauikit', { cwd: wwsDir })
+  logExec('yarn link aurigauikit', { cwd: wwsDir })
+  logExec('git status', { cwd: wwsDir })
 }
