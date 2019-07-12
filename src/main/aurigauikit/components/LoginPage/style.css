@@ -1,0 +1,112 @@
+/*.select2-selection__rendered {
+	text-align: center !important;
+}
+#login-main{
+	text-align: center;
+}
+
+#login-main input {
+	text-align: center;
+}*/
+.login-page {
+  /* background-image: url(../../../images/white-wood.jpg); */
+  /* background-size: contain; */
+  background-color: #f3f3f3;
+}
+
+.login-container {
+  height: 100vh;
+  display: table;
+  margin: 0 auto;
+}
+
+.login-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.login-logo {
+  text-align: center;
+  padding: 20px 0;
+  padding-bottom: 40px;
+}
+
+.login-form {
+  padding: 10px 40px 40px 40px;
+  width: 360px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+.login-link a {
+  color: #2984c5;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-buttons {
+  text-align: right;
+  padding-top: 50px;
+}
+
+.login-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #666;
+  padding-bottom: 20px;
+  text-shadow: 0px 0px 10px rgba(150, 150, 150, 1);
+}
+
+.login-footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.login-footer ul li {
+  display: inline-block;
+  padding: 0 40px;
+}
+
+@media handheld, only screen and (max-height: 600px) {
+  .login-logo {
+    padding: 30px 0;
+  }
+  .login-form {
+    margin-top: 0;
+    padding-bottom: 20px;
+  }
+  .login-buttons {
+    padding-top: 20px;
+  }
+}
+
+@media handheld, only screen and (max-height: 500px) {
+  .login-footer {
+    position: relative;
+    margin-top: 20px;
+  }
+}
+
+@media handheld, only screen and (max-width: 500px) {
+  .login-form {
+    width: 100%;
+  }
+  .login-footer ul li {
+    padding: 0 10px;
+  }
+  .grid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.select2-hidden-accessible {
+  pointer-events: none;
+}

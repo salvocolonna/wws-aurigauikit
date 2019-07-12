@@ -1,19 +1,19 @@
-import React from "react"
-import { FormattedDate, FormattedMessage } from "react-intl"
+import React from 'react'
+import { FormattedDate, FormattedMessage } from 'react-intl'
 
-import SimpleTable from "aurigauikit/components/SimpleTable"
-import DeleteSchedulationModal from "./DeleteSchedulationModal"
+import SimpleTable from 'aurigauikit/components/SimpleTable'
+import DeleteSchedulationModal from './DeleteSchedulationModal'
 
-const ICONS = { true: "confirmatory", false: "critical" }
+const ICONS = { true: 'confirmatory', false: 'critical' }
 
 const StatusLabel = ({ status }) => (
-  <span style={{ textTransform: "uppercase" }}>
-    <span style={{ margin: "0 8px 0 0" }} className={`dot dot-${ICONS[status]}`} />
+  <span style={{ textTransform: 'uppercase' }}>
+    <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
     <span className="asset-label">
       {status ? (
-        <FormattedMessage id={"report.schedulation-table.report-state.ENABLED"} />
+        <FormattedMessage id={'report.schedulation-table.report-state.ENABLED'} />
       ) : (
-        <FormattedMessage id={"report.schedulation-table.report-state.DISABLED"} />
+        <FormattedMessage id={'report.schedulation-table.report-state.DISABLED'} />
       )}
     </span>
   </span>
@@ -26,25 +26,25 @@ const headers = [
   { content: <FormattedMessage id="report.schedulation-table.columns.start-date" /> },
   { content: <FormattedMessage id="report.schedulation-table.columns.end-date" /> },
   { content: <FormattedMessage id="report.schedulation-table.columns.recurrence" /> },
-  { content: <FormattedMessage id="report.delete-schedulation-modal.next-schedulation" /> }
+  { content: <FormattedMessage id="report.delete-schedulation-modal.next-schedulation" /> },
 ]
 
 const columns = [
   {
     content: report => <StatusLabel status={report.schedulation.recurrence} />,
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       return report.schedulation.reportName
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       return report.template.name
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
@@ -58,10 +58,10 @@ const columns = [
           />
         )
       } else {
-        return <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
+        return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
       }
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
@@ -75,16 +75,16 @@ const columns = [
           />
         )
       } else {
-        return <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
+        return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
       }
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
       return toReadRecurringType(report.schedulation.recurringType)
     },
-    cssClass: "no-wrap"
+    cssClass: 'no-wrap',
   },
   {
     content: report => {
@@ -100,8 +100,8 @@ const columns = [
         />
       )
     },
-    cssClass: "no-wrap"
-  }
+    cssClass: 'no-wrap',
+  },
 ]
 
 const emptyState = <FormattedMessage id="report.schedulation-table.empty-state" />
@@ -109,68 +109,68 @@ const emptyState = <FormattedMessage id="report.schedulation-table.empty-state" 
 const toReadRecurringType = rec => {
   switch (rec) {
     case null:
-      return <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
-    case "NEVER":
-      return <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
-    case "DAILY":
-      return <FormattedMessage id={"report.schedulation-table.recurrence.DAILY"} />
-    case "WEEKLY":
-      return <FormattedMessage id={"report.schedulation-table.recurrence.WEEKLY"} />
-    case "MONTHLY":
-      return <FormattedMessage id={"report.schedulation-table.recurrence.MONTHLY"} />
+      return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+    case 'NEVER':
+      return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+    case 'DAILY':
+      return <FormattedMessage id={'report.schedulation-table.recurrence.DAILY'} />
+    case 'WEEKLY':
+      return <FormattedMessage id={'report.schedulation-table.recurrence.WEEKLY'} />
+    case 'MONTHLY':
+      return <FormattedMessage id={'report.schedulation-table.recurrence.MONTHLY'} />
   }
 }
 
 const toReadableExp = cronExpression => {
-  const cronExp = cronExpression.split(" ", 6)
+  const cronExp = cronExpression.split(' ', 6)
   const month = cronExp[4]
   const dayOfWeek = cronExp[5]
-  if (!cronExpression || (month[0] !== "*" && dayOfWeek[0] === "?"))
-    return <FormattedMessage id={"report.schedulation-table.recurrence.NEVER"} />
-  if (month[0] === "*" && dayOfWeek[0] === "?" && cronExp[3][1] === "/")
-    return <FormattedMessage id={"report.schedulation-table.recurrence.DAILY"} />
-  if (dayOfWeek[0] !== "0" && !month[1] === "/")
-    return <FormattedMessage id={"report.schedulation-table.recurrence.WEEKLY"} />
-  if ((month[1] === "/" && cronExp[3] === "?") || (month[1] === "/" && dayOfWeek === "?"))
-    return <FormattedMessage id={"report.schedulation-table.recurrence.MONTHLY"} />
+  if (!cronExpression || (month[0] !== '*' && dayOfWeek[0] === '?'))
+    return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+  if (month[0] === '*' && dayOfWeek[0] === '?' && cronExp[3][1] === '/')
+    return <FormattedMessage id={'report.schedulation-table.recurrence.DAILY'} />
+  if (dayOfWeek[0] !== '0' && !month[1] === '/')
+    return <FormattedMessage id={'report.schedulation-table.recurrence.WEEKLY'} />
+  if ((month[1] === '/' && cronExp[3] === '?') || (month[1] === '/' && dayOfWeek === '?'))
+    return <FormattedMessage id={'report.schedulation-table.recurrence.MONTHLY'} />
 }
 
 const toReadableExpTs = cronExpression => {
-  const cronExp = cronExpression.split(" ", 6)
+  const cronExp = cronExpression.split(' ', 6)
   const seconds = cronExp[0]
   const minutes = cronExp[1]
   const hours = cronExp[2]
 
-  const timeSlots = hours.split("-", 3)
+  const timeSlots = hours.split('-', 3)
 
-  if (seconds[0] === "*" && minutes[0] === "*" && hours[0] === "*") return ""
+  if (seconds[0] === '*' && minutes[0] === '*' && hours[0] === '*') return ''
   if (hours[0] !== 0) {
     if (timeSlots[0] !== 0) {
-      let a = "0"
+      let a = '0'
       if (timeSlots[0].length === 1) {
         if (minutes[0].length === 1) {
           return a
             .concat(timeSlots[0].toString())
-            .concat(":")
+            .concat(':')
             .concat(a)
             .concat(minutes[0].toString())
         } else {
           return a
             .concat(timeSlots[0].toString())
-            .concat(":")
+            .concat(':')
             .concat(minutes[0].toString())
         }
       } else {
         if (minutes[0].length === 1) {
           return timeSlots[0]
             .toString()
-            .concat(":")
+            .concat(':')
             .concat(a)
             .concat(minutes[0].toString())
         } else {
           return timeSlots[0]
             .toString()
-            .concat(":")
+            .concat(':')
             .concat(minutes[0].toString())
         }
       }
@@ -184,7 +184,7 @@ class ReportSchedulationTable extends React.Component {
     this.state = {
       menu: { items: [] },
       showDelete: false,
-      deletingSchedulation: null
+      deletingSchedulation: null,
     }
   }
 
@@ -199,53 +199,53 @@ class ReportSchedulationTable extends React.Component {
   }
 
   static sort = [
-    "recurrence",
-    "reportName",
-    "template.name",
-    "schedulingStartDate",
-    "schedulingEndDate",
-    "recurringType",
-    "nextSchedulingDate"
+    'recurrence',
+    'reportName',
+    'template.name',
+    'schedulingStartDate',
+    'schedulingEndDate',
+    'recurringType',
+    'nextSchedulingDate',
   ]
 
   menu = {
     items: [
       {
         title: <FormattedMessage id="report.schedulation-table.menu.edit" />,
-        iconName: "pencil",
+        iconName: 'pencil',
         hidden: () => false,
-        action: context => this.props.editSchedulation(context.currentRow)
+        action: context => this.props.editSchedulation(context.currentRow),
       },
       {},
       {
         title: <FormattedMessage id="report.schedulation-table.menu.enable" />,
         hidden: context =>
           context.currentRow && context.currentRow.schedulation.recurrence === true,
-        iconName: "check-circle",
-        style: "confirmatory",
+        iconName: 'check-circle',
+        style: 'confirmatory',
         action: context => {
           this.props.enableSchedulation(context.currentRow)
-        }
+        },
       },
       {
         title: <FormattedMessage id="report.schedulation-table.menu.disable" />,
         hidden: context =>
           context.currentRow && context.currentRow.schedulation.recurrence === false,
-        iconName: "times-circle",
-        style: "destructive",
+        iconName: 'times-circle',
+        style: 'destructive',
         action: context => {
           this.props.disableSchedulation(context.currentRow)
-        }
+        },
       },
       {},
       {
         title: <FormattedMessage id="report.schedulation-table.menu.delete" />,
-        iconName: "trash-o",
-        style: "destructive",
+        iconName: 'trash-o',
+        style: 'destructive',
         action: context =>
-          this.setState({ showDelete: true, deletingSchedulation: context.currentRow })
-      }
-    ]
+          this.setState({ showDelete: true, deletingSchedulation: context.currentRow }),
+      },
+    ],
   }
 
   render() {
@@ -258,14 +258,17 @@ class ReportSchedulationTable extends React.Component {
       page,
       sort,
       totalElements,
-      totalPages
+      totalPages,
     } = this.props
+    const { deletingSchedulation } = this.state
+
     return (
       <section>
         <DeleteSchedulationModal
           show={this.state.showDelete}
           onConfirm={() => this.onDeleteConfirm()}
           onClose={() => this.onDeleteUndo()}
+          schedulationName={deletingSchedulation && deletingSchedulation.reportName}
         />
         <SimpleTable
           sortable
