@@ -1,8 +1,9 @@
 const { execSync } = require('child_process')
+const path = require('path')
 const fs = require('fs')
-const aurigaDist = { cwd: `../../dist` }
-const CONFIG_PATH = './deploy-config.js'
+const CONFIG_PATH = path.join(__dirname, './deploy-config.js')
 const option = process.argv.slice(2)[0]
+const aurigaDist = { cwd: path.join(__dirname, `../../dist`) }
 
 const logExec = (...arg) => {
   console.log(...arg)
@@ -25,7 +26,11 @@ if (option === '--publish') {
 function publish() {
   logExec('git checkout master')
   logExec('git pull')
-  logExec('yarn unlink')
+  try {
+    logExec('yarn unlink')
+  } catch (e) {
+    console.log(e.message)
+  }
   logExec('yarn build')
   logExec('npm publish', aurigaDist)
   logExec('yarn link', aurigaDist)
@@ -36,7 +41,7 @@ function update() {
     fs.readFileSync(CONFIG_PATH)
   } catch (e) {
     throw 'This error probably occured due to a missing configuration file. Read documentation in deploy.md for more details. More info below: \n' +
-      e.message
+    e.message
   }
   const wwsDir = require(CONFIG_PATH)
   logExec('yarn add aurigauikit', wwsDir)
