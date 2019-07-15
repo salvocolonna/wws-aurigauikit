@@ -30,6 +30,7 @@ function publish() {
     logExec('yarn unlink')
   } catch (e) {
     console.log(e.message)
+    logExec('yarn link')
   }
   logExec('yarn build')
   logExec('npm publish', aurigaDist)
