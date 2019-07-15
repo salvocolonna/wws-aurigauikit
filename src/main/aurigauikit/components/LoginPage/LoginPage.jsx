@@ -9,9 +9,8 @@ logo: {src: image, alt: string}
 function LoginPage(props) {
   const {
     logo,
-    contextPathApp,
-    contextPathAuthServer,
-    basepath,
+    userProfilePath,
+    tokenPath,
     authParams,
     type = 'basic',
     onLogin = data => console.log('login successful', data),
@@ -20,6 +19,7 @@ function LoginPage(props) {
 
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [loading, setLoading] = React.useState(false)
 
   async function submit(event) {
     event.preventDefault()
@@ -27,7 +27,7 @@ function LoginPage(props) {
       return string + key + '=' + value + '&'
     }, '?')
 
-    let authUrl = `${basepath}/${contextPathAuthServer}/oauth/token` + queryParams
+    let authUrl = tokenPath + queryParams
 
     const authOptions = {
       method: 'POST',
@@ -46,11 +46,12 @@ function LoginPage(props) {
     }
 
     try {
+      setLoading(true)
       const authResponse = await fetch(authUrl, authOptions)
       const authData = await authResponse.json()
       localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(authData))
 
-      const userResponse = await fetch(`${basepath}/${contextPathApp}/api/v1/user`, {
+      const userResponse = await fetch(userProfilePath, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${authData.access_token}`,
@@ -58,9 +59,10 @@ function LoginPage(props) {
       })
       const userData = await userResponse.json()
 
+      setLoading(false)
       onLogin(userData)
-      // localStorage.setItem('auth-token', JSON.stringify(authData))
     } catch (error) {
+      setLoading(false)
       if (onError && typeof onError === 'function') {
         onError(error)
       } else {
@@ -108,7 +110,7 @@ function LoginPage(props) {
                 </div>
                 <div style={{ padding: '20px 40px' }}>
                   <button
-                    disabled={isDisabled}
+                    disabled={isDisabled || loading}
                     onClick={submit}
                     style={{ width: '50%', float: 'right' }}
                     className="btn btn-primary"
