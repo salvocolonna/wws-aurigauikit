@@ -48,16 +48,10 @@ class Ajax extends RequestMaker {
     const sessionToken = getSessionToken()
     const authorization = sessionToken ? `${apiKey}, ${sessionToken}` : apiKey
     */
-    const authorization = getAuthToken()
-    if (!authorization) console.error('There is no token!')
 
     this.headers = {
       'Content-Type': 'application/json',
       'Accept-Language': i18n.getCurrentLanguage(),
-    }
-
-    if (authorization) {
-      this.headers.Authorization = 'Bearer ' + authorization
     }
   }
 
@@ -120,6 +114,10 @@ class Ajax extends RequestMaker {
   putBlob = this.put(RESPONSE.BLOB)
 
   async [REQUEST](method, resource, { data, params, options, type }) {
+    const authorization = getAuthToken()
+    if (authorization) {
+      this.headers.Authorization = 'Bearer ' + authorization
+    }
     const { request, fetchOptions } = this.create({
       headers: this.headers,
       api: this.api,
