@@ -146,7 +146,7 @@ class Ajax extends RequestMaker {
         }[type]()
       }
     } else {
-      if (response.status !== 404) handleFailedAuthentication()
+      if (response.status === 401) handleFailedAuthentication()
       const text = await response.text()
       const lang = i18n.getCurrentLanguage()
       const errors = {
