@@ -29,6 +29,11 @@ function getAuthToken() {
   return false
 }
 
+function handleFailedAuthentication() {
+  localStorage.removeItem(TOKEN_STORAGE_KEY)
+  window.location.reload()
+}
+
 const getURL = ({
   protocol = 'http',
   hostname = location.hostname,
@@ -141,6 +146,7 @@ class Ajax extends RequestMaker {
         }[type]()
       }
     } else {
+      if (response.status === 401) handleFailedAuthentication()
       const text = await response.text()
       const lang = i18n.getCurrentLanguage()
       const errors = {
