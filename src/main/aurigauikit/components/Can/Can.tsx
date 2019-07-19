@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SecurityContext } from './SecurityContext'
+import { AuthorizationContext } from './AuthorizationContext'
 type ActionType = 'create' | 'read' | 'edit' | 'delete'
 
 interface Action {
@@ -78,7 +78,7 @@ export function isUserAllowed(params: {
 
 function Can(props: CanProps) {
   const { objects, exception } = props
-  const { profilePermission } = React.useContext(SecurityContext)
+  const { profilePermission } = React.useContext(AuthorizationContext)
 
   const actions = React.useMemo(() => {
     const actions = []
