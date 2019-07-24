@@ -1,5 +1,5 @@
 export const WWSAM = 'wwsam'
-export const WWSCA = 'WWSCA'
+export const WWSCA = 'wwsca'
 export const WWSBAM = 'wwsbam_frontend'
 export const WWSCM = 'wwscm_branch'
 
