@@ -57,6 +57,7 @@ export default class extends React.Component {
         width: '100%',
         opacity: this.state.opacity,
         transition: 'opacity 1s',
+        ...this.props.style,
       }}
     />
   )
