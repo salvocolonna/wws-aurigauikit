@@ -29,6 +29,11 @@ function getAuthToken() {
   return false
 }
 
+function handleFailedAuthentication() {
+  localStorage.removeItem(TOKEN_STORAGE_KEY)
+  window.location.reload()
+}
+
 const getURL = ({
   protocol = 'http',
   hostname = location.hostname,
@@ -48,16 +53,10 @@ class Ajax extends RequestMaker {
     const sessionToken = getSessionToken()
     const authorization = sessionToken ? `${apiKey}, ${sessionToken}` : apiKey
     */
-    const authorization = getAuthToken()
-    if (!authorization) console.error('There is no token!')
 
     this.headers = {
       'Content-Type': 'application/json',
       'Accept-Language': i18n.getCurrentLanguage(),
-    }
-
-    if (authorization) {
-      this.headers.Authorization = 'Bearer ' + authorization
     }
   }
 
@@ -120,6 +119,10 @@ class Ajax extends RequestMaker {
   putBlob = this.put(RESPONSE.BLOB)
 
   async [REQUEST](method, resource, { data, params, options, type }) {
+    const authorization = getAuthToken()
+    if (authorization) {
+      this.headers.Authorization = 'Bearer ' + authorization
+    }
     const { request, fetchOptions } = this.create({
       headers: this.headers,
       api: this.api,
@@ -143,6 +146,7 @@ class Ajax extends RequestMaker {
         }[type]()
       }
     } else {
+      if (response.status === 401) handleFailedAuthentication()
       const text = await response.text()
       const lang = i18n.getCurrentLanguage()
       const errors = {

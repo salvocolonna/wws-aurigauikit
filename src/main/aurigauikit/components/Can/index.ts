@@ -1,5 +1,14 @@
-import { SecurityContext, SecurityContextController, withSecurityContext } from './SecurityContext'
+import {
+  AuthorizationContext,
+  AuthorizationContextController,
+  withAuthorizationContext,
+} from './AuthorizationContext'
 import Can, { isUserAllowed } from './Can'
 
 export default Can
-export { SecurityContext, SecurityContextController, withSecurityContext, isUserAllowed }
+export {
+  AuthorizationContext,
+  AuthorizationContextController,
+  withAuthorizationContext,
+  isUserAllowed,
+}

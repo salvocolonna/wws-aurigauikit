@@ -57,6 +57,8 @@ function LoginPage(props) {
           Authorization: `Bearer ${authData.access_token}`,
         },
       })
+
+      if (userResponse.status !== 200) throw new Error(userResponse.statusText)
       const userData = await userResponse.json()
 
       setLoading(false)
