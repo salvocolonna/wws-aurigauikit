@@ -50,6 +50,13 @@ export default {
       code: () => import('!raw-loader!../components/DatePicker/Clearable'),
     },
   },
+  DeleteModal: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/DeleteModal/Base')),
+      code: () => import('!raw-loader!../components/DeleteModal/Base'),
+    },
+  },
   Loader: {
     metadata: {},
     Base: {
