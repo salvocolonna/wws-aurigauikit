@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import sizeMe from 'react-sizeme'
 import './modal.less'
 import debounce from 'lodash/debounce'
+import { Header, Content, Footer } from './components'
+
 const ESC = 27
 
 class Modal extends React.Component {
@@ -115,5 +117,9 @@ const Panel = sizeMe({ monitorHeight: true, noPlaceholder: true })(({ children, 
     {children}
   </div>
 ))
+
+Modal.Header = Header
+Modal.Content = Content
+Modal.Footer = Footer
 
 export default Modal
