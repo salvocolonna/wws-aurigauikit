@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedDate, FormattedMessage as Msg } from 'react-intl'
 
 import SimpleTable from 'aurigauikit/components/SimpleTable'
-import DeleteModal from 'aurigauikit/components/DeleteModal'
+import Prompt from 'aurigauikit/components/Prompt'
 import messages from './messages'
 
 const ICONS = { true: 'confirmatory', false: 'critical' }
@@ -14,8 +14,8 @@ const StatusLabel = ({ status }) => (
       {status ? (
         <Msg id={'report.schedulation-table.report-state.ENABLED'} />
       ) : (
-        <Msg id={'report.schedulation-table.report-state.DISABLED'} />
-      )}
+          <Msg id={'report.schedulation-table.report-state.DISABLED'} />
+        )}
     </span>
   </span>
 )
@@ -265,7 +265,7 @@ class ReportSchedulationTable extends React.Component {
 
     return (
       <section>
-        <DeleteModal
+        <Prompt
           show={this.state.showDelete}
           title={<Msg {...messages.title} />}
           onConfirm={() => this.onDeleteConfirm()}
@@ -277,7 +277,7 @@ class ReportSchedulationTable extends React.Component {
             }}
             {...messages.remove}
           />
-        </DeleteModal>
+        </Prompt>
         <SimpleTable
           sortable
           pageable

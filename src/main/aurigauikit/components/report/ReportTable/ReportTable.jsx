@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedDate, FormattedMessage as Msg } from 'react-intl'
 import SimpleTable from 'aurigauikit/components/SimpleTable'
-import DeleteModal from 'aurigauikit/components/DeleteModal'
+import Prompt from 'aurigauikit/components/Prompt'
 import messages from './messages'
 
 const ICONS = {
@@ -209,7 +209,7 @@ class ReportListTable extends React.Component {
 
     return (
       <section>
-        <DeleteModal
+        <Prompt
           show={this.state.showDelete}
           onConfirm={() => this.onDeleteConfirm()}
           onCancel={() => this.onDeleteUndo()}
@@ -223,7 +223,7 @@ class ReportListTable extends React.Component {
             }}
             {...messages.remove}
           />
-        </DeleteModal>
+        </Prompt>
         <SimpleTable
           sortable
           headers={headers}

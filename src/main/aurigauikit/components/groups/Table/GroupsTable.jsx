@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage as Msg } from 'react-intl'
 import SimpleTable from 'aurigauikit/components/SimpleTable'
 import messages, { menu as menuMessages } from './messages'
-import DeleteModal from 'aurigauikit/components/DeleteModal'
+import Prompt from 'aurigauikit/components/Prompt'
 
 export default class extends React.Component {
   state = { deletingGroup: null }
@@ -103,7 +103,7 @@ export default class extends React.Component {
 
     return (
       <section>
-        <DeleteModal
+        <Prompt
           onCancel={this.undoDelete}
           onConfirm={() => this.confirmDelete(this.state.deletingGroup)}
           show={this.state.deletingGroup}
@@ -115,7 +115,7 @@ export default class extends React.Component {
             }}
             {...messages.remove}
           />
-        </DeleteModal>
+        </Prompt>
         <SimpleTable
           pageable={pageable}
           sortable={sortable}
