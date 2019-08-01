@@ -14,16 +14,17 @@ interface Props {
 
 function DeleteModal(props: Props) {
   const { title, onConfirm, onCancel, deleting, show, children } = props
+  const style = { width: 600, borderColor: '#DC402B' }
 
   return (
-  <Modal style={{ width: 600, borderColor: '#DC402B' }} onClose={() => onCancel} show={show}>
+  <Modal style={style} onClose={onCancel} show={show}>
     <Modal.Header title={title} />
     <Modal.Content>{children}</Modal.Content>
     <Modal.Footer>
       <button onClick={onCancel} className="btn btn-warning-outline" style={{ marginRight: 20 }}>
         <Msg {...messages.cancel} />
       </button>
-      <button onClick={() => onConfirm()} className="btn btn-destructive" disabled={deleting}>
+      <button onClick={onConfirm} className="btn btn-destructive" disabled={deleting}>
         <Msg {...messages.confirm} />
       </button>
     </Modal.Footer>
