@@ -7,24 +7,8 @@ export default defineMessages({
     id: `${PATH}.title`,
     defaultMessage: 'Delete Schedulation',
   },
-  content1: {
-    id: `${PATH}.content1`,
-    defaultMessage: 'Are you sure you want to delete',
-  },
-  content2: {
-    id: `${PATH}.content2`,
-    defaultMessage: 'This cannot be undone.',
-  },
-  content3: {
-    id: `${PATH}.content3`,
-    defaultMessage: '?',
-  },
-  cancel: {
-    id: `${PATH}.cancel-button`,
-    defaultMessage: 'Delete Schedulation',
-  },
-  confirm: {
-    id: `${PATH}.confirm-button`,
-    defaultMessage: 'Delete Schedulation',
+  remove: {
+    id: `delete-modal.content`,
+    defaultMessage: `Are you sure you want to delete {name}? This cannot be undone.`,
   },
 })

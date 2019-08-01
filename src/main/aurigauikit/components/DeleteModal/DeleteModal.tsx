@@ -9,13 +9,14 @@ interface Props {
   onConfirm: () => void
   onCancel: () => void
   deleting?: boolean
+  show: boolean
 }
 
 function DeleteModal(props: Props) {
-  const { title, onConfirm, onCancel, deleting, children } = props
+  const { title, onConfirm, onCancel, deleting, show, children } = props
 
   return (
-  <Modal style={{ width: 600, borderColor: '#DC402B' }} onClose={() => onCancel} show>
+  <Modal style={{ width: 600, borderColor: '#DC402B' }} onClose={() => onCancel} show={show}>
     <Modal.Header title={title} />
     <Modal.Content>{children}</Modal.Content>
     <Modal.Footer>

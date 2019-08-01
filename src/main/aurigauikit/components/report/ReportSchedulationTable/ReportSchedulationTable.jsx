@@ -1,8 +1,9 @@
 import React from 'react'
-import { FormattedDate, FormattedMessage } from 'react-intl'
+import { FormattedDate, FormattedMessage as Msg } from 'react-intl'
 
 import SimpleTable from 'aurigauikit/components/SimpleTable'
-import DeleteSchedulationModal from './DeleteSchedulationModal'
+import DeleteModal from 'aurigauikit/components/DeleteModal'
+import messages from './messages'
 
 const ICONS = { true: 'confirmatory', false: 'critical' }
 
@@ -11,22 +12,22 @@ const StatusLabel = ({ status }) => (
     <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
     <span className="asset-label">
       {status ? (
-        <FormattedMessage id={'report.schedulation-table.report-state.ENABLED'} />
+        <Msg id={'report.schedulation-table.report-state.ENABLED'} />
       ) : (
-        <FormattedMessage id={'report.schedulation-table.report-state.DISABLED'} />
+        <Msg id={'report.schedulation-table.report-state.DISABLED'} />
       )}
     </span>
   </span>
 )
 
 const headers = [
-  { content: <FormattedMessage id="report.schedulation-table.columns.state" /> },
-  { content: <FormattedMessage id="report.schedulation-table.report-name.head-table" /> },
-  { content: <FormattedMessage id="report.schedulation-table.columns.report-template" /> },
-  { content: <FormattedMessage id="report.schedulation-table.columns.start-date" /> },
-  { content: <FormattedMessage id="report.schedulation-table.columns.end-date" /> },
-  { content: <FormattedMessage id="report.schedulation-table.columns.recurrence" /> },
-  { content: <FormattedMessage id="report.delete-schedulation-modal.next-schedulation" /> },
+  { content: <Msg id="report.schedulation-table.columns.state" /> },
+  { content: <Msg id="report.schedulation-table.report-name.head-table" /> },
+  { content: <Msg id="report.schedulation-table.columns.report-template" /> },
+  { content: <Msg id="report.schedulation-table.columns.start-date" /> },
+  { content: <Msg id="report.schedulation-table.columns.end-date" /> },
+  { content: <Msg id="report.schedulation-table.columns.recurrence" /> },
+  { content: <Msg id="report.delete-schedulation-modal.next-schedulation" /> },
 ]
 
 const columns = [
@@ -58,7 +59,7 @@ const columns = [
           />
         )
       } else {
-        return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+        return <Msg id={'report.schedulation-table.recurrence.NEVER'} />
       }
     },
     cssClass: 'no-wrap',
@@ -75,7 +76,7 @@ const columns = [
           />
         )
       } else {
-        return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+        return <Msg id={'report.schedulation-table.recurrence.NEVER'} />
       }
     },
     cssClass: 'no-wrap',
@@ -104,20 +105,20 @@ const columns = [
   },
 ]
 
-const emptyState = <FormattedMessage id="report.schedulation-table.empty-state" />
+const emptyState = <Msg id="report.schedulation-table.empty-state" />
 
 const toReadRecurringType = rec => {
   switch (rec) {
     case null:
-      return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+      return <Msg id={'report.schedulation-table.recurrence.NEVER'} />
     case 'NEVER':
-      return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+      return <Msg id={'report.schedulation-table.recurrence.NEVER'} />
     case 'DAILY':
-      return <FormattedMessage id={'report.schedulation-table.recurrence.DAILY'} />
+      return <Msg id={'report.schedulation-table.recurrence.DAILY'} />
     case 'WEEKLY':
-      return <FormattedMessage id={'report.schedulation-table.recurrence.WEEKLY'} />
+      return <Msg id={'report.schedulation-table.recurrence.WEEKLY'} />
     case 'MONTHLY':
-      return <FormattedMessage id={'report.schedulation-table.recurrence.MONTHLY'} />
+      return <Msg id={'report.schedulation-table.recurrence.MONTHLY'} />
   }
 }
 
@@ -126,13 +127,13 @@ const toReadableExp = cronExpression => {
   const month = cronExp[4]
   const dayOfWeek = cronExp[5]
   if (!cronExpression || (month[0] !== '*' && dayOfWeek[0] === '?'))
-    return <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+    return <Msg id={'report.schedulation-table.recurrence.NEVER'} />
   if (month[0] === '*' && dayOfWeek[0] === '?' && cronExp[3][1] === '/')
-    return <FormattedMessage id={'report.schedulation-table.recurrence.DAILY'} />
+    return <Msg id={'report.schedulation-table.recurrence.DAILY'} />
   if (dayOfWeek[0] !== '0' && !month[1] === '/')
-    return <FormattedMessage id={'report.schedulation-table.recurrence.WEEKLY'} />
+    return <Msg id={'report.schedulation-table.recurrence.WEEKLY'} />
   if ((month[1] === '/' && cronExp[3] === '?') || (month[1] === '/' && dayOfWeek === '?'))
-    return <FormattedMessage id={'report.schedulation-table.recurrence.MONTHLY'} />
+    return <Msg id={'report.schedulation-table.recurrence.MONTHLY'} />
 }
 
 const toReadableExpTs = cronExpression => {
@@ -211,14 +212,14 @@ class ReportSchedulationTable extends React.Component {
   menu = {
     items: [
       {
-        title: <FormattedMessage id="report.schedulation-table.menu.edit" />,
+        title: <Msg id="report.schedulation-table.menu.edit" />,
         iconName: 'pencil',
         hidden: () => false,
         action: context => this.props.editSchedulation(context.currentRow),
       },
       {},
       {
-        title: <FormattedMessage id="report.schedulation-table.menu.enable" />,
+        title: <Msg id="report.schedulation-table.menu.enable" />,
         hidden: context =>
           context.currentRow && context.currentRow.schedulation.recurrence === true,
         iconName: 'check-circle',
@@ -228,7 +229,7 @@ class ReportSchedulationTable extends React.Component {
         },
       },
       {
-        title: <FormattedMessage id="report.schedulation-table.menu.disable" />,
+        title: <Msg id="report.schedulation-table.menu.disable" />,
         hidden: context =>
           context.currentRow && context.currentRow.schedulation.recurrence === false,
         iconName: 'times-circle',
@@ -239,7 +240,7 @@ class ReportSchedulationTable extends React.Component {
       },
       {},
       {
-        title: <FormattedMessage id="report.schedulation-table.menu.delete" />,
+        title: <Msg id="report.schedulation-table.menu.delete" />,
         iconName: 'trash-o',
         style: 'destructive',
         action: context =>
@@ -264,12 +265,19 @@ class ReportSchedulationTable extends React.Component {
 
     return (
       <section>
-        <DeleteSchedulationModal
+        <DeleteModal
           show={this.state.showDelete}
+          title={<Msg {...messages.title} />}
           onConfirm={() => this.onDeleteConfirm()}
-          onClose={() => this.onDeleteUndo()}
-          schedulationName={deletingSchedulation && deletingSchedulation.reportName}
-        />
+          onCancel={() => this.onDeleteUndo()}
+        >
+          <Msg
+            values={{
+              name: <b>{deletingSchedulation && deletingSchedulation.reportName}</b>,
+            }}
+            {...messages.remove}
+          />
+        </DeleteModal>
         <SimpleTable
           sortable
           pageable
