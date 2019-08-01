@@ -24,7 +24,6 @@ i18n.loadMessages('en', {
   ],
 
   'dates.day-names': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  'aurigauikit.groups.table.title': 'Deleting asset group',
   'organizational-unit.title': 'Organizational Unit',
   'organizational-unit-modal.reset': 'Reset',
   'organizational-unit-modal.cancel': 'Cancel',
