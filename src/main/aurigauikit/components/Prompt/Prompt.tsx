@@ -8,7 +8,7 @@ interface Props {
   children: JSX.Element
   onConfirm: () => void
   onCancel: () => void
-  deleting?: boolean
+  loading?: boolean
   show?: boolean
   type: 'warning' | 'confirmatory' | 'destructive'
 }
@@ -30,7 +30,7 @@ function Prompt(props: Props) {
     title,
     onConfirm,
     onCancel,
-    deleting,
+    loading,
     show = true,
     children,
     type = 'confirmatory',
@@ -46,7 +46,7 @@ function Prompt(props: Props) {
         <button onClick={onCancel} className="btn btn-warning-outline" style={{ marginRight: 20 }}>
           <Msg {...messages.cancel} />
         </button>
-        <button onClick={onConfirm} className={classNameOnConfirm} disabled={deleting}>
+        <button onClick={onConfirm} className={classNameOnConfirm} disabled={loading}>
           <Msg {...messages.confirm} />
         </button>
       </Modal.Footer>
