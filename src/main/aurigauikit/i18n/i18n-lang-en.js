@@ -24,7 +24,7 @@ i18n.loadMessages('en', {
   ],
 
   'dates.day-names': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-
+  'aurigauikit.groups.table.title': 'Deleting asset group',
   'organizational-unit.title': 'Organizational Unit',
   'organizational-unit-modal.reset': 'Reset',
   'organizational-unit-modal.cancel': 'Cancel',
@@ -140,6 +140,7 @@ i18n.loadMessages('en', {
   'report.delete-report-modal.title': 'Delete Report',
   'delete-modal.content': 'Are you sure you want to delete {name}? This cannot be undone.',
   'report-list-page.title': 'Report List',
+
   'report-list-page.buttons.refresh': 'Refresh',
   'report-list-page.buttons.new-report': 'Create Immediate',
   'report-list-page.msg.report-queued': 'Report has been queued for generation',

@@ -24,7 +24,6 @@ i18n.loadMessages('it', {
   ],
 
   'dates.day-names': ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
-
   'report.report-table.columns.report-template': 'Report template',
   'report.report-table.columns.period': 'Ricorrenza',
   'report.report-table.columns.start-date': 'Data inizio',
