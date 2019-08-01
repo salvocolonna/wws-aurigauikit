@@ -15,13 +15,13 @@ interface Props {
 
 const styleMap = {
   destructive: {
-    classNameOnConfirm: 'btn btn-destructive',
+    onConfirmStyle: 'btn-destructive',
   },
   warning: {
-    classNameOnConfirm: 'btn btn-warning',
+    onConfirmStyle: 'btn-warning',
   },
   confirmatory: {
-    classNameOnConfirm: 'btn btn-confirmatory',
+    onConfirmStyle: 'btn-confirmatory',
   },
 }
 
@@ -35,7 +35,7 @@ function Prompt(props: Props) {
     children,
     type = 'confirmatory',
   } = props
-  const { classNameOnConfirm } = styleMap[type]
+  const { onConfirmStyle } = styleMap[type]
   const style = { width: 600 }
 
   return (
@@ -46,7 +46,7 @@ function Prompt(props: Props) {
         <button onClick={onCancel} className="btn btn-warning-outline" style={{ marginRight: 20 }}>
           <Msg {...messages.cancel} />
         </button>
-        <button onClick={onConfirm} className={classNameOnConfirm} disabled={loading}>
+        <button onClick={onConfirm} className={`btn ${onConfirmStyle}`} disabled={loading}>
           <Msg {...messages.confirm} />
         </button>
       </Modal.Footer>
