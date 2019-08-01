@@ -50,13 +50,6 @@ export default {
       code: () => import('!raw-loader!../components/DatePicker/Clearable'),
     },
   },
-  DeleteModal: {
-    metadata: {},
-    Base: {
-      component: lazy(() => import('../components/DeleteModal/Base')),
-      code: () => import('!raw-loader!../components/DeleteModal/Base'),
-    },
-  },
   Loader: {
     metadata: {},
     Base: {
@@ -84,6 +77,13 @@ export default {
     Filter: {
       component: lazy(() => import('../components/OrganizationalUnit/Filter')),
       code: () => import('!raw-loader!../components/OrganizationalUnit/Filter'),
+    },
+  },
+  Prompt: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/Prompt/Base')),
+      code: () => import('!raw-loader!../components/Prompt/Base'),
     },
   },
   Radio: {
