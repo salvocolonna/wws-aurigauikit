@@ -2,8 +2,7 @@
 
 exports[`ImageViewer displays as expected 1`] = `
 <div
-  className="viewer "
-  style={undefined}
+  className="ImageViewer "
 >
   Image {"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
 </div>
@@ -11,8 +10,7 @@ exports[`ImageViewer displays as expected 1`] = `
 
 exports[`ImageViewer displays as expected editable 1`] = `
 <div
-  className="viewer "
-  style={undefined}
+  className="ImageViewer "
 >
   Image {"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
   Overlay {"editable":true,"width":0,"height":0}
@@ -30,8 +28,7 @@ exports[`ImageViewer displays as expected editable 1`] = `
 
 exports[`ImageViewer forewards style and className 1`] = `
 <div
-  className="viewer image-viewer"
-  style={undefined}
+  className="ImageViewer image-viewer"
 >
   Image {"style":{"borderRadius":50},"currentSize":{"width":0,"height":0},"src":"mock/resource/src"}
 </div>
