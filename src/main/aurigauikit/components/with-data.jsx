@@ -1,6 +1,6 @@
-import React from "react"
-import isFunction from "lodash/isFunction"
-import isArray from "lodash/isArray"
+import React from 'react'
+import isFunction from 'lodash/isFunction'
+import isArray from 'lodash/isArray'
 
 export default mappers => Component => {
   const isLoading = (key, loading) => {
@@ -39,7 +39,7 @@ export default mappers => Component => {
       ...data.loading,
       [key]: isArray(mappers[key].fetch)
         ? mappers[key].fetch.reduce((l, _, i) => ({ ...l, [i]: false }), {})
-        : false
+        : false,
     },
     errors: { ...data.errors, [key]: null },
     original: { ...data.original, [key]: null },
@@ -47,7 +47,7 @@ export default mappers => Component => {
     restore: { ...data.restore, [key]: () => instance.restore(key) },
     submit: { ...data.submit, [key]: () => instance.submit(key) },
     saving: { ...data.saving, [key]: false },
-    [key]: mappers[key].value || null
+    [key]: mappers[key].value || null,
   })
 
   return class extends React.Component {
@@ -59,8 +59,8 @@ export default mappers => Component => {
         update: {},
         restore: {},
         submit: {},
-        saving: {}
-      })
+        saving: {},
+      }),
     }
 
     componentDidMount() {
@@ -82,7 +82,7 @@ export default mappers => Component => {
     submit = async key => {
       const mapper = mappers[key]
       this.setState(({ data }) => ({
-        data: { ...data, saving: { ...data.saving, [key]: true } }
+        data: { ...data, saving: { ...data.saving, [key]: true } },
       }))
       try {
         const res = await mapper.submitter.submit(this.props, this.state.data)
@@ -91,7 +91,7 @@ export default mappers => Component => {
         mapper.submitter.error(this.props, e)
       } finally {
         this.setState(({ data }) => ({
-          data: { ...data, saving: { ...data.saving, [key]: false } }
+          data: { ...data, saving: { ...data.saving, [key]: false } },
         }))
       }
     }
