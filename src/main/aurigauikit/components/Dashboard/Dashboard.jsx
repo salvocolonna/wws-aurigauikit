@@ -1,4 +1,5 @@
 import React from 'react'
+import { injectIntl } from 'react-intl'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import Actions from './Actions'
 import { AddWidgetModal } from './AddWidget'
@@ -6,8 +7,8 @@ import isFunction from 'lodash/isFunction'
 import Card from 'aurigauikit/components/Card'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
-import styles from './styles.css'
-import { injectIntl } from 'react-intl'
+import styles from './styles.module.css'
+import './styles.css'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const MARGIN = 40
@@ -39,8 +40,8 @@ class WidgetError extends React.Component {
         </button>
       </div>
     ) : (
-        children
-      )
+      children
+    )
   }
 }
 
@@ -148,26 +149,26 @@ export default class Dashboard extends React.Component {
                 <WidgetError>{children(this.state, () => this.removeWidget(name))}</WidgetError>
               </Wrapper>
             ) : (
-                <React.Fragment>
-                  {!loading && (
-                    <DeleteWidget
-                      show={edit && !add && !saving}
-                      name={name}
-                      onClick={this.removeWidget}
-                    />
-                  )}
-                  <Wrapper
-                    title={title}
-                    edit={edit}
-                    add={add}
+              <React.Fragment>
+                {!loading && (
+                  <DeleteWidget
+                    show={edit && !add && !saving}
                     name={name}
-                    loading={loading}
-                    {...wrapperProps}
-                  >
-                    <WidgetError>{children}</WidgetError>
-                  </Wrapper>
-                </React.Fragment>
-              )}
+                    onClick={this.removeWidget}
+                  />
+                )}
+                <Wrapper
+                  title={title}
+                  edit={edit}
+                  add={add}
+                  name={name}
+                  loading={loading}
+                  {...wrapperProps}
+                >
+                  <WidgetError>{children}</WidgetError>
+                </Wrapper>
+              </React.Fragment>
+            )}
           </div>
         )
       })
@@ -298,19 +299,19 @@ const WidgetCard = ({ edit, children, add, ...props }) => (
     {add === name ? (
       children
     ) : (
-        <div
-          style={{
-            padding: 20,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            height: '100%',
-          }}
-        >
-          {children}
-        </div>
-      )}
+      <div
+        style={{
+          padding: 20,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          height: '100%',
+        }}
+      >
+        {children}
+      </div>
+    )}
   </Card>
 )
 
