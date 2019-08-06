@@ -120,7 +120,7 @@ class ReportListTable extends React.Component {
   }
 
   get menu() {
-    const { canInteract } = this.props
+    const { canDelete = true } = this.props
     return {
       items: [
         {
@@ -150,8 +150,8 @@ class ReportListTable extends React.Component {
             this.props.onCSVDownload(report.reportContentId)
           },
         },
-        canInteract && {},
-        canInteract && {
+        canDelete && {},
+        canDelete && {
           title: <FormattedMessage id="report.report-table.menu.delete" />,
           iconName: 'trash-o',
           style: 'destructive',
