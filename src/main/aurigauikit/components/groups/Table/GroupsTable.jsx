@@ -54,27 +54,27 @@ export default class extends React.Component {
   static displayName = 'GroupsTable'
 
   get menu() {
-    const { readGroup, editGroup } = this.props
+    const { readGroup, editGroup, canEdit, canDelete } = this.props
     return {
       items: [
         {
           title: <Msg {...menuMessages.view} />,
           action: ({ currentRow }) => readGroup(currentRow),
         },
-        {},
-        {
+        (canEdit || canDelete) && {},
+        canEdit && {
           title: <Msg {...menuMessages.edit} />,
           iconName: 'pencil',
           action: ({ currentRow }) => editGroup(currentRow),
         },
-        {},
-        {
+        canEdit && canDelete && {},
+        canDelete && {
           title: <Msg {...menuMessages.delete} />,
           iconName: 'trash-o',
           style: 'destructive',
           action: ({ currentRow }) => this.setState({ deletingGroup: currentRow }),
         },
-      ],
+      ].filter(Boolean),
     }
   }
 
