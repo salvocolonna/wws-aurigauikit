@@ -5,7 +5,6 @@ exports[`Switch displays as expected 1`] = `
   className="switch"
 >
   <input
-    onChange={undefined}
     type="checkbox"
     value={true}
   />

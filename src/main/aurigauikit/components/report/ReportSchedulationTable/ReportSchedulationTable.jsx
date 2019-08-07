@@ -208,44 +208,47 @@ class ReportSchedulationTable extends React.Component {
     'nextSchedulingDate',
   ]
 
-  menu = {
-    items: [
-      {
-        title: <FormattedMessage id="report.schedulation-table.menu.edit" />,
-        iconName: 'pencil',
-        hidden: () => false,
-        action: context => this.props.editSchedulation(context.currentRow),
-      },
-      {},
-      {
-        title: <FormattedMessage id="report.schedulation-table.menu.enable" />,
-        hidden: context =>
-          context.currentRow && context.currentRow.schedulation.recurrence === true,
-        iconName: 'check-circle',
-        style: 'confirmatory',
-        action: context => {
-          this.props.enableSchedulation(context.currentRow)
+  get menu() {
+    const { canEdit = true, canDelete = true } = this.props
+    return {
+      items: [
+        canEdit && {
+          title: <FormattedMessage id="report.schedulation-table.menu.edit" />,
+          iconName: 'pencil',
+          hidden: () => false,
+          action: context => this.props.editSchedulation(context.currentRow),
         },
-      },
-      {
-        title: <FormattedMessage id="report.schedulation-table.menu.disable" />,
-        hidden: context =>
-          context.currentRow && context.currentRow.schedulation.recurrence === false,
-        iconName: 'times-circle',
-        style: 'destructive',
-        action: context => {
-          this.props.disableSchedulation(context.currentRow)
+        canEdit && {},
+        canEdit && {
+          title: <FormattedMessage id="report.schedulation-table.menu.enable" />,
+          hidden: context =>
+            context.currentRow && context.currentRow.schedulation.recurrence === true,
+          iconName: 'check-circle',
+          style: 'confirmatory',
+          action: context => {
+            this.props.enableSchedulation(context.currentRow)
+          },
         },
-      },
-      {},
-      {
-        title: <FormattedMessage id="report.schedulation-table.menu.delete" />,
-        iconName: 'trash-o',
-        style: 'destructive',
-        action: context =>
-          this.setState({ showDelete: true, deletingSchedulation: context.currentRow }),
-      },
-    ],
+        canEdit && {
+          title: <FormattedMessage id="report.schedulation-table.menu.disable" />,
+          hidden: context =>
+            context.currentRow && context.currentRow.schedulation.recurrence === false,
+          iconName: 'times-circle',
+          style: 'destructive',
+          action: context => {
+            this.props.disableSchedulation(context.currentRow)
+          },
+        },
+        canEdit && {},
+        canDelete && {
+          title: <FormattedMessage id="report.schedulation-table.menu.delete" />,
+          iconName: 'trash-o',
+          style: 'destructive',
+          action: context =>
+            this.setState({ showDelete: true, deletingSchedulation: context.currentRow }),
+        },
+      ],
+    }
   }
 
   render() {

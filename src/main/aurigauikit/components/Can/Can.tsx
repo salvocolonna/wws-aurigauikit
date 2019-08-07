@@ -99,4 +99,17 @@ function Can(props: CanProps) {
   return isAllowed ? props.children : null
 }
 
+export function useCan() {
+  const { profilePermission } = React.useContext(AuthorizationContext)
+  return (actions: ActionType[], objects?: string[], exception?: string) =>
+    isUserAllowed({ profilePermission, actions, objects, exception })
+}
+
+export function withCan<Props extends {}>(Component: React.ComponentType<Props>) {
+  return (props: Props) => {
+    const can = useCan()
+    return <Component {...props} can={can} />
+  }
+}
+
 export default Can
