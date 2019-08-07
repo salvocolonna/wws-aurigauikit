@@ -120,43 +120,47 @@ class ReportListTable extends React.Component {
     this.setState({ showDelete: false })
   }
 
-  menu = {
-    items: [
-      {
-        title: <Msg id="report.report-table.menu.view" />,
-        iconName: 'eye',
-        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
-        action: context => {
-          const report = context.currentRow.contents.find(x => x.type === 'PDF')
-          this.props.onPDFView(report.reportContentId)
+  get menu() {
+    const { canDelete = true } = this.props
+    return {
+      items: [
+        {
+          title: <Msg id="report.report-table.menu.view" />,
+          iconName: 'eye',
+          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          action: context => {
+            const report = context.currentRow.contents.find(x => x.type === 'PDF')
+            this.props.onPDFView(report.reportContentId)
+          },
         },
-      },
-      {
-        title: <Msg id="report.report-table.menu.download.pdf" />,
-        iconName: 'file-pdf-o',
-        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
-        action: context => {
-          const report = context.currentRow.contents.find(x => x.type === 'PDF')
-          this.props.onPDFDownload(report.reportContentId)
+        {
+          title: <Msg id="report.report-table.menu.download.pdf" />,
+          iconName: 'file-pdf-o',
+          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          action: context => {
+            const report = context.currentRow.contents.find(x => x.type === 'PDF')
+            this.props.onPDFDownload(report.reportContentId)
+          },
         },
-      },
-      {
-        title: <Msg id="report.report-table.menu.download.csv" />,
-        iconName: 'file-text-o',
-        hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
-        action: context => {
-          const report = context.currentRow.contents.find(x => x.type === 'CSV')
-          this.props.onCSVDownload(report.reportContentId)
+        {
+          title: <Msg id="report.report-table.menu.download.csv" />,
+          iconName: 'file-text-o',
+          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          action: context => {
+            const report = context.currentRow.contents.find(x => x.type === 'CSV')
+            this.props.onCSVDownload(report.reportContentId)
+          },
         },
-      },
-      {},
-      {
-        title: <Msg id="report.report-table.menu.delete" />,
-        iconName: 'trash-o',
-        style: 'destructive',
-        action: context => this.setState({ showDelete: true, deletingReport: context.currentRow }),
-      },
-    ],
+        canDelete && {},
+        canDelete && {
+          title: <Msg id="report.report-table.menu.delete" />,
+          iconName: 'trash-o',
+          style: 'destructive',
+          action: context =>
+            this.setState({ showDelete: true, deletingReport: context.currentRow }),
+        },
+      ].filter(Boolean),
+    }
   }
 
   onSort = sort => {

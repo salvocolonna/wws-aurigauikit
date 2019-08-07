@@ -68,7 +68,7 @@ interface SelectProps {
   disabled?: boolean
 }
 
-function SelectAnt(props: SelectProps) {
+function SelectAnt({ didSelect, ...props }: SelectProps) {
   const [isOpened, setIsOpened] = React.useState(false)
   const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
 
@@ -85,13 +85,13 @@ function SelectAnt(props: SelectProps) {
   const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
       let res = normalizeResponse(value)
-      if (props.didSelect && res) {
-        return props.didSelect(res)
+      if (didSelect && res) {
+        return didSelect(res)
       } else {
         return res
       }
     },
-    [props.didSelect]
+    [didSelect]
   )
 
   React.useEffect(() => {
@@ -127,7 +127,7 @@ function SelectAnt(props: SelectProps) {
       return options
     }
     return []
-  }, [props.data])
+  }, [props.data, willDisplay])
 
   const value = React.useMemo(() => normalizeValue(props.value), [props.value])
 
