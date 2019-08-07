@@ -1,7 +1,8 @@
 import React from 'react'
-import { FormattedDate, FormattedMessage } from 'react-intl'
+import { FormattedDate, FormattedMessage as Msg } from 'react-intl'
 import SimpleTable from 'aurigauikit/components/SimpleTable'
-import DeleteReportModal from './DeleteReportModal'
+import Prompt from 'aurigauikit/components/Prompt'
+import messages from './messages'
 
 const ICONS = {
   COMPLETED: 'confirmatory',
@@ -17,17 +18,17 @@ const StatusLabel = ({ status }) => (
   <span style={{ textTransform: 'uppercase' }}>
     <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
     <span className="asset-label">
-      <FormattedMessage id={'report.report-table.report-state.' + status} />
+      <Msg id={'report.report-table.report-state.' + status} />
     </span>
   </span>
 )
 
 const headers = [
-  { content: <FormattedMessage id="report.report-table.columns.state" /> },
-  { content: <FormattedMessage id="report.report-table.report-name.head-table" /> },
-  { content: <FormattedMessage id="report.report-table.columns.report-template" /> },
-  { content: <FormattedMessage id="report.report-table.columns.period" /> },
-  { content: <FormattedMessage id="report.report-table.columns.date" /> },
+  { content: <Msg id="report.report-table.columns.state" /> },
+  { content: <Msg id="report.report-table.report-name.head-table" /> },
+  { content: <Msg id="report.report-table.columns.report-template" /> },
+  { content: <Msg id="report.report-table.columns.period" /> },
+  { content: <Msg id="report.report-table.columns.date" /> },
 ]
 
 const columns = [
@@ -50,7 +51,7 @@ const columns = [
   {
     content: report => {
       if (!report.report.dataSourceParameters.parameters.startCreationDate) {
-        return <FormattedMessage id={'report.report-table.columns.end-date.unvalued'} />
+        return <Msg id={'report.report-table.columns.end-date.unvalued'} />
       } else {
         let startDate = (
           <FormattedDate
@@ -68,7 +69,7 @@ const columns = [
             day="2-digit"
           />
         ) : (
-          <FormattedMessage id={'report.schedulation-table.recurrence.NEVER'} />
+          <Msg id={'report.schedulation-table.recurrence.NEVER'} />
         )
         return (
           <div>
@@ -97,7 +98,7 @@ const columns = [
   },
 ]
 
-const emptyState = <FormattedMessage id="report.report-table.empty-state" />
+const emptyState = <Msg id="report.report-table.empty-state" />
 
 class ReportListTable extends React.Component {
   constructor(props) {
@@ -122,7 +123,7 @@ class ReportListTable extends React.Component {
   menu = {
     items: [
       {
-        title: <FormattedMessage id="report.report-table.menu.view" />,
+        title: <Msg id="report.report-table.menu.view" />,
         iconName: 'eye',
         hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
@@ -131,7 +132,7 @@ class ReportListTable extends React.Component {
         },
       },
       {
-        title: <FormattedMessage id="report.report-table.menu.download.pdf" />,
+        title: <Msg id="report.report-table.menu.download.pdf" />,
         iconName: 'file-pdf-o',
         hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
@@ -140,7 +141,7 @@ class ReportListTable extends React.Component {
         },
       },
       {
-        title: <FormattedMessage id="report.report-table.menu.download.csv" />,
+        title: <Msg id="report.report-table.menu.download.csv" />,
         iconName: 'file-text-o',
         hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
         action: context => {
@@ -150,7 +151,7 @@ class ReportListTable extends React.Component {
       },
       {},
       {
-        title: <FormattedMessage id="report.report-table.menu.delete" />,
+        title: <Msg id="report.report-table.menu.delete" />,
         iconName: 'trash-o',
         style: 'destructive',
         action: context => this.setState({ showDelete: true, deletingReport: context.currentRow }),
@@ -208,12 +209,21 @@ class ReportListTable extends React.Component {
 
     return (
       <section>
-        <DeleteReportModal
+        <Prompt
           show={this.state.showDelete}
           onConfirm={() => this.onDeleteConfirm()}
-          onClose={() => this.onDeleteUndo()}
-          reportName={deletingReport && deletingReport.report && deletingReport.report.reportName}
-        />
+          onCancel={() => this.onDeleteUndo()}
+          title={<Msg {...messages.title} />}
+        >
+          <Msg
+            values={{
+              name: (
+                <b>{deletingReport && deletingReport.report && deletingReport.report.reportName}</b>
+              ),
+            }}
+            {...messages.remove}
+          />
+        </Prompt>
         <SimpleTable
           sortable
           headers={headers}

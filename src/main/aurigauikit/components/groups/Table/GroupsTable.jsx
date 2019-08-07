@@ -1,23 +1,22 @@
-import React from "react"
-import { FormattedMessage } from "react-intl"
-import Tooltip from "aurigauikit/components/Tooltip"
-import SimpleTable from "aurigauikit/components/SimpleTable"
-import messages, { menu as menuMessages } from "./messages"
-import RemoveGroupModal from "./RemoveGroupModal"
+import React from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import SimpleTable from 'aurigauikit/components/SimpleTable'
+import messages, { menu as menuMessages } from './messages'
+import Prompt from 'aurigauikit/components/Prompt'
 
 export default class extends React.Component {
   state = { deletingGroup: null }
 
   get headers() {
     return [
-      { content: <FormattedMessage {...messages.groupType} />, sortable: false },
-      { content: <FormattedMessage {...messages.code} /> },
-      { content: <FormattedMessage {...messages.description} /> },
-      //   { content: <FormattedMessage {...messages.count} /> },
+      { content: <Msg {...messages.groupType} />, sortable: false },
+      { content: <Msg {...messages.code} /> },
+      { content: <Msg {...messages.description} /> },
+      //   { content: <Msg {...messages.count} /> },
       {
-        content: <FormattedMessage {...messages.private} />,
-        cssStyle: { width: "7em" }
-      }
+        content: <Msg {...messages.private} />,
+        cssStyle: { width: '7em' },
+      },
     ]
   }
 
@@ -47,35 +46,35 @@ export default class extends React.Component {
       },*/
       {
         content: group =>
-          group.notPublic ? <i className="fa fa-check" /> : <i className="fa fa-minus" />
-      }
+          group.notPublic ? <i className="fa fa-check" /> : <i className="fa fa-minus" />,
+      },
     ]
   }
 
-  static displayName = "GroupsTable"
+  static displayName = 'GroupsTable'
 
   get menu() {
     const { readGroup, editGroup } = this.props
     return {
       items: [
         {
-          title: <FormattedMessage {...menuMessages.view} />,
-          action: ({ currentRow }) => readGroup(currentRow)
+          title: <Msg {...menuMessages.view} />,
+          action: ({ currentRow }) => readGroup(currentRow),
         },
         {},
         {
-          title: <FormattedMessage {...menuMessages.edit} />,
-          iconName: "pencil",
-          action: ({ currentRow }) => editGroup(currentRow)
+          title: <Msg {...menuMessages.edit} />,
+          iconName: 'pencil',
+          action: ({ currentRow }) => editGroup(currentRow),
         },
         {},
         {
-          title: <FormattedMessage {...menuMessages.delete} />,
-          iconName: "trash-o",
-          style: "destructive",
-          action: ({ currentRow }) => this.setState({ deletingGroup: currentRow })
-        }
-      ]
+          title: <Msg {...menuMessages.delete} />,
+          iconName: 'trash-o',
+          style: 'destructive',
+          action: ({ currentRow }) => this.setState({ deletingGroup: currentRow }),
+        },
+      ],
     }
   }
 
@@ -99,15 +98,24 @@ export default class extends React.Component {
       loading,
       data,
       totalElements,
-      totalPages
+      totalPages,
     } = this.props
+
     return (
       <section>
-        <RemoveGroupModal
-          group={this.state.deletingGroup}
-          onClose={this.undoDelete}
-          onConfirm={this.confirmDelete}
-        />
+        <Prompt
+          onCancel={this.undoDelete}
+          onConfirm={() => this.confirmDelete(this.state.deletingGroup)}
+          show={this.state.deletingGroup}
+          title={<Msg {...messages.title} />}
+        >
+          <Msg
+            values={{
+              name: <b>{this.state.deletingGroup && this.state.deletingGroup.code}</b>,
+            }}
+            {...messages.remove}
+          />
+        </Prompt>
         <SimpleTable
           pageable={pageable}
           sortable={sortable}
