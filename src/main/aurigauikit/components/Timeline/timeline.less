@@ -1,44 +1,44 @@
-.Timeline{
+.Timeline {
   width: 100%;
   position: relative;
   z-index: 1;
   pointer-events: none;
-  ul{
+  ul {
     display: flex;
     padding: 0;
     margin: 0;
-    li{
+    li {
       float: left;
       width: 100%;
       position: relative;
       text-align: center;
-      list-style: none;    
+      list-style: none;
       opacity: 1;
       pointer-events: none;
-      &.Timeline-actions{ 
+      &.Timeline-actions {
         color: white;
         font-size: 18px;
         .Timeline-leftArrow {
           cursor: pointer;
-          transform: translateX(-1px) translateY(-38px);    
+          transform: translateX(-1px) translateY(-38px);
           font-weight: bold;
         }
-        .Timeline-rightArrow { 
+        .Timeline-rightArrow {
           cursor: pointer;
           transform: translateX(1px) translateY(-38px);
           font-weight: bold;
         }
-        .Timeline-actionButton{
+        .Timeline-actionButton {
           cursor: pointer;
           pointer-events: all;
-          &:hover{
+          &:hover {
             box-shadow: -1px 1px 4px #999;
           }
         }
       }
       &.active {
         opacity: 1;
-        .Timeline-check{  
+        .Timeline-check {
           color: white;
           position: absolute;
           margin-top: 9px;
@@ -52,7 +52,7 @@
           position: relative;
           cursor: pointer;
           pointer-events: all;
-          .Timeline-text{
+          .Timeline-text {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -65,7 +65,7 @@
           min-width: 80px;
           margin: auto;
           box-shadow: -1px 1px 3px #aaa;
-        }  
+        }
       }
       .Timeline-arrow {
         position: absolute;
@@ -88,7 +88,7 @@
           border-top: 15px solid #eee;
           width: 0;
           height: 0;
-          content: " ";
+          content: ' ';
         }
       }
       .Timeline-arrowUpsideDown {
@@ -112,10 +112,10 @@
           border-bottom: 15px solid #eee;
           width: 0;
           height: 0;
-          content: " ";
+          content: ' ';
         }
       }
-      .Timeline-ball{
+      .Timeline-ball {
         position: relative;
         content: '';
         width: 30px;
@@ -129,7 +129,7 @@
         text-align: center;
         font-weight: bold;
       }
-      &:after{
+      &:after {
         content: '';
         position: absolute;
         width: calc(100% ~'-' 40px);
@@ -141,40 +141,40 @@
         border-color: white;
         margin-top: -1px;
       }
-      
-      &.active:after{
+
+      &.active:after {
         border-style: none;
         border-color: none;
         margin-top: 0;
       }
-      &:nth-child(1):after{
+      &:nth-child(1):after {
         content: none;
       }
-      &.active:after{
+      &.active:after {
         background: #3498db;
       }
       &.active {
-        .Timeline-ball{
+        .Timeline-ball {
           border-color: #3498db;
           background: #3498db;
           color: white;
         }
       }
-      &.disabled{
+      &.disabled {
         opacity: 0.5;
-        &:after{
+        &:after {
           border-style: dashed;
         }
         .Timeline-label {
           cursor: not-allowed;
         }
       }
-      &.current{
+      &.current {
         .Timeline-label {
           cursor: initial;
           box-shadow: 0px 1px 1px #ccc;
         }
-        .Timeline-arrow{
+        .Timeline-arrow {
           border-left: 12px solid transparent;
           border-right: 12px solid transparent;
           border-top: 13px solid #aaa;
@@ -183,12 +183,12 @@
           }
         }
       }
-      &:hover{
-        &:not(.disabled){
+      &:hover {
+        &:not(.disabled) {
           .Timeline-label {
             box-shadow: 0px 1px 1px #ccc;
           }
-          .Timeline-arrow{
+          .Timeline-arrow {
             border-left: 12px solid transparent;
             border-right: 12px solid transparent;
             border-top: 13px solid #aaa;
@@ -198,56 +198,74 @@
           }
         }
       }
-      &.disabled{
+      &.disabled {
         opacity: 0.5;
-        &:after{
+        &:after {
           border-style: dashed;
         }
         .Timeline-label {
           cursor: not-allowed;
         }
-        &:hover{
-          
+        &:hover {
         }
+      }
+      .Timeline-warning {
+        margin-top: 17.5%;
+        margin-left: 27.5%;
+        height: 50%;
+        width: 50%;
+        border: 2.9px solid #d55f00;
+        border-radius: 15.33px;
+        background-color: #ffffff;
+      }
+      .Timeline-warning-text {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #d55f00;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
       }
     }
   }
 }
-.TimelineMini{
+.TimelineMini {
   margin: 0;
-  ul{
+  ul {
     margin: 0;
     padding: 0;
-    li{
+    li {
       opacity: 1;
-      list-style: none;    
+      list-style: none;
       display: flex;
       justify-content: center;
-      align-items: center;  
+      align-items: center;
       position: relative;
-      
-      &.disabled{
+
+      &.disabled {
         opacity: 0.5;
         .Timeline-label {
           cursor: not-allowed;
         }
       }
-      .Timeline-ball{
+      .Timeline-ball {
         border-radius: 50%;
-        background-color: #eee;  
+        background-color: #eee;
         width: 30px;
         min-width: 30px;
-        height: 30px;  
+        height: 30px;
         margin-right: 20px;
         position: relative;
-        .Timeline-check{  
+        .Timeline-check {
           color: white;
           position: absolute;
           margin-top: 9px;
           margin-left: 9px;
         }
-      }   
-      .Timeline-label{
+      }
+      .Timeline-label {
         cursor: pointer;
         text-align: center;
         background-color: #eee;
@@ -256,21 +274,21 @@
         margin-bottom: 5px;
         box-shadow: -1px 1px 4px #999;
         width: 100%;
-      }   
-      &.active{
-        opacity: 1; 
-        .Timeline-ball{
-          background-color: #3498db;     
+      }
+      &.active {
+        opacity: 1;
+        .Timeline-ball {
+          background-color: #3498db;
         }
       }
-      &.current{
+      &.current {
         .Timeline-label {
           cursor: initial;
           box-shadow: 0px 1px 1px #ccc;
         }
       }
-      &:hover{
-        &:not(.disabled){
+      &:hover {
+        &:not(.disabled) {
           .Timeline-label {
             box-shadow: 0px 1px 1px #ccc;
           }
