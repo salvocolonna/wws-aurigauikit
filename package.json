@@ -17,7 +17,7 @@
     "flow": "flow",
     "test": "jest",
     "ts-test": "jest --config ts-jest.config.js",
-    "tsc": "tsc --strict",
+    "tsc": "tsc",
     "deploy": "node scripts/deploy/deploy.js"
   },
   "main": "src/main/aurigauikit/index.js",
