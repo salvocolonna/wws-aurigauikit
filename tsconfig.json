@@ -2,11 +2,9 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "target": "es5",
-    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -17,5 +15,5 @@
     "baseUrl": "src/main"
   },
   "include": ["src/main/aurigauikit/**/*"],
-  "exclude": ["node_modules/**/*", "**/*.spec.ts", "src/**/*.jsx", "src/**/*.js"]
+  "exclude": ["node_modules/**/*", "**/*.spec.ts"]
 }
