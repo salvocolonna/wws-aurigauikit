@@ -79,6 +79,13 @@ export default {
       code: () => import('!raw-loader!../components/OrganizationalUnit/Filter'),
     },
   },
+  Prompt: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/Prompt/Base')),
+      code: () => import('!raw-loader!../components/Prompt/Base'),
+    },
+  },
   Radio: {
     metadata: RadioMetadata,
     Base: {
