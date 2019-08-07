@@ -1,25 +1,26 @@
-import React from "react"
-import sizeMe from "react-sizeme"
-import "./timeline.less"
+import React from 'react'
+import sizeMe from 'react-sizeme'
+import './timeline.less'
 
 const MIN_WIDTH = 80
 const PAD = 20
 
-const classes = classes => classes.join(" ")
+const classes = classes => classes.join(' ')
 
 const SizedUl = sizeMe()(props => <ul {...props} />)
 
-export const Step = ({ children, active, mini, onClick, current, enable = true }) => {
+export const Step = ({ children, active, mini, onClick, current, enable = true, warning }) => {
   if (mini) {
     return (
       <li
         className={classes([
-          active ? "active" : "",
-          enable ? "" : "disabled",
-          current ? "current" : ""
-        ])}>
+          active ? 'active' : '',
+          enable ? '' : 'disabled',
+          current ? 'current' : '',
+        ])}
+      >
         <div className="Timeline-ball">
-          {active && <i className={classes(["Timeline-check", "fa fa-check"])} />}
+          {active && <i className={classes(['Timeline-check', 'fa fa-check'])} />}
         </div>
         <div className="Timeline-label" onClick={() => !current && enable && onClick()}>
           {children}
@@ -27,13 +28,29 @@ export const Step = ({ children, active, mini, onClick, current, enable = true }
       </li>
     )
   }
+  if (warning) {
+    return (
+      <li
+        className={classes([
+          active ? 'active' : '',
+          enable ? '' : 'disabled',
+          current ? 'current' : '',
+        ])}
+      >
+        <div className="Timeline-warning">
+          <div className="Timeline-warning-text">{children}</div>
+        </div>
+      </li>
+    )
+  }
   return (
     <li
       className={classes([
-        active ? "active" : "",
-        enable ? "" : "disabled",
-        current ? "current" : ""
-      ])}>
+        active ? 'active' : '',
+        enable ? '' : 'disabled',
+        current ? 'current' : '',
+      ])}
+    >
       <div className="Timeline-labelContainer">
         <div className="Timeline-label" onClick={() => !current && enable && onClick()}>
           <div className="Timeline-text">{children}</div>
@@ -41,7 +58,7 @@ export const Step = ({ children, active, mini, onClick, current, enable = true }
         </div>
       </div>
       <div className="Timeline-ball">
-        {active && <i className={classes(["Timeline-check", "fa fa-check"])} />}
+        {active && <i className={classes(['Timeline-check', 'fa fa-check'])} />}
       </div>
     </li>
   )
@@ -66,7 +83,7 @@ class Timeline extends React.Component {
     const { step: index, onChange, children } = this.props
     const steps = this.getSteps()
     return (
-      <div className={mini ? "TimelineMini" : "Timeline"}>
+      <div className={mini ? 'TimelineMini' : 'Timeline'}>
         <SizedUl onSize={this.changeSize}>
           {steps.map((step, i) => {
             const props = {
@@ -74,7 +91,8 @@ class Timeline extends React.Component {
               active: i <= index,
               current: i === index,
               mini,
-              onClick: () => onChange && onChange(i)
+              warning: step.props.warning,
+              onClick: () => onChange && onChange(i),
             }
             if (children) return React.cloneElement(step, props)
             return (
