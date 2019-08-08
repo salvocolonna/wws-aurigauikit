@@ -24,72 +24,73 @@ export * from './PageAnchors'
 
 export const withParams = Component => props => <Component {...props.match.params} {...props} />
 
-export const authenticated = (key = TOKEN_STORAGE_KEY, errorPath = '/dashboard') => Component => {
+export const authenticated = (key = TOKEN_STORAGE_KEY) => Component => {
   return withRouter(props => {
     const auth = localStorage.getObject(key)
     if (!auth) {
       props.history.push('/login')
       return null
     }
-    return (
-      <Error path={errorPath} history={props.history}>
-        <Component {...props} />
-      </Error>
-    )
+    return <Component {...props} />
   })
 }
 
-export class Error extends React.Component {
-  state = { error: null }
+export const Error = withRouter(
+  class Error extends React.Component {
+    state = { error: null }
 
-  componentDidCatch({ stack }, { componentStack }) {
-    this.setState({ error: stack + componentStack })
-  }
-
-  refreshPage = () => {
-    const { path, history } = this.props
-    if (path === '/dashboard') {
-      window.location.reload()
-    } else {
-      history.push(path)
+    componentDidCatch({ stack }, { componentStack }) {
+      this.setState({ error: stack + componentStack })
+      if (this.unlisten) this.unlisten()
     }
-  }
 
-  render() {
-    const { error } = this.state
+    componentDidMount() {
+      const { history } = this.props
+      this.unlisten = history.listen(() => {
+        this.setState({ error: null })
+      })
+    }
 
-    if (error)
-      return (
-        <div className="error">
-          <div className="error__img-container">
-            <img src={errorPic} alt="error" />
-          </div>
-          <div className="error__wrapper">
-            <div className="error__title error--align">
-              <Msg {...messages.title} />
-            </div>
-            <div className="error__text error--align">
-              <Msg {...messages.subtitle} />
-            </div>
-            <div className="error__text error--align">
-              <Msg {...messages.text} />{' '}
-              <a onClick={this.refreshPage}>
-                <Msg {...messages.link} />
-              </a>
-            </div>
-            <div className="error__img-container--mobile">
+    refreshPage = () => {
+      const { history } = this.props
+      history.push('/')
+    }
+
+    render() {
+      const { error } = this.state
+
+      if (error)
+        return (
+          <div className="error">
+            <div className="error__img-container">
               <img src={errorPic} alt="error" />
             </div>
-            <button disabled className="error__button btn btn-destructive">
-              <Msg {...messages.button} />
-            </button>
+            <div className="error__wrapper">
+              <div className="error__title error--align">
+                <Msg {...messages.title} />
+              </div>
+              <div className="error__text error--align">
+                <Msg {...messages.subtitle} />
+              </div>
+              <div className="error__text error--align">
+                <Msg {...messages.text} />{' '}
+                <a onClick={this.refreshPage}>
+                  <Msg {...messages.link} />
+                </a>
+              </div>
+              <div className="error__img-container--mobile">
+                <img src={errorPic} alt="error" />
+              </div>
+              <button disabled className="error__button btn btn-destructive">
+                <Msg {...messages.button} />
+              </button>
+            </div>
           </div>
-        </div>
-      )
-    return this.props.children
+        )
+      return this.props.children
+    }
   }
-}
-
+)
 export const createPage = (Topbar, Sidebar) => {
   const SizedSidebar = sizeMe({ noPlaceholder: true })(Sidebar)
   const SizedTopbar = sizeMe({ monitorHeight: true, noPlaceholder: true })(Topbar)
@@ -130,7 +131,9 @@ export const createPage = (Topbar, Sidebar) => {
                   minWidth: 300,
                 }}
               >
-                <Component {...this.props} />
+                <Error>
+                  <Component {...this.props} />
+                </Error>
               </div>
             </div>
           </div>
