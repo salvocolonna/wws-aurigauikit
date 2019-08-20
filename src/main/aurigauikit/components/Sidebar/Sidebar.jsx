@@ -1,7 +1,7 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { Link } from "react-router-dom"
-import "./sidebar.less"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Link } from 'react-router-dom'
+import './sidebar.less'
 
 const Sidebar = class extends React.Component {
   constructor(props) {
@@ -11,11 +11,11 @@ const Sidebar = class extends React.Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("click", this.closeOnBodyClick)
+    document.body.addEventListener('click', this.closeOnBodyClick)
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener("click", this.closeOnBodyClick)
+    document.body.removeEventListener('click', this.closeOnBodyClick)
   }
 
   closeOnBodyClick(e) {
@@ -31,21 +31,24 @@ const Sidebar = class extends React.Component {
     const { children, logo, horizontal, onLogoClick, items, router, basename, topbar } = this.props
     return (
       <aside
-        id={horizontal ? "react-sidebar-horizontal" : "react-sidebar"}
-        style={{ height: horizontal ? "auto" : "100vh", zIndex: 101 }}>
+        id={horizontal ? 'react-sidebar-horizontal' : 'react-sidebar'}
+        style={{ height: horizontal ? 'auto' : '100vh', zIndex: 101 }}
+      >
         {logo && <Logo src={logo} onClick={() => onLogoClick()} height={topbar} />}
         <div
           id="react-sidebar-menu-wrapper"
-          style={{ textAlign: horizontal ? "center" : "initial" }}>
+          style={{ textAlign: horizontal ? 'center' : 'initial' }}
+        >
           <ul
             className="primary"
             style={{
               height: `calc(100vh - ${topbar}px`,
-              overflow: "auto",
-              direction: "rtl"
-            }}>
+              overflow: 'auto',
+              direction: 'rtl',
+            }}
+          >
             {children.map((child, index) => {
-              if (child.type.displayName === "SubMenu") {
+              if (child.type && child.type.displayName === 'SubMenu') {
                 return (
                   <SubMenu
                     {...child.props}
@@ -81,23 +84,24 @@ class Item extends React.Component {
   render() {
     const { name, href, icon, router, basename, horizontal } = this.props
     const active = isActive(href, basename)
-    const className = "fa " + (icon ? icon : "fa-angle-right")
-    const style = { color: active ? "#DC402B" : "inherit", display: "initial" }
+    const className = 'fa ' + (icon ? icon : 'fa-angle-right')
+    const style = { color: active ? '#DC402B' : 'inherit', display: 'initial' }
     return (
       <li
-        className={active ? "active" : ""}
+        className={active ? 'active' : ''}
         style={{
-          display: horizontal ? "inline-block" : "block",
-          direction: "ltr",
-          textAlign: "left"
-        }}>
+          display: horizontal ? 'inline-block' : 'block',
+          direction: 'ltr',
+          textAlign: 'left',
+        }}
+      >
         {router ? (
-          <Link to={href} style={{ textDecoration: "none" }}>
+          <Link to={href} style={{ textDecoration: 'none' }}>
             <i className={className} style={style} />
             <span className="react-sidebar-item">{name}</span>
           </Link>
         ) : (
-          <a href={href} style={{ textDecoration: "none" }}>
+          <a href={href} style={{ textDecoration: 'none' }}>
             <i className={className} style={style} />
             <span className="react-sidebar-item">{name}</span>
           </a>
@@ -119,7 +123,7 @@ class SubMenu extends React.Component {
       id,
       basename,
       horizontal,
-      router
+      router,
     } = this.props
     let active = false
     let open = false
@@ -145,19 +149,20 @@ class SubMenu extends React.Component {
     return (
       (hasChildren || hasOneChild) && (
         <li
-          className={`submenu ${active ? "active" : ""}`}
+          className={`submenu ${active ? 'active' : ''}`}
           onClick={() => onClick(this)}
           style={{
-            display: horizontal ? "inline-block" : "block",
-            direction: "ltr",
-            textAlign: "left"
-          }}>
-          <span className={`react-sidebar-title ${active ? "active" : ""} ${open ? "open" : ""}`}>
-            <i className={"fa " + icon} />
+            display: horizontal ? 'inline-block' : 'block',
+            direction: 'ltr',
+            textAlign: 'left',
+          }}
+        >
+          <span className={`react-sidebar-title ${active ? 'active' : ''} ${open ? 'open' : ''}`}>
+            <i className={'fa ' + icon} />
             <span className="react-sidebar-item">{name}</span>
           </span>
           {(active || open) && (
-            <ul className="secondary" style={openSubMenu === this ? { display: "block" } : {}}>
+            <ul className="secondary" style={openSubMenu === this ? { display: 'block' } : {}}>
               {hasChildren &&
                 children.map(
                   (child, index) =>
@@ -180,28 +185,29 @@ class SubMenu extends React.Component {
   }
 }
 
-Sidebar.displayName = "Sidebar"
-Item.displayName = "Item"
-SubMenu.displayName = "SubMenu"
+Sidebar.displayName = 'Sidebar'
+Item.displayName = 'Item'
+SubMenu.displayName = 'SubMenu'
 
-function isActive(to, basename = "") {
+function isActive(to, basename = '') {
   const href = basename + to
   let end = href.length
-  if (href.indexOf("?") > 0) end = href.indexOf("?")
+  if (href.indexOf('?') > 0) end = href.indexOf('?')
   const relativeHref = href.substr(0, end)
-  return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + "/")
+  return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + '/')
 }
 
 const Logo = ({ src, onClick, height }) => (
-  <div id="react-sidebar-logo" onClick={() => onClick()} style={{ cursor: "pointer", height }}>
-    <i className="fa fa-bars" style={{ color: "white", fontSize: 30 }} />
+  <div id="react-sidebar-logo" onClick={() => onClick()} style={{ cursor: 'pointer', height }}>
+    <i className="fa fa-bars" style={{ color: 'white', fontSize: 30 }} />
     <img id="app-logo-full" src={src} />
   </div>
 )
 
 const canView = (items = [], child, parentId) => {
+  if (!child.props) return false
   let id = child.props.id
-  if (parentId) id = parentId + "." + id
+  if (parentId) id = parentId + '.' + id
   return items.includes(id) || items.includes(child.props.id)
 }
 
