@@ -5,11 +5,8 @@ import { Row, Col } from 'aurigauikit/antd'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
 import Select2 from 'aurigauikit/components/Select2'
 import messages from './messages'
-import { defaultGroupTypes } from '../constants'
 
 const notPublic = ['ALL', 'YES', 'NO']
-
-const groupTypes = defaultGroupTypes
 
 class BranchGroupFilter extends React.Component {
   changeCode = code => {
@@ -38,7 +35,7 @@ class BranchGroupFilter extends React.Component {
   }
 
   render() {
-    const { customTypes, organizationalUnitDatasource, filter, onReset, onApply } = this.props
+    const { organizationalUnitDatasource, filter, onReset, onApply } = this.props
     return (
       <section>
         <BasicFilter onApply={onApply} onReset={onReset}>
