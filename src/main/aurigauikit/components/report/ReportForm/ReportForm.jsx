@@ -1,19 +1,19 @@
-import React, { Fragment } from "react"
-import { FormattedMessage as Msg } from "react-intl"
-import { Grid, Div } from "aurigauikit/components/Grid"
-import Select2 from "aurigauikit/components/Select2"
-import OrganizationalUnitSelect from "aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect"
-import DatePicker from "aurigauikit/components/DatePicker"
-import moment from "moment"
-import messages from "./messages"
+import React, { Fragment } from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import { Grid, Div } from 'aurigauikit/components/Grid'
+import Select2 from 'aurigauikit/components/Select2'
+import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
+import DatePicker from 'aurigauikit/components/DatePicker'
+import moment from 'moment'
+import messages from './messages'
 
 const initialState = {
-  reportName: "",
+  reportName: '',
   template: null,
   organizationalUnit: null,
   organizationalUnits: [],
   startDate: null,
-  endDate: null
+  endDate: null,
 }
 
 export default class extends React.Component {
@@ -24,7 +24,7 @@ export default class extends React.Component {
     this.change({
       ...{ ...initialState, ...data },
       organizationalUnit: organizationalUnitProps.defaultSelection,
-      organizationalUnits: [organizationalUnitProps.defaultSelection]
+      organizationalUnits: [organizationalUnitProps.defaultSelection],
     })
   }
 
@@ -43,18 +43,11 @@ export default class extends React.Component {
   render() {
     const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading } = this.props
     if (!data) return null
-    const {
-      templates,
-      template,
-      reportName,
-      organizationalUnits,
-      startDate,
-      endDate
-    } = data
+    const { templates, template, reportName, organizationalUnits, startDate, endDate } = data
     return (
       <Fragment>
-        <div style={{ padding: 20, backgroundColor: "#fafafa" }}>
-          <Grid style={{ overflow: "initial" }}>
+        <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
+          <Grid style={{ overflow: 'initial' }}>
             <Div col="1-2">
               <label style={{ marginTop: 12 }}>
                 <Msg {...messages.organizationalUnit} />
@@ -84,7 +77,7 @@ export default class extends React.Component {
             </Div>
           </Grid>
         </div>
-        <div style={{ float: "right", marginTop: 20 }}>
+        <div style={{ float: 'right', marginTop: 20 }}>
           <Undo onClick={onUndo} disabled={saving} />
           <Confirm onClick={onConfirm} disabled={saving || loading} saving={saving} />
         </div>
@@ -99,7 +92,8 @@ const Undo = ({ onClick, disabled }) => (
     className="btn btn-warning-outline"
     onClick={onClick}
     disabled={disabled}
-    style={{ marginTop: 20 }}>
+    style={{ marginTop: 20 }}
+  >
     <Msg {...messages.undo} />
   </button>
 )
@@ -110,7 +104,8 @@ const Confirm = ({ onClick, disabled, saving }) => (
     type="submit"
     style={{ marginLeft: 20, marginTop: 20 }}
     disabled={disabled}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     {saving ? <Msg {...messages.saving} /> : <Msg {...messages.confirm} />}
   </button>
 )
@@ -119,7 +114,7 @@ const ReportName = ({ onChange, reportName }) => (
   <label style={{ marginTop: 12 }}>
     <Msg {...messages.reportName} />
     <input
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       type="text"
       onChange={e => onChange(e.target.value)}
       value={reportName}
@@ -132,7 +127,7 @@ const Template = ({ onChange, template, templates, loading }) => (
   <label style={{ marginTop: 12 }}>
     <Msg {...messages.template} />
     <Select2
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       disabled={loading}
       data={templates}
       loading={loading}
