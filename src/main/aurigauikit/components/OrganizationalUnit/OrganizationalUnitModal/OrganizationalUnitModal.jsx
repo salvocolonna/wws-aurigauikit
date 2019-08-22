@@ -74,11 +74,11 @@ const OuModal = ({
   canSelect = () => true,
   canView = () => true,
   canRemove = () => true,
-  onClose = () => {},
-  onSelect = () => {},
-  onRemove = () => {},
-  onSelectionConfirmed = () => {},
-  onSelectionAborted = () => {},
+  onClose = () => { },
+  onSelect = () => { },
+  onRemove = () => { },
+  onSelectionConfirmed = () => { },
+  onSelectionAborted = () => { },
 }) => {
   const intitialData = useRef(selectedElements)
   const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
