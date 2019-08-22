@@ -46,8 +46,8 @@ class BranchGroupFilter extends React.Component {
               </label>
               <OrganizationalUnitSelect
                 multiple
-                datasource={organizationalUnitDatasource}
-                canSelect={element => element.type === 'BRANCH'}
+                radioOptions={organizationalUnitDatasource}
+                canSelect={element => element.type === 'ASSET'}
                 defaultSelection={filter.organizationalUnit}
                 selectedElements={filter.organizationalUnits}
                 onSelectionChange={this.changeOrganizationalUnits}

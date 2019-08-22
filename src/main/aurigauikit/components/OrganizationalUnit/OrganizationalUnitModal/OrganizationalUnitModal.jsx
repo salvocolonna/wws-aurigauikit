@@ -74,11 +74,11 @@ const OuModal = ({
   canSelect = () => true,
   canView = () => true,
   canRemove = () => true,
-  onClose = () => {},
-  onSelect = () => {},
-  onRemove = () => {},
-  onSelectionConfirmed = () => {},
-  onSelectionAborted = () => {},
+  onClose = () => { },
+  onSelect = () => { },
+  onRemove = () => { },
+  onSelectionConfirmed = () => { },
+  onSelectionAborted = () => { },
 }) => {
   const intitialData = useRef(selectedElements)
   const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
@@ -331,7 +331,6 @@ async function fetchContent(datasource, { node, path }) {
 
 async function fetchRoot(datasource) {
   try {
-    console.log('data', datasource)
     const tree = await datasource.getNodes()
     const content = await fetchContent(datasource, { path: '0', node: tree[0] })
     return tree.map((element, index) => ({
