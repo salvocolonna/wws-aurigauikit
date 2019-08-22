@@ -35,12 +35,12 @@ function handleFailedAuthentication() {
 }
 
 const getURL = ({
-  protocol = 'http',
+  protocol = location.protocol.substring(0, location.protocol.length - 1),
   hostname = location.hostname,
-  port = 8080,
+  port = location.port,
   ['context-path']: contextPath = '',
   version = 1,
-}) => `${protocol}://${hostname}:${port}${contextPath}/api/v${version}`
+}) => `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v${version}`
 
 class Ajax extends RequestMaker {
   constructor(frontend, backend) {
