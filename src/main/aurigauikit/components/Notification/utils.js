@@ -1,5 +1,7 @@
+import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
+
 export const getToken = () => {
-  const tokenData = localStorage.getItem('wws-auth-token')
+  const tokenData = localStorage.getItem(TOKEN_STORAGE_KEY)
 
   if (!tokenData) return false
   const token = JSON.parse(tokenData)
