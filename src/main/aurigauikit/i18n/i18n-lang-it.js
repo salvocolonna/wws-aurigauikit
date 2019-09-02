@@ -39,7 +39,7 @@ i18n.loadMessages('it', {
   'report.report-table.report-state.WAITING': 'Da elaborare',
   'report.report-table.report-state.IN_CREATION': 'In elaborazione',
   'report.report-table.report-state.READY': 'Pronto',
-  'report.report-table.report-state..ERROR': 'Errore in fase di elaborazione',
+  'report.report-table.report-state.START': 'In corso',
   'report.report-table.columns.start-date.unvalued': 'Non valorizzato',
   'report.report-table.columns.end-date.unvalued': 'Non valorizzato',
   'report.report-table.empty-state': 'Nessun report presente',
