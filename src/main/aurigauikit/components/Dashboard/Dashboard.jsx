@@ -135,7 +135,7 @@ export default class Dashboard extends React.Component {
   }
 
   getWidgets = () => {
-    const { intl, messages, children } = this.props
+    const { intl, messages, children, canRemoveWidget = true } = this.props
     const { edit, add, saving } = this.state
     return React.Children.toArray(children)
       .filter(({ props: { name } }) => this.isAdded(name))
@@ -152,7 +152,7 @@ export default class Dashboard extends React.Component {
               <React.Fragment>
                 {!loading && (
                   <DeleteWidget
-                    show={edit && !add && !saving}
+                    show={canRemoveWidget && edit && !add && !saving}
                     name={name}
                     onClick={this.removeWidget}
                   />
