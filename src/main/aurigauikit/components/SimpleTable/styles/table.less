@@ -5,9 +5,8 @@
  Copyright 2016 Auriga S.p.A.
  */
 
-@import "../../../style/constants.less";
-@import "../../../style/helpers.less";
-
+@import '../../../style/constants.less';
+@import '../../../style/helpers.less';
 
 @table_head_color: @background_2_color;
 @table_head_sorted: #e5e5e5;
@@ -21,114 +20,112 @@
 @table_row_height: 40px;
 @table_padding: 10px;
 
-
 table.table {
-	width: 100%;
-	font-size: 12px;
+  width: 100%;
+  font-size: 12px;
 
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 
-	border: 1px solid @separator_color;
-	border-collapse: separate;
+  border: 1px solid @separator_color;
+  border-collapse: separate;
 
-	/*
+  /*
 	 header
 	 */
-	thead {
-		tr {
-			min-height: @table_header_height;
-			height: @table_header_height;
+  thead {
+    tr {
+      min-height: @table_header_height;
+      height: @table_header_height;
 
-			font-weight: bold;
-			background-color: @table_head_color;
+      font-weight: bold;
+      background-color: @table_head_color;
 
-			border-bottom: 1px solid @separator_color;
+      border-bottom: 1px solid @separator_color;
 
-			th {
-				padding: @table_padding;
-				text-align: left;
-				border-bottom: 1px solid @separator_color;
-			}
-		}
-	}
+      th {
+        padding: @table_padding;
+        text-align: left;
+        border-bottom: 1px solid @separator_color;
+      }
+    }
+  }
 
-	tfoot {
-		tr {
-			min-height: @table_row_height;
-			height: @table_row_height;
+  tfoot {
+    tr {
+      min-height: @table_row_height;
+      height: @table_row_height;
 
-			font-weight: bold;
-			background-color: @table_head_color;
+      font-weight: bold;
+      background-color: @table_head_color;
 
-			border-top: 1px solid @separator_color;
+      border-top: 1px solid @separator_color;
 
-			td {
-				padding: @table_padding;
-				text-align: left;
-				border-top: 1px solid @separator_color;
-			}
-		}
-	}
+      td {
+        padding: @table_padding;
+        text-align: left;
+        border-top: 1px solid @separator_color;
+      }
+    }
+  }
 
-	/*
+  /*
 	 body
 	 */
-	tbody tr {
-		&.clickable-row{
-			cursor: pointer;
-		}
-		&.clickable-row:hover{
-			background-color: #dcecf8 !important;
-		}
-		min-height: @table_row_height;
-		height: @table_row_height;
+  tbody tr {
+    &.clickable-row {
+      cursor: pointer;
+    }
+    &.clickable-row:hover {
+      background-color: #dcecf8 !important;
+    }
+    min-height: @table_row_height;
+    height: @table_row_height;
 
-		&.selected, &.selected:hover
-		{
-			background-color: @table_selected_color;
-		}
+    &.selected,
+    &.selected:hover {
+      background-color: @table_selected_color;
+    }
 
-		&.empty {
-			color: @warning_color;
-			font-weight: 600;
-		}
+    &.empty {
+      color: @warning_color;
+      font-weight: 600;
+    }
 
-		td {
-			padding: @table_padding;
+    td {
+      padding: @table_padding;
 
-			&.editable {
-				&:hover {
-					.clickable();
+      &.editable {
+        &:hover {
+          .clickable();
 
-					color: @accent_color;
-					border: 1px dashed @accent_color;
+          color: @accent_color;
+          border: 1px dashed @accent_color;
 
-					&:before {
-						margin-top: 1px;
-						margin-right: 5px;
-						color: @accent_color;
-						font-family: "Font Awesome 5 Free";
-						content: "\f040";
-						font-weight: 600;
-					}
+          &:before {
+            margin-top: 1px;
+            margin-right: 5px;
+            color: @accent_color;
+            font-family: 'Font Awesome 5 Free';
+            content: '\f040';
+            font-weight: 600;
+          }
 
-					&:after {
-						display: none;
-					}
-				}
-			}
+          &:after {
+            display: none;
+          }
+        }
+      }
 
-			&.editable-left:hover:after {
-				float: right;
-			}
+      &.editable-left:hover:after {
+        float: right;
+      }
 
-			&.editable-right:hover:after {
-				float: left;
-			}
-
-		}
-	}
+      &.editable-right:hover:after {
+        float: left;
+      }
+    }
+  }
 }
 
 /*
@@ -137,50 +134,56 @@ table.table {
 table.table thead tr th,
 table.table tfoot tr td,
 table.table tbody tr td {
-	&.icon-column {
-		width: 3em;
-		max-width: 3em;
-		text-align: center;
-		font-size: 1.2em;
+  &.icon-column {
+    width: 3em;
+    max-width: 3em;
+    text-align: center;
+    font-size: 1.2em;
 
-		&.clickable {
-			.clickable();
+    &.clickable {
+      .clickable();
 
-			&:hover {
-				color: @accent_color;
-			}
-		}
-	}
+      &:hover {
+        color: @accent_color;
+      }
+    }
+  }
 
-	&.number-column, &.currency-column, &.date-column {
-		text-align: right;
-	}
+  &.number-column,
+  &.currency-column,
+  &.date-column {
+    text-align: right;
+  }
 
-	&.no-wrap {
-		white-space: nowrap;
-	}
+  &.number-column > div,
+  &.currency-column > div,
+  &.date-column > div {
+    justify-content: flex-end;
+  }
+
+  &.no-wrap {
+    white-space: nowrap;
+  }
 }
 
 /*
  Striping
  */
 table.table-striped tbody tr:nth-child(even) {
-	background-color: @table_alternate_background_color;
+  background-color: @table_alternate_background_color;
 
-	&.selected, &.selected:hover
-	{
-		background-color: @table_selected_color;
-	}
+  &.selected,
+  &.selected:hover {
+    background-color: @table_selected_color;
+  }
 }
-
 
 /*
  Hovering
  */
 table.table-hover tbody tr:hover {
-	background-color: @table_hover_color;
+  background-color: @table_hover_color;
 }
-
 
 /*
  TODO: Sortable
@@ -239,31 +242,31 @@ table.datatable thead th {
  Caption
  */
 table.table caption {
-	font-size: 18px;
-	font-weight: 400;
+  font-size: 18px;
+  font-weight: 400;
 
-	padding: 0;
-	margin: 0.5em 14px 0.5em 5px;
+  padding: 0;
+  margin: 0.5em 14px 0.5em 5px;
 
-	div {
-		float: left;
-		width: 90%;
-		text-align: left;
+  div {
+    float: left;
+    width: 90%;
+    text-align: left;
 
-		&.right-column {
-			.clickable();
+    &.right-column {
+      .clickable();
 
-			width: 10%;
-			text-align: right;
-			color: @confirmatory_color;
+      width: 10%;
+      text-align: right;
+      color: @confirmatory_color;
 
-			&:hover {
-				color: @confirmatory_color_darken;
-			}
-		}
-	}
+      &:hover {
+        color: @confirmatory_color_darken;
+      }
+    }
+  }
 
-/*
+  /*
 	caption-side: bottom;
 
 	font-size: 11px;
@@ -293,56 +296,60 @@ table.table caption {
 */
 }
 
-	ul.pagination {
-	    display: inline-block;
-	    padding: 0;
-	    margin: 0;
-	}
+ul.pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
 
-	ul.pagination li {display: inline;}
+ul.pagination li {
+  display: inline;
+}
 
-	ul.pagination li a {
-	    color: black;
-	    float: left;
-	    padding: 5px 10px;
-	    text-decoration: none;
-	    transition: background-color .5s;
-	    border: 1px solid #ddd;
-	    border-right: 0px;
-	}
+ul.pagination li a {
+  color: black;
+  float: left;
+  padding: 5px 10px;
+  text-decoration: none;
+  transition: background-color 0.5s;
+  border: 1px solid #ddd;
+  border-right: 0px;
+}
 
-	.pagination li:first-child a {
-	    /*border-top-left-radius: 5px;*/
-	    /*border-bottom-left-radius: 5px;*/
-	    background-color: #fafafa;
-	}
+.pagination li:first-child a {
+  /*border-top-left-radius: 5px;*/
+  /*border-bottom-left-radius: 5px;*/
+  background-color: #fafafa;
+}
 
-	.pagination li:last-child a {
-	    /*border-top-right-radius: 5px;*/
-	    /*border-bottom-right-radius: 5px;*/
-	    background-color: #fafafa;
-	    border: 1px solid #ddd;
-	}
+.pagination li:last-child a {
+  /*border-top-right-radius: 5px;*/
+  /*border-bottom-right-radius: 5px;*/
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+}
 
-	ul.pagination li a.active {
-	    background-color: #f5f5f8;
-	    color: #ddd;
-	    cursor: default;
-	   /* border: 1px solid #4CAF50;*/
-	}
-	ul.pagination li a.active:hover {
-	    background-color: #f5f5f8 !important;
-	}
+ul.pagination li a.active {
+  background-color: #f5f5f8;
+  color: #ddd;
+  cursor: default;
+  /* border: 1px solid #4CAF50;*/
+}
+ul.pagination li a.active:hover {
+  background-color: #f5f5f8 !important;
+}
 
-	ul.pagination li a:hover:not(.active) {background-color: #f5f5f5;}
+ul.pagination li a:hover:not(.active) {
+  background-color: #f5f5f5;
+}
 
-	.sortable-table{
-		cursor: pointer;
-	    transition: background-color .5s;
-	}
-	.sortable-table:hover{
-		background-color: #f5f5f8;
-		/*
+.sortable-table {
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+.sortable-table:hover {
+  background-color: #f5f5f8;
+  /*
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     padding-left: 9px;
@@ -356,4 +363,4 @@ table.table caption {
 			padding-left: 10px;
 		}
 		*/
-	}
+}

@@ -128,7 +128,8 @@ class Head extends React.Component {
                   Head.getSortImage(headers.indexOf(header), sort)}
                 <div
                   style={{
-                    marginRight: index < this.props.headers.length - 1 && 5,
+                    // removed margin to fix align on the right
+                    // marginRight: index < this.props.headers.length - 1 && 5,
                     display: 'inline-block',
                   }}
                 >
