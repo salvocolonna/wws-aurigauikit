@@ -12,7 +12,7 @@ import RequestMaker from './request-builder'
 import { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 
-import { isResponseType } from './utils'
+import { isResponseType, getURL } from './utils'
 
 function getAuthToken() {
   // TODO: check expire time
@@ -33,14 +33,6 @@ function handleFailedAuthentication() {
   localStorage.removeItem(TOKEN_STORAGE_KEY)
   window.location.reload()
 }
-
-const getURL = ({
-  protocol = location.protocol.substring(0, location.protocol.length - 1),
-  hostname = location.hostname,
-  port = location.port,
-  ['context-path']: contextPath = '',
-  version = 1,
-}) => `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v${version}`
 
 class Ajax extends RequestMaker {
   constructor(frontend, backend) {

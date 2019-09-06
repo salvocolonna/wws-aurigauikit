@@ -3,26 +3,19 @@ import { FormattedMessage } from 'react-intl'
 import { Pagination } from 'aurigauikit/components/SimpleTable'
 import NotificationService2 from './notification-service-new'
 import { withRouter } from 'react-router-dom'
-import styles from './style.less'
+import './style.less'
 import Popover from 'aurigauikit/components/Popover'
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill'
 import { getToken } from './utils'
+import { getURL } from '../../ajax/utils'
 
 window.EventSource = NativeEventSource || EventSourcePolyfill
 
 let sse = null
 
-const getURL = (
-  { protocol, hostname = location.hostname, port = 8080, ['context-path']: contextPath = '' },
-  userCode,
-  appCode
-) =>
-  `${protocol ||
-    'http'}://${hostname}:${port}${contextPath}/api/v1/notification/sse/${appCode}/${userCode
-    .split(' ')
-    .join('')}`
+const getNotificationURL = (params, userCode, appCode) =>
+  getURL(params) + `/notification/sse/${appCode}/${userCode.split(' ').join('')}`
 
-@withRouter
 class Notification extends React.Component {
   notificationRef = createRef()
 
@@ -43,7 +36,7 @@ class Notification extends React.Component {
     let url =
       backend === 'string'
         ? `/${backend}/api/v1/notification/sse/${appCode}/${userCode}`
-        : getURL(backend, userCode, appCode)
+        : getNotificationURL(backend, userCode, appCode)
     if (customUrl) url = customUrl
     if (!sse) {
       const token = getToken()
@@ -266,4 +259,4 @@ class Notification extends React.Component {
   }
 }
 
-export default Notification
+export default withRouter(Notification)

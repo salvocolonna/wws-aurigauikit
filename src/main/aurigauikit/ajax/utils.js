@@ -1,6 +1,6 @@
-import AppStorage from "aurigauikit/app-storage"
-import getParams from "./params"
-import { RESPONSE, ST_START, TOKEN_END } from "./constants"
+import AppStorage from 'aurigauikit/app-storage'
+import getParams from './params'
+import { RESPONSE, ST_START, TOKEN_END } from './constants'
 
 export const isResponseType = resourceOrType => {
   return (
@@ -12,8 +12,8 @@ export const isResponseType = resourceOrType => {
 }
 
 export const getSessionToken = () => {
-  const wwsisAppStorage = new AppStorage("wwsis")
-  const auth = wwsisAppStorage.getJSON("auth")
+  const wwsisAppStorage = new AppStorage('wwsis')
+  const auth = wwsisAppStorage.getJSON('auth')
   return auth != null ? `${ST_START}${auth.session_token}${TOKEN_END}` : null
 }
 
@@ -33,3 +33,11 @@ export const withParams = (resource, params) => {
   if (params) return `${resource}?${getParams(params)}`
   return resource
 }
+
+export const getURL = ({
+  protocol = location.protocol.substring(0, location.protocol.length - 1),
+  hostname = location.hostname,
+  port = location.port,
+  ['context-path']: contextPath = '',
+  version = 1,
+}) => `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v${version}`
