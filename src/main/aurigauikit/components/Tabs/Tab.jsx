@@ -14,7 +14,7 @@ class Tab extends React.PureComponent {
     }
     return (
       <li role="presentation" className={isOpen ? "active" : ""}>
-        <a href="javascript: void(0)" style={style} onClick={onClick}>
+        <a href="#" onClick={(e) => e.preventDefauilt()} style={style} onClick={onClick}>
           {name}
         </a>
       </li>
