@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 class Tab extends React.PureComponent {
   constructor(props) {
@@ -8,13 +8,21 @@ class Tab extends React.PureComponent {
   render() {
     const { onClick, isOpen, name } = this.props
     const style = {
-      textDecoration: "none",
-      cursor: "pointer",
-      borderBottom: (isOpen ? 2 : 0) + "px solid #fff"
+      textDecoration: 'none',
+      cursor: 'pointer',
+      borderBottom: (isOpen ? 2 : 0) + 'px solid #fff',
     }
     return (
-      <li role="presentation" className={isOpen ? "active" : ""}>
-        <a href="#" onClick={(e) => e.preventDefauilt()} style={style} onClick={onClick}>
+      <li role="presentation" className={isOpen ? 'active' : ''}>
+        <a
+          href="#"
+          style={style}
+          onClick={e => {
+            e.stopPropagation()
+            e.preventDefault()
+            onClick()
+          }}
+        >
           {name}
         </a>
       </li>
