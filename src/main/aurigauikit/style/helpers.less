@@ -5,43 +5,41 @@
  Copyright 2016 Auriga S.p.a.
  */
 
-@import "constants.less";
-@import "commons.less";
-
+@import 'constants.less';
+@import 'commons.less';
 
 /*
  Disabled / muted
  */
-.text-disabled, .text-muted {
-	color: @disabled_1_color;
+.text-disabled,
+.text-muted {
+  color: @disabled_1_color;
 }
-
 
 /*
  Sizes
  */
 
 .text-bg() {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .text-upper {
-	text-transform: uppercase;
+  text-transform: uppercase;
 }
-
 
 /*
  Clickable mixins
  */
 
 .clickable() {
-	cursor: pointer;
-	pointer-events: auto;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .unclickable() {
-	cursor: default;
-	pointer-events: none;
+  cursor: default;
+  pointer-events: none;
 }
 
 /*
@@ -49,138 +47,137 @@
  */
 
 .align-left {
-	text-align: left;
+  text-align: left;
 }
 
 .align-center {
-	text-align: center;
+  text-align: center;
 }
 
 .align-right {
-	text-align: right;
+  text-align: right;
 }
-
 
 /*
  Primary
  */
 
 .text-primary {
-	color: @primary_color;
+  color: @primary_color;
 }
 
 .text-primary-hover:hover {
-	color: @primary_color_darken;
+  color: @primary_color_darken;
 }
 
 .bg-primary {
-	background-color: @primary_color;
+  background-color: @primary_color;
 }
 
 .light-bg-primary() {
-	background-color: lighten(@primary_color, 50%);
+  background-color: lighten(@primary_color, 50%);
 }
-
 
 /*
  Confirmatory
  */
 
 .text-confirmatory {
-	color: @confirmatory_color;
+  color: @confirmatory_color;
 }
 
 .text-confirmatory-hover:hover {
-	color: @confirmatory_color_darken;
+  color: @confirmatory_color_darken;
 }
 
 .bg-confirmatory {
-	background-color: @confirmatory_color;
+  background-color: @confirmatory_color;
 }
 
 .light-bg-confirmatory() {
-	background-color: lighten(@confirmatory_color, 40%);
+  background-color: lighten(@confirmatory_color, 40%);
 }
-
-
 
 /*
  Alternate
  */
 
 .text-alternate {
-	color: @alternate_color;
+  color: @alternate_color;
 }
 
 .bg-alternate {
-	background-color: @alternate_color;
+  background-color: @alternate_color;
 }
 
 .light-bg-alternate() {
-	background-color: lighten(@alternate_color, 70%);
+  background-color: lighten(@alternate_color, 70%);
 }
-
 
 /*
  Info
  */
 
 .text-info {
-	color: @info_color;
+  color: @info_color;
 }
 
 .text-info-hover:hover {
-	color: @info_color_darken;
+  color: @info_color_darken;
 }
 
 .bg-info {
-	background-color: @info_color;
+  background-color: @info_color;
 }
 
 .light-bg-info() {
-	background-color: lighten(@info_color, 50%);
+  background-color: lighten(@info_color, 50%);
 }
-
-
-
 
 /*
  Critical
  */
 
 .text-critical {
-	color: @critical_color;
+  color: @critical_color;
 }
 
 .text-critical-hover:hover {
-	color: @critical_color_darken;
+  color: @critical_color_darken;
 }
 
 .bg-critical {
-	background-color: @critical_color;
+  background-color: @critical_color;
 }
 
 .light-bg-critical() {
-	background-color: lighten(@critical_color, 45%);
+  background-color: lighten(@critical_color, 45%);
 }
-
 
 /*
  Warning
  */
 
 .text-warning {
-	color: @warning_color;
+  color: @warning_color;
 }
 
 .text-warning-hover:hover {
-	color: @warning_color_darken;
+  color: @warning_color_darken;
 }
 
 .bg-warning {
-	background-color: @warning_color;
+  background-color: @warning_color;
 }
 
 .light-bg-warning() {
-	background-color: lighten(@warning_color, 40%);
+  background-color: lighten(@warning_color, 40%);
+}
+
+/*
+ Unknown
+ */
+
+.bg-unknown {
+  background-color: @unknown_color;
 }
