@@ -1,7 +1,7 @@
-import React from "react"
-import "./page-anchors.less"
-import { FormattedMessage } from "react-intl"
-import PropTypes from "prop-types"
+import React from 'react'
+import './page-anchors.less'
+import { FormattedMessage } from 'react-intl'
+import PropTypes from 'prop-types'
 
 export class AnchorsProvider extends React.Component {
   state = { anchors: [] }
@@ -9,7 +9,7 @@ export class AnchorsProvider extends React.Component {
   static childContextTypes = {
     anchors: PropTypes.arrayOf(PropTypes.object),
     addAnchor: PropTypes.func,
-    removeAnchor: PropTypes.func
+    removeAnchor: PropTypes.func,
   }
 
   scrollTo = anchor => scrollTo(anchor)
@@ -37,7 +37,7 @@ export class AnchorsProvider extends React.Component {
     return {
       anchors: this.state.anchors,
       addAnchor: this.addAnchor,
-      removeAnchor: this.removeAnchor
+      removeAnchor: this.removeAnchor,
     }
   }
 
@@ -51,7 +51,7 @@ export const withAnchors = Component => {
     static contextTypes = {
       anchors: PropTypes.arrayOf(PropTypes.object),
       addAnchor: PropTypes.func,
-      removeAnchor: PropTypes.func
+      removeAnchor: PropTypes.func,
     }
 
     render() {
@@ -80,11 +80,11 @@ export const AnchoredSection = withAnchors(
         const {
           id,
           props: { name },
-          decoratedName
+          decoratedName,
         } = this
         this.props.addAnchor({
           id: this.props.id || id,
-          name: decoratedName ? decoratedName : name
+          name: decoratedName ? decoratedName : name,
         })
       }
     }
@@ -94,11 +94,11 @@ export const AnchoredSection = withAnchors(
         const {
           id,
           props: { name },
-          decoratedName
+          decoratedName,
         } = this
         this.props.removeAnchor({
           id: this.props.id || id,
-          name: decoratedName ? decoratedName : name
+          name: decoratedName ? decoratedName : name,
         })
       }
     }
@@ -119,19 +119,20 @@ const Anchor = ({ name }) => (
   <h3
     style={{
       marginBottom: 0,
-      textTransform: "uppercase",
-      color: "#3C434A",
-      borderTop: "1px solid #ccc",
-      padding: 10
-    }}>
-    <span style={{ fontSize: ".8em" }}>{name}</span>
+      textTransform: 'uppercase',
+      color: '#3C434A',
+      borderTop: '1px solid #ccc',
+      padding: 10,
+    }}
+  >
+    <span style={{ fontSize: '.8em' }}>{name}</span>
     <div className="page-anchors-action" style={{ fontSize: 10 }} onClick={() => toTop()}>
       <em style={{ paddingRight: 5 }}>
-        {" "}
-        <FormattedMessage id="page.anchors.back-to-top" />{" "}
+        {' '}
+        <FormattedMessage id="page.anchors.back-to-top" />{' '}
       </em>
       <b>
-        <i style={{ fontSize: "2em", transform: "translateY(2px)" }} className="fa fa-angle-up" />
+        <i style={{ fontSize: '2em', transform: 'translateY(2px)' }} className="fa fa-angle-up" />
       </b>
     </div>
   </h3>
@@ -142,11 +143,11 @@ AnchoredSection.addTo = anchors => ref => {
     const {
       id,
       props: { name },
-      decoratedName
+      decoratedName,
     } = ref
     anchors.push({
       id: ref.props.id || id,
-      name: decoratedName ? decoratedName : name
+      name: decoratedName ? decoratedName : name,
     })
   }
 }
@@ -162,7 +163,14 @@ export const PageAnchors = withAnchors(
           </label>
           {anchors.map(({ id, name }, index) => (
             <li key={index}>
-              <a href="#" onClick={() => scrollTo({ id })}>
+              <a
+                href="#"
+                onClick={e => {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  scrollTo({ id })
+                }}
+              >
                 <i className="fa fa-angle-right page-anchors-icon" />
                 <span>{name}</span>
               </a>
@@ -175,11 +183,11 @@ export const PageAnchors = withAnchors(
 )
 
 const scrollTo = ({ id }) => {
-  document.getElementById("content-dynamic").scrollTop = document.getElementById(id).offsetTop - 75
+  document.getElementById('content-dynamic').scrollTop = document.getElementById(id).offsetTop - 75
 }
 
 const toTop = () => {
-  document.getElementById("content-dynamic").scrollTop = 0
+  document.getElementById('content-dynamic').scrollTop = 0
 }
 
 export function idChanged(arr1, arr2) {
