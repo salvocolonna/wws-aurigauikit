@@ -101,7 +101,7 @@ class Card extends React.Component {
                         onClick={e => (!onlyAction ? this.callAction(e) : '')}
                       />
                     )}
-                    {loading && <Loader style={{ marginRight: 15 }} />}
+                    {loading && <Loader legacy style={{ marginRight: 15 }} />}
                   </h4>
                 </div>
               </div>

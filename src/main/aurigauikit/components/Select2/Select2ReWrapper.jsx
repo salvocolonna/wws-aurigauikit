@@ -69,7 +69,7 @@ class Select2 extends React.Component {
         onSelect={e => this.onSelect(e)}
         onUnselect={(e, a) => this.onUnselect(e, a)}
       />,
-      loading && <Loader key="loader" style={{ marginTop: -28, marginRight: 8 }} />,
+      loading && <Loader legacy key="loader" style={{ marginTop: -28, marginRight: 8 }} />,
     ]
   }
 }
