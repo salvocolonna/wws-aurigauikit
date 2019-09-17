@@ -180,7 +180,7 @@ class Notification extends React.Component {
                         fontWeight: notification.read ? 'normal' : 'bold',
                       }}
                     >
-                      {notification.message}
+                      <FormattedMessage id={`notification.${notification.message}`} />
                     </div>
                     <i
                       className={`fa fa-times greater-feedback Notification--delete`}
