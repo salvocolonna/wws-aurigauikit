@@ -116,6 +116,12 @@ i18n.loadMessages('en', {
   'organizational-unit-select.type.ASSET_GROUP': 'Groups',
 
   'notification.emptyList': 'No notifications',
+  'notification.task.ok': 'Task completed successfully',
+  'notification.task.warning': 'Task completed with warnings',
+  'notification.task.error': 'Error with the task execution',
+  'notification.report.ok': 'Report completed successfully',
+  'notification.report.error': 'Report creation failed',
+  'notification.profile.error.asset': 'Asset profile retrieving error',
 
   'report.report-table.columns.report-template': 'Template',
   'report.report-table.columns.period': 'Period',

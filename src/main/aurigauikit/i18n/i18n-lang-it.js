@@ -138,6 +138,12 @@ i18n.loadMessages('it', {
   'organizational-unit-select.type.ASSET_GROUP': 'Gruppi',
 
   'notification.emptyList': 'Nessuna notifica',
+  'notification.task.ok': 'Attività completata con successo',
+  'notification.task.warning': 'Attività parzialmente completata',
+  'notification.task.error': "Errore nell'esecuzione dell'attività",
+  'notification.report.ok': 'Report generato con successo',
+  'notification.report.error': 'Errore nella generazione del report',
+  'notification.profile.error.asset': 'Errore nel recupero del profilo',
 
   'dashboard-page.add-widget.new': 'Nuovo',
 
