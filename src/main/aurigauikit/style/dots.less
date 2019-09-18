@@ -5,56 +5,58 @@
  Copyright 2016 Auriga S.p.A.
  */
 
-@import "constants.less";
-@import "commons.less";
-@import "helpers.less";
-
+@import 'constants.less';
+@import 'commons.less';
+@import 'helpers.less';
 
 .dot {
-	.border-radius(1em);
-	height: 1em;
-	width: 1em;
-	
-	display: inline-block;
-	vertical-align: middle;
-	
-	margin: 0 0 0.2em 0;
+  .border-radius(1em);
+  height: 1em;
+  width: 1em;
+
+  display: inline-block;
+  vertical-align: middle;
+
+  margin: 0 0 0.2em 0;
 }
 
 .dot-primary {
-	.bg-primary();
+  .bg-primary();
 }
 
 .dot-alternate {
-	.bg-alternate();
+  .bg-alternate();
 }
 
 .dot-confirmatory {
-	.bg-confirmatory();
+  .bg-confirmatory();
 }
 
 .dot-warning {
-	.bg-warning();
+  .bg-warning();
 }
 
 .dot-critical {
-	.bg-critical();
+  .bg-critical();
 }
 
 .dot-info {
-	.bg-info();
+  .bg-info();
 }
 
+.dot-unknown {
+  .bg-unknown();
+}
 
 /*
  Sizes
  */
 
 .dot-bg {
-	font-size: 1.2em;
-} 
+  font-size: 1.2em;
+}
 
 .dot-sm {
-	font-size: 0.7em;
-	margin-right: 0.3em;
+  font-size: 0.7em;
+  margin-right: 0.3em;
 }
