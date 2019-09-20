@@ -34,7 +34,7 @@ export default injectIntl(
       const widgetList = widgets
         .filter(({ name }) => name !== 'active-assets')
         .map(widget => widget.name)
-      return onBuild ? [...widgetList, intl.formatMessage(newId)] : widgetList
+      return onBuild ? [intl.formatMessage(newId), ...widgetList] : widgetList
     }
 
     render() {
