@@ -1,194 +1,198 @@
-import { defineMessages } from "react-intl"
+import { defineMessages } from 'react-intl'
 
-const PATH = "scheduler"
+const PATH = 'scheduler'
 
 export default {
   validations: {
     endGreater: {
       id: `${PATH}.validations.end-greater`,
-      defaultMessage: "End date must be greater than start date"
+      defaultMessage: 'End date must be greater than start date',
     },
     atLeastADay: {
       id: `${PATH}.validations.at-least-a-day`,
-      defaultMessage: "Select at least a day of week"
-    }
+      defaultMessage: 'Select at least a day of week',
+    },
   },
   recurrings: defineMessages({
     NEVER: {
       id: `${PATH}.recurrings.NEVER`,
-      defaultMessage: "Never"
+      defaultMessage: 'Never',
     },
     DAILY: {
       id: `${PATH}.recurrings.DAILY`,
-      defaultMessage: "Daily"
+      defaultMessage: 'Daily',
     },
     WEEKLY: {
       id: `${PATH}.recurrings.WEEKLY`,
-      defaultMessage: "Weekly"
+      defaultMessage: 'Weekly',
     },
     MONTHLY: {
       id: `${PATH}.recurrings.MONTHLY`,
-      defaultMessage: "Monthly"
+      defaultMessage: 'Monthly',
     },
     YEARLY: {
       id: `${PATH}.recurrings.YEARLY`,
-      defaultMessage: "Yearly"
-    }
+      defaultMessage: 'Yearly',
+    },
   }),
   labels: defineMessages({
     date: {
       id: `${PATH}.labels.date`,
-      defaultMessage: "Date"
+      defaultMessage: 'Date',
     },
     recurring: {
       id: `${PATH}.labels.recurring`,
-      defaultMessage: "Recurring"
+      defaultMessage: 'Recurring',
     },
     repeatEvery: {
       id: `${PATH}.labels.repeat-every`,
-      defaultMessage: "Repeat every"
+      defaultMessage: 'Repeat every',
     },
     end: {
       id: `${PATH}.labels.end`,
-      defaultMessage: "End"
+      defaultMessage: 'End',
     },
     on: {
       id: `${PATH}.labels.on`,
-      defaultMessage: "On"
+      defaultMessage: 'On',
+    },
+    when: {
+      id: `${PATH}.labels.when`,
+      defaultMessage: 'When',
     },
     after: {
       id: `${PATH}.labels.after`,
-      defaultMessage: "After"
+      defaultMessage: 'After',
     },
     never: {
       id: `${PATH}.labels.never`,
-      defaultMessage: "Never"
+      defaultMessage: 'Never',
     },
     day: {
       id: `${PATH}.labels.day`,
-      defaultMessage: "Day"
+      defaultMessage: 'Day',
     },
     OCCURRENCIES: {
       id: `${PATH}.labels.OCCURRENCIES`,
-      defaultMessage: "{occurrencies, plural, one {Occurrency} other {Occurrencies}}"
+      defaultMessage: '{occurrencies, plural, one {Occurrency} other {Occurrencies}}',
     },
     DAYS: {
       id: `${PATH}.labels.DAYS`,
-      defaultMessage: "{value, plural, one {Day} other {Days}}"
+      defaultMessage: '{value, plural, one {Day} other {Days}}',
     },
     WEEKS: {
       id: `${PATH}.labels.WEEKS`,
-      defaultMessage: "{value, plural, one {Week} other {Weeks}}"
+      defaultMessage: '{value, plural, one {Week} other {Weeks}}',
     },
     MONTHS: {
       id: `${PATH}.labels.MONTHS`,
-      defaultMessage: "{value, plural, one {Month} other {Months}}"
+      defaultMessage: '{value, plural, one {Month} other {Months}}',
     },
     YEARS: {
       id: `${PATH}.labels.YEARS`,
-      defaultMessage: "{value, plural, one {Year} other {Years}}"
-    }
+      defaultMessage: '{value, plural, one {Year} other {Years}}',
+    },
   }),
   orders: defineMessages({
     FIRST: {
       id: `${PATH}.orders.FIRST`,
-      defaultMessage: "First"
+      defaultMessage: 'First',
     },
     SECOND: {
       id: `${PATH}.orders.SECOND`,
-      defaultMessage: "Second"
+      defaultMessage: 'Second',
     },
     THIRD: {
       id: `${PATH}.orders.THIRD`,
-      defaultMessage: "Third"
+      defaultMessage: 'Third',
     },
     FOURTH: {
       id: `${PATH}.orders.FOURTH`,
-      defaultMessage: "Fourth"
+      defaultMessage: 'Fourth',
     },
     LAST: {
       id: `${PATH}.orders.LAST`,
-      defaultMessage: "Last"
-    }
+      defaultMessage: 'Last',
+    },
   }),
   days: defineMessages({
     MONDAY: {
       id: `${PATH}.days.MONDAY`,
-      defaultMessage: "Monday"
+      defaultMessage: 'Monday',
     },
     TUESDAY: {
       id: `${PATH}.days.TUESDAY`,
-      defaultMessage: "Tuesday"
+      defaultMessage: 'Tuesday',
     },
     WEDNESDAY: {
       id: `${PATH}.days.WEDNESDAY`,
-      defaultMessage: "Wednesday"
+      defaultMessage: 'Wednesday',
     },
     THURSDAY: {
       id: `${PATH}.days.THURSDAY`,
-      defaultMessage: "Thursday"
+      defaultMessage: 'Thursday',
     },
     FRIDAY: {
       id: `${PATH}.days.FRIDAY`,
-      defaultMessage: "Friday"
+      defaultMessage: 'Friday',
     },
     SATURDAY: {
       id: `${PATH}.days.SATURDAY`,
-      defaultMessage: "Saturday"
+      defaultMessage: 'Saturday',
     },
     SUNDAY: {
       id: `${PATH}.days.SUNDAY`,
-      defaultMessage: "Sunday"
-    }
+      defaultMessage: 'Sunday',
+    },
   }),
   months: defineMessages({
     JANUARY: {
       id: `${PATH}.months.JANUARY`,
-      defaultMessage: "January"
+      defaultMessage: 'January',
     },
     FEBRUARY: {
       id: `${PATH}.months.FEBRUARY`,
-      defaultMessage: "February"
+      defaultMessage: 'February',
     },
     MARCH: {
       id: `${PATH}.months.MARCH`,
-      defaultMessage: "March"
+      defaultMessage: 'March',
     },
     APRIL: {
       id: `${PATH}.months.APRIL`,
-      defaultMessage: "April"
+      defaultMessage: 'April',
     },
     MAY: {
       id: `${PATH}.months.MAY`,
-      defaultMessage: "May"
+      defaultMessage: 'May',
     },
     JUNE: {
       id: `${PATH}.months.JUNE`,
-      defaultMessage: "June"
+      defaultMessage: 'June',
     },
     JULY: {
       id: `${PATH}.months.JULY`,
-      defaultMessage: "July"
+      defaultMessage: 'July',
     },
     AUGUST: {
       id: `${PATH}.months.AUGUST`,
-      defaultMessage: "August"
+      defaultMessage: 'August',
     },
     SEPTEMBER: {
       id: `${PATH}.months.SEPTEMBER`,
-      defaultMessage: "September"
+      defaultMessage: 'September',
     },
     OCTOBER: {
       id: `${PATH}.months.OCTOBER`,
-      defaultMessage: "October"
+      defaultMessage: 'October',
     },
     NOVEMBER: {
       id: `${PATH}.months.NOVEMBER`,
-      defaultMessage: "November"
+      defaultMessage: 'November',
     },
     DECEMBER: {
       id: `${PATH}.months.DECEMBER`,
-      defaultMessage: "December"
-    }
-  })
+      defaultMessage: 'December',
+    },
+  }),
 }
