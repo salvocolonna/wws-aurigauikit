@@ -1,12 +1,12 @@
-import React from "react"
-import SchedulingStart from "./SchedulingStart"
-import SchedulingEnd from "./SchedulingEnd"
-import WeeklyRecurring from "./WeeklyRecurring"
-import MonthlyRecurring from "./MonthlyRecurring"
-import YearlyRecurring from "./YearlyRecurring"
-import moment from "moment"
-import { days, endModes, monthlyModes, months, orders, recurrings, yearlyModes } from "./constants"
-import { toExpression } from "./utils"
+import React from 'react'
+import SchedulingStart from './SchedulingStart'
+import SchedulingEnd from './SchedulingEnd'
+import WeeklyRecurring from './WeeklyRecurring'
+import MonthlyRecurring from './MonthlyRecurring'
+import YearlyRecurring from './YearlyRecurring'
+import moment from 'moment'
+import { days, endModes, monthlyModes, months, orders, recurrings, yearlyModes } from './constants'
+import { toExpression } from './utils'
 
 const getInitialDate = () => {
   const date = moment()
@@ -23,14 +23,14 @@ export const defaultProps = {
     end: {
       mode: endModes[2],
       date: null,
-      occurrencies: 1
+      occurrencies: 1,
     },
     weekly: { days: [] },
     monthly: {
       day: 1,
       weekDay: days[0],
       order: orders[0],
-      mode: monthlyModes[0]
+      mode: monthlyModes[0],
     },
     yearly: {
       day: 1,
@@ -38,9 +38,9 @@ export const defaultProps = {
       order: orders[0],
       orderMonth: months[0],
       month: months[0],
-      mode: yearlyModes[1]
-    }
-  }
+      mode: yearlyModes[1],
+    },
+  },
 }
 
 export default class extends React.Component {
@@ -115,7 +115,7 @@ export default class extends React.Component {
   endModeChanged = mode => this.endChanged({ mode })
 
   render() {
-    const { data, existing } = this.props
+    const { data, existing, recurrings } = this.props
     const { date, repeatEvery, recurring, weekly, monthly, yearly, end } = data
     return (
       <div>
@@ -125,13 +125,14 @@ export default class extends React.Component {
           onDateChange={this.dateChanged}
           onRepeatEveryChange={this.repeatEveryChanged}
           repeatEvery={repeatEvery}
+          recurrings={recurrings}
           recurring={recurring}
           onRecurringChange={this.recurringChanged}
         />
-        {recurring === "WEEKLY" && (
+        {recurring === 'WEEKLY' && (
           <WeeklyRecurring onChange={this.weeklyDaysChanged} selectedDays={weekly.days} />
         )}
-        {recurring === "MONTHLY" && (
+        {recurring === 'MONTHLY' && (
           <MonthlyRecurring
             day={monthly.day}
             onDayChange={this.monthlyDayChanged}
@@ -143,7 +144,7 @@ export default class extends React.Component {
             onWeekDayChange={this.monthlyWeekDayChanged}
           />
         )}
-        {recurring === "YEARLY" && (
+        {recurring === 'YEARLY' && (
           <YearlyRecurring
             day={yearly.day}
             weekDay={yearly.weekDay}
@@ -159,7 +160,7 @@ export default class extends React.Component {
             onModeChange={this.yearlyModeChanged}
           />
         )}
-        {recurring !== "NEVER" && (
+        {recurring !== 'NEVER' && (
           <SchedulingEnd
             date={date}
             endDate={end.date}

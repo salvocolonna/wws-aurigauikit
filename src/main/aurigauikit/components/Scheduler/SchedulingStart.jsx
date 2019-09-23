@@ -1,14 +1,14 @@
-import React from "react"
-import { Grid, Div } from "aurigauikit/components/Grid"
-import DatePicker from "aurigauikit/components/DatePicker"
-import Select2 from "aurigauikit/components/Select2"
-import { FormattedMessage as Msg, injectIntl } from "react-intl"
-import messages from "./messages"
-import moment from "moment"
-import { recurrings, recurringMap } from "./constants"
+import React from 'react'
+import { Grid, Div } from 'aurigauikit/components/Grid'
+import DatePicker from 'aurigauikit/components/DatePicker'
+import Select2 from 'aurigauikit/components/Select2'
+import { FormattedMessage as Msg, injectIntl } from 'react-intl'
+import messages from './messages'
+import moment from 'moment'
+import { recurrings as defaultRecurrings, recurringMap } from './constants'
 
 const today = date => {
-  return moment().isSame(moment(date), "day")
+  return moment().isSame(moment(date), 'day')
 }
 
 const getMinTime = date => {
@@ -36,9 +36,10 @@ export default injectIntl(
     recurring,
     onRecurringChange,
     existing,
-    intl
+    recurrings,
+    intl,
   }) => (
-    <Grid style={{ overflow: "initial" }}>
+    <Grid style={{ overflow: 'initial' }}>
       <Div col="1-2">
         <label>
           <Msg {...messages.labels.date} />
@@ -60,36 +61,35 @@ export default injectIntl(
           />
         )}
       </Div>
-      <Div col={recurring !== "NEVER" && recurring !== "WEEKLY" ? "1-4" : "1-2"}>
+      <Div col={recurring !== 'NEVER' && recurring !== 'WEEKLY' ? '1-4' : '1-2'}>
         <label>
           <Msg {...messages.labels.recurring} />
         </label>
         <Select2
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           didSelect={onRecurringChange}
           willDisplay={recurring => intl.formatMessage(messages.recurrings[recurring])}
           value={recurring}
-          data={recurrings}
+          data={recurrings || defaultRecurrings}
         />
       </Div>
-      {recurring !== "NEVER" &&
-        recurring !== "WEEKLY" && (
-          <Div col="1-4">
-            <label>
-              <Msg {...messages.labels.repeatEvery} />
-            </label>
-            <input
-              style={{ width: "5em", padding: 10 }}
-              type="number"
-              min="1"
-              onChange={e => onRepeatEveryChange(e.target.value)}
-              value={repeatEvery}
-            />
-            <label style={{ display: "inline-block", paddingLeft: 10 }}>
-              <Msg {...messages.labels[recurringMap[recurring]]} values={{ value: repeatEvery }} />
-            </label>
-          </Div>
-        )}
+      {recurring !== 'NEVER' && recurring !== 'WEEKLY' && (
+        <Div col="1-4">
+          <label>
+            <Msg {...messages.labels.repeatEvery} />
+          </label>
+          <input
+            style={{ width: '5em', padding: 10 }}
+            type="number"
+            min="1"
+            onChange={e => onRepeatEveryChange(e.target.value)}
+            value={repeatEvery}
+          />
+          <label style={{ display: 'inline-block', paddingLeft: 10 }}>
+            <Msg {...messages.labels[recurringMap[recurring]]} values={{ value: repeatEvery }} />
+          </label>
+        </Div>
+      )}
     </Grid>
   )
 )
