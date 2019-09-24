@@ -39,6 +39,7 @@ export default injectIntl(
           <Select2
             style={{ width: '100%' }}
             value={order}
+            disabled={mode !== monthlyModes[0]}
             didSelect={onOrderChange}
             willDisplay={order => intl.formatMessage(messages.orders[order])}
             data={orders}
@@ -48,6 +49,7 @@ export default injectIntl(
           <Select2
             style={{ width: '100%' }}
             value={weekDay}
+            disabled={mode !== monthlyModes[0]}
             didSelect={onWeekDayChange}
             willDisplay={day => intl.formatMessage(messages.days[day])}
             data={days}
@@ -68,6 +70,7 @@ export default injectIntl(
           <input
             style={{ width: '5em', padding: 9 }}
             type="number"
+            disabled={mode !== monthlyModes[1]}
             max={date.endOf('month').format('DD')}
             min="1"
             onChange={e => onDayChange(e.target.value)}
