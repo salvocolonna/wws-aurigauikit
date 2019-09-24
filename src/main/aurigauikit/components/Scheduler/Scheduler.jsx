@@ -134,6 +134,7 @@ export default class extends React.Component {
         )}
         {recurring === 'MONTHLY' && (
           <MonthlyRecurring
+            date={date}
             day={monthly.day}
             onDayChange={this.monthlyDayChanged}
             order={monthly.order}
