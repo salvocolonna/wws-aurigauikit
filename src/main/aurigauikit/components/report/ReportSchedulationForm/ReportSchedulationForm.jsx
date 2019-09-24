@@ -112,9 +112,9 @@ export default class extends React.Component {
             </h3>
             <Scheduler
               existing={mode === 'edit'}
-              data={{ ...scheduler, recurring: 'MONTHLY' }}
+              data={{ ...scheduler }}
               onChange={this.changeScheduler}
-              recurrings={['MONTHLY']}
+              recurrings={['NEVER', 'MONTHLY']}
             />
           </section>
         </div>
