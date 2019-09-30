@@ -1,30 +1,30 @@
-import React, { Fragment } from "react"
-import { FormattedMessage as Msg } from "react-intl"
-import { Grid, Div } from "aurigauikit/components/Grid"
-import Select2 from "aurigauikit/components/Select2"
-import OrganizationalUnitSelect from "aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect"
-import DatePicker from "aurigauikit/components/DatePicker"
-import Checkbox from "aurigauikit/components/Checkbox"
-import { toExpression } from "aurigauikit/components/Scheduler/utils"
-import Scheduler from "aurigauikit/components/Scheduler"
-import moment from "moment"
-import messages from "./messages"
+import React, { Fragment } from 'react'
+import { FormattedMessage as Msg } from 'react-intl'
+import { Grid, Div } from 'aurigauikit/components/Grid'
+import Select2 from 'aurigauikit/components/Select2'
+import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
+import DatePicker from 'aurigauikit/components/DatePicker'
+import Checkbox from 'aurigauikit/components/Checkbox'
+import { toExpression } from 'aurigauikit/components/Scheduler/utils'
+import Scheduler from 'aurigauikit/components/Scheduler'
+import moment from 'moment'
+import messages from './messages'
 
 const { data: scheduler } = Scheduler.defaultProps
 const { cronExp } = toExpression(scheduler)
 
 export const defaultProps = {
   data: {
-    reportName: "",
+    reportName: '',
     template: null,
     organizationalUnit: null,
     organizationalUnits: [],
     startDate: null,
     duration: 0,
-    previousMonth: false,
+    previousMonth: true,
     scheduler,
-    cron: cronExp
-  }
+    cron: cronExp,
+  },
 }
 
 export default class extends React.Component {
@@ -34,7 +34,7 @@ export default class extends React.Component {
     const { organizationalUnitProps } = this.props
     this.change({
       organizationalUnit: organizationalUnitProps.defaultSelection,
-      organizationalUnits: [organizationalUnitProps.defaultSelection]
+      organizationalUnits: [organizationalUnitProps.defaultSelection],
     })
   }
 
@@ -67,13 +67,13 @@ export default class extends React.Component {
       startDate,
       duration,
       previousMonth,
-      scheduler
+      scheduler,
     } = data
     return (
       <Fragment>
-        <div style={{ padding: 20, backgroundColor: "#fafafa" }}>
+        <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
           <section>
-            <Grid style={{ overflow: "initial" }}>
+            <Grid style={{ overflow: 'initial' }}>
               <Div col="1-2">
                 <label style={{ marginTop: 12 }}>
                   <Msg {...messages.organizationalUnit} />
@@ -95,15 +95,15 @@ export default class extends React.Component {
               <Div col="1-2">
                 <ReportName reportName={reportName} onChange={this.changeReportName} />
               </Div>
-              <Div col="3-12">
+              {/* <Div col="3-12">
                 <StartDate onChange={this.changeStartDate} startDate={startDate} />
-              </Div>
-              <Div col="1-12">
+              </Div> */}
+              {/* <Div col="1-12">
                 <Duration onChange={this.changeDuration} duration={duration} />
-              </Div>
-              <Div col="2-12">
+              </Div> */}
+              {/* <Div col="2-12">
                 <PreviousMonth onChange={this.changePreviousMonth} previousMonth={previousMonth} />
-              </Div>
+              </Div> */}
             </Grid>
           </section>
           <section>
@@ -111,13 +111,14 @@ export default class extends React.Component {
               <Msg {...messages.schedulation} />
             </h3>
             <Scheduler
-              existing={mode === "edit"}
-              data={scheduler}
+              existing={mode === 'edit'}
+              data={{ ...scheduler }}
               onChange={this.changeScheduler}
+              recurrings={['NEVER', 'MONTHLY']}
             />
           </section>
         </div>
-        <div style={{ textAlign: "right" }}>
+        <div style={{ textAlign: 'right' }}>
           <Undo onClick={onUndo} disabled={saving} />
           <Confirm onClick={onConfirm} disabled={saving || loading} saving={saving} />
         </div>
@@ -132,7 +133,8 @@ const Undo = ({ onClick, disabled }) => (
     className="btn btn-warning-outline"
     onClick={onClick}
     disabled={disabled}
-    style={{ marginTop: 20 }}>
+    style={{ marginTop: 20 }}
+  >
     <Msg {...messages.undo} />
   </button>
 )
@@ -143,16 +145,17 @@ const Confirm = ({ onClick, disabled, saving }) => (
     type="submit"
     style={{ marginLeft: 20, marginTop: 20 }}
     disabled={disabled}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     {saving ? <Msg {...messages.saving} /> : <Msg {...messages.confirm} />}
   </button>
 )
 
 const ReportName = ({ onChange, reportName }) => (
-  <label style={{ marginTop: 12, position: "relative" }}>
+  <label style={{ marginTop: 12, position: 'relative' }}>
     <Msg {...messages.reportName} />
     <input
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       type="text"
       onChange={e => onChange(e.target.value)}
       value={reportName}
@@ -165,7 +168,7 @@ const Template = ({ onChange, template, templates, loading }) => (
   <label style={{ marginTop: 12 }}>
     <Msg {...messages.template} />
     <Select2
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       disabled={loading}
       data={templates}
       loading={loading}
@@ -196,7 +199,7 @@ const Duration = ({ onChange, duration }) => (
   <label style={{ marginTop: 12 }}>
     <Msg {...messages.duration} />
     <input
-      style={{ width: "100%" }}
+      style={{ width: '100%' }}
       type="number"
       min="0"
       onChange={e => onChange(e.target.value)}
