@@ -130,7 +130,7 @@ class ReportListTable extends React.Component {
           hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'PDF')
-            this.props.onPDFView(report.reportContentId)
+            this.props.onPDFView(report.reportContentId, context.currentRow)
           },
         },
         {
@@ -139,7 +139,7 @@ class ReportListTable extends React.Component {
           hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'PDF')
-            this.props.onPDFDownload(report.reportContentId)
+            this.props.onPDFDownload(report.reportContentId, context.currentRow)
           },
         },
         {
@@ -148,7 +148,7 @@ class ReportListTable extends React.Component {
           hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'CSV')
-            this.props.onCSVDownload(report.reportContentId)
+            this.props.onCSVDownload(report.reportContentId, context.currentRow)
           },
         },
         canDelete && {},
