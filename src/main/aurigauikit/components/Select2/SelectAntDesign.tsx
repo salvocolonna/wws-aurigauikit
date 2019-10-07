@@ -32,7 +32,7 @@ function normalizeValue(value: any): string[] {
   }
 }
 
-function normalizeResponse(value: any): string | string[] {
+function normalizeResponse(value: any): SelectValue {
   if (Array.isArray(value) && typeof value[0] === 'string') {
     try {
       return (value as string[]).map(v => JSON.parse(v))
@@ -85,7 +85,7 @@ function SelectAnt({ didSelect, ...props }: SelectProps) {
   const handleChange = React.useCallback(
     (value: (string | number | Record)[]) => {
       let res = normalizeResponse(value)
-      if (didSelect && (res || res === 0 || res === false)) {
+      if (didSelect && (res || res === 0)) {
         return didSelect(res)
       } else {
         return res
