@@ -32,7 +32,7 @@ function normalizeValue(value: any): string[] {
   }
 }
 
-function normalizeResponse(value: any): any {
+function normalizeResponse(value: any): string | string[] {
   if (Array.isArray(value) && typeof value[0] === 'string') {
     try {
       return (value as string[]).map(v => JSON.parse(v))
