@@ -127,7 +127,9 @@ class ReportListTable extends React.Component {
         {
           title: <Msg id="report.report-table.menu.view" />,
           iconName: 'eye',
-          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          hidden: context =>
+            !this.props.onPDFView ||
+            (context.currentRow && context.currentRow.status !== 'COMPLETED'),
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'PDF')
             this.props.onPDFView(report.reportContentId, context.currentRow)
@@ -136,7 +138,9 @@ class ReportListTable extends React.Component {
         {
           title: <Msg id="report.report-table.menu.download.pdf" />,
           iconName: 'file-pdf-o',
-          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          hidden: context =>
+            !this.props.onPDFDownload ||
+            (context.currentRow && context.currentRow.status !== 'COMPLETED'),
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'PDF')
             this.props.onPDFDownload(report.reportContentId, context.currentRow)
@@ -145,7 +149,9 @@ class ReportListTable extends React.Component {
         {
           title: <Msg id="report.report-table.menu.download.csv" />,
           iconName: 'file-text-o',
-          hidden: context => context.currentRow && context.currentRow.status !== 'COMPLETED',
+          hidden: context =>
+            !this.props.onCSVDownload ||
+            (context.currentRow && context.currentRow.status !== 'COMPLETED'),
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'CSV')
             this.props.onCSVDownload(report.reportContentId, context.currentRow)
