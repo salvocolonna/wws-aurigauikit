@@ -151,9 +151,7 @@ class ReportListTable extends React.Component {
           iconName: 'file-text-o',
           hidden: context =>
             !this.props.onCSVDownload ||
-            (this.props.onCSVDownload &&
-              context.currentRow &&
-              context.currentRow.status !== 'COMPLETED'),
+            (context.currentRow && context.currentRow.status !== 'COMPLETED'),
           action: context => {
             const report = context.currentRow.contents.find(x => x.type === 'CSV')
             this.props.onCSVDownload(report.reportContentId, context.currentRow)
