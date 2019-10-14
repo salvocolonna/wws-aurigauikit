@@ -122,7 +122,6 @@ class ReportListTable extends React.Component {
 
   get menu() {
     const { canDelete = true } = this.props
-    console.log('this.', this.props)
     return {
       items: [
         {
