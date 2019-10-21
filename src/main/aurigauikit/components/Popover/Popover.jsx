@@ -37,13 +37,11 @@ export default class Popover extends React.Component {
     document.addEventListener('keyup', this.closeOnEsc)
     document.body.addEventListener('click', this.closeOnBodyClick)
     window.addEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').addEventListener('scroll', this.closeOnResize)
   }
 
   componentWillUnmount() {
     document.removeEventListener('keyup', this.closeOnEsc)
     window.removeEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').removeEventListener('scroll', this.closeOnResize)
   }
 
   closeOnEsc = e => {

@@ -2,6 +2,9 @@ import React from 'react'
 import Notification from 'aurigauikit/components/Notification'
 import MediaQuery from 'react-responsive'
 const bankImg = <i className="fa fa-bank" />
+import { Layout, Menu, Icon } from 'aurigauikit/antd'
+
+const { Header, Sider, Content } = Layout
 
 class Topbar extends React.Component {
   render() {
@@ -24,6 +27,8 @@ class Topbar extends React.Component {
       areaDescription,
       branchCode,
       branchDescription,
+      onCollapse,
+      collapsed,
     } = this.props
     const hasNotification = notificationFrontend && notificationBackend
     const notification = hasNotification && (
@@ -36,58 +41,25 @@ class Topbar extends React.Component {
       />
     )
     return (
-      <header id="topbar" style={{ display: 'flex', margin: '0px' }}>
-        <MediaQuery minWidth={1024}>
-          {logo && <Logo src={logo} onClick={onLogoClick} />}
-          {logoImage && logoImage.src && (
-            <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
-          )}
-        </MediaQuery>
-        <ul
-          style={{
-            display: 'inline-block',
-            flex: '1 0 auto',
-          }}
-        >
-          <MediaQuery maxWidth={767}>
-            {hasNotification && <li> {notification} </li>}
-            <li>
-              <i className="fa fa-user" /> {userName}
-            </li>
-          </MediaQuery>
-          <MediaQuery minWidth={768}>
-            {hasNotification && <li> {notification} </li>}
-            {parentBankCode && (
-              <li>
-                {bankImg} {`${parentBankDescription}`}
-              </li>
-            )}
-            {bankCode && (
-              <li>
-                {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
-              </li>
-            )}
-            {areaCode && (
-              <li>
-                {!bankCode && bankImg} {areaDescription}
-              </li>
-            )}
-            {branchCode && (
-              <li>
-                {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
-              </li>
-            )}
-            <li>
-              <i className="fa fa-user" /> {userName}
-            </li>
-            <li>{roleDescription && roleDescription.split('_').join(' ')}</li>
-          </MediaQuery>
-          <li style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
-            <i className="fa fa-sign-out" />
-            Logout
-          </li>
-        </ul>
-      </header>
+      <Header
+        className="header"
+        style={{
+          position: 'fixed',
+          background: '#fff',
+          padding: 0,
+          boxShadow: '0 2px 8px #f0f1f2',
+          zIndex: 99998,
+          marginLeft: collapsed ? 80 : 200,
+          width: `calc(100% - ${collapsed ? 80 : 200}px)`,
+          transition: 'all .2s ease-in-out',
+        }}
+      >
+        <Icon
+          className="trigger"
+          type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
+          onClick={onCollapse}
+        />
+      </Header>
     )
   }
 }

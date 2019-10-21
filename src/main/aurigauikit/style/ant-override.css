@@ -105,3 +105,11 @@ label .ant-select {
 .ant-form-item-required:before {
   font-size: 10px !important;
 }
+
+.ant-layout {
+  margin: 0;
+}
+
+.ant-layout-sider {
+  min-height: 100vh;
+}

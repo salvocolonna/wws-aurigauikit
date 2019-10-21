@@ -14,11 +14,23 @@
 @sidebar_active_background_color: white;
 @sidebar_text_color: @secondary_text_color;
 //@logo_height: 130px;
-@logo_height: 80px;
+@logo_height: 64px;
 @content_padding: 40px;
 
 @topbar_text_color: white;
 @topbar_background_color: @alternate_color;
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
 
 #main {
   overflow: hidden;
@@ -50,8 +62,13 @@
   height: @logo_height;
   margin-right: -1px;
 
-  background-color: @brand_color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: transparent;
   text-align: center;
+  cursor: pointer;
 
   span {
     display: inline-block;
@@ -61,8 +78,11 @@
 
   img {
     vertical-align: middle;
-    margin-right: 10px;
+    margin: 10px;
     height: @logo_height;
+    max-width: 100%;
+    max-height: 54px;
+    height: auto;
   }
   .fa.fa-bars {
     display: none;

@@ -6,7 +6,40 @@ import errorPic from './images/error.png'
 import { FormattedMessage as Msg } from 'react-intl'
 import messages from './messages'
 import './style.less'
+import { Layout, Menu, Icon } from 'antd'
 
+const { Header, Sider, Content } = Layout
+
+class SiderDemo extends React.Component {
+  state = {
+    collapsed: false,
+  }
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    })
+  }
+
+  render() {
+    return (
+      <Layout>
+        <Layout>
+          <Content
+            style={{
+              margin: '24px 16px',
+              padding: 24,
+              background: '#fff',
+              minHeight: 280,
+            }}
+          >
+            Content
+          </Content>
+        </Layout>
+      </Layout>
+    )
+  }
+}
 export const PageHeader = ({ children }) => (
   <section style={{ display: 'flex', justifyContent: 'space-between' }}>{children}</section>
 )
@@ -91,52 +124,39 @@ export const Error = withRouter(
     }
   }
 )
+
 export const createPage = (Topbar, Sidebar) => {
-  const SizedSidebar = sizeMe({ noPlaceholder: true })(Sidebar)
-  const SizedTopbar = sizeMe({ monitorHeight: true, noPlaceholder: true })(Topbar)
   return Component =>
     class extends React.Component {
-      state = { sidebar: 0, topbar: 0, opacity: 0.5 }
-      onTopbar = size => this.setState({ topbar: size.height })
-      onSidebar = size => this.setState({ sidebar: size.width })
-      getSize = () => {
-        const { topbar, sidebar } = this.state
-        if (topbar === 0 && sidebar === 0) return { width: '100%' }
-        const width = `calc(100vw - ${sidebar}px)`
-        const height = `calc(100vh - ${topbar}px)`
-        const minWidtb = width
-        const minHeight = height
-        return { width, height, minWidtb, minHeight }
-      }
+      state = { collapsed: false }
 
-      componentDidMount() {
-        this.setState({ opacity: 1 })
+      toggle = () => {
+        this.setState({
+          collapsed: !this.state.collapsed,
+        })
       }
 
       render() {
         return (
-          <div id="container">
-            <SizedSidebar onSize={this.onSidebar} topbar={this.state.topbar} />
-            <div id="main">
-              <SizedTopbar onSize={this.onTopbar} />
-              <div
-                id="content-dynamic"
+          <Layout>
+            <Sidebar collapsed={this.state.collapsed} />
+            <Layout>
+              <Topbar onCollapse={this.toggle} collapsed={this.state.collapsed} />
+              <Content
                 style={{
-                  display: 'block',
-                  position: 'relative',
-                  overflowY: 'auto',
-                  overflowX: 'hidden',
-                  ...this.getSize(),
-                  opacity: this.state.opacity,
-                  minWidth: 300,
+                  marginLeft: this.state.collapsed ? 80 : 200,
+                  marginTop: 64,
+                  padding: 24,
+                  background: '#fff',
+                  minHeight: 280,
                 }}
               >
                 <Error>
                   <Component {...this.props} />
                 </Error>
-              </div>
-            </div>
-          </div>
+              </Content>
+            </Layout>
+          </Layout>
         )
       }
     }

@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 import './sidebar.less'
+import { Layout, Menu, Icon } from 'antd'
+
+const { Sider } = Layout
 
 const Sidebar = class extends React.Component {
   constructor(props) {
@@ -30,86 +33,41 @@ const Sidebar = class extends React.Component {
   render() {
     const { children, logo, horizontal, onLogoClick, items, router, basename, topbar } = this.props
     return (
-      <aside
-        id={horizontal ? 'react-sidebar-horizontal' : 'react-sidebar'}
-        style={{ height: horizontal ? 'auto' : '100vh', zIndex: 101 }}
+      <Sider
+        style={{
+          overflow: 'auto',
+          overflowX: 'hidden',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          zIndex: 2,
+        }}
+        trigger={null}
+        collapsible
+        collapsed={this.props.collapsed}
       >
         {logo && <Logo src={logo} onClick={() => onLogoClick()} height={topbar} />}
-        <div
-          id="react-sidebar-menu-wrapper"
-          style={{ textAlign: horizontal ? 'center' : 'initial' }}
-        >
-          <ul
-            className="primary"
-            style={{
-              height: `calc(100vh - ${topbar}px`,
-              overflow: 'auto',
-              direction: 'rtl',
-            }}
-          >
-            {children.map((child, index) => {
-              if (child.type && child.type.displayName === 'SubMenu') {
-                return (
-                  <SubMenu
-                    {...child.props}
-                    key={index}
-                    items={items}
-                    horizontal={horizontal}
-                    basename={basename}
-                    router={router}
-                    openSubMenu={this.state.openSubMenu}
-                    onClick={submenu => this.onSubMenuClick(submenu)}
-                  />
-                )
-              } else if (canView(items, child))
-                return (
-                  <Item
-                    router={router}
-                    horizontal={horizontal}
-                    basename={basename}
-                    {...child.props}
-                    key={index}
-                  />
-                )
-            })}
-          </ul>
-          <div id="react-sidebar-remainder" />
-        </div>
-      </aside>
+        <Menu theme="dark" mode="inline">
+          {children.map((child, index) => {
+            if (child.type === Item && canView(items, child)) {
+              const active = isActive(child.props.href, basename)
+              return (
+                <Menu.Item className={active ? 'ant-menu-item-selected' : undefined}>
+                  <Link to={child.props.href} style={{ textDecoration: 'none' }}>
+                    <Icon type="user" />
+                    <span>{child.props.name}</span>
+                  </Link>
+                </Menu.Item>
+              )
+            }
+          })}
+        </Menu>
+      </Sider>
     )
   }
 }
 
-class Item extends React.Component {
-  render() {
-    const { name, href, icon, router, basename, horizontal } = this.props
-    const active = isActive(href, basename)
-    const className = 'fa ' + (icon ? icon : 'fa-angle-right')
-    const style = { color: active ? '#DC402B' : 'inherit', display: 'initial' }
-    return (
-      <li
-        className={active ? 'active' : ''}
-        style={{
-          display: horizontal ? 'inline-block' : 'block',
-          direction: 'ltr',
-          textAlign: 'left',
-        }}
-      >
-        {router ? (
-          <Link to={href} style={{ textDecoration: 'none' }}>
-            <i className={className} style={style} />
-            <span className="react-sidebar-item">{name}</span>
-          </Link>
-        ) : (
-          <a href={href} style={{ textDecoration: 'none' }}>
-            <i className={className} style={style} />
-            <span className="react-sidebar-item">{name}</span>
-          </a>
-        )}
-      </li>
-    )
-  }
-}
+class Item extends React.Component {}
 
 class SubMenu extends React.Component {
   render() {
@@ -197,9 +155,8 @@ function isActive(to, basename = '') {
   return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + '/')
 }
 
-const Logo = ({ src, onClick, height }) => (
-  <div id="react-sidebar-logo" onClick={() => onClick()} style={{ cursor: 'pointer', height }}>
-    <i className="fa fa-bars" style={{ color: 'white', fontSize: 30 }} />
+const Logo = ({ src, onClick }) => (
+  <div id="react-sidebar-logo" onClick={() => onClick()}>
     <img id="app-logo-full" src={src} />
   </div>
 )

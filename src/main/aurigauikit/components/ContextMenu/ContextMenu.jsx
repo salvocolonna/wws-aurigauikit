@@ -17,13 +17,13 @@ class ContextMenu extends React.Component {
   componentDidMount() {
     document.body.addEventListener('click', this.closeOnBodyClick)
     window.addEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').addEventListener('scroll', this.closeOnResize)
+    //   document.getElementById('content-dynamic').addEventListener('scroll', this.closeOnResize)
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this.closeOnBodyClick)
     window.removeEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').removeEventListener('scroll', this.closeOnResize)
+    // document.getElementById('content-dynamic').removeEventListener('scroll', this.closeOnResize)
   }
 
   closeOnBodyClick(e) {
@@ -54,9 +54,8 @@ class ContextMenu extends React.Component {
       top = 0
     if (isOpen) {
       left = center ? position.left - size.width / 2 : position.left - size.width
-      top =
-        (center ? position.top - size.height / 2 : position.top) -
-        document.getElementById('content-dynamic').scrollTop
+      top = center ? position.top - size.height / 2 : position.top //-
+      //  document.getElementById('content-dynamic').scrollTop
     }
     this.children = []
     return ReactDOM.createPortal(

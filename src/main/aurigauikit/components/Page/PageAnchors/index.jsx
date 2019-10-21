@@ -183,11 +183,11 @@ export const PageAnchors = withAnchors(
 )
 
 const scrollTo = ({ id }) => {
-  document.getElementById('content-dynamic').scrollTop = document.getElementById(id).offsetTop - 75
+  document.body.scrollTop = document.getElementById(id).offsetTop - 75
 }
 
 const toTop = () => {
-  document.getElementById('content-dynamic').scrollTop = 0
+  document.body.scrollTop = 0
 }
 
 export function idChanged(arr1, arr2) {

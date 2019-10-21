@@ -5,10 +5,10 @@ Chart.pluginService.register({
       const {
         index,
         text,
-        color = "red",
-        textColor = "#000000",
-        font = "Normal 15px Open Sans Light",
-        overlayColor = "rgba(240, 240, 240, 0.2)"
+        color = 'red',
+        textColor = '#000000',
+        font = 'Normal 15px Noto Sans Light',
+        overlayColor = 'rgba(240, 240, 240, 0.2)',
       } = config
 
       const draw = DrawingContext(instance.chart, index)
@@ -17,13 +17,13 @@ Chart.pluginService.register({
       draw.line(color)
       draw.text(text, font, textColor)
     }
-  }
+  },
 })
 
 const DrawingContext = (chart, index) => {
   const context = chart.ctx
-  const xaxis = chart.scales["x-axis-0"]
-  const yaxis = chart.scales["y-axis-0"]
+  const xaxis = chart.scales['x-axis-0']
+  const yaxis = chart.scales['y-axis-0']
   const position = xaxis.getPixelForTick(index)
   return {
     line: color => {
@@ -56,6 +56,6 @@ const DrawingContext = (chart, index) => {
         chart.chartArea.top + 5
       )
       context.restore()
-    }
+    },
   }
 }
