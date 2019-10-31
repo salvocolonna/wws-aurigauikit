@@ -54,7 +54,7 @@ const useOuTree = (datasource, intl) => {
     setLoading(true)
     const data = await fetchRoot(datasource)
     if (request === currentRequest.current) {
-      setTree(state => ({ ...state, data }))
+      setTree(state => ({ ...state, data, openPath: '0', selectedPath: '0' }))
       table.onPageChange(1)
       setLoading(false)
     }
@@ -74,11 +74,11 @@ const OuModal = ({
   canSelect = () => true,
   canView = () => true,
   canRemove = () => true,
-  onClose = () => { },
-  onSelect = () => { },
-  onRemove = () => { },
-  onSelectionConfirmed = () => { },
-  onSelectionAborted = () => { },
+  onClose = () => {},
+  onSelect = () => {},
+  onRemove = () => {},
+  onSelectionConfirmed = () => {},
+  onSelectionAborted = () => {},
 }) => {
   const intitialData = useRef(selectedElements)
   const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
