@@ -11,16 +11,16 @@ export default class extends React.Component {
   render() {
     return (
       <Topbar
-        parentBankDescription={'parent_bank_description'}
-        parentBankCode={'parent_bank_code'}
-        bankDescription={'bank_description'}
-        bankCode={'bank_code'}
-        areaDescription={'area_description'}
-        areaCode={'area_code'}
-        branchDescription={'branch_description'}
-        branchCode={'branch_code'}
-        userName={'full_name'}
-        roleDescription={'role_description'}
+        parentBankDescription="Parent Bank"
+        parentBankCode="0001"
+        bankDescription="Bank"
+        bankCode="0002"
+        areaDescription="Area"
+        areaCode="0003"
+        branchDescription="Branch"
+        branchCode="0004"
+        userName="User"
+        roleDescription="ROLE"
         onLogout={this.logout}
         {...this.props}
       />

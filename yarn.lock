@@ -8922,14 +8922,15 @@ react-resizable@1.x:
     prop-types "15.x"
     react-draggable "^3.0.3"
 
-react-responsive@^5.0.0:
-  version "5.0.0"
-  resolved "http://nexus:8081/repository/npm-public/react-responsive/-/react-responsive-5.0.0.tgz#b6e559b2ce8c4d82b0d47a7a78a74645b977e4af"
-  integrity sha512-oEimZ0FTCC3/pjGDEBHOz06nWbBNDIbMGOdRYp6K9SBUmrqgNAX77hTiqvmRQeLyI97zz4F4kiaFRxFspDxE+w==
+react-responsive@^8.0.1:
+  version "8.0.1"
+  resolved "http://nexus:8081/repository/npm-public/react-responsive/-/react-responsive-8.0.1.tgz#38022665dfb759227880f4221c475438a06a1771"
+  integrity sha512-caseFCvFFV4QW+JOl7inzDme+avoX4r7GPpQJ+04NCzIgbroV3BU0noPgHGxVCEFKm9IsgcKOBAf+6MqIUeQIg==
   dependencies:
     hyphenate-style-name "^1.0.0"
     matchmediaquery "^0.3.0"
     prop-types "^15.6.1"
+    shallow-equal "^1.1.0"
 
 react-router-dom@^4.3.1:
   version "4.3.1"
@@ -9692,7 +9693,7 @@ shallow-equal-fuzzy@^0.0.2:
   resolved "http://nexus:8081/repository/npm-public/shallow-equal-fuzzy/-/shallow-equal-fuzzy-0.0.2.tgz#999717c968d36223b1bd7ea95405b697b19fd55c"
   integrity sha1-mZcXyWjTYiOxvX6pVAW2l7Gf1Vw=
 
-shallow-equal@^1.0.0:
+shallow-equal@^1.0.0, shallow-equal@^1.1.0:
   version "1.2.0"
   resolved "http://nexus:8081/repository/npm-public/shallow-equal/-/shallow-equal-1.2.0.tgz#fd828d2029ff4e19569db7e19e535e94e2d1f5cc"
   integrity sha512-Z21pVxR4cXsfwpMKMhCEIO1PCi5sp7KEp+CmOpBQ+E8GpHwKOw2sEzk7sgblM3d/j4z4gakoWEoPcjK0VJQogA==

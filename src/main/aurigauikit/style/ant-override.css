@@ -113,3 +113,41 @@ label .ant-select {
 .ant-layout-sider {
   min-height: 100vh;
 }
+
+.ant-menu-item > a:hover {
+  color: #fff !important;
+}
+
+.ant-menu-item-selected > a {
+  color: #fff !important;
+}
+
+.ant-menu-submenu-selected {
+  color: #fff !important;
+}
+
+.ant-menu-submenu-title {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.ant-menu-submenu-title:hover {
+  color: #fff !important;
+}
+
+.ant-menu-submenu-selected .ant-menu-submenu-title {
+  color: #fff !important;
+}
+
+.ant-menu-submenu-title:hover .ant-menu-submenu-arrow:before,
+.ant-menu-submenu-arrow::after {
+  background: #fff !important;
+}
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: 0 !important;
+}
+
+.ant-menu-submenu-popup {
+  position: fixed !important;
+}

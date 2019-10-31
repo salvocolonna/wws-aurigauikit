@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
@@ -6,40 +6,11 @@ import errorPic from './images/error.png'
 import { FormattedMessage as Msg } from 'react-intl'
 import messages from './messages'
 import './style.less'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout } from 'antd'
+import { useMediaQuery } from 'react-responsive'
 
-const { Header, Sider, Content } = Layout
+const { Content } = Layout
 
-class SiderDemo extends React.Component {
-  state = {
-    collapsed: false,
-  }
-
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    })
-  }
-
-  render() {
-    return (
-      <Layout>
-        <Layout>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              background: '#fff',
-              minHeight: 280,
-            }}
-          >
-            Content
-          </Content>
-        </Layout>
-      </Layout>
-    )
-  }
-}
 export const PageHeader = ({ children }) => (
   <section style={{ display: 'flex', justifyContent: 'space-between' }}>{children}</section>
 )
@@ -127,37 +98,33 @@ export const Error = withRouter(
 
 export const createPage = (Topbar, Sidebar) => {
   return Component =>
-    class extends React.Component {
-      state = { collapsed: false }
-
-      toggle = () => {
-        this.setState({
-          collapsed: !this.state.collapsed,
-        })
+    function(props) {
+      const [collapsed, setCollapsed] = useState(false)
+      const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+      function toggle() {
+        setCollapsed(!collapsed)
       }
-
-      render() {
-        return (
+      const isCollapsed = collapsed || isTabletOrMobile
+      return (
+        <Layout>
+          <Sidebar collapsed={collapsed} isTablet={isTabletOrMobile} />
           <Layout>
-            <Sidebar collapsed={this.state.collapsed} />
-            <Layout>
-              <Topbar onCollapse={this.toggle} collapsed={this.state.collapsed} />
-              <Content
-                style={{
-                  marginLeft: this.state.collapsed ? 80 : 200,
-                  marginTop: 64,
-                  padding: 24,
-                  background: '#fff',
-                  minHeight: 280,
-                }}
-              >
-                <Error>
-                  <Component {...this.props} />
-                </Error>
-              </Content>
-            </Layout>
+            <Topbar onCollapse={toggle} collapsed={collapsed} isTablet={isTabletOrMobile} />
+            <Content
+              style={{
+                marginLeft: isCollapsed ? 80 : 200,
+                marginTop: 64,
+                padding: 24,
+                background: '#fff',
+                minHeight: 280,
+              }}
+            >
+              <Error>
+                <Component {...props} />
+              </Error>
+            </Content>
           </Layout>
-        )
-      }
+        </Layout>
+      )
     }
 }

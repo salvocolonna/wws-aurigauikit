@@ -8,6 +8,7 @@ import Popover from 'aurigauikit/components/Popover'
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill'
 import { getToken } from './utils'
 import { getURL } from '../../ajax/utils'
+import { Icon, Badge } from 'aurigauikit/antd'
 
 window.EventSource = NativeEventSource || EventSourcePolyfill
 
@@ -232,26 +233,19 @@ class Notification extends React.Component {
         <span
           onClick={openPopover}
           style={{
-            color: unreadCount > 0 ? '#2984C5' : 'white',
+            color: unreadCount > 0 ? '#2984C5' : '#888',
             textShadow: unreadCount > 0 ? '0px 0px 10px #2984C5' : null,
             cursor: 'pointer',
           }}
         >
-          <i className="fa fa-bell" style={{ marginLeft: 9 }} ref={this.notificationRef} />
-          <span
-            style={{
-              color: unreadCount > 0 ? 'white' : 'white',
-              textShadow: unreadCount > 0 ? '0px 0px 10px white' : null,
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              position: 'absolute',
-              transform: 'translateX(-29px) translateY(-5px)',
-            }}
-          >
-            {unreadCount > 0 && unreadCount}
+          <span ref={this.notificationRef} style={{ marginLeft: 9, verticalAlign: 'bottom' }}>
+            <Icon type="bell" />
+            {unreadCount > 0 && (
+              <Badge style={{ verticalAlign: 'bottom' }} count={unreadCount} offset={[-5, 40]} />
+            )}
           </span>
         </span>
-        <Popover key="popover" position={position} onClose={this.closePopover}>
+        <Popover fixed key="popover" position={position} onClose={this.closePopover}>
           {content}
         </Popover>
       </div>

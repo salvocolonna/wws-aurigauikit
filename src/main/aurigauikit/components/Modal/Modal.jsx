@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import sizeMe from 'react-sizeme'
 import './modal.less'
 import debounce from 'lodash/debounce'
 import { Header, Content, Footer } from './components'
+
+const HideBodyScroll = () => {
+  useEffect(() => {
+    const styleTag = document.createElement('style')
+    styleTag.innerHTML = 'body { overflow: hidden !important; }'
+    document.head.appendChild(styleTag)
+    return () => document.head.removeChild(styleTag)
+  }, [])
+  return null
+}
 
 const ESC = 27
 
@@ -45,14 +55,17 @@ class Overlay extends React.Component {
   render() {
     const { children } = this.props
     return (
-      <div
-        onClick={this.clicked}
-        id={this.id}
-        className="react-modal-panel-overlay"
-        style={{ height: '100vh', width: '100vw', overflow: 'overlay' }}
-      >
-        {children}
-      </div>
+      <>
+        <HideBodyScroll />
+        <div
+          onClick={this.clicked}
+          id={this.id}
+          className="react-modal-panel-overlay"
+          style={{ height: '100vh', width: '100vw', overflow: 'overlay', overflowX: 'hidden' }}
+        >
+          {children}
+        </div>
+      </>
     )
   }
 }

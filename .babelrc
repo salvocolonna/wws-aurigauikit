@@ -1,38 +1,28 @@
 {
-  "presets": [
-    "@babel/typescript", "@babel/env", "@babel/react"
-  ],
+  "presets": ["@babel/typescript", "@babel/env", "@babel/react"],
   "plugins": [
     [
-			"import",
-			{ "libraryName": "antd", "libraryDirectory": "es", "style": true }
-		],
-    ["@babel/plugin-proposal-decorators", {
-      "legacy": true
-    }],
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread",
     [
       "module-resolver",
       {
-        "root": [
-          "src/main",
-          "node_modules/aurigauikit/src/main"
-        ]
+        "root": ["src/main", "node_modules/aurigauikit/src/main"]
       }
     ],
     "add-react-displayname",
-    [
-      "react-intl",
-      { "enforceDescriptions": false }
-    ]
+    ["react-intl", { "enforceDescriptions": false }],
+    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": true }]
   ],
   "env": {
     "production": {
-      "presets": [
-        "minify"
-      ]
+      "presets": ["minify"]
     }
   }
 }

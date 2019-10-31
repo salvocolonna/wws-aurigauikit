@@ -5,7 +5,7 @@
     "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
   },
   "scripts": {
-    "start": "concurrently \"yarn compile-demo --watch\" \"webpack-dev-server --hot --progress --colors\"",
+    "start": "concurrently \"yarn compile-demo --watch\" \"webpack-dev-server --hot --progress --colors --host 0.0.0.0\"",
     "compile-demo": "node src/main/demo/compile",
     "refresh": "node src/main/demo/demo-builder --refresh",
     "lint": "eslint --fix src/main/aurigauikit/**/*.js src/main/aurigauikit/**/*.jsx ./webpack.config.babel.js ./copy-package.js",
@@ -117,7 +117,7 @@
     "react-intl": "^2.7.1",
     "react-leaflet": "^2.2.1",
     "react-leaflet-markercluster": "^2.0.0-rc3",
-    "react-responsive": "^5.0.0",
+    "react-responsive": "^8.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-select2-wrapper": "^1.0.4-beta6",
