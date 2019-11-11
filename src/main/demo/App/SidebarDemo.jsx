@@ -26,20 +26,13 @@ class SidebarDemo extends React.Component {
 
   render() {
     return (
-      <Sidebar
-        basename="/"
-        router
-        items={this.items}
-        onLogoClick={this.onLogoClick}
-        logo={logo}
-        {...this.props}
-      >
+      <Sidebar router items={this.items} onLogoClick={this.onLogoClick} logo={logo} {...this.props}>
         {visibleComponents.map(displayName => (
           <Item
-            key={displayName}
             id={displayName.toLowerCase()}
             name={displayName}
             href={'/' + displayName}
+            icon="arrow-right"
           />
         ))}
       </Sidebar>
