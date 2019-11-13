@@ -45,12 +45,21 @@ const Sidebar = class extends React.Component {
   }
 
   render() {
-    const { children, logo, onLogoClick, items, basename, topbar, collapsed, isTablet } = this.props
+    const {
+      children,
+      logo,
+      onLogoClick,
+      items,
+      basename,
+      topbar,
+      collapsed,
+      isTablet,
+      hash,
+    } = this.props
     const { openSubMenu } = this.state
 
     const isCollapsed = collapsed || isTablet
-    const activeKeys = getActiveKeys(children, basename, isCollapsed)
-
+    const activeKeys = getActiveKeys(children, basename, isCollapsed, hash)
     return (
       <Sider
         style={{
@@ -66,18 +75,18 @@ const Sidebar = class extends React.Component {
         collapsible
         collapsed={isCollapsed}
       >
-        {logo && <Logo src={logo} onClick={() => onLogoClick()} height={topbar} />}
+        {logo && <Logo src={logo} onClick={() => onLogoClick && onLogoClick()} height={topbar} />}
         <Menu
           multiple
           mode="inline"
           selectedKeys={activeKeys}
           openKeys={[...activeKeys, openSubMenu]}
         >
-          {Children.map(children, (child, i) => {
+          {Children.map(children, child => {
             if (child && child.type === Item && canView(items, child)) {
-              const { href, icon, name, id } = child.props
+              const { href, icon, name, key } = child.props
               return (
-                <Menu.Item key={id}>
+                <Menu.Item key={key}>
                   <Link to={href} style={{ textDecoration: 'none' }}>
                     <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
                     <span>{name}</span>
@@ -85,11 +94,12 @@ const Sidebar = class extends React.Component {
                 </Menu.Item>
               )
             } else if (child && child.type === SubMenu) {
-              const id = child.props.id
+              const key = child.key
               const submenuItems = Children.map(child.props.children, child => {
-                if (child && child.type === Item && canView(items, child, id)) {
+                if (child && child.type === Item && (hash || canView(items, child, key))) {
+                  const key = child.key
                   return (
-                    <Menu.Item key={id + '.' + child.props.id}>
+                    <Menu.Item key={key}>
                       <Link to={child.props.href} style={{ textDecoration: 'none' }}>
                         <span>{child.props.name}</span>
                       </Link>
@@ -101,9 +111,9 @@ const Sidebar = class extends React.Component {
               return (
                 submenuItems.length > 0 && (
                   <AntSubMenu
-                    key={id}
+                    key={key}
                     fixed
-                    onTitleClick={() => this.onSubMenuClick(id + '/.' + i)}
+                    onTitleClick={() => this.onSubMenuClick('.$' + key)}
                     title={
                       <span>
                         <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
@@ -123,25 +133,25 @@ const Sidebar = class extends React.Component {
   }
 }
 
-function getActiveKeys(children, basename, collapsed) {
-  return React.Children.toArray(children).reduce((activeKeys, child, i) => {
+function getActiveKeys(children, basename, collapsed, hash) {
+  return React.Children.toArray(children).reduce((activeKeys, child) => {
     if (child && child.type === Item) {
-      const active = isActive(child.props.href, basename)
-      if (active) return [...activeKeys, child.props.id + '/.' + i]
+      const active = isActive(child.props.href, hash, basename)
+      if (active) return [...activeKeys, child.key]
     } else if (child && child.type === SubMenu) {
-      const id = child.props.id
+      const key = child.key
       const activeItems = React.Children.toArray(child.props.children).reduce(
-        (activeKeys, child, i) => {
+        (activeKeys, child) => {
           if (child.type === Item) {
-            const active = isActive(child.props.href, basename)
-            if (active) return [...activeKeys, id + '.' + child.props.id + '/.' + i]
+            const active = isActive(child.props.href, hash, basename)
+            if (active) return [...activeKeys, child.key]
           }
           return activeKeys
         },
         []
       )
       if (activeItems.length > 0 && !collapsed) {
-        activeItems.push(id + '/.' + i)
+        activeItems.push(key)
       }
       return [...activeKeys, ...activeItems]
     }
@@ -156,11 +166,15 @@ Sidebar.displayName = 'Sidebar'
 Item.displayName = 'Item'
 SubMenu.displayName = 'SubMenu'
 
-function isActive(to, basename = '') {
+function isActive(to, isHash, basename = '') {
   const href = basename + to
   let end = href.length
   if (href.indexOf('?') > 0) end = href.indexOf('?')
   const relativeHref = href.substr(0, end)
+  if (isHash) {
+    const hash = location.hash.substring(1)
+    return hash === relativeHref || hash.startsWith(relativeHref + '/')
+  }
   return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + '/')
 }
 
@@ -170,11 +184,11 @@ const Logo = ({ src, onClick }) => (
   </div>
 )
 
-const canView = (items = [], child, parentId) => {
+const canView = (items = [], child, parentKey) => {
   if (!child.props) return false
-  let id = child.props.id
-  if (parentId) id = parentId + '.' + id
-  return items.includes(id) || items.includes(child.props.id)
+  let key = child.key
+  if (parentKey) key = parentKey + '.' + key
+  return items.includes(key)
 }
 
 Sidebar.SubMenu = SubMenu
