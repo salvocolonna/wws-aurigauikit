@@ -181,6 +181,17 @@ export default {
       code: () => import('!raw-loader!../components/Ticker/Url'),
     },
   },
+  Tooltip: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/Tooltip/Base')),
+      code: () => import('!raw-loader!../components/Tooltip/Base'),
+    },
+    Legacy: {
+      component: lazy(() => import('../components/Tooltip/Legacy')),
+      code: () => import('!raw-loader!../components/Tooltip/Legacy'),
+    },
+  },
   Workflow: {
     metadata: {},
     Base: {
