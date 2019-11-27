@@ -12,3 +12,4 @@ src/main/demo/build
 dist
 .vscode
 scripts/deploy/deploy-config.js
+.idea

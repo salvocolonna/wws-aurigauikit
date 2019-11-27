@@ -1,6 +1,6 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "./breadcrumb.less"
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './breadcrumb.less'
 
 export const BreadcrumbLink = ({ name, to, last, router }) => (
   <li className={last ? "line-last" : ""}>
