@@ -5,17 +5,17 @@
  Copyright 2016 Auriga S.p.A.
  */
 
-@import "constants.less";
-@import "typography.less";
-@import "helpers.less";
+@import 'constants.less';
+@import 'typography.less';
+@import 'helpers.less';
 
 // @import "sidebar.less";
 
 // @import "tabs.less";
-@import "page-loading.less";
+@import 'page-loading.less';
 //
- @import "dots.less";
- @import "labels.less";
+@import 'dots.less';
+@import 'labels.less';
 //
 // @import "table.less";
 // @import "table-celleditor.less";
@@ -23,14 +23,14 @@
 // @import "menu.less";
 
 //
- @import "buttons.less";
+@import 'buttons.less';
 //
 // @import "avatar.less";
 //
-@import "form-label.less";
-@import "form-input_textarea.less";
+@import 'form-label.less';
+@import 'form-input_textarea.less';
 
-@import "form-validation.less";
+@import 'form-validation.less';
 //
 
 // @import "checkboxes.less"; /* Uncommented */
@@ -38,8 +38,8 @@
 // @import "datepicker.less"; /* Uncommented */
 // @import "tooltips.less";
 //
- @import "static-panels.less";
-@import "temporary-panels.less";
+@import 'static-panels.less';
+@import 'temporary-panels.less';
 // @import "modal-panels.less";
 //
 // @import "basic-filter.less";
@@ -47,31 +47,33 @@
 // @import "auriga-chart.less";
 // @import "switch.less";
 
-@import "google-map.less";
+@import 'google-map.less';
 
 *:focus {
-    outline: 0;
+  outline: 0;
 }
 
 div#filter {
-	padding: 20px;
-	margin-bottom: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
 
-	background-color: @background_2_color;
-	//background-color: whitesmoke;
+  background-color: @background_2_color;
+  //background-color: whitesmoke;
 }
 
 div#filter div.button {
-	text-align: right;
+  text-align: right;
 }
 
 @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.tooltip{
-	font-size: 1.2em;
-}
-.tooltip:hover{
-	color: @primary_color;
+.tooltip {
+  font-size: 1.2em;
+  cursor: pointer;
 }
