@@ -67,10 +67,9 @@ class Card extends React.Component {
         ) : (
           <>
             {title && (
-              <div className="header">
+              <div className="header" onClick={() => this.onClick()}>
                 <div
                   className={`title ${onlyAction ? 'only-action' : isAction ? 'action' : ''}`}
-                  onClick={onlyAction && (() => this.onClick())}
                   style={{ cursor: 'pointer' }}
                 >
                   <h4 style={{ position: 'relative' }}>
@@ -79,7 +78,6 @@ class Card extends React.Component {
                         display: 'inline-block',
                         height: '100%',
                       }}
-                      onClick={() => this.onClick()}
                     >
                       {collapsable && (
                         <i
