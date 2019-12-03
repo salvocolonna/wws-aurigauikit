@@ -82,10 +82,10 @@ class Topbar extends React.Component {
             </li>
             <li>{roleDescription && roleDescription.split('_').join(' ')}</li>
           </MediaQuery>
-          <li style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
+         {onLogout && <li style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
             <i className="fa fa-sign-out" />
             Logout
-          </li>
+          </li>}
         </ul>
       </header>
     )
