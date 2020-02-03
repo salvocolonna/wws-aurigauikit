@@ -96,32 +96,30 @@ table.table {
       padding: @table_padding;
 
       &.editable {
-        &:hover {
-          .clickable();
+        .clickable();
 
+        color: @accent_color;
+        border: 1px dashed @accent_color;
+
+        &:before {
+          margin-top: 1px;
+          margin-right: 5px;
           color: @accent_color;
-          border: 1px dashed @accent_color;
+          font-family: 'Font Awesome 5 Free';
+          content: '\f304';
+          font-weight: 600;
+        }
 
-          &:before {
-            margin-top: 1px;
-            margin-right: 5px;
-            color: @accent_color;
-            font-family: 'Font Awesome 5 Free';
-            content: '\f040';
-            font-weight: 600;
-          }
-
-          &:after {
-            display: none;
-          }
+        &:after {
+          display: none;
         }
       }
 
-      &.editable-left:hover:after {
+      &.editable-left:after {
         float: right;
       }
 
-      &.editable-right:hover:after {
+      &.editable-right:after {
         float: left;
       }
     }
