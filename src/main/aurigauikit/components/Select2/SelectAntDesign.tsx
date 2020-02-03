@@ -66,6 +66,7 @@ interface SelectProps {
   value?: any
   loading?: boolean
   disabled?: boolean
+  onSearch?: (v: string) => void
 }
 
 function SelectAnt({ didSelect, ...props }: SelectProps) {
@@ -152,6 +153,7 @@ function SelectAnt({ didSelect, ...props }: SelectProps) {
       onBlur={() => setIsOpened(false)}
       open={isOpened}
       loading={props.loading}
+      onSearch={props.onSearch}
       disabled={props.disabled}
     >
       {options}
