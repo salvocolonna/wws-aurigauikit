@@ -28,13 +28,6 @@
           transform: translateX(1px) translateY(-38px);
           font-weight: bold;
         }
-        .Timeline-actionButton {
-          cursor: pointer;
-          pointer-events: all;
-          &:hover {
-            box-shadow: -1px 1px 4px #999;
-          }
-        }
       }
       &.active {
         opacity: 1;
@@ -47,13 +40,19 @@
         padding: 0 10px;
         margin-bottom: 29px;
         .Timeline-label {
+          &:not(.unselectable) {
+            cursor: pointer;
+          }
           position: relative;
-          cursor: pointer;
           pointer-events: all;
+          user-select: none;
           .Timeline-text {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+          }
+          .skipped-text {
+            opacity: 0.5;
           }
           display: inline-grid;
           background-color: #eee;
@@ -151,7 +150,7 @@
       &.active:after {
         background: #3498db;
       }
-      &.active {
+      &.active:not(.skipped) {
         .Timeline-ball {
           border-color: #3498db;
           background: #3498db;
@@ -163,14 +162,25 @@
         &:after {
           border-style: dashed;
         }
-        .Timeline-label {
+        .Timeline-label:not(.unselectable) {
+          cursor: not-allowed;
+        }
+      }
+
+      &.skipped {
+        &:after {
+          border-style: dashed;
+        }
+        .Timeline-label:not(.unselectable) {
           cursor: not-allowed;
         }
       }
       &.current {
-        .Timeline-label {
-          cursor: initial;
+        .Timeline-label:not(.unselectable) {
           box-shadow: 0px 1px 1px #ccc;
+          &:not(.unselectable) {
+            cursor: initial;
+          }
         }
         .Timeline-arrow {
           border-left: 12px solid transparent;
@@ -182,8 +192,8 @@
         }
       }
       &:hover {
-        &:not(.disabled) {
-          .Timeline-label {
+        &:not(.disabled):not(.skipped) {
+          .Timeline-label:not(.unselectable) {
             box-shadow: 0px 1px 1px #ccc;
           }
           .Timeline-arrow {
@@ -201,10 +211,17 @@
         &:after {
           border-style: dashed;
         }
-        .Timeline-label {
+        .Timeline-label:not(.unselectable) {
           cursor: not-allowed;
         }
-        &:hover {
+      }
+
+      &.skipped {
+        &:after {
+          border: 1px solid #3498db;
+        }
+        .Timeline-label:not(.unselectable) {
+          cursor: not-allowed;
         }
       }
       .Timeline-warning {
@@ -244,7 +261,7 @@
 
       &.disabled {
         opacity: 0.5;
-        .Timeline-label {
+        .Timeline-label:not(.unselectable):not(.skipped) {
           cursor: not-allowed;
         }
       }
@@ -263,15 +280,18 @@
           margin-left: 9px;
         }
       }
-      .Timeline-label {
-        cursor: pointer;
+      .Timeline-label:not(.unselectable) {
         text-align: center;
+        user-select: none;
         background-color: #eee;
         padding: 10px;
         margin-top: 5px;
         margin-bottom: 5px;
         box-shadow: -1px 1px 4px #999;
         width: 100%;
+      }
+      &:not(.skipped) {
+        cursor: pointer;
       }
       &.active {
         opacity: 1;
@@ -280,14 +300,14 @@
         }
       }
       &.current {
-        .Timeline-label {
+        .Timeline-label:not(.unselectable) {
           cursor: initial;
           box-shadow: 0px 1px 1px #ccc;
         }
       }
       &:hover {
-        &:not(.disabled) {
-          .Timeline-label {
+        &:not(.disabled):not(.skipped) {
+          .Timeline-label:not(.unselectable) {
             box-shadow: 0px 1px 1px #ccc;
           }
         }
