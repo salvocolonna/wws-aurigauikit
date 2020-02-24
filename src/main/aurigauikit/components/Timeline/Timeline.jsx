@@ -7,7 +7,7 @@ const PAD = 20
 
 const classes = classes => classes.join(' ')
 
-const SizedUl = sizeMe()(props => <ul {...props} />)
+const SizedDiv = sizeMe()(props => <div {...props} />)
 
 export const Step = ({
   unselectable,
@@ -112,25 +112,27 @@ class Timeline extends React.Component {
     const steps = this.getSteps()
     return (
       <div className={mini ? 'TimelineMini' : 'Timeline'}>
-        <SizedUl onSize={this.changeSize}>
-          {steps.map((step, i) => {
-            const props = {
-              unselectable,
-              key: i,
-              active: i <= index,
-              current: i === index,
-              mini,
-              onClick: onChange && (() => onChange(i)),
-              ...step.props,
-            }
-            if (children) return React.cloneElement(step, props)
-            return (
-              <Step key={i} {...props}>
-                {step}
-              </Step>
-            )
-          })}
-        </SizedUl>
+        <SizedDiv onSize={this.changeSize}>
+          <ul>
+            {steps.map((step, i) => {
+              const props = {
+                unselectable,
+                key: i,
+                active: i <= index,
+                current: i === index,
+                mini,
+                onClick: onChange && (() => onChange(i)),
+                ...step.props,
+              }
+              if (children) return React.cloneElement(step, props)
+              return (
+                <Step key={i} {...props}>
+                  {step}
+                </Step>
+              )
+            })}
+          </ul>
+        </SizedDiv>
       </div>
     )
   }
