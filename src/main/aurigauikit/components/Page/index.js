@@ -116,7 +116,11 @@ export const createPage = (Topbar, Sidebar) => {
       render() {
         return (
           <div id="container">
-            <SizedSidebar onSize={this.onSidebar} topbar={this.state.topbar} />
+            <SizedSidebar
+              onSize={this.onSidebar}
+              topbar={this.state.topbar}
+              {...this.props.sidebarProps}
+            />
             <div id="main">
               <SizedTopbar onSize={this.onTopbar} />
               <div
