@@ -194,7 +194,12 @@ function isActive(to, basename = '') {
   let end = href.length
   if (href.indexOf('?') > 0) end = href.indexOf('?')
   const relativeHref = href.substr(0, end)
-  return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + '/')
+  return (
+    location.pathname === relativeHref ||
+    location.pathname.startsWith(relativeHref + '/') ||
+    location.hash === relativeHref ||
+    location.hash.startsWith(relativeHref + '/')
+  )
 }
 
 const Logo = ({ src, onClick, height }) => (
