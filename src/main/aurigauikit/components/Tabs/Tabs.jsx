@@ -18,25 +18,27 @@ class Tabs extends React.Component {
 
   render() {
     const { bordered, show = true } = this.props
-    const children = React.Children.map(this.props.children, (child, index) =>
-      this.props.router ? (
-        <Routed
-          render={props => {
-            return React.cloneElement(child, {
-              isOpen:
-                props.match.url.toLowerCase() ===
-                ((this.props.basename || '') + child.props.path.split('?')[0]).toLowerCase(),
-              onClick: () => props.history.push((this.props.basename || '') + child.props.path),
-            })
-          }}
-        />
-      ) : (
-        React.cloneElement(child, {
-          isOpen: this.state.current === index,
-          onClick: () => this.tabClicked(index, child.props.name),
-        })
+    const children = React.Children.toArray(this.props.children)
+      .filter(Boolean)
+      .map((child, index) =>
+        this.props.router ? (
+          <Routed
+            render={props => {
+              return React.cloneElement(child, {
+                isOpen:
+                  props.match.url.toLowerCase() ===
+                  ((this.props.basename || '') + child.props.path.split('?')[0]).toLowerCase(),
+                onClick: () => props.history.push((this.props.basename || '') + child.props.path),
+              })
+            }}
+          />
+        ) : (
+          React.cloneElement(child, {
+            isOpen: this.state.current === index,
+            onClick: () => this.tabClicked(index, child.props.name),
+          })
+        )
       )
-    )
 
     const content = this.props.router ? (
       <Switch>
@@ -49,7 +51,7 @@ class Tabs extends React.Component {
         ))}
       </Switch>
     ) : (
-      children[this.state.current].props.children
+      children[this.state.current] && children[this.state.current].props.children
     )
 
     return (
