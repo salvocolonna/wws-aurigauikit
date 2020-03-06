@@ -19,14 +19,15 @@ function getScrollbarWidth() {
 }
 
 const getData = (data = []) => () => {
+  const elements = Array.isArray(data) ? data : [data]
   const types = Array.from(
-    data.reduce((types, ou) => {
+    elements.reduce((types, ou) => {
       if (ou) types.add(ou.type)
       return types
     }, new Set())
   )
   return types.map(type => {
-    const items = data.filter(item => item.type === type)
+    const items = elements.filter(item => item.type === type)
     return { type, items }
   })
 }
@@ -47,7 +48,8 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
     <div
       className={'OuType' + (popover.position ? ' OuTypeOpen' : '')}
       onClick={popover.show}
-      ref={ref}>
+      ref={ref}
+    >
       {items.length} {name}
       <Popover {...popover}>
         <div className="OuPopover">
@@ -58,7 +60,8 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
                 width: items.length <= 3 ? null : `calc(100% - ${scroll}px`,
                 paddingTop: 1,
                 borderRadius: 4,
-              }}>
+              }}
+            >
               <label className="OuSearch">Search</label>
               <input
                 className="OuSearchInput"
