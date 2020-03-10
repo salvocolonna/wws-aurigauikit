@@ -15,6 +15,7 @@ const OuSelect = ({
   multiple,
   intl,
   selectableType = 'multiple',
+  placeholder,
   onSelectionChange = () => true,
   onSelect = () => {},
   canSelect = () => true,
@@ -40,14 +41,19 @@ const OuSelect = ({
 
   const display = useCallback(v => `${v.description} (${v.code})`, [])
 
+  const disabledItem = disabled && defaultSelection ? defaultSelection : selectedItem
   return disabled ? (
     <input
       type="text"
       disabled
       style={{ width: '100%', backgroundColor: '#fff' }}
-      value={`${intl.formatMessage(messages.type[defaultSelection.type])} - ${
-        defaultSelection.description
-      } (${defaultSelection.code})`}
+      value={
+        disabledItem
+          ? `${intl.formatMessage(messages.type[disabledItem.type])} - ${
+              disabledItem.description
+            } (${disabledItem.code})`
+          : placeholder || intl.formatMessage(messages.type.placeholder)
+      }
     />
   ) : (
     <div style={{ display: 'inline-flex', width: '100%' }}>
@@ -59,6 +65,7 @@ const OuSelect = ({
             onSelectionChange(e)
             onSelect(e[e.length - 1])
           }}
+          onSelectAborting={e => onSelectionChange(e)}
           defaultSelection={defaultSelection}
           radioOptions={radioOptions}
           datasource={datasource}
@@ -70,14 +77,27 @@ const OuSelect = ({
           onClose={() => setShow(false)}
         />
       )}
-      {selectedElements.length === 1 ? (
+      {selectedElements.length > 0 && placeholder ? (
+        <Select2
+          data={[placeholder, ...selectedElements]}
+          value={selectedItem || placeholder}
+          didSelect={o => (o === placeholder ? onSelect(null) : onSelect(o))}
+          willDisplay={d => (placeholder === d ? d : display(d))}
+          style={{
+            width: '100%',
+            color: (!selectedItem || selectedItem === placeholder) && '#aaa',
+          }}
+        />
+      ) : selectedElements.length === 1 ? (
         <Single element={selectedElements[0]} />
+      ) : !selectedItem ? (
+        <Placeholder placeholder={placeholder} />
       ) : multiple ? (
         <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
       ) : (
         <Select2
           data={selectedElements}
-          value={selectedItem}
+          value={selectedItem || intl.formatMessage(messages.type.placeholder)}
           didSelect={onSelect}
           willDisplay={display}
           style={{ width: '100%' }}
@@ -87,6 +107,15 @@ const OuSelect = ({
     </div>
   )
 }
+
+const Placeholder = injectIntl(({ placeholder, intl }) => (
+  <input
+    type="text"
+    disabled
+    style={{ width: '100%', backgroundColor: '#fff', color: '#aaa' }}
+    value={placeholder || intl.formatMessage(messages.type.placeholder)}
+  />
+))
 
 const Single = injectIntl(({ element, intl }) => (
   <input
