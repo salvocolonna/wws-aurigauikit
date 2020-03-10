@@ -79,6 +79,7 @@ const OuModal = ({
   onRemove = () => {},
   onSelectionConfirmed = () => {},
   onSelectionAborted = () => {},
+  onSelectAborting = onSelect,
 }) => {
   const intitialData = useRef(selectedElements)
   const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
@@ -143,13 +144,13 @@ const OuModal = ({
   }
 
   const close = () => {
-    onSelect(intitialData.current)
+    onSelectAborting(intitialData.current)
     onClose()
     onSelectionAborted()
   }
 
   const abort = () => {
-    onSelect(intitialData.current)
+    onSelectAborting(intitialData.current)
     onClose()
     onSelectionAborted()
   }
@@ -342,32 +343,6 @@ async function fetchRoot(datasource) {
   } catch (error) {
     console.log(error)
   }
-}
-
-const filterSelection = (elements, newElements) => {
-  const getParents = path => {
-    if (path === '0') return []
-    const paths = (path || '0').split('-')
-    paths.pop()
-    const parentPath = paths.join('-')
-    const parent = elements.find(e => (e.path || '0') === parentPath)
-    return [...getParents(parentPath), parent]
-  }
-  const parents = newElements
-    .reduce((parents, e) => [...parents, ...getParents(e.path)], [])
-    .filter(Boolean)
-
-  const children = newElements
-    .reduce((children, e) => {
-      return [
-        ...children,
-        ...elements.filter(n => n.path !== e.path && (n.path || '0').startsWith(e.path || '0')),
-      ]
-    }, [])
-    .filter(Boolean)
-  return elements.filter(e => {
-    return !(parents.find(a => dataComparator(a, e)) || children.find(a => dataComparator(a, e)))
-  })
 }
 
 export default injectIntl(OuModal)
