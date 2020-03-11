@@ -1,0 +1,28 @@
+.organizational-unit-grid {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 95%;
+  position: relative;
+
+  .organizational-unit-tree {
+    padding: 10px;
+    height: 480px;
+  }
+
+  .organizational-unit-table {
+    padding: 10px;
+    overflow: hidden;
+    height: 100%;
+  }
+}
+
+@media (max-width: 1210px) {
+  .organizational-unit-grid {
+    .organizational-unit-tree {
+      width: 100% !important;
+    }
+    .organizational-unit-table {
+      width: 100% !important;
+    }
+  }
+}
