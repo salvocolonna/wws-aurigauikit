@@ -165,6 +165,7 @@ const InlineOu = ({
         <div className="col-5-12 organizational-unit-table">
           {tree.element && tree.element.table && (
             <SimpleTable
+              sortable
               selectable
               selectableType={selectableType}
               pageable
