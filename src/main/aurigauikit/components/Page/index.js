@@ -101,7 +101,7 @@ export const createPage = (Topbar, Sidebar) => {
       onSidebar = size => this.setState({ sidebar: size.width })
       getSize = () => {
         const { topbar, sidebar } = this.state
-        if (topbar === 0 && sidebar === 0) return { width: '100%' }
+        if (topbar === 0 && sidebar === 0) return null
         const width = `calc(100vw - ${sidebar}px)`
         const height = `calc(100vh - ${topbar}px)`
         const minWidtb = width
@@ -114,6 +114,7 @@ export const createPage = (Topbar, Sidebar) => {
       }
 
       render() {
+        const size = this.getSize()
         return (
           <div id="container">
             <SizedSidebar
@@ -123,22 +124,23 @@ export const createPage = (Topbar, Sidebar) => {
             />
             <div id="main">
               <SizedTopbar onSize={this.onTopbar} />
-              <div
-                id="content-dynamic"
-                style={{
-                  display: 'block',
-                  position: 'relative',
-                  overflowY: 'auto',
-                  overflowX: 'hidden',
-                  ...this.getSize(),
-                  opacity: this.state.opacity,
-                  minWidth: 300,
-                }}
-              >
-                <Error>
-                  <Component {...this.props} />
-                </Error>
-              </div>
+              {size && (
+                <div
+                  id="content-dynamic"
+                  style={{
+                    display: 'block',
+                    position: 'relative',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    opacity: this.state.opacity,
+                    ...size,
+                  }}
+                >
+                  <Error>
+                    <Component {...this.props} />
+                  </Error>
+                </div>
+              )}
             </div>
           </div>
         )

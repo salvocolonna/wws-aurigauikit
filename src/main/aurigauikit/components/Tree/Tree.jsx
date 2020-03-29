@@ -1,14 +1,14 @@
-import React from "react"
-import TreeElement from "./TreeElement"
-import Select2 from "aurigauikit/components/Select2"
-import "./tree.less"
+import React from 'react'
+import TreeElement from './TreeElement'
+import Select2 from 'aurigauikit/components/Select2'
+import './tree.less'
 
 class Tree extends React.Component {
   traverse = (tree, selectedPath) => {
-    if (!selectedPath) return ""
-    const paths = selectedPath.split("-")
+    if (!selectedPath) return ''
+    const paths = selectedPath.split('-')
     if (paths.length > 1) {
-      return this.traverse(tree[paths[0]].children, paths.slice(1, paths.length).join("-"))
+      return this.traverse(tree[paths[0]].children, paths.slice(1, paths.length).join('-'))
     }
     return tree[paths[0]]
   }
@@ -17,7 +17,7 @@ class Tree extends React.Component {
     if (!this.props.loadingPath) {
       let newPath = path
       if (open) {
-        if (this.props.selectedPath === path) newPath = path.substring(0, path.lastIndexOf("-"))
+        if (this.props.selectedPath === path) newPath = path.substring(0, path.lastIndexOf('-'))
         else newPath = this.props.openPath
       }
       if (this.props.onElementClick)
@@ -28,7 +28,7 @@ class Tree extends React.Component {
   getSelects(data = this.props.data) {
     const selector = (
       <Select2
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         data={data}
         value={data[0]}
         willDisplay={child => child.node && child.node.name}
@@ -50,13 +50,13 @@ class Tree extends React.Component {
                   hidePrevious={hidePrevious}
                   element={element}
                   index={index}
-                  willDisplay={node => this.props.willDisplay(node)}
+                  willDisplay={(node, path) => this.props.willDisplay(node, path)}
                   openPath={this.props.openPath}
                   selectedPath={this.props.selectedPath}
                   customIcon={getIcon && getIcon(element)}
                   getIcon={getIcon}
                   getVisibility={getVisibility}
-                  loadingPath={this.props.loadingPath || ""}
+                  loadingPath={this.props.loadingPath || ''}
                   onClick={(open, path) => this.onElementClick(open, path)}
                 />
               )
