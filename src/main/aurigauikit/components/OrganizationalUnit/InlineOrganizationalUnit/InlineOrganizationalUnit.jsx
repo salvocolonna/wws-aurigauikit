@@ -217,11 +217,7 @@ const TreeNode = ({ canSelect, unselect, selectElements, selectedElements, node,
   }
   return (
     <span>
-      {canSelect(element) ? (
-        <Checkbox checked={checked} onClick={select} />
-      ) : (
-        <span style={{ width: 16, height: 16, float: 'left' }} />
-      )}
+      {canSelect(element) && <Checkbox checked={checked} onClick={select} />}
       <span>{`${node.getDescription()} (${node.getCode()})`}</span>
     </span>
   )
