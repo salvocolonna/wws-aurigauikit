@@ -7,6 +7,7 @@ import messages from '../messages'
 import OrganizationalUnit from '../OrganizationalUnit'
 import Tree from 'aurigauikit/components/Tree'
 import './organizational-unit-modal.less'
+import { Checkbox } from 'antd'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
 
@@ -155,7 +156,16 @@ const InlineOu = ({
             onElementClick={tree.update}
             openPath={tree.openPath}
             selectedPath={tree.selectedPath}
-            willDisplay={node => `${node.getDescription()} (${node.getCode()})`}
+            willDisplay={(node, path) => (
+              <TreeNode
+                node={node}
+                path={path}
+                selectedElements={selectedElements}
+                selectElements={selectElements}
+                unselect={unselect}
+                canSelect={canSelect}
+              />
+            )}
             loadingPath={tree.loadingPath}
             canView={(option ? option.canView : canView) || canView}
             data={tree.data}
@@ -185,6 +195,33 @@ const InlineOu = ({
         />
       </div>
     </>
+  )
+}
+
+const TreeNode = ({ canSelect, unselect, selectElements, selectedElements, node, path }) => {
+  const element = {
+    path,
+    id: node.getID(),
+    type: node.getType(),
+    code: node.getCode(),
+    description: node.getDescription(),
+  }
+  const checked = !!selectedElements.find(a => dataComparator(a, element))
+  const select = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!checked) selectElements([...selectedElements, element])
+    else unselect(element)
+  }
+  return (
+    <span>
+      {canSelect(element) ? (
+        <Checkbox checked={checked} onClick={select} />
+      ) : (
+        <span style={{ width: 16, height: 16, float: 'left' }} />
+      )}
+      <span>{`${node.getDescription()} (${node.getCode()})`}</span>
+    </span>
   )
 }
 
