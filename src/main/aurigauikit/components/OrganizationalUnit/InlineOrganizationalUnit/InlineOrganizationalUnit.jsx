@@ -98,6 +98,7 @@ const InlineOu = ({
 
   const selectElements = elements => {
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
+    const oldElements = elements.filter(n => selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
       if (!path || path === '0') return []
       const paths = (path || '0').split('-')
@@ -113,7 +114,7 @@ const InlineOu = ({
       .reduce((children, e) => {
         return [
           ...children,
-          ...elements.filter(n => n.path !== e.path && (n.path || '0').startsWith(e.path || '0')),
+          ...oldElements.filter(n => n.path && n.path !== e.path && n.path.startsWith(e.path)),
         ]
       }, [])
       .filter(Boolean)
@@ -174,6 +175,7 @@ const InlineOu = ({
         <div className="col-5-12 organizational-unit-table">
           {tree.element && tree.element.table && (
             <SimpleTable
+              sortable
               selectable
               selectableType={selectableType}
               pageable
