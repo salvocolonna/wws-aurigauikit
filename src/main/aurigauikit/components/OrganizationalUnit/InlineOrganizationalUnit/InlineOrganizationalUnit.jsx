@@ -163,7 +163,6 @@ const InlineOu = ({
                 path={path}
                 selectedElements={selectedElements}
                 selectElements={selectElements}
-                unselect={unselect}
                 canSelect={canSelect}
               />
             )}
@@ -200,7 +199,7 @@ const InlineOu = ({
   )
 }
 
-const TreeNode = ({ canSelect, unselect, selectElements, selectedElements, node, path }) => {
+const TreeNode = ({ canSelect, selectElements, selectedElements, node, path }) => {
   const element = {
     path,
     id: node.getID(),
@@ -213,7 +212,7 @@ const TreeNode = ({ canSelect, unselect, selectElements, selectedElements, node,
     e.preventDefault()
     e.stopPropagation()
     if (!checked) selectElements([...selectedElements, element])
-    else unselect(element)
+    else selectElements(selectedElements.filter(e => !dataComparator(e, element)))
   }
   return (
     <span>
