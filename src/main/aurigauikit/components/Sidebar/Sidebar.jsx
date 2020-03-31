@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 import './sidebar.less'
 import { Layout, Menu, Icon } from 'aurigauikit/antd'
-
+import { Item, SubMenu } from './SidebarLegacy'
 const { SubMenu: AntSubMenu } = Menu
 const { Sider } = Layout
 
@@ -159,9 +159,6 @@ function getActiveKeys(children, basename, collapsed, hash) {
   }, [])
 }
 
-class Item extends React.Component {}
-class SubMenu extends React.Component {}
-
 Sidebar.displayName = 'Sidebar'
 Item.displayName = 'Item'
 SubMenu.displayName = 'SubMenu'
@@ -190,6 +187,7 @@ const Logo = ({ src, onClick }) => (
 )
 
 const canView = (items = [], child, parentKey) => {
+  console.log({ items, child, parentKey })
   if (!child.props) return false
   let key = child.key
   if (parentKey) key = parentKey + '.' + key

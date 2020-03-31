@@ -9,25 +9,28 @@ export const BreadcrumbLink = ({ name, to, last, router }) => (
   </li>
 )
 
-export const Breadcrumb = ({ name, children, router }) => (
-  <nav style={{ display: 'inline-block' }}>
-    <ol className="breadcrumb">
-      {children ? (
-        children.length > 0 ? (
-          children.map((child, index) =>
-            index < children.length - 1 ? (
-              <BreadcrumbLink router={router} {...child.props} key={index} />
-            ) : (
-              <BreadcrumbLink router={router} {...child.props} key={index} last />
+export const Breadcrumb = ({ name, children, router }) => {
+  const legacy = !window.ANT_LAYOUT
+  return (
+    <nav style={{ display: 'inline-block' }}>
+      <ol className={legacy ? 'breadcrumb legacy' : 'breadcrumb'}>
+        {children ? (
+          children.length > 0 ? (
+            children.map((child, index) =>
+              index < children.length - 1 ? (
+                <BreadcrumbLink router={router} {...child.props} key={index} />
+              ) : (
+                <BreadcrumbLink router={router} {...child.props} key={index} last />
+              )
             )
+          ) : (
+            <BreadcrumbLink router={router} {...children.props} last />
           )
         ) : (
-          <BreadcrumbLink router={router} {...children.props} last />
-        )
-      ) : (
-        ''
-      )}
-      <li className="current">{name}</li>
-    </ol>
-  </nav>
-)
+          ''
+        )}
+        <li className="current">{name}</li>
+      </ol>
+    </nav>
+  )
+}

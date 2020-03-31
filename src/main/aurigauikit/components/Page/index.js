@@ -96,7 +96,8 @@ export const Error = withRouter(
   }
 )
 
-export const createPage = (Topbar, Sidebar, legacy = true) => {
+export const createPage = (Topbar, Sidebar) => {
+  const legacy = !window.ANT_LAYOUT
   if (legacy) {
     const SizedSidebar = sizeMe({ noPlaceholder: true })(Sidebar)
     const SizedTopbar = sizeMe({ monitorHeight: true, noPlaceholder: true })(Topbar)

@@ -8,7 +8,61 @@
 @import '../../../style/constants.less';
 @import '../../../style/commons.less';
 
-ol.breadcrumb {
+ol.breadcrumb.legacy {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: @alternate_color;
+
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    line-height: 1.5em;
+
+    a,
+    a:visited {
+      color: @alternate_color;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    &:after {
+      padding: 0 0.5em 0 0.7em;
+      color: @separator_color;
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 600;
+      content: '\f054';
+    }
+
+    &.line-last:after {
+      content: '';
+    }
+
+    &.current {
+      display: block;
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 1.2em;
+      text-transform: none;
+      color: @brand_color;
+
+      h1 {
+        color: @brand_color;
+        margin: 0;
+      }
+
+      &:after {
+        content: '';
+      }
+    }
+  }
+}
+
+ol.breadcrumb:not(.legacy) {
   font-size: 10px;
   text-transform: uppercase;
   color: @alternate_color;
@@ -56,7 +110,6 @@ ol.breadcrumb {
         line-height: 1.2em;
         text-transform: none;
         color: @brand_color;
-        font-family: 'Open Sans';
         margin: 0;
       }
 

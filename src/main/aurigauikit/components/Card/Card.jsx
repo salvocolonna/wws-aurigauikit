@@ -47,6 +47,8 @@ class Card extends React.Component {
       fullscreenStyle: { content: fullscreenContentStyle, ...fullscreenStyle } = {},
     } = this.props
 
+    const legacy = !window.ANT_LAYOUT
+
     let { style } = this.props
 
     if (collapsable && this.state.collapsed) style = { ...style, height: 40, paddingBottom: 50 }
@@ -59,7 +61,12 @@ class Card extends React.Component {
           boxShadow: !bordered ? 'none' : undefined,
           ...style,
         }}
-        className={['react-card', mode, className, collapsable && 'collapsable'].join(' ')}
+        className={[
+          legacy ? 'react-card legacy' : 'react-card',
+          mode,
+          className,
+          collapsable && 'collapsable',
+        ].join(' ')}
         onClick={e => (onClick ? onClick(e) : '')}
       >
         {header ? (

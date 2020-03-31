@@ -182,11 +182,15 @@ export const PageAnchors = withAnchors(
 )
 
 const scrollTo = ({ id }) => {
+  const legacyElement = document.getElementById('content-dynamic')
+  if (legacyElement) legacyElement.scrollTop = document.getElementById(id).offsetTop - 75
   document.body.scrollTop = document.getElementById(id).offsetTop - 75
   document.documentElement.scrollTop = document.getElementById(id).offsetTop - 75
 }
 
 const toTop = () => {
+  const legacyElement = document.getElementById('content-dynamic')
+  if (legacyElement) legacyElement.scrollTop = 0
   document.body.scrollTop = 0
   document.documentElement.scrollTop = 0
 }

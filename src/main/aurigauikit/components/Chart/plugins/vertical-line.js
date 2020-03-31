@@ -7,7 +7,6 @@ Chart.pluginService.register({
         text,
         color = 'red',
         textColor = '#000000',
-        font = 'Normal 15px Noto Sans Light',
         overlayColor = 'rgba(240, 240, 240, 0.2)',
       } = config
 
@@ -15,7 +14,7 @@ Chart.pluginService.register({
 
       draw.rect(overlayColor)
       draw.line(color)
-      draw.text(text, font, textColor)
+      draw.text(text, textColor)
     }
   },
 })
@@ -47,8 +46,7 @@ const DrawingContext = (chart, index) => {
       )
       context.save()
     },
-    text: (text, font, color) => {
-      context.font = font
+    text: (text, color) => {
       context.fillStyle = color
       context.fillText(
         text,

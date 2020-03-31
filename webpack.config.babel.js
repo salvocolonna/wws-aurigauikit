@@ -54,7 +54,6 @@ const module = {
               '@btn-default-bg': '#FFFFFF',
               '@btn-default-color': '#2984C5',
               '@btn-default-border': '#2984C5',
-              '@font-family': '"noto sans",arial,sans-serif',
               '@font-size-base': '13px',
               '@input-height-base': '37px',
               '@btn-padding-base': '0 1.5em',
