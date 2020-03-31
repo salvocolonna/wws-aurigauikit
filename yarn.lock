@@ -8924,7 +8924,7 @@ react-resizable@1.x:
 
 react-responsive@^8.0.3:
   version "8.0.3"
-  resolved "https://registry.npmjs.org/react-responsive/-/react-responsive-8.0.3.tgz#ceb84205359b6032d306650e51490dc1f63d907b"
+  resolved "http://nexus:8081/repository/npm-public/react-responsive/-/react-responsive-8.0.3.tgz#ceb84205359b6032d306650e51490dc1f63d907b"
   integrity sha512-F9VXyLao7O8XHXbLjQbIr4+mC6Zr0RDTwNjd7ixTmYEAyKyNanBkLkFchNaMZgszoSK6PgSs/3m/QDWw33/gpg==
   dependencies:
     hyphenate-style-name "^1.0.0"
