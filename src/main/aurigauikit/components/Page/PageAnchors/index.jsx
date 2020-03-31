@@ -128,8 +128,7 @@ const Anchor = ({ name }) => (
     <span style={{ fontSize: '.8em' }}>{name}</span>
     <div className="page-anchors-action" style={{ fontSize: 10 }} onClick={() => toTop()}>
       <em style={{ paddingRight: 5 }}>
-        {' '}
-        <FormattedMessage id="page.anchors.back-to-top" />{' '}
+        <FormattedMessage id="page.anchors.back-to-top" />
       </em>
       <b>
         <i style={{ fontSize: '2em', transform: 'translateY(2px)' }} className="fa fa-angle-up" />
@@ -183,11 +182,17 @@ export const PageAnchors = withAnchors(
 )
 
 const scrollTo = ({ id }) => {
-  document.getElementById('content-dynamic').scrollTop = document.getElementById(id).offsetTop - 75
+  const legacyElement = document.getElementById('content-dynamic')
+  if (legacyElement) legacyElement.scrollTop = document.getElementById(id).offsetTop - 75
+  document.body.scrollTop = document.getElementById(id).offsetTop - 75
+  document.documentElement.scrollTop = document.getElementById(id).offsetTop - 75
 }
 
 const toTop = () => {
-  document.getElementById('content-dynamic').scrollTop = 0
+  const legacyElement = document.getElementById('content-dynamic')
+  if (legacyElement) legacyElement.scrollTop = 0
+  document.body.scrollTop = 0
+  document.documentElement.scrollTop = 0
 }
 
 export function idChanged(arr1, arr2) {

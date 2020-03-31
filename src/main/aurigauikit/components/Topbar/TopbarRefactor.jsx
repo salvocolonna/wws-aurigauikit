@@ -1,95 +1,122 @@
 import React from 'react'
 import Notification from 'aurigauikit/components/Notification'
-import MediaQuery from 'react-responsive'
+import MediaQuery, { useMediaQuery } from 'react-responsive'
 const bankImg = <i className="fa fa-bank" />
+import { Layout, Icon } from 'aurigauikit/antd'
 
-class Topbar extends React.Component {
-  render() {
-    const {
-      logo,
-      logoImage,
-      onLogoClick,
-      roleDescription,
-      onLogout,
-      notificationFrontend,
-      notificationBackend,
-      userName,
-      notificationCustomUrl,
-      notificationAppCode,
-      parentBankCode,
-      parentBankDescription,
-      bankCode,
-      bankDescription,
-      areaCode,
-      areaDescription,
-      branchCode,
-      branchDescription,
-    } = this.props
-    const hasNotification = notificationFrontend && notificationBackend
-    const notification = hasNotification && (
-      <Notification
-        userCode={userName}
-        frontend={notificationFrontend}
-        backend={notificationBackend}
-        customUrl={notificationCustomUrl}
-        appCode={notificationAppCode}
-      />
-    )
-    return (
-      <header id="topbar" style={{ display: 'flex', margin: '0px' }}>
-        <MediaQuery minWidth={1024}>
-          {logo && <Logo src={logo} onClick={onLogoClick} />}
-          {logoImage && logoImage.src && (
-            <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
-          )}
-        </MediaQuery>
-        <ul
-          style={{
-            display: 'inline-block',
-            flex: '1 0 auto',
-          }}
-        >
-          <MediaQuery maxWidth={767}>
-            {hasNotification && <li> {notification} </li>}
-            <li>
-              <i className="fa fa-user" /> {userName}
-            </li>
+const { Header } = Layout
+
+function Topbar({
+  logo,
+  logoImage,
+  onLogoClick,
+  roleDescription,
+  onLogout,
+  notificationFrontend,
+  notificationBackend,
+  userName,
+  notificationCustomUrl,
+  notificationAppCode,
+  parentBankCode,
+  parentBankDescription,
+  bankCode,
+  bankDescription,
+  areaCode,
+  areaDescription,
+  branchCode,
+  branchDescription,
+  onCollapse,
+  collapsed,
+  isTablet,
+}) {
+  const isCollapsed = collapsed || isTablet
+
+  const hasNotification = notificationFrontend && notificationBackend
+  const notification = hasNotification && (
+    <Notification
+      userCode={userName}
+      frontend={notificationFrontend}
+      backend={notificationBackend}
+      customUrl={notificationCustomUrl}
+      appCode={notificationAppCode}
+    />
+  )
+  return (
+    <Header
+      className="header"
+      style={{
+        position: 'fixed',
+        background: '#fff',
+        padding: 0,
+        boxShadow: 'rgb(160, 160, 160) 0px 0px 6px',
+        zIndex: 1001,
+        marginLeft: isCollapsed ? 80 : 200,
+        width: `calc(100% - ${isCollapsed ? 80 : 200}px)`,
+        transition: 'all .2s ease-in-out',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          userSelect: 'none',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {isTablet ? (
+          <div />
+        ) : (
+          <Icon
+            className="trigger"
+            type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+            onClick={onCollapse}
+          />
+        )}
+        <div style={{ marginRight: 40 }}>
+          <MediaQuery maxWidth={1000}>
+            {hasNotification && <span style={{ marginRight: 20 }}> {notification} </span>}
+            <span style={{ marginRight: 20 }}>
+              <Icon type="user" /> <span>{userName}</span>
+            </span>
           </MediaQuery>
-          <MediaQuery minWidth={768}>
-            {hasNotification && <li> {notification} </li>}
-            {parentBankCode && (
-              <li>
-                {bankImg} {`${parentBankDescription}`}
-              </li>
+          <MediaQuery minWidth={1000}>
+            {hasNotification && <span style={{ marginRight: 20 }}> {notification} </span>}
+            {parentBankCode && parentBankDescription && (
+              <span style={{ marginRight: 20 }}>
+                {bankImg} {`${parentBankDescription} (${parentBankCode})`}
+              </span>
             )}
-            {bankCode && (
-              <li>
+            {bankCode && bankDescription && (
+              <span style={{ marginRight: 20 }}>
                 {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
-              </li>
+              </span>
             )}
-            {areaCode && (
-              <li>
-                {!bankCode && bankImg} {areaDescription}
-              </li>
+            {areaCode && areaDescription && (
+              <span style={{ marginRight: 20 }}>{`${areaDescription} (${areaCode})`}</span>
             )}
-            {branchCode && (
-              <li>
+            {branchCode && branchDescription && (
+              <span style={{ marginRight: 20 }}>
                 {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
-              </li>
+              </span>
             )}
-            <li>
-              <i className="fa fa-user" /> {userName}
-            </li>
-            <li>{roleDescription && roleDescription.split('_').join(' ')}</li>
+            <span style={{ marginRight: 20 }}>
+              <Icon type="user" /> <span>{userName}</span>
+            </span>
           </MediaQuery>
-         {onLogout && <li style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
-            <i className="fa fa-sign-out" />
-            Logout
-          </li>}
-        </ul>
-      </header>
-    )
-  }
+          {roleDescription && (
+            <MediaQuery minWidth={786}>
+              <span style={{ marginRight: 20 }}>{roleDescription.split('_').join(' ')}</span>
+            </MediaQuery>
+          )}
+          <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
+            <Icon type="logout" />
+            <span> Logout</span>
+          </span>
+        </div>
+      </div>
+    </Header>
+  )
 }
 
 const Logo = ({ src, onClick }) => (

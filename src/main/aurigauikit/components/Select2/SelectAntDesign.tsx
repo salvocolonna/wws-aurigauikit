@@ -146,7 +146,6 @@ function SelectAnt({ didSelect, ...props }: SelectProps) {
       style={props.style}
       showSearch
       optionFilterProp="children"
-      getPopupContainer={trigger => trigger.parentElement as HTMLElement}
       onChange={handleChange}
       onSelect={handleSelect}
       onFocus={() => setIsOpened(true)}

@@ -1,77 +1,150 @@
-.react-card {
-	box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
-	border: 1px solid #ccc;
-	height: 100%;
-	width: 100%;
-	border-radius: 4px;
-	&.collapsable{
+.react-card:not(.legacy) {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  &.collapsable {
+  }
+  .title {
+    padding-left: 15px;
+    padding-top: 10px;
+    cursor: pointer;
+    h4 {
+      color: #2984c5;
+      border-color: #2984c5;
+      font-size: 1.3em;
+      font-weight: bold;
+      i {
+        font-size: 1.3em;
+        float: right;
+        transition: all 0.3s;
+        margin-right: 15px;
+        margin-top: 5px;
+        &.fa-angle-down,
+        &.fa-angle-right {
+          cursor: pointer;
+          margin-right: 10px;
+        }
+      }
+    }
 
-		
-	}
-	.title{
-		padding-left: 15px;
-		padding-top: 10px;
-			cursor: pointer;
-		h4{
-			color: #2984c5;
-			border-color: #2984c5;
-			font-size: 1.3em;
-			font-weight: bold;
-			i{
-				font-size: 1.3em;
-				float: right;
-				transition: all .3s;
-				margin-right: 15px;
-				margin-top: 5px;
-				&.fa-angle-down, &.fa-angle-right{
-					cursor: pointer;
-					margin-right: 10px;
-				}
-			}
-		}
+    i:hover {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    &.only-action:hover {
+      cursor: pointer;
+      h4 {
+        & > div {
+          text-decoration: underline;
+        }
+        i.hoverable-on-title {
+          font-size: 1.5em;
+        }
+      }
+    }
+    &.action {
+      h4 {
+        & > div:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &.primary {
+  }
+  &.critical {
+    .title h4 {
+      color: #dc402b;
+    }
+    .loader {
+      border-color: #dc402b #dc402b rgb(243, 243, 243) rgb(243, 243, 243) !important;
+    }
+  }
+  .content {
+    height: ~'calc(100% - 40px)';
+    width: 100%;
+  }
+  .header {
+    min-height: 40px;
+    width: 100%;
+  }
+}
 
-		i:hover{
-			font-size: 1.5em;
-			cursor: pointer;
-		}
-		&.only-action:hover{
-			cursor: pointer;
-			h4{
-				& > div {
-					text-decoration: underline;
-				}
-				i.hoverable-on-title{
-					font-size: 1.5em;
-				}
-			}
-		}
-		&.action{
-			h4{
-				& > div:hover {
-					cursor: pointer;
-					text-decoration: underline;
-				}
-			}
-		}
-	}
-	&.primary {
-		border: 1px solid #2984c5;
-	}
-	&.critical {
-		border: 1px solid #DC402B;
-		.title h4{		
-			color: #DC402B;
-		}
-		.loader{
-			border-color: #DC402B #DC402B rgb(243, 243, 243) rgb(243, 243, 243) !important;
-		}
-	}
-	.content {
-		height:  ~'calc(100% - 40px)';
-		width: 100%;
-	}
-	.header{
-		min-height: 40px;
-		width: 100%;
-	}
+.react-card.legacy {
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  &.collapsable {
+  }
+  .title {
+    padding-left: 15px;
+    padding-top: 10px;
+    cursor: pointer;
+    h4 {
+      color: #2984c5;
+      border-color: #2984c5;
+      font-size: 1.3em;
+      font-weight: bold;
+      i {
+        font-size: 1.3em;
+        float: right;
+        transition: all 0.3s;
+        margin-right: 15px;
+        margin-top: 5px;
+        &.fa-angle-down,
+        &.fa-angle-right {
+          cursor: pointer;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    i:hover {
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    &.only-action:hover {
+      cursor: pointer;
+      h4 {
+        & > div {
+          text-decoration: underline;
+        }
+        i.hoverable-on-title {
+          font-size: 1.5em;
+        }
+      }
+    }
+    &.action {
+      h4 {
+        & > div:hover {
+          cursor: pointer;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &.primary {
+    border: 1px solid #2984c5;
+  }
+  &.critical {
+    border: 1px solid #dc402b;
+    .title h4 {
+      color: #dc402b;
+    }
+    .loader {
+      border-color: #dc402b #dc402b rgb(243, 243, 243) rgb(243, 243, 243) !important;
+    }
+  }
+  .content {
+    height: ~'calc(100% - 40px)';
+    width: 100%;
+  }
+  .header {
+    min-height: 40px;
+    width: 100%;
+  }
 }

@@ -16,7 +16,7 @@ class Body extends React.Component {
     event.stopPropagation()
     const rect = event.target.getBoundingClientRect()
     const left = rect.left
-    const top = rect.top + document.getElementById('content-dynamic').scrollTop
+    const top = rect.top + document.body.scrollTop
     this.props.onMenuItemClick(rowIndex, { top: top, left: left }, event.target)
   }
 
@@ -44,7 +44,7 @@ class Body extends React.Component {
         rowIndex: rowIndex,
         colIndex: colIndex,
         position: {
-          top: rect.top + document.getElementById('content-dynamic').scrollTop,
+          top: rect.top,
           left: rect.left,
         },
       })

@@ -37,13 +37,11 @@ export default class Popover extends React.Component {
     document.addEventListener('keyup', this.closeOnEsc)
     document.body.addEventListener('click', this.closeOnBodyClick)
     window.addEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').addEventListener('scroll', this.closeOnResize)
   }
 
   componentWillUnmount() {
     document.removeEventListener('keyup', this.closeOnEsc)
     window.removeEventListener('resize', this.closeOnResize)
-    document.getElementById('content-dynamic').removeEventListener('scroll', this.closeOnResize)
   }
 
   closeOnEsc = e => {
@@ -99,7 +97,7 @@ export default class Popover extends React.Component {
   }
 
   render() {
-    const { position, children } = this.props
+    const { position, children, fixed } = this.props
     const {
       opacity,
       size: { height },
@@ -116,7 +114,7 @@ export default class Popover extends React.Component {
           style={{ ...fixedPosition }}
           ref={reference => (this.reference = reference)}
         >
-          <SizedPopover onSize={this.onSize} opacity={opacity}>
+          <SizedPopover onSize={this.onSize} opacity={opacity} fixed={fixed}>
             {!upsideDown && (
               <div className="Popover-arrow" style={{ transform: `translateX(${offset}px` }} />
             )}
@@ -137,8 +135,15 @@ export default class Popover extends React.Component {
 
 const SizedPopover = sizeMe({
   monitorHeight: true,
-})(({ children, opacity }) => (
-  <div className="Popover" style={{ opacity, transition: `opacity ${2 * TRANSITION}s` }}>
+})(({ children, opacity, fixed }) => (
+  <div
+    className="Popover"
+    style={{
+      opacity,
+      transition: `opacity ${2 * TRANSITION}s`,
+      position: fixed ? 'fixed' : undefined,
+    }}
+  >
     {children}
   </div>
 ))

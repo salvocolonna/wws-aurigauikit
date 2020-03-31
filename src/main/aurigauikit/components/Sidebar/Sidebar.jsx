@@ -1,199 +1,177 @@
-import React from 'react'
+import React, { Children } from 'react'
 import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 import './sidebar.less'
+import { Layout, Menu, Icon } from 'aurigauikit/antd'
+import { Item, SubMenu } from './SidebarLegacy'
+const { SubMenu: AntSubMenu } = Menu
+const { Sider } = Layout
 
 const Sidebar = class extends React.Component {
   constructor(props) {
     super(props)
     this.state = { openSubMenu: null }
-    this.closeOnBodyClick = this.closeOnBodyClick.bind(this)
   }
 
+  // BUG FIXED
+  prevOpen = null
+
   componentDidMount() {
-    document.body.addEventListener('click', this.closeOnBodyClick)
+    console.log(this.submenus)
+    document.body.addEventListener('click', this.closeOnBodyClick, true)
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this.closeOnBodyClick)
   }
 
-  closeOnBodyClick(e) {
-    if (this.state.openSubMenu && !ReactDOM.findDOMNode(this.state.openSubMenu).contains(e.target))
-      this.setState({ openSubMenu: null })
+  closeOnBodyClick = () => {
+    this.prevOpen = this.state.openSubMenu
+    setTimeout(() => {
+      if (this.prevOpen) this.setState({ openSubMenu: null })
+    }, 0)
   }
 
   onSubMenuClick(submenu) {
-    this.setState({ openSubMenu: submenu })
+    const openSubMenu = (this.state.openSubMenu || this.prevOpen) === submenu ? null : submenu
+    this.prevOpen = null
+    this.setState({ openSubMenu })
   }
 
-  render() {
-    const { children, logo, horizontal, onLogoClick, items, router, basename, topbar } = this.props
-    return (
-      <aside
-        id={horizontal ? 'react-sidebar-horizontal' : 'react-sidebar'}
-        style={{ height: horizontal ? 'auto' : '100vh', zIndex: 101 }}
-      >
-        {logo && <Logo src={logo} onClick={() => onLogoClick()} height={topbar} />}
-        <div
-          id="react-sidebar-menu-wrapper"
-          style={{ textAlign: horizontal ? 'center' : 'initial' }}
-        >
-          <ul
-            className="primary"
-            style={{
-              height: `calc(100vh - ${topbar}px`,
-              overflow: 'auto',
-              direction: 'rtl',
-            }}
-          >
-            {children.map((child, index) => {
-              if (child.type && child.type.displayName === 'SubMenu') {
-                return (
-                  <SubMenu
-                    {...child.props}
-                    key={index}
-                    items={items}
-                    horizontal={horizontal}
-                    basename={basename}
-                    router={router}
-                    openSubMenu={this.state.openSubMenu}
-                    onClick={submenu => this.onSubMenuClick(submenu)}
-                  />
-                )
-              } else if (canView(items, child))
-                return (
-                  <Item
-                    router={router}
-                    horizontal={horizontal}
-                    basename={basename}
-                    {...child.props}
-                    key={index}
-                  />
-                )
-            })}
-          </ul>
-          <div id="react-sidebar-remainder" />
-        </div>
-      </aside>
-    )
+  componentDidUpdate(props) {
+    const isCollapsedLast = props.collapsed || props.isTablet
+    const isCollapsed = this.props.collapsed || this.props.isTablet
+    if (isCollapsed && !isCollapsedLast) this.setState({ openSubMenu: null })
   }
-}
 
-class Item extends React.Component {
-  render() {
-    const { name, href, icon, router, basename, horizontal } = this.props
-    const active = isActive(href, basename)
-    const className = 'fa ' + (icon ? icon : 'fa-angle-right')
-    const style = { color: active ? '#DC402B' : 'inherit', display: 'initial' }
-    return (
-      <li
-        className={active ? 'active' : ''}
-        style={{
-          display: horizontal ? 'inline-block' : 'block',
-          direction: 'ltr',
-          textAlign: 'left',
-        }}
-      >
-        {router ? (
-          <Link to={href} style={{ textDecoration: 'none' }}>
-            <i className={className} style={style} />
-            <span className="react-sidebar-item">{name}</span>
-          </Link>
-        ) : (
-          <a href={href} style={{ textDecoration: 'none' }}>
-            <i className={className} style={style} />
-            <span className="react-sidebar-item">{name}</span>
-          </a>
-        )}
-      </li>
-    )
-  }
-}
-
-class SubMenu extends React.Component {
   render() {
     const {
       children,
-      name,
-      openSubMenu,
-      icon,
-      onClick,
+      logo,
+      onLogoClick,
       items,
-      id,
       basename,
-      horizontal,
-      router,
+      topbar,
+      collapsed,
+      isTablet,
+      hash,
     } = this.props
-    let active = false
-    let open = false
-    let hasChildren = false
-    let hasOneChild = false
+    const { openSubMenu } = this.state
 
-    if (children) {
-      if (children.length) {
-        children.forEach(child => {
-          if (canView(items, child, id)) {
-            hasChildren = true
-            if (!active) active = isActive(child.props.href, basename)
-          }
-        })
-      } else {
-        if (canView(items, children, id)) {
-          hasOneChild = true
-          if (!active) active = isActive(children.props.href, basename)
-        }
-      }
-    }
-    if (openSubMenu === this) open = true
+    const isCollapsed = collapsed || isTablet
+    const activeKeys = getActiveKeys(children, basename, isCollapsed, hash)
     return (
-      (hasChildren || hasOneChild) && (
-        <li
-          className={`submenu ${active ? 'active' : ''}`}
-          onClick={() => onClick(this)}
-          style={{
-            display: horizontal ? 'inline-block' : 'block',
-            direction: 'ltr',
-            textAlign: 'left',
-          }}
+      <Sider
+        style={{
+          overflow: 'auto',
+          overflowX: 'hidden',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          zIndex: 1002,
+          userSelect: 'none',
+        }}
+        trigger={null}
+        collapsible
+        collapsed={isCollapsed}
+      >
+        {logo && <Logo src={logo} onClick={() => onLogoClick && onLogoClick()} height={topbar} />}
+        <Menu
+          multiple
+          mode="inline"
+          selectedKeys={activeKeys}
+          openKeys={[...activeKeys, openSubMenu]}
         >
-          <span className={`react-sidebar-title ${active ? 'active' : ''} ${open ? 'open' : ''}`}>
-            <i className={'fa ' + icon} />
-            <span className="react-sidebar-item">{name}</span>
-          </span>
-          {(active || open) && (
-            <ul className="secondary" style={openSubMenu === this ? { display: 'block' } : {}}>
-              {hasChildren &&
-                children.map(
-                  (child, index) =>
-                    canView(items, child, id) && (
-                      <Item
-                        router={router}
-                        horizontal={horizontal}
-                        basename={basename}
-                        {...child.props}
-                        key={index}
-                      />
-                    )
-                )}
-              {hasOneChild && canView(items, children, id) && <Item {...children.props} />}
-            </ul>
-          )}
-        </li>
-      )
+          {Children.map(children, child => {
+            if (child && child.type === Item && canView(items, child)) {
+              const { href, icon, name, key } = child.props
+              return (
+                <Menu.Item key={key}>
+                  <Link to={href} style={{ textDecoration: 'none' }}>
+                    <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                    <span>{name}</span>
+                  </Link>
+                </Menu.Item>
+              )
+            } else if (child && child.type === SubMenu) {
+              const key = child.key
+              const submenuItems = Children.map(child.props.children, child => {
+                if (child && child.type === Item && (hash || canView(items, child, key))) {
+                  const key = child.key
+                  return (
+                    <Menu.Item key={key}>
+                      <Link to={child.props.href} style={{ textDecoration: 'none' }}>
+                        <span>{child.props.name}</span>
+                      </Link>
+                    </Menu.Item>
+                  )
+                }
+              })
+              const { name, icon } = child.props
+              return (
+                submenuItems.length > 0 && (
+                  <AntSubMenu
+                    key={key}
+                    fixed
+                    onTitleClick={() => this.onSubMenuClick('.$' + key)}
+                    title={
+                      <span>
+                        <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                        <span>{name}</span>
+                      </span>
+                    }
+                  >
+                    {submenuItems}
+                  </AntSubMenu>
+                )
+              )
+            }
+          })}
+        </Menu>
+      </Sider>
     )
   }
+}
+
+function getActiveKeys(children, basename, collapsed, hash) {
+  return React.Children.toArray(children).reduce((activeKeys, child) => {
+    if (child && child.type === Item) {
+      const active = isActive(child.props.href, hash, basename)
+      if (active) return [...activeKeys, child.key]
+    } else if (child && child.type === SubMenu) {
+      const key = child.key
+      const activeItems = React.Children.toArray(child.props.children).reduce(
+        (activeKeys, child) => {
+          if (child.type === Item) {
+            const active = isActive(child.props.href, hash, basename)
+            if (active) return [...activeKeys, child.key]
+          }
+          return activeKeys
+        },
+        []
+      )
+      if (activeItems.length > 0 && !collapsed) {
+        activeItems.push(key)
+      }
+      return [...activeKeys, ...activeItems]
+    }
+    return activeKeys
+  }, [])
 }
 
 Sidebar.displayName = 'Sidebar'
 Item.displayName = 'Item'
 SubMenu.displayName = 'SubMenu'
 
-function isActive(to, basename = '') {
+function isActive(to, isHash, basename = '') {
   const href = basename + to
   let end = href.length
   if (href.indexOf('?') > 0) end = href.indexOf('?')
   const relativeHref = href.substr(0, end)
+  if (isHash) {
+    const hash = location.hash.substring(1)
+    return hash === relativeHref || hash.startsWith(relativeHref + '/')
+  }
   return (
     location.pathname === relativeHref ||
     location.pathname.startsWith(relativeHref + '/') ||
@@ -202,18 +180,18 @@ function isActive(to, basename = '') {
   )
 }
 
-const Logo = ({ src, onClick, height }) => (
-  <div id="react-sidebar-logo" onClick={() => onClick()} style={{ cursor: 'pointer', height }}>
-    <i className="fa fa-bars" style={{ color: 'white', fontSize: 30 }} />
+const Logo = ({ src, onClick }) => (
+  <div id="react-sidebar-logo" onClick={() => onClick()}>
     <img id="app-logo-full" src={src} />
   </div>
 )
 
-const canView = (items = [], child, parentId) => {
+const canView = (items = [], child, parentKey) => {
+  console.log({ items, child, parentKey })
   if (!child.props) return false
-  let id = child.props.id
-  if (parentId) id = parentId + '.' + id
-  return items.includes(id) || items.includes(child.props.id)
+  let key = child.key
+  if (parentKey) key = parentKey + '.' + key
+  return items.includes(key)
 }
 
 Sidebar.SubMenu = SubMenu
