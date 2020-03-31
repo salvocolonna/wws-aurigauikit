@@ -125,6 +125,10 @@ export default {
       component: lazy(() => import('../components/SimpleTable/DynamicContents')),
       code: () => import('!raw-loader!../components/SimpleTable/DynamicContents'),
     },
+    Editable: {
+      component: lazy(() => import('../components/SimpleTable/Editable')),
+      code: () => import('!raw-loader!../components/SimpleTable/Editable'),
+    },
     Empty: {
       component: lazy(() => import('../components/SimpleTable/Empty')),
       code: () => import('!raw-loader!../components/SimpleTable/Empty'),
@@ -179,6 +183,24 @@ export default {
     Url: {
       component: lazy(() => import('../components/Ticker/Url')),
       code: () => import('!raw-loader!../components/Ticker/Url'),
+    },
+  },
+  Timeline: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/Timeline/Base')),
+      code: () => import('!raw-loader!../components/Timeline/Base'),
+    },
+  },
+  Tooltip: {
+    metadata: {},
+    Base: {
+      component: lazy(() => import('../components/Tooltip/Base')),
+      code: () => import('!raw-loader!../components/Tooltip/Base'),
+    },
+    Legacy: {
+      component: lazy(() => import('../components/Tooltip/Legacy')),
+      code: () => import('!raw-loader!../components/Tooltip/Legacy'),
     },
   },
   Workflow: {

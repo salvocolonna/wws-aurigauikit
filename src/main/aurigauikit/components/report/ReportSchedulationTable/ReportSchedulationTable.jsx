@@ -5,18 +5,18 @@ import SimpleTable from 'aurigauikit/components/SimpleTable'
 import Prompt from 'aurigauikit/components/Prompt'
 import messages from './messages'
 
-const ICONS = { true: 'confirmatory', false: 'critical' }
+const COLORS = { false: '#dc402b', true: '#65c25a' }
 
 const StatusLabel = ({ status }) => (
-  <span style={{ textTransform: 'uppercase' }}>
-    <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
-    <span className="asset-label">
-      {status ? (
-        <Msg id={'report.schedulation-table.report-state.ENABLED'} />
-      ) : (
-          <Msg id={'report.schedulation-table.report-state.DISABLED'} />
-        )}
-    </span>
+  <span
+    className="asset-label"
+    style={{ textTransform: 'uppercase', color: `${COLORS[status]}`, fontWeight: 'bold' }}
+  >
+    {status ? (
+      <Msg id={'report.schedulation-table.report-state.ENABLED'} />
+    ) : (
+      <Msg id={'report.schedulation-table.report-state.DISABLED'} />
+    )}
   </span>
 )
 

@@ -13,6 +13,10 @@ import {
   Icon,
   Spin,
   Badge,
+  Tooltip,
+  Switch,
+  Slider,
+  Radio,
 } from 'antd'
 export default {
   Row,
@@ -28,5 +32,9 @@ export default {
   Icon,
   Spin,
   Badge,
+  Tooltip,
+  Switch,
+  Slider,
+  Radio,
 }
 export * from 'antd'

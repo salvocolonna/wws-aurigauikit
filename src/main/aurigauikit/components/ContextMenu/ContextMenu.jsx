@@ -64,26 +64,34 @@ class ContextMenu extends React.Component {
           style={{ display: 'block', top: `${top}px`, left: `${left}px` }}
         >
           <ul ref={list => (this.list = list)}>
-            {items.map((item, index) =>
-              item.title ? (
-                <li
-                  ref={child => this.children.push(child)}
-                  key={index}
-                  className={
-                    item.hidden && item.hidden(context) ? 'hidden' : item.style ? item.style : ''
-                  }
-                  onClick={() => this.onItemClick(item)}
-                >
-                  <i
-                    style={{ marginLeft: item.iconName ? '5px' : '' }}
-                    className={item.iconName ? 'fa fa-' + item.iconName : 'fa fa-fw'}
-                  />
-                  {this.title(item.title)}
-                </li>
-              ) : (
-                <li key={index} style={{ margin: 0 }} className="separator" />
-              )
-            )}
+            {items.map((item, index) => {
+              if (item.title) {
+                const disabled = item.enabled && !item.enabled(context)
+                const hidden = item.hidden && item.hidden(context)
+                const className = disabled
+                  ? 'disabled'
+                  : hidden
+                  ? 'hidden'
+                  : item.style
+                  ? item.style
+                  : ''
+                return (
+                  <li
+                    ref={child => this.children.push(child)}
+                    key={index}
+                    className={className}
+                    onClick={!disabled && (() => this.onItemClick(item))}
+                  >
+                    <i
+                      style={{ marginLeft: item.iconName ? '5px' : '' }}
+                      className={item.iconName ? 'fa fa-' + item.iconName : 'fa fa-fw'}
+                    />
+                    {this.title(item.title)}
+                  </li>
+                )
+              }
+              return <li key={index} style={{ margin: 0 }} className="separator" />
+            })}
           </ul>
         </div>
       ),

@@ -6,7 +6,7 @@ const WIDTH = 18
 
 const SizedInput = sizeMe()(({ min = 0, max = 100, step = 1, value = 50, onChange }) => (
   <input
-    className={styles.slider}
+    className="slider"
     type="range"
     min={min}
     max={max}
@@ -33,7 +33,7 @@ export default class extends React.Component {
     const { width } = this.state
     const display = value => (willDisplay && willDisplay(value)) || value
     return (
-      <div className={styles.slidecontainer}>
+      <div className="slidecontainer">
         <span style={{ paddingRight: 10, transform: `translateY(${WIDTH - 1}px)` }}>
           {display(min)}
         </span>

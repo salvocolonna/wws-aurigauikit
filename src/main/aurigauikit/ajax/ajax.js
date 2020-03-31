@@ -150,6 +150,7 @@ class Ajax extends RequestMaker {
         status: response.status,
         statusText: response.statusText,
         errors: text === '' ? [] : JSON.parse(text).errors,
+        rawError: text !== '' && JSON.parse(text).error,
       }
     }
   }

@@ -10,7 +10,7 @@ class Tab extends React.PureComponent {
     const style = {
       textDecoration: 'none',
       cursor: 'pointer',
-      borderBottom: (isOpen ? 2 : 0) + 'px solid #fff',
+      borderBottom: (isOpen ? 3 : 0) + 'px solid #fff',
     }
     return (
       <li role="presentation" className={isOpen ? 'active' : ''}>

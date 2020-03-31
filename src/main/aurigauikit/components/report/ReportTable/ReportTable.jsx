@@ -4,22 +4,22 @@ import SimpleTable from 'aurigauikit/components/SimpleTable'
 import Prompt from 'aurigauikit/components/Prompt'
 import messages from './messages'
 
-const ICONS = {
-  COMPLETED: 'confirmatory',
-  WAITING: 'warning',
-  READY: 'info',
-  START: 'info',
-  IN_CREATION: 'info',
-  DELETED: 'critical',
-  ERROR: 'critical',
+const COLORS = {
+  COMPLETED: '#65c25a',
+  WAITING: '#e98036',
+  READY: '#2984c5',
+  START: '#2984c5',
+  IN_CREATION: '#2984c5',
+  DELETED: '#dc402b',
+  ERROR: '#dc402b',
 }
 
 const StatusLabel = ({ status }) => (
-  <span style={{ textTransform: 'uppercase' }}>
-    <span style={{ margin: '0 8px 0 0' }} className={`dot dot-${ICONS[status]}`} />
-    <span className="asset-label">
-      <Msg id={'report.report-table.report-state.' + status} />
-    </span>
+  <span
+    className="asset-label"
+    style={{ color: `${COLORS[status]}`, fontWeight: 'bold', textTransform: 'uppercase' }}
+  >
+    <Msg id={'report.report-table.report-state.' + status} />
   </span>
 )
 

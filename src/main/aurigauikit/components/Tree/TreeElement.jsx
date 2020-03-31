@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 class TreeElement extends React.Component {
   getPath = () => TreeElement.getPath(this.props.index, this.props.parentPath)
@@ -13,8 +13,8 @@ class TreeElement extends React.Component {
   }
 
   static getPath(index, parentPath) {
-    let path = index + ""
-    if (parentPath) path = parentPath + "-" + index
+    let path = index + ''
+    if (parentPath) path = parentPath + '-' + index
     return path
   }
 
@@ -44,26 +44,25 @@ class TreeElement extends React.Component {
       customIcon,
       getIcon,
       getVisibility,
-      hidePrevious
+      hidePrevious,
     } = this.props
     const hasChildren = element.node.hasChildren()
-    const icon = !hasChildren ? "fa-circle" : "fa-folder" + (open ? "-open" : "")
+    const icon = !hasChildren ? 'fa-circle' : 'fa-folder' + (open ? '-open' : '')
     const loading = loadingPath === element.path
     const canSee = !hidePrevious || !openPath || (hidePrevious && path === openPath)
     const showChildren = open && element.children && element.children.length > 0
     return (
       <ul>
         <Li canSee={canSee} selected={this.selected()} hidePrevious={hidePrevious}>
-          {canSee &&
-            !(hidePrevious && path === openPath) && (
-              <Element
-                loading={loading}
-                icon={icon}
-                customIcon={customIcon}
-                onClick={() => onClick(open, path)}
-                node={this.props.willDisplay(element.node)}
-              />
-            )}
+          {canSee && !(hidePrevious && path === openPath) && (
+            <Element
+              loading={loading}
+              icon={icon}
+              customIcon={customIcon}
+              onClick={() => onClick(open, path)}
+              node={this.props.willDisplay(element.node, element.path)}
+            />
+          )}
           {showChildren &&
             element.children.map(
               (child, childIndex) =>
@@ -72,7 +71,7 @@ class TreeElement extends React.Component {
                     key={childIndex}
                     hidePrevious={!canSee && hidePrevious}
                     element={child}
-                    willDisplay={node => this.props.willDisplay(node)}
+                    willDisplay={this.props.willDisplay}
                     index={childIndex}
                     openPath={openPath}
                     loadingPath={loadingPath}
@@ -93,12 +92,13 @@ class TreeElement extends React.Component {
 
 const Li = ({ canSee, selected, children, hidePrevious }) => (
   <li
-    className={"tree-folder-group" + (selected && !hidePrevious ? " selected" : "")}
+    className={'tree-folder-group' + (selected && !hidePrevious ? ' selected' : '')}
     style={{
       marginLeft: hidePrevious ? 0 : null,
       paddingLeft: hidePrevious ? 0 : null,
-      border: !canSee ? 0 : null
-    }}>
+      border: !canSee ? 0 : null,
+    }}
+  >
     {children}
   </li>
 )
@@ -107,7 +107,7 @@ const Element = ({ loading, icon, customIcon, onClick, node }) => (
   <div>
     {loading && <div className="loader" />}
     {!loading && customIcon ? (
-      <div style={{ display: "inline-block" }} onClick={() => onClick()}>
+      <div style={{ display: 'inline-block' }} onClick={() => onClick()}>
         {customIcon}
       </div>
     ) : (

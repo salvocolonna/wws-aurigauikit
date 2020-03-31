@@ -175,7 +175,12 @@ function isActive(to, isHash, basename = '') {
     const hash = location.hash.substring(1)
     return hash === relativeHref || hash.startsWith(relativeHref + '/')
   }
-  return location.pathname === relativeHref || location.pathname.startsWith(relativeHref + '/')
+  return (
+    location.pathname === relativeHref ||
+    location.pathname.startsWith(relativeHref + '/') ||
+    location.hash === relativeHref ||
+    location.hash.startsWith(relativeHref + '/')
+  )
 }
 
 const Logo = ({ src, onClick }) => (
