@@ -1,6 +1,6 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { Form } from "aurigauikit/components/parsley"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Form } from 'aurigauikit/components/parsley'
 
 class CellEditor extends React.Component {
   constructor(props) {
@@ -13,11 +13,11 @@ class CellEditor extends React.Component {
   validationChanged = valid => this.setState({ valid })
 
   componentDidMount() {
-    document.body.addEventListener("click", this.closeOnBodyClick)
+    document.body.addEventListener('click', this.closeOnBodyClick)
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener("click", this.closeOnBodyClick)
+    document.body.removeEventListener('click', this.closeOnBodyClick)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,14 +50,13 @@ class CellEditor extends React.Component {
   confirmed = () => {
     const input = document.getElementById(this.inputId)
     this.props.onEditConfirmed(this.props.rowIndex, this.props.colIndex, input.value)
-    console.log("LOL", this.props.rowIndex, this.props.colIndex, input.value)
     this.closeOnBodyClick({ target: null })
   }
 
   getValidations() {
     let validations = {}
     Object.keys(this.props.validations).forEach(key => {
-      const prop = "data-validation-" + key
+      const prop = 'data-validation-' + key
       validations[prop] = this.props.validations[key]
     })
 
@@ -66,12 +65,12 @@ class CellEditor extends React.Component {
 
   render() {
     const style = {
-      width: "260px",
-      display: "block",
-      position: "absolute",
+      width: '260px',
+      display: 'block',
+      position: 'absolute',
       zIndex: 1100,
       top: `${this.props.position.top - 60}px`,
-      left: `${this.props.position.left - 20}px`
+      left: `${this.props.position.left - 20}px`,
     }
     return ReactDOM.createPortal(
       this.state.isOpen && (
@@ -79,7 +78,8 @@ class CellEditor extends React.Component {
           <div
             className="celleditor-panel"
             style={style}
-            ref={cellEditor => (this.cellEditor = cellEditor)}>
+            ref={cellEditor => (this.cellEditor = cellEditor)}
+          >
             <div className="celleditor-header">
               <h4 className="celleditor-title">{this.props.title}</h4>
             </div>

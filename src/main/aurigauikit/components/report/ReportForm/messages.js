@@ -1,42 +1,46 @@
-import { defineMessages } from "react-intl"
+import { defineMessages } from 'react-intl'
 
-const PATH = "report-form"
+const PATH = 'report-form'
 
 export default defineMessages({
   organizationalUnit: {
     id: `${PATH}.organizational-unit`,
-    defaultMessage: "Organizational unit"
+    defaultMessage: 'Organizational unit',
   },
   schedulation: {
     id: `${PATH}.schedulation`,
-    defaultMessage: "Schedulation options"
+    defaultMessage: 'Schedulation options',
   },
   reportName: {
     id: `${PATH}.report-name`,
-    defaultMessage: "Report name"
+    defaultMessage: 'Report name',
   },
   template: {
     id: `${PATH}.template`,
-    defaultMessage: "Template"
+    defaultMessage: 'Template',
   },
   startDate: {
     id: `${PATH}.start-date`,
-    defaultMessage: "Start date"
+    defaultMessage: 'Start date',
   },
   endDate: {
     id: `${PATH}.end-date`,
-    defaultMessage: "End date"
+    defaultMessage: 'End date',
   },
   undo: {
     id: `${PATH}.undo`,
-    defaultMessage: "Undo"
+    defaultMessage: 'Undo',
   },
   confirm: {
     id: `${PATH}.confirm`,
-    defaultMessage: "Confirm"
+    defaultMessage: 'Confirm',
   },
   saving: {
     id: `${PATH}.saving`,
-    defaultMessage: "Saving..."
-  }
+    defaultMessage: 'Saving...',
+  },
+  endGreater: {
+    id: `${PATH}.validations.end-greater`,
+    defaultMessage: 'End date must be greater than start date',
+  },
 })

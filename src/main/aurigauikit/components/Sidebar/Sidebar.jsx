@@ -17,7 +17,6 @@ const Sidebar = class extends React.Component {
   prevOpen = null
 
   componentDidMount() {
-    console.log(this.submenus)
     document.body.addEventListener('click', this.closeOnBodyClick, true)
   }
 
@@ -187,7 +186,6 @@ const Logo = ({ src, onClick }) => (
 )
 
 const canView = (items = [], child, parentKey) => {
-  console.log({ items, child, parentKey })
   if (!child.props) return false
   let key = child.key
   if (parentKey) key = parentKey + '.' + key

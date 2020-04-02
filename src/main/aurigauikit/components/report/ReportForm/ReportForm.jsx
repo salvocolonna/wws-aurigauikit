@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
-import { FormattedMessage as Msg } from 'react-intl'
+import { FormattedMessage as Msg, injectIntl } from 'react-intl'
 import { Grid, Div } from 'aurigauikit/components/Grid'
 import Select2 from 'aurigauikit/components/Select2'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
 import DatePicker from 'aurigauikit/components/DatePicker'
 import moment from 'moment'
 import messages from './messages'
+import schedulerMessages from '../../Scheduler/messages'
 
 const initialState = {
   reportName: '',
@@ -47,7 +48,7 @@ export default class extends React.Component {
     return (
       <Fragment>
         <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
-          <Grid style={{ overflow: 'initial' }}>
+          <Grid style={{ overflow: 'inherit' }}>
             <Div col="1-2">
               <label style={{ marginTop: 12 }}>
                 <Msg {...messages.organizationalUnit} />
@@ -165,33 +166,62 @@ const StartDate = ({ onChange, startDate, endDate }) => (
     )}
   </Fragment>
 )
+let last = null
+const buggyRemoveValidationMessagesKey = date => {
+  let value = moment(date)
+    .dayOfYear(0)
+    .month(0)
+    .year(0)
+    .second(0)
+    .millisecond(0)
+    .valueOf()
+  if (!last || !date) value = 'INIT'
+  last = date
+  return value
+}
 
-const EndDate = ({ onChange, startDate, endDate }) => (
+const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
   <Fragment>
     <label style={{ marginTop: 12 }}>
       <Msg {...messages.endDate} />
     </label>
     {endDate && (
-      <DatePicker
-        selectsEnd
-        startDate={startDate && moment(startDate)}
-        endDate={endDate && moment(endDate)}
-        minDate={startDate && moment(startDate)}
-        maxDate={moment()}
-        selected={endDate && moment(endDate)}
-        onChange={onChange}
-      />
+      <div key={buggyRemoveValidationMessagesKey(endDate)}>
+        <DatePicker
+          required
+          selectsEnd
+          startDate={startDate && moment(startDate)}
+          endDate={endDate && moment(endDate)}
+          minDate={startDate && moment(startDate)}
+          maxDate={moment()}
+          selected={endDate && moment(endDate)}
+          onChange={onChange}
+          customInput={
+            endDate && (
+              <input
+                min={startDate ? moment(startDate).valueOf() : 0}
+                data-validation-error-message={intl.formatMessage(
+                  schedulerMessages.validations.endGreater
+                )}
+                data-validation-value={endDate && moment(endDate).valueOf()}
+              />
+            )
+          }
+        />
+      </div>
     )}
     {!endDate && (
-      <DatePicker
-        selectsEnd
-        startDate={startDate && moment(startDate)}
-        endDate={endDate && moment(endDate)}
-        minDate={startDate && moment(startDate)}
-        maxDate={moment()}
-        onChange={onChange}
-        required
-      />
+      <div key={buggyRemoveValidationMessagesKey(endDate)}>
+        <DatePicker
+          selectsEnd
+          startDate={startDate && moment(startDate)}
+          endDate={endDate && moment(endDate)}
+          minDate={startDate && moment(startDate)}
+          maxDate={moment()}
+          onChange={onChange}
+          required
+        />
+      </div>
     )}
   </Fragment>
-)
+))

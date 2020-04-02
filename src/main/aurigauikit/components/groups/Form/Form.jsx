@@ -75,7 +75,6 @@ export default class extends React.Component {
       children,
       saving,
     } = this.props
-    console.log(this.state.tempSelectedElements)
     return (
       <Form onSubmit={this.submit}>
         <Grid style={{ overflow: 'initial' }}>
@@ -128,7 +127,8 @@ const UndoButton = ({ onClick, saving }) => (
     type="button"
     disabled={saving}
     style={{ marginRight: '20px', float: 'right' }}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     <Msg {...messages.undo} />
   </button>
 )
@@ -138,7 +138,8 @@ const BackButton = ({ onClick }) => (
     className="btn btn-primary-outline"
     type="button"
     style={{ float: 'right' }}
-    onClick={onClick}>
+    onClick={onClick}
+  >
     <Msg {...messages.back} />
   </button>
 )
@@ -148,7 +149,8 @@ const SaveButton = ({ disabled, saving }) => (
     className="btn btn-confirmatory"
     disabled={disabled || saving}
     style={{ float: 'right' }}
-    type="submit">
+    type="submit"
+  >
     {saving ? <Msg {...messages.saving} /> : <Msg {...messages.save} />}
   </button>
 )
@@ -179,7 +181,8 @@ const AddButton = ({ disabled, onClick }) => (
       marginBottom: 10,
     }}
     className="btn btn-primary"
-    onClick={onClick}>
+    onClick={onClick}
+  >
     <i className="fa fa-bank" style={{ marginRight: 15 }} />
     <Msg {...messages.add} />
   </button>
