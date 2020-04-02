@@ -130,6 +130,7 @@ i18n.loadMessages('it', {
   'scheduler.recurrings.NEVER': 'Nessuna',
   'scheduler.recurrings.WEEKLY': 'Settimanale',
   'scheduler.recurrings.YEARLY': 'Annuale',
+  'scheduler.validations.end-greater': 'La data finale deve essere maggiore della data iniziale',
 
   'page.anchors.table-of-contents': 'Tabella dei contenuti',
   'page.anchors.back-to-top': "Torna all'inizio",

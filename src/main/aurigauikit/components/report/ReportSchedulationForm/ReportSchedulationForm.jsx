@@ -59,16 +59,7 @@ export default class extends React.Component {
 
   render() {
     const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading, mode } = this.props
-    const {
-      templates,
-      template,
-      reportName,
-      organizationalUnits,
-      startDate,
-      duration,
-      previousMonth,
-      scheduler,
-    } = data
+    const { templates, template, reportName, organizationalUnits, scheduler } = data
     return (
       <Fragment>
         <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
@@ -95,15 +86,6 @@ export default class extends React.Component {
               <Div col="1-2">
                 <ReportName reportName={reportName} onChange={this.changeReportName} />
               </Div>
-              {/* <Div col="3-12">
-                <StartDate onChange={this.changeStartDate} startDate={startDate} />
-              </Div> */}
-              {/* <Div col="1-12">
-                <Duration onChange={this.changeDuration} duration={duration} />
-              </Div> */}
-              {/* <Div col="2-12">
-                <PreviousMonth onChange={this.changePreviousMonth} previousMonth={previousMonth} />
-              </Div> */}
             </Grid>
           </section>
           <section>
@@ -176,43 +158,5 @@ const Template = ({ onChange, template, templates, loading }) => (
       willDisplay={template => template.name}
       didSelect={onChange}
     />
-  </label>
-)
-
-const StartDate = ({ onChange, startDate }) => (
-  <Fragment>
-    <label style={{ marginTop: 12 }}>
-      <Msg {...messages.startDate} />
-    </label>
-    {startDate && (
-      <DatePicker
-        selected={startDate && moment(startDate)}
-        maxDate={moment()}
-        onChange={onChange}
-      />
-    )}
-    {!startDate && <DatePicker onChange={onChange} required />}
-  </Fragment>
-)
-
-const Duration = ({ onChange, duration }) => (
-  <label style={{ marginTop: 12 }}>
-    <Msg {...messages.duration} />
-    <input
-      style={{ width: '100%' }}
-      type="number"
-      min="0"
-      onChange={e => onChange(e.target.value)}
-      value={duration}
-    />
-  </label>
-)
-
-const PreviousMonth = ({ onChange, previousMonth }) => (
-  <label style={{ marginTop: 26 }}>
-    &nbsp;
-    <Checkbox isChecked={previousMonth} onChange={onChange}>
-      <Msg {...messages.previousMonth} />
-    </Checkbox>
   </label>
 )
