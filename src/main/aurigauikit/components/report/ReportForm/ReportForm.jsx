@@ -200,9 +200,12 @@ const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
             endDate && (
               <input
                 min={startDate ? moment(startDate).valueOf() : 0}
-                data-validation-error-message={intl.formatMessage(
-                  schedulerMessages.validations.endGreater
-                )}
+                max={moment()}
+                data-validation-range-message={
+                  endDate < startDate
+                    ? intl.formatMessage(schedulerMessages.validations.endGreater)
+                    : intl.formatMessage(messages.endGreater)
+                }
                 data-validation-value={endDate && moment(endDate).valueOf()}
               />
             )
