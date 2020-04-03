@@ -194,5 +194,6 @@ i18n.loadMessages('it', {
   'report-form.end-date': 'Data fine',
   'report-form.undo': 'Annulla',
   'report-form.confirm': 'Conferma',
+  'report-form.end-greater': 'La data finale non può essere superiore alla data di oggi',
   'report-schedulation-list-page.report': 'Report',
 })

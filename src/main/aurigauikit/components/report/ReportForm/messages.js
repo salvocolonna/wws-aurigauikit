@@ -40,7 +40,7 @@ export default defineMessages({
     defaultMessage: 'Saving...',
   },
   endGreater: {
-    id: `${PATH}.validations.end-greater`,
-    defaultMessage: 'End date must be greater than start date',
+    id: `${PATH}.end-greater`,
+    defaultMessage: 'End date cannot exceed today date',
   },
 })
