@@ -155,6 +155,9 @@ class SimpleTable extends React.Component {
         result = content(data)
       }
     }
+    if (column.rawValue) {
+      result = column.rawValue(data)
+    }
     return result
   }
 
@@ -172,7 +175,10 @@ class SimpleTable extends React.Component {
           const aValue = this.evaluate(a, column)
           const bValue = this.evaluate(b, column)
           let result = 0
-          if (aValue && bValue) {
+          if (
+            (aValue || aValue === '' || aValue === 0) &&
+            (bValue || bValue === '' || bValue === 0)
+          ) {
             if (!isNaN(aValue)) {
               a = Number(aValue)
               b = Number(bValue)
