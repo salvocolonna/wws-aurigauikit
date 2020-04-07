@@ -53,9 +53,9 @@ class SimpleTable extends React.Component {
     }
   }
 
-  isDataChanged(data) {
-    const added = data.filter(element => !this.props.data.includes(element))
-    const removed = this.props.data.filter(element => !data.includes(element))
+  isDataChanged(data, oldData) {
+    const added = data.filter(element => !oldData.includes(element))
+    const removed = oldData.filter(element => !data.includes(element))
     return (added.length || removed.length) > 0
   }
 
@@ -63,17 +63,24 @@ class SimpleTable extends React.Component {
   //		if(!this.defaultSelectionFound) this.findSelectedRows()
   //	}
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.page !== this.props.page) this.setState({ page: nextProps.page })
-    if (nextProps.sort !== this.props.sort) this.setState({ sort: nextProps.sort })
-    if (this.isDataChanged(nextProps.data)) this.setState({ data: nextProps.data })
-    if (nextProps.selectedRows !== this.props.selectedRows)
-      this.setState({ selectedRows: nextProps.selectedRows })
+  componentDidUpdate(prevProps) {
+    if (this.props.page !== prevProps.page) this.setState({ page: this.props.page })
+    if (this.props.sort !== prevProps.sort) this.setState({ sort: this.props.sort })
+    if (this.isDataChanged(this.props.data, prevProps.data))
+      this.setState({
+        data: this.props.data,
+        page:
+          this.state.page > 1 && this.props.data.length <= prevProps.pageSize
+            ? this.state.page - 1
+            : this.state.page,
+      })
+    if (this.props.selectedRows !== prevProps.selectedRows)
+      this.setState({ selectedRows: this.props.selectedRows })
     if (
-      nextProps.menu.context &&
-      nextProps.menu.context.position !== this.props.menu.context.position
+      this.props.menu.context &&
+      this.props.menu.context.position !== prevProps.menu.context.position
     )
-      this.setState({ menu: { context: nextProps.menu.context } })
+      this.setState({ menu: { context: this.props.menu.context } })
   }
 
   onMenuItemClick(rowIndex, position, target) {
