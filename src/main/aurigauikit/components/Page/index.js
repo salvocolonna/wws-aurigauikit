@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import sizeMe from 'react-sizeme'
 import { withRouter } from 'react-router-dom'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 import errorPic from './images/error.png'
@@ -99,60 +98,38 @@ export const Error = withRouter(
 export const createPage = (Topbar, Sidebar) => {
   const legacy = !window.ANT_LAYOUT
   if (legacy) {
-    const SizedSidebar = sizeMe({ noPlaceholder: true })(Sidebar)
-    const SizedTopbar = sizeMe({ monitorHeight: true, noPlaceholder: true })(Topbar)
-    return Component =>
-      class extends React.Component {
-        state = { sidebar: 0, topbar: 0, opacity: 0.5 }
-        onTopbar = size => this.setState({ topbar: size.height })
-        onSidebar = size => this.setState({ sidebar: size.width })
-        getSize = () => {
-          const { topbar, sidebar } = this.state
-          if (topbar === 0 && sidebar === 0) return null
-          const width = `calc(100vw - ${sidebar}px)`
-          const height = `calc(100vh - ${topbar}px)`
-          const minWidtb = width
-          const minHeight = height
-          return { width, height, minWidtb, minHeight }
-        }
-
-        componentDidMount() {
-          this.setState({ opacity: 1 })
-        }
-
-        render() {
-          const size = this.getSize()
-          return (
-            <div id="container">
-              <SizedSidebar
-                onSize={this.onSidebar}
-                topbar={this.state.topbar}
-                {...this.props.sidebarProps}
-              />
-              <div id="main">
-                <SizedTopbar onSize={this.onTopbar} />
-                {size && (
-                  <div
-                    id="content-dynamic"
-                    style={{
-                      display: 'block',
-                      position: 'relative',
-                      overflowY: 'auto',
-                      overflowX: 'hidden',
-                      opacity: this.state.opacity,
-                      ...size,
-                    }}
-                  >
-                    <Error>
-                      <Component {...this.props} />
-                    </Error>
-                  </div>
-                )}
-              </div>
+    return Component => props => {
+      const isDesktopOrLaptop = useMediaQuery({
+        query: '(min-device-width: 1224px)',
+      })
+      const width = `calc(100vw - ${isDesktopOrLaptop ? 220 : 60}px)`
+      const height = 'calc(100vh - 80px)'
+      return (
+        <div id="container" style={{ display: 'flex' }}>
+          <Sidebar topbar={80} {...props.sidebarProps} />
+          <div id="main" style={{ display: 'flex', flexDirection: 'column' }}>
+            <Topbar />
+            <div
+              id="content-dynamic"
+              style={{
+                display: 'block',
+                overflowY: 'auto',
+                position: 'relative',
+                overflowX: 'hidden',
+                width: width,
+                minWidth: width,
+                height: height,
+                minHeight: height,
+              }}
+            >
+              <Error>
+                <Component {...props} />
+              </Error>
             </div>
-          )
-        }
-      }
+          </div>
+        </div>
+      )
+    }
   }
   return Component =>
     function(props) {
