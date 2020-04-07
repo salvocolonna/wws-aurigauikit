@@ -99,10 +99,10 @@ export const createPage = (Topbar, Sidebar) => {
   const legacy = !window.ANT_LAYOUT
   if (legacy) {
     return Component => props => {
-      const isDesktopOrLaptop = useMediaQuery({
-        query: '(min-device-width: 1224px)',
+      const isMobile = useMediaQuery({
+        query: '(max-width: 1024px)',
       })
-      const width = `calc(100vw - ${isDesktopOrLaptop ? 220 : 60}px)`
+      const width = `calc(100vw - ${isMobile ? 65 : 220}px)`
       const height = 'calc(100vh - 80px)'
       return (
         <div id="container" style={{ display: 'flex' }}>
