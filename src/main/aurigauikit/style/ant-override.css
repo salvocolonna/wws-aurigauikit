@@ -157,11 +157,7 @@ label .ant-select {
   line-height: 30px !important;
 }
 
-.ant-menu-submenu-selected .ant-menu-submenu-title {
-  color: #fe8b3a !important;
-}
-
-.ant-menu-submenu-selected .ant-menu-submenu-title i {
+.ant-menu-submenu-selected .ant-menu-submenu-title .anticon {
   color: #fe8b3a !important;
 }
 
