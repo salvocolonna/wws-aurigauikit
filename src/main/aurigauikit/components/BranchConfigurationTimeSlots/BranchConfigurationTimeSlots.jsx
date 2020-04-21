@@ -1,7 +1,8 @@
-import React from "react"
-import { FormattedMessage } from "react-intl"
-import TimeSlotElement from "./components/TimeSlotElement"
-import NewTimeSlotModal from "./components/NewTimeSlotModal"
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
+import TimeSlotElement from './components/TimeSlotElement'
+import NewTimeSlotModal from './components/NewTimeSlotModal'
+import  './branch-configuration-timeslots.less'
 
 class BranchConfigurationTimeSlots extends React.Component {
   static defaultProps = { editable: true }
@@ -14,7 +15,7 @@ class BranchConfigurationTimeSlots extends React.Component {
       selectedIndex: null,
       selectedStartTime: null,
       selectedEndTime: null,
-      error: null
+      error: null,
     }
   }
 
@@ -25,7 +26,7 @@ class BranchConfigurationTimeSlots extends React.Component {
       selectedStartTime: null,
       selectedEndTime: null,
       showModal: true,
-      error: null
+      error: null,
     })
   }
 
@@ -38,14 +39,14 @@ class BranchConfigurationTimeSlots extends React.Component {
       selectedStartTime: dailySlot.startTime,
       selectedEndTime: dailySlot.endTime,
       showModal: true,
-      error: null
+      error: null,
     })
   }
 
   saveSlot(day, newSlot) {
     let error
     if (newSlot.startTime > newSlot.endTime) {
-      error = "invalid-time"
+      error = 'invalid-time'
     } else {
       let timeSlot = this.props.times.find(x => x.day === day)
       let ok = timeSlot.dailySlots.every((item, index) => {
@@ -55,7 +56,7 @@ class BranchConfigurationTimeSlots extends React.Component {
           index === this.state.selectedIndex
         )
       })
-      if (!ok) error = "conflict"
+      if (!ok) error = 'conflict'
     }
     if (!error) {
       this.props.saveSlot(day, newSlot, this.state.selectedIndex)
@@ -67,7 +68,7 @@ class BranchConfigurationTimeSlots extends React.Component {
         selectedIndex: this.state.selectedIndex,
         selectedStartTime: newSlot.startTime,
         selectedEndTime: newSlot.endTime,
-        error: error
+        error: error,
       })
     }
   }
@@ -79,7 +80,7 @@ class BranchConfigurationTimeSlots extends React.Component {
       selectedIndex: null,
       selectedStartTime: null,
       selectedEndTime: null,
-      error: null
+      error: null,
     })
   }
 
@@ -87,17 +88,18 @@ class BranchConfigurationTimeSlots extends React.Component {
     return (
       <div
         style={{
-          padding: "20px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          marginBottom: "1em"
-        }}>
+          padding: '20px',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          marginBottom: '1em',
+        }}
+      >
         <div>
-          <h4 style={{ color: "#2984c5", fontSize: "1.5em", fontWeight: "bold" }}>
+          <h4 className="branch-configuration-timeslots-title">
             <FormattedMessage id="branch-configuration-page.time-slots-title" />
           </h4>
         </div>
-        <div className="grid" style={{ textAlign: "center", overflow: "initial" }}>
+        <div className="grid" style={{ textAlign: 'center', overflow: 'initial' }}>
           {this.props.times &&
             this.props.times.map(time => (
               <TimeSlotElement

@@ -1,3 +1,5 @@
+@import '../../style/constants.less';
+
 .Timeline {
   width: 100%;
   position: relative;
@@ -139,7 +141,7 @@
         margin-top: -1px;
       }
       &.active:after {
-        background: #3498db;
+        background: @primary-color;
         border-style: none;
         border-color: none;
         margin-top: 0;
@@ -149,8 +151,8 @@
       }
       &.active:not(.skipped) {
         .Timeline-ball {
-          border-color: #3498db;
-          background: #3498db;
+          border-color: @primary-color;
+          background: @primary-color;
           color: white;
         }
       }
@@ -215,7 +217,7 @@
 
       &.skipped {
         &:after {
-          border: 1px solid #3498db;
+          border: 1px solid @primary-color;
         }
         .Timeline-label:not(.unselectable) {
           cursor: not-allowed;
@@ -293,7 +295,7 @@
       &.active {
         opacity: 1;
         .Timeline-ball {
-          background-color: #3498db;
+          background-color: @primary-color;
         }
       }
       &.current {

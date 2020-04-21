@@ -8,7 +8,7 @@ import Popover from 'aurigauikit/components/Popover'
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill'
 import { getToken } from './utils'
 import { getURL } from '../../ajax/utils'
-import { Icon, Badge } from 'aurigauikit/antd'
+import { Icon, Badge } from 'antd'
 
 window.EventSource = NativeEventSource || EventSourcePolyfill
 

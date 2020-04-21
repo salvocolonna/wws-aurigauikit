@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'aurigauikit/antd'
+import { Row, Col } from 'antd'
 import Select2 from 'aurigauikit/components/Select2'
 import Radio from 'aurigauikit/components/Radio'
 import { FormattedMessage as Msg, injectIntl } from 'react-intl'

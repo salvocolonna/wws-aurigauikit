@@ -10,15 +10,15 @@
 @import '../../style/helpers.less';
 
 @sidebar_width: 220px;
-@sidebar_active_text_color: @alternate_color;
+@sidebar_active_text_color: @alternate-color;
 @sidebar_active_background_color: white;
-@sidebar_text_color: @secondary_text_color;
+@sidebar_text_color: @secondary-text-color;
 //@logo_height: 130px;
 @logo_height: 64px;
 @content_padding: 40px;
 
 @topbar_text_color: white;
-@topbar_background_color: @alternate_color;
+@topbar_background_color: @alternate-color;
 
 .trigger {
   font-size: 18px;
@@ -40,14 +40,14 @@
   display: table;
   width: 100%;
   min-height: 100vh;
-  background-color: @background_2_color;
+  background-color: @background-2-color;
 }
 
 #react-sidebar {
   display: table-cell;
   vertical-align: top;
   min-width: @sidebar_width;
-  border-right: 1px solid @separator_color;
+  border-right: 1px solid @separator-color;
 }
 
 #react-sidebar-horizontal {
@@ -96,7 +96,7 @@
   height: @logo_height;
   margin-right: -1px;
 
-  background-color: @brand_color;
+  background-color: @brand-color;
   text-align: center;
 
   span {
@@ -159,7 +159,7 @@
     }
 
     li {
-      border-bottom: 1px solid @separator_color;
+      border-bottom: 1px solid @separator-color;
       cursor: pointer;
       color: @sidebar_text_color;
       overflow: hidden;
@@ -170,12 +170,12 @@
         border-right: 1px solid transparent;
 
         i {
-          color: @brand_color;
+          color: @brand-color;
         }
       }
 
       &.disabled {
-        color: @disabled_1_color;
+        color: @disabled-1-color;
 
         a {
           .unclickable();
@@ -227,7 +227,7 @@
         a,
         a:visited {
           i {
-            color: @brand_color;
+            color: @brand-color;
             visibility: visible;
             display: block;
           }
@@ -293,7 +293,7 @@
 #main {
   display: table-cell;
   width: 100%;
-  background-color: @background_1_color;
+  background-color: @background-1-color;
 }
 
 #topbar {
@@ -321,7 +321,7 @@
       &:after {
         font-size: 10px;
         content: '|';
-        color: @separator_color;
+        color: @separator-color;
         margin: 0 1.8em;
       }
 
@@ -350,7 +350,7 @@
       &.notification-icon-has-notifications i:after {
         content: ' ';
         position: absolute;
-        background: @brand_color;
+        background: @brand-color;
         height: 0.4em;
         width: 0.4em;
         top: 0;
@@ -388,7 +388,7 @@
 				padding: 0.1em 0.8em;
 
 				color: white;
-				background-color: @critical_color;
+				background-color: @critical-color;
 			}
 			*/
     }
@@ -408,7 +408,7 @@
 .notification-icon-has-notifications i:after {
 	content: " ";
 	position: absolute;
-	background: @brand_color;
+	background: @brand-color;
 	height: 0.4em;
 	width: 0.4em;
 	top: 0;
@@ -511,8 +511,8 @@
       padding: 10px;
       padding-left: 20px;
 
-      background-color: @background_1_color;
-      border: 1px solid @input_border_color;
+      background-color: @background-1-color;
+      border: 1px solid @input-border-color;
 
       /* for IE9+ */
       border-collapse: separate;

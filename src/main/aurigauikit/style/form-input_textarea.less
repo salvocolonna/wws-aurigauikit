@@ -3,73 +3,72 @@
  Form elements, input and textarea
  
  Copyright 2016 Auriga S.p.a.
- */ 
- 
-@import "constants.less";
-@import "commons.less";
+ */
+
+@import 'constants.less';
+@import 'commons.less';
 
 input,
 textarea {
-	.standard-radius();
-	
-	padding: 8px;
-	
-	color: @input_text_color;
-	border: 1px solid @input_border_color;
-	
-	&:focus {
-		color: @default_text_color;
-		background-color: white;
-		border-color: @accent_color;
-	
-		/* for IE9+ */
-		border-collapse: separate;
-		outline: none;
-	}
-	
-	&:disabled {
-		color: @default_text_color;
-		background-color: @background_2_color;
-	}
-	
-	&.validation-error {
-		border-color: @critical_color;
-	}
+  .standard-radius();
 
-	&.decorated {
-		padding-right: 30px;
-	}
+  padding: 8px;
+
+  color: @input-text-color;
+  border: 1px solid @input-border-color;
+
+  &:focus {
+    color: @default-text-color;
+    background-color: white;
+    border-color: @accent-color;
+
+    /* for IE9+ */
+    border-collapse: separate;
+    outline: none;
+  }
+
+  &:disabled {
+    color: @default-text-color;
+    background-color: @background-2-color;
+  }
+
+  &.validation-error {
+    border-color: @critical-color;
+  }
+
+  &.decorated {
+    padding-right: 30px;
+  }
 }
 
 input.dropdown:disabled {
-	cursor: pointer;	
+  cursor: pointer;
 }
 
 i.input-decoration {
-	color: @input_border_color;
-	margin-left: -26px;
-	cursor: pointer;
-	
-	&.opened {
-		color: @accent_color;
-	}
+  color: @input-border-color;
+  margin-left: -26px;
+  cursor: pointer;
+
+  &.opened {
+    color: @accent-color;
+  }
 }
 
 ul.validation-errors-list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	
-	li {
-		margin: 0;
-		padding: 0;
-	}
-}
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 
+  li {
+    margin: 0;
+    padding: 0;
+  }
+}
 
 /*
 i.add-button {
-	color: @confirmatory_color; 
+	color: @confirmatory-color; 
 	margin-left: 20px; 
 	cursor: pointer;
 }

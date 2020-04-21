@@ -64,7 +64,7 @@ function Topbar({
           whiteSpace: 'nowrap',
         }}
       >
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           {isTablet ? (
             <div />
           ) : (
@@ -81,8 +81,9 @@ function Topbar({
         </div>
         <div style={{ marginRight: 40 }}>
           <MediaQuery maxWidth={1000}>
-            {hasNotification && <span style={{ marginRight: 20 }}> {notification} </span>}
-            <span style={{ marginRight: 20 }}>
+            {hasNotification && <span> {notification} </span>}
+            {hasNotification && <Divider type="vertical" />}
+            <span>
               <Icon type="user" /> <span>{userName}</span>
             </span>
           </MediaQuery>
@@ -120,14 +121,14 @@ function Topbar({
               <Icon type="user" /> <span>{userName}</span>
             </span>
           </MediaQuery>
-          {roleDescription && (
-            <>
-              <Divider type="vertical" />
-              <MediaQuery minWidth={786}>
+          <MediaQuery minWidth={786}>
+            {roleDescription && (
+              <>
+                <Divider type="vertical" />
                 <span>{roleDescription.split('_').join(' ')}</span>
-              </MediaQuery>
-            </>
-          )}
+              </>
+            )}
+          </MediaQuery>
           <Divider type="vertical" />
           <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
             <Icon type="logout" />

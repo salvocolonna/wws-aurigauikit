@@ -4,82 +4,81 @@
  
  Copyright 2016 Auriga S.p.A.
  */
- 
-@import "constants.less";
-@import "commons.less";
-@import "helpers.less";
 
+@import 'constants.less';
+@import 'commons.less';
+@import 'helpers.less';
 
 .temporary-panel {
-	.standard-shadow();
-	.standard-radius();
-		
-	width: 60%;
-	margin: -2px auto 0 -30%;
-	padding: 1em 3.5em 1em 3.5em;
+  .standard-shadow();
+  .standard-radius();
 
-	position: fixed;
-	top: 0;
-	left: 50%;
-	
-	z-index: 300;
+  width: 60%;
+  margin: -2px auto 0 -30%;
+  padding: 1em 3.5em 1em 3.5em;
 
-	font-size: 15px;
-	font-weight: 400;
-	line-height: 1.8em;
+  position: fixed;
+  top: 0;
+  left: 50%;
 
-	color: @temporary_panel_text_color;	
-	background-color: @default_background_color;
-	
-	i {
-		position: absolute;
-		top: 20px;
-		left: 20px;
-	}
-	
-	strong {
-		font-weight: 700;
-	}
-	
-	& > .fa.fa-times {
-		.clickable();
-		.link-transition();
-		
-		left: auto;
-		right: 20px; 
-	
-		&:hover {
-			color: darken(@primary_color, @hover_darkening_factor);
-		}
-	}
-	
-	a, a:visited {
-		color: white;
-		font-weight: bold;		
-	}
+  z-index: 300;
+
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8em;
+
+  color: @temporary-panel-text-color;
+  background-color: @default-background-color;
+
+  i {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  & > .fa.fa-times {
+    .clickable();
+    .link-transition();
+
+    left: auto;
+    right: 20px;
+
+    &:hover {
+      color: darken(@primary-color, @hover-darkening-factor);
+    }
+  }
+
+  a,
+  a:visited {
+    color: white;
+    font-weight: bold;
+  }
 }
 
 .temporary-panel-appearance(@color) {
-	background-color: @color;
-	
-	& > .fa.fa-times:hover {
-		color: darken(@color, 15%);
-	}
+  background-color: @color;
+
+  & > .fa.fa-times:hover {
+    color: darken(@color, 15%);
+  }
 }
 
 .temporary-panel-confirmatory {
-	.temporary-panel-appearance(@confirmatory_color);
+  .temporary-panel-appearance(@confirmatory-color);
 }
 
 .temporary-panel-warning {
-	.temporary-panel-appearance(@warning_color);
+  .temporary-panel-appearance(@warning-color);
 }
 
 .temporary-panel-critical {
-	.temporary-panel-appearance(@critical_color);
+  .temporary-panel-appearance(@critical-color);
 }
 
 .temporary-panel-info {
-	.temporary-panel-appearance(@info_color);
+  .temporary-panel-appearance(@info-color);
 }
-

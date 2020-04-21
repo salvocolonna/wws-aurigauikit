@@ -1,8 +1,11 @@
+@import '../../style/constants.less';
+
 .react-card:not(.legacy) {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   height: 100%;
   width: 100%;
   border-radius: 4px;
+  border: 1px solid @primary-color;
   &.collapsable {
   }
   .title {
@@ -10,8 +13,8 @@
     padding-top: 10px;
     cursor: pointer;
     h4 {
-      color: #2984c5;
-      border-color: #2984c5;
+      color: @primary-color;
+      border-color: @primary-color;
       font-size: 1.3em;
       font-weight: bold;
       i {
@@ -56,10 +59,10 @@
   }
   &.critical {
     .title h4 {
-      color: #dc402b;
+      color: @brand-color;
     }
     .loader {
-      border-color: #dc402b #dc402b rgb(243, 243, 243) rgb(243, 243, 243) !important;
+      border-color: @brand-color @brand-color rgb(243, 243, 243) rgb(243, 243, 243) !important;
     }
   }
   .content {
@@ -74,7 +77,7 @@
 
 .react-card.legacy {
   box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  border: 1px solid @primary-color;
   height: 100%;
   width: 100%;
   border-radius: 4px;
@@ -85,8 +88,8 @@
     padding-top: 10px;
     cursor: pointer;
     h4 {
-      color: #2984c5;
-      border-color: #2984c5;
+      color: @primary-color;
+      border-color: @primary-color;
       font-size: 1.3em;
       font-weight: bold;
       i {
@@ -128,15 +131,15 @@
     }
   }
   &.primary {
-    border: 1px solid #2984c5;
+    border: 1px solid @primary-color;
   }
   &.critical {
-    border: 1px solid #dc402b;
+    border: 1px solid @brand-color;
     .title h4 {
-      color: #dc402b;
+      color: @brand-color;
     }
     .loader {
-      border-color: #dc402b #dc402b rgb(243, 243, 243) rgb(243, 243, 243) !important;
+      border-color: @brand-color @brand-color rgb(243, 243, 243) rgb(243, 243, 243) !important;
     }
   }
   .content {
