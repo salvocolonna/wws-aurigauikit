@@ -36,7 +36,6 @@ class Head extends React.Component {
       paddingLeft: 7,
       paddingRight: 5,
       fontSize: '1.2em',
-      color: '#2984C5',
       transform: 'translateX(-0.4em) translateY(0.15em)',
       marginTop: -3,
     }

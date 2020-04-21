@@ -1,17 +1,19 @@
-.branch-configuration__grid{
+@import '../../style/constants.less';
+
+.branch-configuration__grid {
   display: flex;
 }
-.branch-configuration__map{
+.branch-configuration__map {
   height: 100%;
   width: 100%;
-  border-right: 1px solid #2984c5;
+  border-right: 1px solid @primary-color;
 }
 
 @media handheld, only screen and (max-width: 767px) {
-	.branch-configuration__grid{
-		display: block;
+  .branch-configuration__grid {
+    display: block;
   }
-  .branch-configuration__map{
+  .branch-configuration__map {
     height: 500px;
     width: 100%;
     margin-bottom: 20px;

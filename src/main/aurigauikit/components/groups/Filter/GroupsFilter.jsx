@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage as Msg } from 'react-intl'
 import { BasicFilter } from 'aurigauikit/components/BasicFilter'
-import { Row, Col } from 'aurigauikit/antd'
+import { Row, Col } from 'antd'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
 import Select2 from 'aurigauikit/components/Select2'
 import messages from './messages'

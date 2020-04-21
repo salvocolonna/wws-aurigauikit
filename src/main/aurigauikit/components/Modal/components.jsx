@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 
 const Header = ({ title, children }) => (
-  <div className="dialog-header" style={{ width: "100%", marginTop: -15 }}>
-    <span style={{ color: "#2984c5", fontSize: "1.2em" }}>{title}</span>
+  <div className="dialog-header" style={{ width: '100%', marginTop: -15 }}>
+    <span style={{ cfontSize: '1.2em' }}>{title}</span>
     {children}
   </div>
 )

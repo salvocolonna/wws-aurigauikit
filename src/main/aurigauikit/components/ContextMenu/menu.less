@@ -9,8 +9,8 @@
 @import '../../style/commons.less';
 @import '../../style/helpers.less';
 
-//@menu_hover_color: lighten(@accent_color, 45%);
-@menu_hover_color: @accent_color;
+//@menu_hover_color: lighten(@accent-color, 45%);
+@menu_hover_color: @accent-color;
 
 .menu {
   .standard-shadow();
@@ -26,8 +26,8 @@
   min-width: 200px;
   overflow: hidden;
 
-  background-color: @background_1_color;
-  border: 1px solid @input_border_color;
+  background-color: @background-1-color;
+  border: 1px solid @input-border-color;
 
   /* for IE9+ */
   border-collapse: separate;
@@ -53,34 +53,34 @@
       margin-right: 20px;
 
       &:hover {
-        color: @background_1_color;
+        color: @background-1-color;
         background-color: @menu_hover_color;
       }
 
       &.destructive {
-        color: @critical_color;
+        color: @critical-color;
 
         &:hover {
-          color: @background_1_color;
-          background-color: @critical_color;
+          color: @background-1-color;
+          background-color: @critical-color;
         }
       }
 
       &.confirmatory {
-        color: @confirmatory_color;
+        color: @confirmatory-color;
 
         &:hover {
-          color: @background_1_color;
-          background-color: @confirmatory_color;
+          color: @background-1-color;
+          background-color: @confirmatory-color;
         }
       }
 
       &.disabled {
         .unclickable();
-        color: @disabled_1_color;
+        color: @disabled-1-color;
 
         &:hover {
-          color: @disabled_1_color;
+          color: @disabled-1-color;
           background-color: inherit;
         }
       }
@@ -90,7 +90,7 @@
       }
 
       &.separator {
-        border-bottom: 1px solid @separator_color;
+        border-bottom: 1px solid @separator-color;
         min-height: 1px;
         margin: 4px 0 4px 0;
         cursor: default;
@@ -105,12 +105,12 @@
       a:hover {
         display: block;
         text-decoration: none;
-        color: @primary_color;
+        color: @primary-color;
       }
 
       a:hover {
-        color: @background_1_color;
-        background-color: @primary_color;
+        color: @background-1-color;
+        background-color: @primary-color;
       }
     }
   }

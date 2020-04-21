@@ -5,28 +5,28 @@
  Copyright 2016 Auriga S.p.a.
  */
 
-@import "constants.less";
-@import "commons.less";
- 
+@import 'constants.less';
+@import 'commons.less';
+
 @animation-duration: 100ms;
 
 #content-loading-bar {
-	.standard-shadow();
-	
-	-o-transition: width @animation-duration ease-in-out;
-	-ms-transition: width @animation-duration ease-in-out;
-	-moz-transition: width @animation-duration ease-in-out;
-	-webkit-transition: width @animation-duration ease-in-out;
-	transition: width @animation-duration ease-in-out;
-	
-	position: fixed;
-	top: 0;
-	left: 0;
+  .standard-shadow();
 
-	width: 0;
-	height: 3px;
-	
-	background-color: @primary_color;
-	
-	z-index: 1001;
+  -o-transition: width @animation-duration ease-in-out;
+  -ms-transition: width @animation-duration ease-in-out;
+  -moz-transition: width @animation-duration ease-in-out;
+  -webkit-transition: width @animation-duration ease-in-out;
+  transition: width @animation-duration ease-in-out;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 0;
+  height: 3px;
+
+  background-color: @primary-color;
+
+  z-index: 1001;
 }

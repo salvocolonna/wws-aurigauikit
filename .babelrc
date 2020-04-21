@@ -17,8 +17,7 @@
       }
     ],
     "add-react-displayname",
-    ["react-intl", { "enforceDescriptions": false }],
-    ["import", { "libraryName": "antd", "libraryDirectory": "lib", "style": true }]
+    ["react-intl", { "enforceDescriptions": false }]
   ],
   "env": {
     "production": {

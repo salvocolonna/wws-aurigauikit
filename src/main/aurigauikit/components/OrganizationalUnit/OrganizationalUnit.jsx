@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef } from 'react'
 import Popover, { usePopover } from 'aurigauikit/components/Popover'
-import './style.css'
+import './style.less'
 
 function getScrollbarWidth() {
   let outer = document.createElement('div')
@@ -47,7 +47,8 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
     <div
       className={'OuType' + (popover.position ? ' OuTypeOpen' : '')}
       onClick={popover.show}
-      ref={ref}>
+      ref={ref}
+    >
       {items.length} {name}
       <Popover {...popover}>
         <div className="OuPopover">
@@ -58,7 +59,8 @@ const OuType = ({ name, items, onRemove, canRemove }) => {
                 width: items.length <= 3 ? null : `calc(100% - ${scroll}px`,
                 paddingTop: 1,
                 borderRadius: 4,
-              }}>
+              }}
+            >
               <label className="OuSearch">Search</label>
               <input
                 className="OuSearchInput"

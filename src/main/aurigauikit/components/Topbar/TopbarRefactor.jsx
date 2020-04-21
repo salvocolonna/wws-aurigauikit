@@ -1,9 +1,9 @@
 import React from 'react'
 import Notification from 'aurigauikit/components/Notification'
-import MediaQuery, { useMediaQuery } from 'react-responsive'
-const bankImg = <i className="fa fa-bank" />
-import { Layout, Icon } from 'aurigauikit/antd'
+import MediaQuery from 'react-responsive'
+import { Layout, Divider, Icon } from 'antd'
 
+const bankImg = <i className="fa fa-bank" />
 const { Header } = Layout
 
 function Topbar({
@@ -64,51 +64,72 @@ function Topbar({
           whiteSpace: 'nowrap',
         }}
       >
-        {isTablet ? (
-          <div />
-        ) : (
-          <Icon
-            className="trigger"
-            type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-            onClick={onCollapse}
-          />
-        )}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {isTablet ? (
+            <div />
+          ) : (
+            <Icon
+              className="trigger"
+              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={onCollapse}
+            />
+          )}
+          {logo && <Logo src={logo} onClick={onLogoClick} />}
+          {logoImage && logoImage.src && (
+            <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
+          )}
+        </div>
         <div style={{ marginRight: 40 }}>
           <MediaQuery maxWidth={1000}>
-            {hasNotification && <span style={{ marginRight: 20 }}> {notification} </span>}
-            <span style={{ marginRight: 20 }}>
+            {hasNotification && <span> {notification} </span>}
+            {hasNotification && <Divider type="vertical" />}
+            <span>
               <Icon type="user" /> <span>{userName}</span>
             </span>
           </MediaQuery>
           <MediaQuery minWidth={1000}>
-            {hasNotification && <span style={{ marginRight: 20 }}> {notification} </span>}
+            {hasNotification && <span> {notification} </span>}
             {parentBankCode && parentBankDescription && (
-              <span style={{ marginRight: 20 }}>
+              <span>
                 {bankImg} {`${parentBankDescription} (${parentBankCode})`}
               </span>
             )}
             {bankCode && bankDescription && (
-              <span style={{ marginRight: 20 }}>
-                {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
-              </span>
+              <>
+                <Divider type="vertical" />
+                <span>
+                  {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
+                </span>
+              </>
             )}
             {areaCode && areaDescription && (
-              <span style={{ marginRight: 20 }}>{`${areaDescription} (${areaCode})`}</span>
+              <>
+                <Divider type="vertical" />
+                <span>{`${areaDescription} (${areaCode})`}</span>
+              </>
             )}
             {branchCode && branchDescription && (
-              <span style={{ marginRight: 20 }}>
-                {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
-              </span>
+              <>
+                <Divider type="vertical" />
+                <span>
+                  {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
+                </span>
+              </>
             )}
-            <span style={{ marginRight: 20 }}>
+            <Divider type="vertical" />
+            <span>
               <Icon type="user" /> <span>{userName}</span>
             </span>
           </MediaQuery>
-          {roleDescription && (
-            <MediaQuery minWidth={786}>
-              <span style={{ marginRight: 20 }}>{roleDescription.split('_').join(' ')}</span>
-            </MediaQuery>
-          )}
+          <MediaQuery minWidth={786}>
+            {roleDescription && (
+              <>
+                <Divider type="vertical" />
+                <span>{roleDescription.split('_').join(' ')}</span>
+              </>
+            )}
+          </MediaQuery>
+          <Divider type="vertical" />
           <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
             <Icon type="logout" />
             <span> Logout</span>
@@ -135,7 +156,7 @@ const Logo = ({ src, onClick }) => (
   </div>
 )
 
-const LogoImage = ({ src, onClick, marginLeft = 40, maxWidth = 300, style = {} }) => {
+const LogoImage = ({ src, onClick, marginLeft = 0, maxWidth = 300, style = {} }) => {
   onClick = onClick || (() => {})
 
   return (

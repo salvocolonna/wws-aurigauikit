@@ -6,221 +6,202 @@
  Copyright 2016 Auriga S.p.a.
  */
 
-@import "constants.less";
-@import "commons.less";
-@import "helpers.less";
+@import 'constants.less';
+@import 'commons.less';
+@import 'helpers.less';
 
+.btn {
+  .standard-radius();
+  .standard-background-color-animation();
 
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 2.5em;
 
-.btn
-{
-	.standard-radius();
-	.standard-background-color-animation();
+  display: inline-block;
+  width: auto;
+  height: @default-button-height;
 
-	font-weight: bold;
-	text-transform: uppercase;
-	white-space: nowrap;
-	line-height: 2.5em;
+  padding: 0 1.5em;
+  border: 0;
 
-	display: inline-block;
-	width: auto;
-	height: @default_button_height;
+  i {
+    margin-right: 0.5em;
 
-	padding: 0 1.5em;
-	border: 0;
-
-	i {
-		margin-right: 0.5em;
-
-		&.right {
-			margin: 0 0 0 0.5em;
-		}
-	}
+    &.right {
+      margin: 0 0 0 0.5em;
+    }
+  }
 }
 
 a.btn {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .button-style1(@color) {
-	color: @button_text_color;
+  color: @button-text-color;
 
-	&:hover {
-		background-color: darken(@color, @hover_darkening_factor);
-	}
+  &:hover {
+    background-color: darken(@color, @hover-darkening-factor);
+  }
 
-	&:disabled {
-		background-color: lighten(@color, @lightnening_factor);
-	}
+  &:disabled {
+    background-color: lighten(@color, @lightnening-factor);
+  }
 
-	&:visited {
-		color: @button_text_color;
-	}
+  &:visited {
+    color: @button-text-color;
+  }
 }
 
 .button-style2(@color) {
-	background-color: @reverse_text_color;
-	border: 1px solid @color;
-	color: @color;
+  background-color: @reverse-text-color;
+  border: 1px solid @color;
+  color: @color;
 
-	&:disabled {
-		color: lighten(@color, @lightnening_factor);
-		border-color: lighten(@color, @lightnening_factor);
-		background-color: @reverse_text_color;
+  &:disabled {
+    color: lighten(@color, @lightnening-factor);
+    border-color: lighten(@color, @lightnening-factor);
+    background-color: @reverse-text-color;
 
-		&:hover {
-			background-color: @reverse_text_color;
-		}
-	}
+    &:hover {
+      background-color: @reverse-text-color;
+    }
+  }
 }
-
 
 /*
  Primary button
  */
-.btn-primary
-{
-	.bg-primary();
-	.button-style1(@primary_color);
+.btn-primary {
+  .bg-primary();
+  .button-style1(@primary-color);
 }
 
-.btn-primary-outline
-{
-	.button-style2(@primary_color);
+.btn-primary-outline {
+  .button-style2(@primary-color);
 
-	&:hover {
-		.light-bg-primary();
-	}
+  &:hover {
+    .light-bg-primary();
+  }
 }
 
 /*
  Confirmatory button
  */
-.btn-confirmatory
-{
-	.bg-confirmatory();
-	.button-style1(@confirmatory_color);
+.btn-confirmatory {
+  .bg-confirmatory();
+  .button-style1(@confirmatory-color);
 }
 
-.btn-confirmatory-outline
-{
-	.button-style2(@confirmatory_color);
+.btn-confirmatory-outline {
+  .button-style2(@confirmatory-color);
 
-	&:hover {
-		.light-bg-confirmatory();
-	}
+  &:hover {
+    .light-bg-confirmatory();
+  }
 }
-
 
 /*
  Warning button
  */
-.btn-warning
-{
-	.bg-warning();
-	.button-style1(@warning_color);
+.btn-warning {
+  .bg-warning();
+  .button-style1(@warning-color);
 }
 
-.btn-warning-outline
-{
-	.button-style2(@warning_color);
+.btn-warning-outline {
+  .button-style2(@warning-color);
 
-	&:hover {
-		.light-bg-warning();
-	}
+  &:hover {
+    .light-bg-warning();
+  }
 }
 
 /*
  Destructive button
  */
-.btn-destructive
-{
-	.bg-critical();
-	.button-style1(@critical_color);
+.btn-destructive {
+  .bg-critical();
+  .button-style1(@critical-color);
 }
 
-.btn-destructive-outline
-{
-	.button-style2(@critical_color);
+.btn-destructive-outline {
+  .button-style2(@critical-color);
 
-	&:hover {
-		.light-bg-critical();
-	}
+  &:hover {
+    .light-bg-critical();
+  }
 }
-
 
 /*
  Information button
  */
-.btn-info
-{
-	.bg-info();
-	.button-style1(@info_color);
+.btn-info {
+  .bg-info();
+  .button-style1(@info-color);
 }
 
-.btn-info-outline
-{
-	.button-style2(@info_color);
+.btn-info-outline {
+  .button-style2(@info-color);
 
-	&:hover {
-		.light-bg-info();
-	}
+  &:hover {
+    .light-bg-info();
+  }
 }
 
 /*
  Alternate button
  */
-.btn-alternate
-{
-	.bg-alternate();
-	.button-style1(@alternate_color);
+.btn-alternate {
+  .bg-alternate();
+  .button-style1(@alternate-color);
 }
 
-.btn-alternate-outline
-{
-	.button-style2(@alternate_color);
+.btn-alternate-outline {
+  .button-style2(@alternate-color);
 
-	&:hover {
-		.light-bg-alternate();
-	}
+  &:hover {
+    .light-bg-alternate();
+  }
 }
 
 /*
  Link button
  */
-.btn-link
-{
-	line-height: inherit;
-	height: inherit;
-	text-align: baseline;
+.btn-link {
+  line-height: inherit;
+  height: inherit;
+  text-align: baseline;
 
-	color: @primary_color;
-	background-color: inherit;
+  color: @primary-color;
+  background-color: inherit;
 
-	&:hover {
-		color: darken(@primary_color, @hover_darkening_factor);
-	}
+  &:hover {
+    color: darken(@primary-color, @hover-darkening-factor);
+  }
 
-	&:disabled {
-		color: lighten(@primary_color, @lightnening_factor);
-	}
+  &:disabled {
+    color: lighten(@primary-color, @lightnening-factor);
+  }
 
-	i {
-		margin-right: 0.2em;
-	}
+  i {
+    margin-right: 0.2em;
+  }
 }
 
 /*
  Button groups
  */
 div.btn-group {
-	line-height: 3.3em;
+  line-height: 3.3em;
 
-	.btn {
-		margin-right: 0.3em;
+  .btn {
+    margin-right: 0.3em;
 
-		&:last-child {
-			margin-right: 0;
-		}
-	}
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }

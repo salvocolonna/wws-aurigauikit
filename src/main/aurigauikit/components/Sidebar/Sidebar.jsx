@@ -1,9 +1,9 @@
 import React, { Children } from 'react'
-import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
-import './sidebar.less'
-import { Layout, Menu, Icon } from 'aurigauikit/antd'
+import { Layout, Menu, Icon } from 'antd'
 import { Item, SubMenu } from './SidebarLegacy'
+import logoMini from './logo-mini.svg'
+import './sidebar.less'
 const { SubMenu: AntSubMenu } = Menu
 const { Sider } = Layout
 
@@ -73,8 +73,17 @@ const Sidebar = class extends React.Component {
         trigger={null}
         collapsible
         collapsed={isCollapsed}
+        theme="dark"
       >
-        {logo && <Logo src={logo} onClick={() => onLogoClick && onLogoClick()} height={topbar} />}
+        {logo && (
+          <Logo
+            isCollapsed={isCollapsed}
+            src={isCollapsed ? logoMini : logo}
+            onClick={() => onLogoClick && onLogoClick()}
+            height={topbar}
+          />
+        )}
+
         <Menu
           multiple
           mode="inline"
@@ -179,8 +188,12 @@ function isActive(to, isHash, basename = '') {
   )
 }
 
-const Logo = ({ src, onClick }) => (
-  <div id="react-sidebar-logo" onClick={() => onClick()}>
+const Logo = ({ src, onClick, isCollapsed }) => (
+  <div
+    id="react-sidebar-logo"
+    onClick={() => onClick()}
+    style={{ padding: isCollapsed ? 5 : undefined }}
+  >
     <img id="app-logo-full" src={src} />
   </div>
 )

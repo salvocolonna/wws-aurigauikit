@@ -8,17 +8,21 @@
 @import '../../../style/constants.less';
 @import '../../../style/helpers.less';
 
-@table_head_color: @background_2_color;
+@table_head_color: @background-2-color;
 @table_head_sorted: #e5e5e5;
-@table_alternate_background_color: @background_2_color;
+@table_alternate_background_color: @background-2-color;
 @table_background_color: white;
 @table_caption_text_color: #ccc;
-@table_hover_color: lighten(@accent_color, 50%);
-@table_selected_color: lighten(@accent_color, 45%);
+@table_hover_color: lighten(@accent-color, 50%);
+@table_selected_color: lighten(@accent-color, 45%);
 
 @table_header_height: 50px;
 @table_row_height: 40px;
 @table_padding: 10px;
+
+.sortable-table i {
+  color: @primary-color;
+}
 
 table.table {
   width: 100%;
@@ -27,7 +31,7 @@ table.table {
   padding: 0;
   margin: 0;
 
-  border: 1px solid @separator_color;
+  border: 1px solid @separator-color;
   border-collapse: separate;
 
   /*
@@ -41,12 +45,12 @@ table.table {
       font-weight: bold;
       background-color: @table_head_color;
 
-      border-bottom: 1px solid @separator_color;
+      border-bottom: 1px solid @separator-color;
 
       th {
         padding: @table_padding;
         text-align: left;
-        border-bottom: 1px solid @separator_color;
+        border-bottom: 1px solid @separator-color;
       }
     }
   }
@@ -59,12 +63,12 @@ table.table {
       font-weight: bold;
       background-color: @table_head_color;
 
-      border-top: 1px solid @separator_color;
+      border-top: 1px solid @separator-color;
 
       td {
         padding: @table_padding;
         text-align: left;
-        border-top: 1px solid @separator_color;
+        border-top: 1px solid @separator-color;
       }
     }
   }
@@ -88,7 +92,7 @@ table.table {
     }
 
     &.empty {
-      color: @warning_color;
+      color: @warning-color;
       font-weight: 600;
     }
 
@@ -98,13 +102,13 @@ table.table {
       &.editable {
         .clickable();
 
-        color: @accent_color;
-        border: 1px dashed @accent_color;
+        color: @accent-color;
+        border: 1px dashed @accent-color;
 
         &:before {
           margin-top: 1px;
           margin-right: 5px;
-          color: @accent_color;
+          color: @accent-color;
           font-family: 'Font Awesome 5 Free';
           content: '\f304';
           font-weight: 600;
@@ -142,7 +146,7 @@ table.table tbody tr td {
       .clickable();
 
       &:hover {
-        color: @accent_color;
+        color: @accent-color;
       }
     }
   }
@@ -191,7 +195,7 @@ table.datatable thead th {
 	&.sorted {
     	background-color: @table_head_sorted;
 		div.sort {
-			color: @primary_color;
+			color: @primary-color;
 		}
 	}
 
@@ -208,7 +212,7 @@ table.datatable thead th {
 	div.sortable,
 	div.sorted-desc,
 	div.sorted-asc {
-		color: shade(@primary_color, 25%);
+		color: shade(@primary-color, 25%);
 		position: absolute;
 		right: 0px;
 		top: 2px;
@@ -256,10 +260,10 @@ table.table caption {
 
       width: 10%;
       text-align: right;
-      color: @confirmatory_color;
+      color: @confirmatory-color;
 
       &:hover {
-        color: @confirmatory_color_darken;
+        color: @confirmatory-color-darken;
       }
     }
   }
@@ -273,7 +277,7 @@ table.table caption {
 
 	margin: 1em 0.5em 1em 1em;
 
-	color: @primary_color;
+	color: @primary-color;
 
 	div {
 		float: left;

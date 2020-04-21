@@ -5,309 +5,301 @@
  Copyright 2016 Auriga S.p.A.
  */
 
- @import "constants.less";
- @import "commons.less";
- @import "helpers.less";
- 
- 
- @label_title_color: #999;
- 
- 
- /*
+@import 'constants.less';
+@import 'commons.less';
+@import 'helpers.less';
+
+@label_title_color: #999;
+
+/*
 	Labels
 	*/
- 
- [class*='label-'] {
-	 color: @reverse_text_color;
- }
- 
- .label {
-	 .border-radius(1em);
- 
-	 line-height: 2.5em;
-	 padding: 0.3em 1em;
- 
-	 vertical-align: middle;
- }
- 
- .label-primary {
-	 .bg-primary();
- }
- 
- .label-alternate {
-	 .bg-alternate();
- }
- 
- .label-confirmatory {
-	 .bg-confirmatory();
- }
- 
- .label-warning {
-	 .bg-warning();
- }
- 
- .label-critical {
-	 .bg-critical();
- }
- 
- .label-info {
-	 .bg-info();
- }
- 
- 
- /*
+
+[class*='label-'] {
+  color: @reverse-text-color;
+}
+
+.label {
+  .border-radius(1em);
+
+  line-height: 2.5em;
+  padding: 0.3em 1em;
+
+  vertical-align: middle;
+}
+
+.label-primary {
+  .bg-primary();
+}
+
+.label-alternate {
+  .bg-alternate();
+}
+
+.label-confirmatory {
+  .bg-confirmatory();
+}
+
+.label-warning {
+  .bg-warning();
+}
+
+.label-critical {
+  .bg-critical();
+}
+
+.label-info {
+  .bg-info();
+}
+
+/*
 	Outline
 	*/
- 
- .label-outline {
-	 .border-radius(1.5em);
- 
-	 font-weight: bold;
-	 line-height: 2.5em;
- 
-	 padding: 0.4em 0.8em;
- 
-	 vertical-align: middle;
- }
- 
- .label-outline-appearance(@color) {
-	 color: @color;
-	 border: 1px solid @color;
- }
- 
- .label-outline-primary {
-	 .label-outline-appearance(@primary_color);
- }
- 
- .label-outline-alternate {
-	 .label-outline-appearance(@alternate_color);
- }
- 
- .label-outline-confirmatory {
-	 .label-outline-appearance(@confirmatory_color);
- }
- 
- .label-outline-warning {
-	 .label-outline-appearance(@warning_color);
- }
- 
- .label-outline-critical {
-	 .label-outline-appearance(@critical_color);
- }
- 
- .label-outline-info {
-	 .label-outline-appearance(@info_color);
- }
- 
- 
- /*
+
+.label-outline {
+  .border-radius(1.5em);
+
+  font-weight: bold;
+  line-height: 2.5em;
+
+  padding: 0.4em 0.8em;
+
+  vertical-align: middle;
+}
+
+.label-outline-appearance(@color) {
+  color: @color;
+  border: 1px solid @color;
+}
+
+.label-outline-primary {
+  .label-outline-appearance(@primary-color);
+}
+
+.label-outline-alternate {
+  .label-outline-appearance(@alternate-color);
+}
+
+.label-outline-confirmatory {
+  .label-outline-appearance(@confirmatory-color);
+}
+
+.label-outline-warning {
+  .label-outline-appearance(@warning-color);
+}
+
+.label-outline-critical {
+  .label-outline-appearance(@critical-color);
+}
+
+.label-outline-info {
+  .label-outline-appearance(@info-color);
+}
+
+/*
 	List
 	*/
- 
- ol.labels-list {
-	 list-style-type: none;
- 
-	 font-size: 10px;
-	 font-weight: bold;
-	 text-transform: uppercase;
- 
-	 padding: 0;
-	 margin: 0;
- 
-	 li {
-		 .border-radius(1.5em);
- 
-		 display: inline-block;
-		 padding: 0.4em 0.8em;
-		 vertical-align: middle;
- 
-		 color: @primary_color;
-		 border: 1px solid @primary_color;
- 
-		 &.separator {
-			 border-width: 0;
-			 padding: 0.5em;
- 
-			 &:after {
-				 color: @separator_color;
-				 font-family: "Font Awesome 5 Free";
-				 content: "\f054";
-				 font-weight: 600;
-			 }
-		 }
-	 }
- }
- 
- 
- /*
+
+ol.labels-list {
+  list-style-type: none;
+
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  padding: 0;
+  margin: 0;
+
+  li {
+    .border-radius(1.5em);
+
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    vertical-align: middle;
+
+    color: @primary-color;
+    border: 1px solid @primary-color;
+
+    &.separator {
+      border-width: 0;
+      padding: 0.5em;
+
+      &:after {
+        color: @separator-color;
+        font-family: 'Font Awesome 5 Free';
+        content: '\f054';
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/*
 	Content
 	*/
- 
- .label-title {
-	 font-weight: 600;
-	 line-height: 1.5em;
-	 white-space: nowrap;
- 
-	 color: @label_title_color;
-	 background-color: inherit;
- 
-	 padding: 0;
-	 margin: 0;
- }
- 
- .label-content {
-	 font-size: 1em;
-	 font-weight: 400;
-	 line-height: 1em;
- 
-	 color: @default_text_color;
-	 background-color: inherit;
- 
-	 padding: 0;
-	 margin: 0 0 1em 0;
-	 display: inline-block;
-	 width: 100%;
- }
- 
- .label-content-primary {
-	 .text-primary();
- }
- 
- .label-content-alternate {
-	 .text-alternate();
- }
- 
- .label-content-confirmatory {
-	 .text-confirmatory();
- }
- 
- .label-content-warning {
-	 .text-warning();
- }
- 
- .label-content-critical {
-	 .text-critical();
- }
- 
- .label-content-info {
-	 .text-info();
- }
- 
- .label-content-strong {
-	 font-weight: bold;
-	 font-size: 1.2em;
- }
- 
- .label-content-bg {
-	 .text-bg();
- }
- 
- .label-content-sm {
-	 font-size: 1em;
- }
- 
- 
- /*
+
+.label-title {
+  font-weight: 600;
+  line-height: 1.5em;
+  white-space: nowrap;
+
+  color: @label_title_color;
+  background-color: inherit;
+
+  padding: 0;
+  margin: 0;
+}
+
+.label-content {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1em;
+
+  color: @default-text-color;
+  background-color: inherit;
+
+  padding: 0;
+  margin: 0 0 1em 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.label-content-primary {
+  .text-primary();
+}
+
+.label-content-alternate {
+  .text-alternate();
+}
+
+.label-content-confirmatory {
+  .text-confirmatory();
+}
+
+.label-content-warning {
+  .text-warning();
+}
+
+.label-content-critical {
+  .text-critical();
+}
+
+.label-content-info {
+  .text-info();
+}
+
+.label-content-strong {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.label-content-bg {
+  .text-bg();
+}
+
+.label-content-sm {
+  font-size: 1em;
+}
+
+/*
 	Label groups
 	*/
- div.label-group .label,
- div.label-group .label-outline {
-	 margin-right: 0.3em;
- 
-	 &:last-child {
-		 margin-right: 0;
-	 }
- }
- 
- 
- 
- .label {
-	 -webkit-border-radius: 1em;
-	 -moz-border-radius: 1em;
-	 border-radius: 1em;
-	 display: inline-block;
-	 padding: 0.3em 1em;
-	 vertical-align: middle;
-	 background-color: #999999;
- }
- .label-success,
- .label-confirmatory {
-	 background-color: #65c25a;
- }
- .label-warning {
-	 background-color: #e98036;
- }
- .label-danger,
- .label-critical {
-	 background-color: #dc402b;
- }
- .label-info {
-	 background-color: #2984c5;
- }
- .label-title {
-	 font-size: 12px;
-	 font-weight: 600;
-	 color: #999;
-	 background-color: inherit;
-	 white-space: nowrap;
-	 padding: 0;
- }
- .label-content {
-	 font-size: 16px;
-	 font-weight: 400;
-	 color: #3c434a;
-	 background-color: inherit;
-	 padding: 0;
- }
- .label-outline {
-	 -webkit-border-radius: 1.5em;
-	 -moz-border-radius: 1.5em;
-	 border-radius: 1.5em;
-	 display: inline-block;
-	 padding: 0em 1em;
-	 margin-top: -0.8em;
-	 vertical-align: middle;
-	 font-weight: bold;
- }
- .label-outline-success {
-	 color: #65c25a;
-	 border: 1px solid #65c25a;
- }
- .label-outline-warning {
-	 color: #e98036;
-	 border: 1px solid #e98036;
- }
- .label-outline-danger {
-	 color: #dc402b;
-	 border: 1px solid #dc402b;
- }
- .label-outline-info {
-	 color: #2984c5;
-	 border: 1px solid #2984c5;
- }
- ol.labels-list {
-	 list-style-type: none;
-	 padding: 0;
-	 margin: 0;
-	 font-size: 10px;
-	 font-weight: bold;
-	 text-transform: uppercase;
- }
- ol.labels-list li {
-	 -webkit-border-radius: 1em;
-	 -moz-border-radius: 1em;
-	 border-radius: 1em;
-	 display: inline-block;
-	 padding: 0.3em 1em;
-	 vertical-align: middle;
-	 color: #2984c5;
-	 border: 1px solid #2984c5;
- }
- ol.labels-list li.separator {
-	 border-width: 0;
- }
- ol.labels-list li.separator:after {
-	 color: #ccc;
-	 font-family: "Font Awesome 5 Free";
-	 content: "\f054";
- }
+div.label-group .label,
+div.label-group .label-outline {
+  margin-right: 0.3em;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.label {
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  display: inline-block;
+  padding: 0.3em 1em;
+  vertical-align: middle;
+  background-color: #999999;
+}
+.label-success,
+.label-confirmatory {
+  background-color: #65c25a;
+}
+.label-warning {
+  background-color: #e98036;
+}
+.label-danger,
+.label-critical {
+  background-color: #dc402b;
+}
+.label-info {
+  background-color: #2984c5;
+}
+.label-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #999;
+  background-color: inherit;
+  white-space: nowrap;
+  padding: 0;
+}
+.label-content {
+  font-size: 16px;
+  font-weight: 400;
+  color: #3c434a;
+  background-color: inherit;
+  padding: 0;
+}
+.label-outline {
+  -webkit-border-radius: 1.5em;
+  -moz-border-radius: 1.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  padding: 0em 1em;
+  margin-top: -0.8em;
+  vertical-align: middle;
+  font-weight: bold;
+}
+.label-outline-success {
+  color: #65c25a;
+  border: 1px solid #65c25a;
+}
+.label-outline-warning {
+  color: #e98036;
+  border: 1px solid #e98036;
+}
+.label-outline-danger {
+  color: #dc402b;
+  border: 1px solid #dc402b;
+}
+.label-outline-info {
+  color: #2984c5;
+  border: 1px solid #2984c5;
+}
+ol.labels-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+ol.labels-list li {
+  -webkit-border-radius: 1em;
+  -moz-border-radius: 1em;
+  border-radius: 1em;
+  display: inline-block;
+  padding: 0.3em 1em;
+  vertical-align: middle;
+  color: #2984c5;
+  border: 1px solid #2984c5;
+}
+ol.labels-list li.separator {
+  border-width: 0;
+}
+ol.labels-list li.separator:after {
+  color: #ccc;
+  font-family: 'Font Awesome 5 Free';
+  content: '\f054';
+}
