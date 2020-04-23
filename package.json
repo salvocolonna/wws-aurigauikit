@@ -1,6 +1,6 @@
 {
   "name": "aurigauikit",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "publishConfig": {
     "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
   },
