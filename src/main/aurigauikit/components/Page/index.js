@@ -141,7 +141,7 @@ export const createPage = (Topbar, Sidebar) => {
       const isCollapsed = collapsed || isTabletOrMobile
       return (
         <Layout>
-          <Sidebar collapsed={collapsed} isTablet={isTabletOrMobile} />
+          <Sidebar collapsed={collapsed} isTablet={isTabletOrMobile} {...props.sidebarProps} />
           <Layout>
             <Topbar onCollapse={toggle} collapsed={collapsed} isTablet={isTabletOrMobile} />
             <Content
