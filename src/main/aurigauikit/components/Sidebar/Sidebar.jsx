@@ -192,7 +192,7 @@ const Logo = ({ src, onClick, isCollapsed }) => (
   <div
     id="react-sidebar-logo"
     onClick={() => onClick()}
-    style={{ padding: isCollapsed ? 5 : undefined }}
+    style={{ padding: isCollapsed ? 10 : undefined }}
   >
     <img id="app-logo-full" src={src} />
   </div>
