@@ -54,9 +54,9 @@ const Sidebar = class extends React.Component {
       collapsed,
       isTablet,
       hash,
+      router
     } = this.props
     const { openSubMenu } = this.state
-
     const isCollapsed = collapsed || isTablet
     const activeKeys = getActiveKeys(children, basename, isCollapsed, hash)
     return (
@@ -95,10 +95,17 @@ const Sidebar = class extends React.Component {
               const { href, icon, name, key } = child.props
               return (
                 <Menu.Item key={key}>
-                  <Link to={href} style={{ textDecoration: 'none' }}>
-                    <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
-                    <span>{name}</span>
-                  </Link>
+                  {router ? (
+                    <Link to={href} style={{ textDecoration: 'none' }}>
+                      <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                      <span>{name}</span>
+                    </Link>
+                  ) : (
+                      <a href={href} style={{ textDecoration: 'none' }}>
+                        <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                        <span>{name}</span>
+                      </a>
+                    )}
                 </Menu.Item>
               )
             } else if (child && child.type === SubMenu) {
@@ -108,9 +115,15 @@ const Sidebar = class extends React.Component {
                   const key = child.key
                   return (
                     <Menu.Item key={key}>
-                      <Link to={child.props.href} style={{ textDecoration: 'none' }}>
-                        <span>{child.props.name}</span>
-                      </Link>
+                      {router ? (
+                        <Link to={child.props.href} style={{ textDecoration: 'none' }}>
+                          <span>{child.props.name}</span>
+                        </Link>
+                      ) : (
+                          <a href={child.props.href} style={{ textDecoration: 'none' }}>
+                            <span>{child.props.name}</span>
+                          </a>
+                        )}
                     </Menu.Item>
                   )
                 }
