@@ -42,13 +42,15 @@ class Tabs extends React.Component {
 
     const content = this.props.router ? (
       <Switch>
-        {React.Children.map(this.props.children, (child, index) => (
-          <Route
-            key={index}
-            path={(this.props.basename || '') + child.props.path.split('?')[0]}
-            render={() => <div>{child.props.children} </div>}
-          />
-        ))}
+        {React.Children.toArray(this.props.children)
+          .filter(Boolean)
+          .map((child, index) => (
+            <Route
+              key={index}
+              path={(this.props.basename || '') + child.props.path.split('?')[0]}
+              render={() => <div>{child.props.children} </div>}
+            />
+          ))}
       </Switch>
     ) : (
       children[this.state.current] && children[this.state.current].props.children
