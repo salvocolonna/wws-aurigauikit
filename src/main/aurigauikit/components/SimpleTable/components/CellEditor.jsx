@@ -84,7 +84,7 @@ class CellEditor extends React.Component {
               <h4 className="celleditor-title">{this.props.title}</h4>
             </div>
             <div className="celleditor-content">
-              <div className="grid">
+              <div className="grid" style={{ marginBottom: 40 }}>
                 <input
                   {...this.getValidations()}
                   type="text"

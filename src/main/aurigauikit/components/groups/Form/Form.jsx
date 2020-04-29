@@ -165,7 +165,7 @@ const Private = ({ checked, onChange, mode }) => {
       )}
     </InfoLabel>
   ) : (
-    <Checkbox style={{ float: 'left', marginTop: 26 }} isChecked={checked} onChange={onChange}>
+    <Checkbox style={{ float: 'left', marginTop: 26 }} isChecked={checked} onChange={e => onChange(e.target.checked)}>
       <Msg {...messages.private} />
     </Checkbox>
   )

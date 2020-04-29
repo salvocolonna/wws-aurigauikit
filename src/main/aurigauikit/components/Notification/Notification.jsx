@@ -228,6 +228,7 @@ class Notification extends React.Component {
           ))}
       </React.Fragment>
     )
+    const legacy = !window.ANT_LAYOUT
     return (
       <div style={{ display: 'inline-block' }}>
         <span
@@ -241,7 +242,7 @@ class Notification extends React.Component {
           <span ref={this.notificationRef} style={{ marginLeft: 9, verticalAlign: 'bottom' }}>
             <Icon type="bell" />
             {unreadCount > 0 && (
-              <Badge style={{ verticalAlign: 'bottom' }} count={unreadCount} offset={[-5, 40]} />
+              <Badge style={{ verticalAlign: 'bottom' }} count={unreadCount} offset={legacy? [-5, -5]: [2, -3]} />
             )}
           </span>
         </span>
