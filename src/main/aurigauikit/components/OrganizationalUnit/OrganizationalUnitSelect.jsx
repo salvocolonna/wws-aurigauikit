@@ -30,8 +30,7 @@ const OuSelect = ({
     const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
     const items = [...selectedElements]
     items.splice(index, 1)
-    // onSelectionChange(items.length > 0 ? items : [defaultSelection])
-    onSelectionChange(items)
+    onSelectionChange(items.length > 0 ? items : defaultSelection? [defaultSelection]: [])
   }
 
   const canUnselect = item =>
