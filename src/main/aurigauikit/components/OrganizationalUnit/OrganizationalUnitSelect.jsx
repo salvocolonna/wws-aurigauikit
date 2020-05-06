@@ -36,7 +36,7 @@ const OuSelect = ({
 
   const canUnselect = item =>
     defaultSelection
-      ? !(item.type === defaultSelection.type && item.id === defaultSelection.id)
+      ? !(selectedElements.length === 1 && (item.type === defaultSelection.type && item.id === defaultSelection.id))
       : true
 
   const display = useCallback(v => `${v.description} (${v.code})`, [])
@@ -90,11 +90,11 @@ const OuSelect = ({
         />
       ) : selectedElements.length === 1 ? (
         <Single element={selectedElements[0]} />
-      ) : !selectedItem ? (
-        <Placeholder placeholder={placeholder} />
       ) : multiple ? (
         <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
-      ) : (
+      )  : !selectedItem ? (
+        <Placeholder placeholder={placeholder} />
+      ): (
         <Select2
           data={selectedElements}
           value={selectedItem || intl.formatMessage(messages.type.placeholder)}
