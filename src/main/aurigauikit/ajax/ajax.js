@@ -49,6 +49,8 @@ class Ajax extends RequestMaker {
     this.headers = {
       'Content-Type': 'application/json',
       'Accept-Language': i18n.getCurrentLanguage(),
+      'Cache-Control': 'no-cache, no-store', 
+      'Pragma': 'no-cache',
     }
   }
 
