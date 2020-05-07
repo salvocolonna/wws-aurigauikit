@@ -96,12 +96,14 @@ export const Error = withRouter(
 )
 
 export const createPage = (Topbar, Sidebar) => {
-  const legacy = !window.ANT_LAYOUT
-  if (legacy) {
-    return Component => props => {
-      const isMobile = useMediaQuery({
-        query: '(max-width: 1024px)',
-      })
+  return Component => props => {
+    const legacy = !window.ANT_LAYOUT
+    const isMobile = useMediaQuery({ query: '(max-width: 1024px)' })
+    const [collapsed, setCollapsed] = useState(false)
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+    const toggle = () => setCollapsed(!collapsed)
+    const isCollapsed = collapsed || isTabletOrMobile
+    if (legacy) {
       const width = `calc(100vw - ${isMobile ? 65 : 220}px)`
       const height = 'calc(100vh - 80px)'
       return (
@@ -130,35 +132,26 @@ export const createPage = (Topbar, Sidebar) => {
         </div>
       )
     }
-  }
-  return Component =>
-    function(props) {
-      const [collapsed, setCollapsed] = useState(false)
-      const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-      function toggle() {
-        setCollapsed(!collapsed)
-      }
-      const isCollapsed = collapsed || isTabletOrMobile
-      return (
+    return (
+      <Layout>
+        <Sidebar collapsed={collapsed} isTablet={isTabletOrMobile} {...props.sidebarProps} />
         <Layout>
-          <Sidebar collapsed={collapsed} isTablet={isTabletOrMobile} {...props.sidebarProps} />
-          <Layout>
-            <Topbar onCollapse={toggle} collapsed={collapsed} isTablet={isTabletOrMobile} />
-            <Content
-              style={{
-                marginLeft: isCollapsed ? 80 : 200,
-                marginTop: 64,
-                padding: 24,
-                background: '#fff',
-                minHeight: 280,
-              }}
-            >
-              <Error>
-                <Component {...props} />
-              </Error>
-            </Content>
-          </Layout>
+          <Topbar onCollapse={toggle} collapsed={collapsed} isTablet={isTabletOrMobile} />
+          <Content
+            style={{
+              marginLeft: isCollapsed ? 80 : 200,
+              marginTop: 64,
+              padding: 24,
+              background: '#fff',
+              minHeight: 280,
+            }}
+          >
+            <Error>
+              <Component {...props} />
+            </Error>
+          </Content>
         </Layout>
-      )
-    }
+      </Layout>
+    )
+  }
 }

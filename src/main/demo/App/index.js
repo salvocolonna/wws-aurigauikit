@@ -33,8 +33,9 @@ addLocaleData(langs[langCode])
 
 window.ANT_LAYOUT = true
 
+const App = createPage(TopbarDemo, SidebarDemo)(Demo)
+
 const render = () => {
-  const App = createPage(TopbarDemo, SidebarDemo)(Demo)
   const rerender = () => {
     window.ANT_LAYOUT = !window.ANT_LAYOUT
     render()
