@@ -52,7 +52,6 @@ function Topbar({
         zIndex: 1001,
         marginLeft: isCollapsed ? 80 : 200,
         width: `calc(100% - ${isCollapsed ? 80 : 200}px)`,
-        transition: 'all .2s ease-in-out',
       }}
     >
       <div
@@ -68,12 +67,12 @@ function Topbar({
           {isTablet ? (
             <div />
           ) : (
-              <Icon
-                className="trigger"
-                type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={onCollapse}
-              />
-            )}
+            <Icon
+              className="trigger"
+              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={onCollapse}
+            />
+          )}
           {logo && <Logo src={logo} onClick={onLogoClick} />}
           {logoImage && logoImage.src && (
             <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
@@ -130,13 +129,15 @@ function Topbar({
             )}
           </MediaQuery>
 
-          {onLogout && (<>
-            <Divider type="vertical" />
-            <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
-              <Icon type="logout" />
-              <span> Logout</span>
-            </span>
-          </>)}
+          {onLogout && (
+            <>
+              <Divider type="vertical" />
+              <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
+                <Icon type="logout" />
+                <span> Logout</span>
+              </span>
+            </>
+          )}
         </div>
       </div>
     </Header>
@@ -160,7 +161,7 @@ const Logo = ({ src, onClick }) => (
 )
 
 const LogoImage = ({ src, onClick, marginLeft = 0, maxWidth = 300, style = {} }) => {
-  onClick = onClick || (() => { })
+  onClick = onClick || (() => {})
 
   return (
     <div
