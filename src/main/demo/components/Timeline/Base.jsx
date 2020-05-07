@@ -3,7 +3,7 @@ import Timeline from 'aurigauikit/components/Timeline'
 
 export default () => {
   return (
-    <Timeline step={5} unselectable>
+    <Timeline step={6} unselectable>
       <Timeline.Step failed>
         Step 1
       </Timeline.Step>
@@ -12,6 +12,7 @@ export default () => {
       <Timeline.Step skipped>Step 4</Timeline.Step>
       <Timeline.Step skipped>Step 5</Timeline.Step>
       <Timeline.Step confirmed={false} loading>Step 6</Timeline.Step>
+      <Timeline.Step warn>Step 7</Timeline.Step>
     </Timeline>
   )
 }

@@ -22,6 +22,7 @@ export const Step = ({
   enable = true,
   warning,
   failed,
+  warn
 }) => {
   if (mini) {
     return (
@@ -93,9 +94,13 @@ export const Step = ({
         {active &&
           (failed ? (
             <i
-              className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-times'])}
+              className={classes(['Timeline-check', 'fa fa-times'])}
             /> 
-          ) : confirmed ? (
+          ) : warn ? (
+            <i
+              className={classes(['Timeline-check', 'fa fa-exclamation'])}
+            /> 
+          )  : confirmed ? (
             <i
               className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])}
             />
