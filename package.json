@@ -1,6 +1,6 @@
 {
   "name": "aurigauikit",
-  "version": "4.4.11",
+  "version": "4.5.1",
   "publishConfig": {
     "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
   },
@@ -11,9 +11,9 @@
     "lint": "eslint --fix src/main/aurigauikit/**/*.js src/main/aurigauikit/**/*.jsx ./webpack.config.babel.js ./copy-package.js",
     "compile": "babel ./src/main/aurigauikit -d ./dist --copy-files --source-maps inline  --extensions \".js,.jsx,.ts,.tsx\" && node ./copy-package",
     "webpack": "webpack --env=lib --progress --colors",
-    "build": "yarn tsc && rimraf ./dist && yarn compile && yarn webpack",
-    "build-local": "yarn-local tsc && rimraf ./dist && yarn-local compile && yarn-local webpack",
-    "watch": "concurrently \"webpack --env=libDev --progress --colors --watch\" \"babel ./src/main/aurigauikit -d ./dist --copy-files --source-maps inline --extensions \".js,.jsx,.ts,.tsx\" --watch\"",
+    "build": "rimraf ./dist && yarn compile",
+    "build-local": "rimraf ./dist && yarn-local compile",
+    "watch": "concurrently \"babel ./src/main/aurigauikit -d ./dist --copy-files --source-maps inline --extensions \".js,.jsx,.ts,.tsx\" --watch\"",
     "flow": "flow",
     "test": "jest",
     "ts-test": "jest --config ts-jest.config.js",

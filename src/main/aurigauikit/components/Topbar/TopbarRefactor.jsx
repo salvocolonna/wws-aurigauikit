@@ -67,12 +67,12 @@ function Topbar({
           {isTablet ? (
             <div />
           ) : (
-            <Icon
-              className="trigger"
-              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={onCollapse}
-            />
-          )}
+              <Icon
+                className="trigger"
+                type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+                onClick={onCollapse}
+              />
+            )}
           {logo && <Logo src={logo} onClick={onLogoClick} />}
           {logoImage && logoImage.src && (
             <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
@@ -87,48 +87,51 @@ function Topbar({
             </span>
           </MediaQuery>
           <MediaQuery minWidth={1000}>
-            {hasNotification && <span> {notification} </span>}
-            {parentBankCode && parentBankDescription && (
+            <>
+              {hasNotification && <span> {notification} </span>}
+              {parentBankCode && parentBankDescription && (
+                <span>
+                  {bankImg} {`${parentBankDescription} (${parentBankCode})`}
+                </span>
+              )}
+              {bankCode && bankDescription && (
+                <>
+                  {parentBankCode && parentBankDescription && <Divider type="vertical" />}
+                  <span>
+                    {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
+                  </span>
+                </>
+              )}
+              {areaCode && areaDescription && (
+                <>
+                  {bankCode && bankDescription && <Divider type="vertical" />}
+                  <span>{`${areaDescription} (${areaCode})`}</span>
+                </>
+              )}
+              {branchCode && branchDescription && (
+                <>
+                  {areaCode && areaDescription && <Divider type="vertical" />}
+                  <span>
+                    {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
+                  </span>
+                </>
+              )}
+              <Divider type="vertical" />
               <span>
-                {bankImg} {`${parentBankDescription} (${parentBankCode})`}
+                <Icon type="user" /> <span>{userName}</span>
               </span>
-            )}
-            {bankCode && bankDescription && (
-              <>
-                {parentBankCode && parentBankDescription && <Divider type="vertical" />}
-                <span>
-                  {!parentBankCode && bankImg} {`${bankDescription} (${bankCode})`}
-                </span>
-              </>
-            )}
-            {areaCode && areaDescription && (
-              <>
-                {bankCode && bankDescription && <Divider type="vertical" />}
-                <span>{`${areaDescription} (${areaCode})`}</span>
-              </>
-            )}
-            {branchCode && branchDescription && (
-              <>
-                {areaCode && areaDescription && <Divider type="vertical" />}
-                <span>
-                  {!areaCode && bankImg} {`${branchDescription} (${branchCode})`}
-                </span>
-              </>
-            )}
-            <Divider type="vertical" />
-            <span>
-              <Icon type="user" /> <span>{userName}</span>
-            </span>
+            </>
           </MediaQuery>
           <MediaQuery minWidth={786}>
-            {roleDescription && (
-              <>
-                <Divider type="vertical" />
-                <span>{roleDescription.split('_').join(' ')}</span>
-              </>
-            )}
+            <>
+              {roleDescription && (
+                <>
+                  <Divider type="vertical" />
+                  <span>{roleDescription.split('_').join(' ')}</span>
+                </>
+              )}
+            </>
           </MediaQuery>
-
           {onLogout && (
             <>
               <Divider type="vertical" />
@@ -161,7 +164,7 @@ const Logo = ({ src, onClick }) => (
 )
 
 const LogoImage = ({ src, onClick, marginLeft = 0, maxWidth = 300, style = {} }) => {
-  onClick = onClick || (() => {})
+  onClick = onClick || (() => { })
 
   return (
     <div
