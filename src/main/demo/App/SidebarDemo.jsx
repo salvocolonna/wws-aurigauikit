@@ -29,10 +29,11 @@ class SidebarDemo extends React.Component {
       <Sidebar router items={this.items} onLogoClick={this.onLogoClick} logo={logo} {...this.props}>
         {visibleComponents.map(displayName => (
           <Item
+            key={displayName.toLowerCase()}
             id={displayName.toLowerCase()}
             name={displayName}
             href={'/' + displayName}
-            icon="arrow-right"
+            icon={window.ANT_LAYOUT ? 'right' : 'fa-arrow-right'}
           />
         ))}
       </Sidebar>

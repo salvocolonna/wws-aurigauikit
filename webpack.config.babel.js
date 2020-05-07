@@ -1,10 +1,23 @@
 import webpack from 'webpack'
 import path from 'path'
+const antOverrides = require('aurigauikit/style/ant-override')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 
-const module = {
+const createLessLoader = (demo = false) => {
+  if (!demo) return { loader: 'less-loader' }
+  return {
+    loader: 'less-loader',
+    options: {
+      minimize: true,
+      modifyVars: antOverrides,
+      javascriptEnabled: true,
+    },
+  }
+}
+
+const createModule = (demo = false) => ({
   rules: [
     {
       test: /\.(js|jsx|ts|tsx)$/,
@@ -24,11 +37,13 @@ const module = {
             localIdentName: '[name]__[local]___[hash:base64:5]',
           },
         },
-        { loader: 'less-loader' },
+        createLessLoader(demo),
       ],
     },
   ],
-}
+})
+const module = createModule()
+const demoModule = createModule(true)
 
 const libRules = [
   {
@@ -122,7 +137,7 @@ const demo = {
       template: './index.html',
     }),
   ],
-  module: { ...module, rules: [...module.rules, ...demoRules] },
+  module: { ...demoModule, rules: [...demoModule.rules, ...demoRules] },
   resolve,
   devtool: 'inline-source-map',
 }
