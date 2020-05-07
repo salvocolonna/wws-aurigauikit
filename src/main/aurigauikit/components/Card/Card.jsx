@@ -86,7 +86,7 @@ class Card extends React.Component {
                         height: '100%',
                       }}
                     >
-                      {collapsable && (
+                      {collapsable  && !loading && (
                         <i
                           className={`fa fa-angle-${this.state.collapsed ? 'right' : 'down'}`}
                           style={{
@@ -106,7 +106,7 @@ class Card extends React.Component {
                         onClick={e => (!onlyAction ? this.callAction(e) : '')}
                       />
                     )}
-                    {loading && <Loader legacy style={{ marginRight: 15 }} />}
+                    {loading && <Loader legacy style={{ marginRight: 15, marginTop: collapsable? 5: undefined }} />}
                   </h4>
                 </div>
               </div>
