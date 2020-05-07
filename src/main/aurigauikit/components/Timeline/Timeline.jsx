@@ -1,5 +1,6 @@
 import React from 'react'
 import sizeMe from 'react-sizeme'
+import Loader from '../Loader'
 import './timeline.less'
 
 const MIN_WIDTH = 80
@@ -12,6 +13,7 @@ const SizedDiv = sizeMe()(props => <div {...props} />)
 export const Step = ({
   unselectable,
   skipped,
+  confirmed = true,
   children,
   active,
   mini,
@@ -31,11 +33,16 @@ export const Step = ({
         ])}
       >
         <div className="Timeline-ball">
-          {active && (
-            <i
-              className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])}
-            />
-          )}
+          {active &&
+            (confirmed ? (
+              <i
+                className={
+                  skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])
+                }
+              />
+            ) : (
+              <div className="Timeline-unconfirmed" />
+            ))}
         </div>
         <div
           className={!skipped ? 'Timeline-label' : classes(['Timeline-label', 'skipped'])}
@@ -82,11 +89,16 @@ export const Step = ({
         </div>
       </div>
       <div className="Timeline-ball">
-        {active && (
-          <i
-            className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])}
-          />
-        )}
+        {active &&
+          (confirmed ? (
+            <i
+              className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])}
+            />
+          ) : (
+            <div className="Timeline-unconfirmed">
+              <Loader />
+            </div>
+          ))}
       </div>
     </li>
   )
