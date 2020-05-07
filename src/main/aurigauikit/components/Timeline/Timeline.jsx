@@ -21,6 +21,8 @@ export const Step = ({
   current,
   enable = true,
   warning,
+  failed,
+  warn
 }) => {
   if (mini) {
     return (
@@ -41,8 +43,8 @@ export const Step = ({
                 }
               />
             ) : (
-              <div className="Timeline-unconfirmed" />
-            ))}
+                <div className="Timeline-unconfirmed" />
+              ))}
         </div>
         <div
           className={!skipped ? 'Timeline-label' : classes(['Timeline-label', 'skipped'])}
@@ -90,7 +92,15 @@ export const Step = ({
       </div>
       <div className="Timeline-ball">
         {active &&
-          (confirmed ? (
+          (failed ? (
+            <i
+              className={classes(['Timeline-check', 'fa fa-times'])}
+            /> 
+          ) : warn ? (
+            <i
+              className={classes(['Timeline-check', 'fa fa-exclamation'])}
+            /> 
+          )  : confirmed ? (
             <i
               className={skipped ? 'Timeline-skipped' : classes(['Timeline-check', 'fa fa-check'])}
             />
