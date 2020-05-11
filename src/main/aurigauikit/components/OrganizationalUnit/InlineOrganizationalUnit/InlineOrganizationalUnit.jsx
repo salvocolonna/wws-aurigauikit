@@ -236,7 +236,7 @@ const DatasourceSelector = ({ datasource, datasources, onChange }) => (
       <Radio
         key={i}
         style={{ float: 'left', paddingRight: 20, paddingBottom: 10 }}
-        isChecked={datasource === option.datasource}
+        checked={datasource === option.datasource}
         onChange={checked => checked && onChange(option)}
       >
         {option.i18nLabel ? <FormattedMessage id={option.i18nLabel} /> : option.label}
