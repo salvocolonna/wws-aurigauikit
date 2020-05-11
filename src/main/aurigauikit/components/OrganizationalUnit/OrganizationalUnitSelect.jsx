@@ -15,11 +15,12 @@ const OuSelect = ({
   multiple,
   intl,
   selectableType = 'multiple',
-  placeholder,
+  placeholder = defaultSelection ? '' : intl.formatMessage(messages.type.placeholder),
   onSelectionChange = () => true,
   onSelect = () => {},
   canSelect = () => true,
 }) => {
+  const isMultiple = multiple && selectableType === 'multiple'
   const [show, setShow] = useState(false)
   const confirm = selectedElements => {
     if (onSelectionChange) onSelectionChange(selectedElements)
@@ -30,17 +31,21 @@ const OuSelect = ({
     const index = selectedElements.findIndex(a => a.type === item.type && a.id === item.id)
     const items = [...selectedElements]
     items.splice(index, 1)
-    onSelectionChange(items.length > 0 ? items : defaultSelection? [defaultSelection]: [])
+    onSelectionChange(items.length > 0 ? items : defaultSelection ? [defaultSelection] : [])
   }
 
   const canUnselect = item =>
     defaultSelection
-      ? !(selectedElements.length === 1 && (item.type === defaultSelection.type && item.id === defaultSelection.id))
+      ? !(
+          selectedElements.length === 1 &&
+          (item.type === defaultSelection.type && item.id === defaultSelection.id)
+        )
       : true
 
   const display = useCallback(v => `${v.description} (${v.code})`, [])
 
   const disabledItem = disabled && defaultSelection ? defaultSelection : selectedItem
+
   return disabled ? (
     <input
       type="text"
@@ -76,9 +81,21 @@ const OuSelect = ({
           onClose={() => setShow(false)}
         />
       )}
-      {selectedElements.length > 0 && placeholder ? (
+      {isMultiple ? (
+        selectedElements.length === 0 ? (
+          <Placeholder placeholder={placeholder} />
+        ) : selectedElements.length === 1 ? (
+          <Single element={selectedElements[0]} />
+        ) : (
+          <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
+        )
+      ) : selectedElements.length === 0 ? (
+        <Placeholder placeholder={placeholder} />
+      ) : selectedElements.length === 1 && (!placeholder || selectableType === 'single') ? (
+        <Single element={selectedElements[0]} />
+      ) : (
         <Select2
-          data={[placeholder, ...selectedElements]}
+          data={placeholder ? [placeholder, ...selectedElements] : selectedElements}
           value={selectedItem || placeholder}
           didSelect={o => (o === placeholder ? onSelect(null) : onSelect(o))}
           willDisplay={d => (placeholder === d ? d : display(d))}
@@ -86,20 +103,6 @@ const OuSelect = ({
             width: '100%',
             color: (!selectedItem || selectedItem === placeholder) && '#aaa',
           }}
-        />
-      ) : selectedElements.length === 1 ? (
-        <Single element={selectedElements[0]} />
-      ) : multiple ? (
-        <OrganizationalUnit data={selectedElements} onRemove={unselect} canRemove={canUnselect} />
-      )  : !selectedItem ? (
-        <Placeholder placeholder={placeholder} />
-      ): (
-        <Select2
-          data={selectedElements}
-          value={selectedItem || intl.formatMessage(messages.type.placeholder)}
-          didSelect={onSelect}
-          willDisplay={display}
-          style={{ width: '100%' }}
         />
       )}
       <ModalButton onClick={() => setShow(true)} />

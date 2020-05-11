@@ -5,7 +5,6 @@ import messages from '../messages'
 import InlineOrganizationalUnit from '../InlineOrganizationalUnit'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
-const isEqual = (a, b) => a.reduce((equal, a, i) => equal && dataComparator(a, b[i]), true)
 
 const OuModal = ({
   show,
@@ -19,10 +18,6 @@ const OuModal = ({
   ...props
 }) => {
   const intitialData = useRef(selectedElements)
-
-  const touched = useMemo(() => !isEqual(selectedElements, intitialData.current), [
-    selectedElements,
-  ])
 
   const canReset = useMemo(() => {
     if (defaultSelection && selectedElements.find(a => dataComparator(a, defaultSelection)))
@@ -72,7 +67,7 @@ const OuModal = ({
         />
         <div style={{ float: 'right', marginTop: 20 }}>
           <AbortButton onClick={abort} />
-          <ConfirmButton disabled={!touched} onClick={confirm} />
+          <ConfirmButton onClick={confirm} />
         </div>
       </Modal.Content>
       <Modal.Footer />
