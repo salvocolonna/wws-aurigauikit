@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { FormattedMessage, injectIntl } from 'react-intl'
 import SimpleTable from '../../SimpleTable/SimpleTable'
-import Radio from 'aurigauikit/components/Radio'
 import Spinner from 'aurigauikit/components/Spinner'
 import messages from '../messages'
 import OrganizationalUnit from '../OrganizationalUnit'
 import Tree from 'aurigauikit/components/Tree'
 import './organizational-unit-modal.less'
-import { Checkbox } from 'antd'
+import { Checkbox, Radio } from 'antd'
 
 const dataComparator = (e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id
 
@@ -159,6 +158,7 @@ const InlineOu = ({
             selectedPath={tree.selectedPath}
             willDisplay={(node, path) => (
               <TreeNode
+                selectableType={selectableType}
                 node={node}
                 path={path}
                 selectedElements={selectedElements}
@@ -199,7 +199,7 @@ const InlineOu = ({
   )
 }
 
-const TreeNode = ({ canSelect, selectElements, selectedElements, node, path }) => {
+const TreeNode = ({ canSelect, selectElements, selectedElements, node, path, selectableType }) => {
   const element = {
     path,
     id: node.getID(),
@@ -211,12 +211,20 @@ const TreeNode = ({ canSelect, selectElements, selectedElements, node, path }) =
   const select = e => {
     e.preventDefault()
     e.stopPropagation()
-    if (!checked) selectElements([...selectedElements, element])
-    else selectElements(selectedElements.filter(e => !dataComparator(e, element)))
+    if (selectableType === 'single') selectElements([element])
+    else {
+      if (!checked) selectElements([...selectedElements, element])
+      else selectElements(selectedElements.filter(e => !dataComparator(e, element)))
+    }
   }
   return (
     <span>
-      {canSelect(element) && <Checkbox checked={checked} onClick={select} />}
+      {canSelect(element) &&
+        (selectableType === 'single' ? (
+          <Radio checked={checked} onClick={select} />
+        ) : (
+          <Checkbox checked={checked} onClick={select} />
+        ))}
       <span>{`${node.getDescription()} (${node.getCode()})`}</span>
     </span>
   )
@@ -228,7 +236,7 @@ const DatasourceSelector = ({ datasource, datasources, onChange }) => (
       <Radio
         key={i}
         style={{ float: 'left', paddingRight: 20, paddingBottom: 10 }}
-        isChecked={datasource === option.datasource}
+        checked={datasource === option.datasource}
         onChange={checked => checked && onChange(option)}
       >
         {option.i18nLabel ? <FormattedMessage id={option.i18nLabel} /> : option.label}
