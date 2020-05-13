@@ -8,6 +8,9 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('it', {
+  'aurigauikit.groups.filter.not-public.ALL': 'Tutti',
+  'aurigauikit.groups.filter.not-public.YES': 'Si',
+  'aurigauikit.groups.filter.not-public.NO': 'No',
   'dates.month-names-short': [
     'Gen',
     'Feb',
