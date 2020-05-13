@@ -1,10 +1,10 @@
 import React from 'react'
-import { FormattedMessage as Msg } from 'react-intl'
+import { FormattedMessage as Msg, injectIntl } from 'react-intl'
 import { BasicFilter } from 'aurigauikit/components/BasicFilter'
 import { Row, Col } from 'antd'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
 import Select2 from 'aurigauikit/components/Select2'
-import messages from './messages'
+import messages, { notPublicMessages } from './messages'
 
 const notPublic = ['ALL', 'YES', 'NO']
 
@@ -35,7 +35,7 @@ class BranchGroupFilter extends React.Component {
   }
 
   render() {
-    const { organizationalUnitDatasource, filter, onReset, onApply } = this.props
+    const { organizationalUnitDatasource, filter, onReset, onApply, intl } = this.props
     return (
       <section>
         <BasicFilter onApply={onApply} onReset={onReset}>
@@ -73,6 +73,7 @@ class BranchGroupFilter extends React.Component {
                 style={{ width: '100%' }}
                 data={notPublic}
                 value={filter.notPublic}
+                willDisplay={flag => intl.formatMessage(notPublicMessages[flag])}
                 didSelect={this.changeNotPublic}
               />
             </Col>
@@ -83,4 +84,4 @@ class BranchGroupFilter extends React.Component {
   }
 }
 
-export default BranchGroupFilter
+export default injectIntl(BranchGroupFilter)

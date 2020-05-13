@@ -46,7 +46,7 @@ export default class extends React.Component {
       },*/
       {
         content: group =>
-          group.notPublic ? <i className="fa fa-check" /> : <i className="fa fa-minus" />,
+          group.notPublic ? <i className="fa fa-check" /> : <i className="fa fa-times" />,
       },
     ]
   }
