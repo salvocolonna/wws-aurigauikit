@@ -2,6 +2,8 @@ import React from 'react'
 import { BasicFilter, BasicFilterElement } from 'aurigauikit/components/BasicFilter'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
 import Select2 from 'aurigauikit/components/Select2'
+import { injectIntl } from 'react-intl'
+import { notPublicMessages } from './messages'
 
 const ou = _userRoleMap.getOU()
 
@@ -43,6 +45,7 @@ class BranchGroupFilter extends React.Component {
   }
 
   render() {
+    const { intl } = this.props
     return (
       <section>
         <BasicFilter onApply={() => this.notifyApply()} onReset={() => this.resetFilter()}>
@@ -69,7 +72,7 @@ class BranchGroupFilter extends React.Component {
               style={{ width: '100%' }}
               data={notPublic}
               value={this.state.notPublic}
-              willDisplay={value => value.id}
+              willDisplay={flag => intl.formatMessage(notPublicMessages[flag.id])}
               didSelect={value => this.setState({ notPublic: value })}
             />
           </BasicFilterElement>
@@ -79,4 +82,4 @@ class BranchGroupFilter extends React.Component {
   }
 }
 
-export default BranchGroupFilter
+export default injectIntl(BranchGroupFilter)
