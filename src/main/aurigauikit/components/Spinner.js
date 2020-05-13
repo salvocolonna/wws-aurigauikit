@@ -11,7 +11,7 @@ export default class extends React.Component {
   state = { opacity: 0 }
 
   componentDidMount() {
-    const { target = 'content-dynamic', color = '#999', config } = this.props
+    const { target, color = '#999', config } = this.props
     const spinConfig = {
       lines: 13,
       length: 56,
@@ -36,7 +36,7 @@ export default class extends React.Component {
     }
 
     this.spinner = new Spinner(spinConfig)
-    this.spinner.spin(document.getElementById(target))
+    this.spinner.spin(target ? document.getElementById(target) : document.body)
     setTimeout(() => this.setState({ opacity: 0.85 }), 50)
   }
 
