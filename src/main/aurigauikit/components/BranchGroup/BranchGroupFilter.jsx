@@ -38,7 +38,7 @@ class BranchGroupFilter extends React.Component {
 
   resetFilter() {
     this.setState({
-      organizationalUnit: ou,
+      organizationalUnit: [ou],
       branchGroupCode: '',
       notPublic: notPublic[0],
     })
@@ -54,7 +54,7 @@ class BranchGroupFilter extends React.Component {
               datasource={this.props.organizationalUnitDatasource}
               canSelect={element => element.type === 'BRANCH'}
               selectedElements={this.state.organizationalUnit}
-              defaultSelection={this.state.organizationalUnit}
+              defaultSelection={ou}
               onSelectionChange={selectedItem => this.onOUSelected(selectedItem)}
             />
           </BasicFilterElement>
