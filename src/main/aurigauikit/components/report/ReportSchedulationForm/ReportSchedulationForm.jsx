@@ -64,7 +64,7 @@ export default class extends React.Component {
       <Fragment>
         <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
           <section>
-            <Grid style={{ overflow: 'initial' }}>
+            <Grid style={{ overflow: 'inherit' }}>
               <Div col="1-2">
                 <label style={{ marginTop: 12 }}>
                   <Msg {...messages.organizationalUnit} />
