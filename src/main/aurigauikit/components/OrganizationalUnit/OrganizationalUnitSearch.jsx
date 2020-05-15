@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react'
+import { FormattedMessage } from 'react-intl'
+import messages from './messages'
 
 function getScrollbarWidth() {
   let outer = document.createElement('div')
@@ -39,7 +41,9 @@ const OrganizationalUnitSearch = ({ items, onRemove, canRemove }) => {
             borderRadius: 4,
           }}
         >
-          <label className="OuSearch">Search</label>
+          <label className="OuSearch">
+            <FormattedMessage {...messages.search.search} />
+          </label>
           <input
             className="OuSearchInput"
             value={search}
@@ -63,7 +67,7 @@ const OrganizationalUnitSearch = ({ items, onRemove, canRemove }) => {
         </div>
       ) : (
         <div style={{ marginTop: 70 }} className="OuItem">
-          No items matching {'"' + search + '"'}
+          <FormattedMessage {...messages.search.noItems} values={{ value: search }} />
         </div>
       )}
     </div>

@@ -1,9 +1,9 @@
-import React, { useMemo, useRef } from 'react'
-import './style.less'
+import React, { useMemo } from 'react'
 import { Popover } from 'antd'
-import OrganizationalUnitSearch from './OrganizationalUnitSearch'
+import Search from './OrganizationalUnitSearch'
+import './style.less'
 
-const getData = (data = []) => () => {
+const getData = (data = []) => {
   const types = Array.from(
     data.reduce((types, ou) => {
       if (ou) types.add(ou.type)
@@ -16,31 +16,22 @@ const getData = (data = []) => () => {
   })
 }
 
-const OuType = ({ name, ...props }) => {
-  const ref = useRef()
-
-  return (
-    <div ref={ref}>
-      <Popover
-        getPopupContainer={() => ref.current}
-        content={<OrganizationalUnitSearch {...props} />}
-        trigger="click"
-      >
-        <div className={'OuType'}>
-          {props.items.length} {name}
-        </div>
-      </Popover>
-    </div>
-  )
-}
-
 export default ({ data, onRemove, canRemove }) => {
-  const ouTypes = useMemo(getData(data))
+  const ouTypes = useMemo(() => getData(data), [data])
   if (ouTypes.length === 0) return null
   return (
     <div className="Ou">
       {ouTypes.map(({ type, items }) => (
-        <OuType key={type} name={type} items={items} onRemove={onRemove} canRemove={canRemove} />
+        <Popover
+          key={type}
+          trigger="click"
+          getPopupContainer={e => e.parentElement}
+          content={<Search items={items} onRemove={onRemove} canRemove={canRemove} />}
+        >
+          <div className="OuType">
+            {items.length} {type}
+          </div>
+        </Popover>
       ))}
     </div>
   )
