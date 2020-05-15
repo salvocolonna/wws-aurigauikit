@@ -8,6 +8,8 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('en', {
+  'organizational-unit.no-items': 'No items matching "{value}"',
+  'organizational-unit.search': 'Search',
   'aurigauikit.groups.filter.not-public.ALL': 'All',
   'aurigauikit.groups.filter.not-public.YES': 'Yes',
   'aurigauikit.groups.filter.not-public.NO': 'No',

@@ -18,6 +18,16 @@ export default {
       defaultMessage: 'Vault hierarchy',
     },
   }),
+  search: defineMessages({
+    search: {
+      id: `${PATH}.search`,
+      defaultMessage: 'Search',
+    },
+    noItems: {
+      id: `${PATH}.no-items`,
+      defaultMessage: 'No items matching "{value}"',
+    },
+  }),
   modal: {
     general: defineMessages({
       reset: {

@@ -8,6 +8,8 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('it', {
+  'organizational-unit.no-items': 'Nessun elemento corrispondente a "{value}"',
+  'organizational-unit.search': 'Cerca',
   'aurigauikit.groups.filter.not-public.ALL': 'Tutti',
   'aurigauikit.groups.filter.not-public.YES': 'Si',
   'aurigauikit.groups.filter.not-public.NO': 'No',
