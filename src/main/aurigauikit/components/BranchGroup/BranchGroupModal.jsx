@@ -119,7 +119,7 @@ class GroupModal extends React.Component {
   render() {
     const style = {
       minHeight: '500px',
-      width: this.state.selectedBranches.length !== 0 ? '70%' : '50%',
+      width: '70%',
     }
     if (!this.state.mode) return null
     return (
