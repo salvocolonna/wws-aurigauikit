@@ -134,7 +134,7 @@ const Confirm = ({ onClick, disabled, saving }) => (
 )
 
 const ReportName = ({ onChange, reportName }) => (
-  <label style={{ marginTop: 12, position: 'relative' }}>
+  <label style={{ marginTop: 12 }}>
     <Msg {...messages.reportName} />
     <input
       style={{ width: '100%' }}
