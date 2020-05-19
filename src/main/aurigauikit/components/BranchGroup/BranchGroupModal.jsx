@@ -1,11 +1,13 @@
 import React from 'react'
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl'
+import { FormattedHTMLMessage, FormattedMessage, injectIntl } from 'react-intl'
 import Modal from 'aurigauikit/components/Modal'
 import OrganizationalUnitModal from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitModal'
 import SelectedBranchesTable from './components/SelectedBranchesTable'
 import Checkbox from 'aurigauikit/components/Checkbox'
 import InfoLabel from 'aurigauikit/components/InfoLabel'
 import { ButtonsPanel } from 'aurigauikit/components/Page'
+import { showCriticalPanel, showConfirmatoryPanel } from 'aurigauikit/components/temporary-panels'
+import { savingGroup as savingGroupMessages } from './messages'
 
 const ou = _userRoleMap.getOU()
 
@@ -91,16 +93,22 @@ class GroupModal extends React.Component {
   }
 
   async saveGroup(service) {
-    const branchGroupBeanRequest = {
-      branchGroupCode: this.state.groupCode,
-      branchGroupDescription: this.state.groupDescription,
-      branches: this.state.selectedBranches.map(b => ({
-        branchId: b.branchId,
-      })),
-      notPublic: this.state.notPublic,
+    try {
+      const branchGroupBeanRequest = {
+        branchGroupCode: this.state.groupCode,
+        branchGroupDescription: this.state.groupDescription,
+        branches: this.state.selectedBranches.map(b => ({
+          branchId: b.branchId,
+        })),
+        notPublic: this.state.notPublic,
+      }
+      await service.saveBranchGroup(branchGroupBeanRequest)
+      this.props.onSave()
+      showConfirmatoryPanel(this.props.intl.formatMessage(savingGroupMessages.SUCCESS))
+    } catch (error) {
+      console.log(error)
+      showCriticalPanel(this.props.intl.formatMessage(savingGroupMessages.ERROR))
     }
-    await service.saveBranchGroup(branchGroupBeanRequest)
-    this.props.onSave()
   }
 
   async editGroup(service) {
@@ -188,7 +196,7 @@ class GroupModal extends React.Component {
               <section>
                 <Checkbox
                   isChecked={this.state.notPublic}
-                  onChange={notPublic => this.setState({ notPublic: notPublic })}
+                  onChange={event => this.setState({ notPublic: event.target.checked })}
                 >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>
@@ -373,4 +381,4 @@ class GroupModal extends React.Component {
   }
 }
 
-export default GroupModal
+export default injectIntl(GroupModal)

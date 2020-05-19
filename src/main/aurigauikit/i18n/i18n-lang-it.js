@@ -13,6 +13,9 @@ i18n.loadMessages('it', {
   'aurigauikit.groups.filter.not-public.ALL': 'Tutti',
   'aurigauikit.groups.filter.not-public.YES': 'Si',
   'aurigauikit.groups.filter.not-public.NO': 'No',
+  'aurigauikit.groups.filter.error-saving': 'Errore nel salvataggio del gruppo filiali',
+  'aurigauikit.groups.filter.saving-successfully':
+    'Salvataggio del gruppo filiali avvenuto con successo',
   'dates.month-names-short': [
     'Gen',
     'Feb',
