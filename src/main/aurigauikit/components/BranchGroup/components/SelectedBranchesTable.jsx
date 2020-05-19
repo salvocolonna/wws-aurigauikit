@@ -1,47 +1,47 @@
-import React from "react"
-import { FormattedMessage } from "react-intl"
-import SimpleTable from "aurigauikit/components/SimpleTable"
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
+import SimpleTable from 'aurigauikit/components/SimpleTable'
 
 const headers = [
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.bank-code" />
-    )
+    ),
   },
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.bank-desc" />
-    )
+    ),
   },
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.area-code" />
-    )
+    ),
   },
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.area-desc" />
-    )
+    ),
   },
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.branch-code" />
-    )
+    ),
   },
   {
     content: (
       <FormattedMessage id="branch-groups-page.group-modal.selected-branches-table.headers.branch-desc" />
-    )
-  }
+    ),
+  },
 ]
 
 const columns = [
-  { content: branch => branch.bankCode, cssClass: "noWrap" },
-  { content: branch => branch.bankDescription, cssClass: "noWrap" },
-  { content: branch => branch.areaCode, cssClass: "noWrap" },
-  { content: branch => branch.areaDescription, cssClass: "noWrap" },
-  { content: branch => branch.branchCode, cssClass: "noWrap" },
-  { content: branch => branch.branchDescription, cssClass: "noWrap" }
+  { content: branch => branch.bankCode, cssClass: 'noWrap' },
+  { content: branch => branch.bankDesc, cssClass: 'noWrap' },
+  { content: branch => branch.areaCode, cssClass: 'noWrap' },
+  { content: branch => branch.areaDesc, cssClass: 'noWrap' },
+  { content: branch => branch.branchCode, cssClass: 'noWrap' },
+  { content: branch => branch.branchDesc, cssClass: 'noWrap' },
 ]
 
 class SelectedBranchesTable extends React.Component {
@@ -51,8 +51,8 @@ class SelectedBranchesTable extends React.Component {
 
   decorateHeaderWithMode = header => {
     const { mode, onRemove } = this.props
-    if (mode && mode !== "view" && onRemove) {
-      return [...header, ""]
+    if (mode && mode !== 'view' && onRemove) {
+      return [...header, '']
     } else {
       return header
     }
@@ -60,18 +60,18 @@ class SelectedBranchesTable extends React.Component {
 
   decorateWithMode = columns => {
     const { mode, onRemove } = this.props
-    if (mode && mode !== "view" && onRemove) {
+    if (mode && mode !== 'view' && onRemove) {
       return [
         ...columns,
         {
           content: branch => (
             <i
-              style={{ color: "#DC402B", cursor: "pointer" }}
+              style={{ color: '#DC402B', cursor: 'pointer' }}
               className="fa fa-times"
               onClick={() => onRemove(branch)}
             />
-          )
-        }
+          ),
+        },
       ]
     } else {
       return columns

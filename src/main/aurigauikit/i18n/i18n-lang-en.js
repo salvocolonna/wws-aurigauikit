@@ -13,6 +13,8 @@ i18n.loadMessages('en', {
   'aurigauikit.groups.filter.not-public.ALL': 'All',
   'aurigauikit.groups.filter.not-public.YES': 'Yes',
   'aurigauikit.groups.filter.not-public.NO': 'No',
+  'aurigauikit.groups.filter.error-saving': 'Error saving branch group',
+  'aurigauikit.groups.filter.saving-successfully': 'Successfully saved branch group',
   'dates.month-names-short': [
     'Jan',
     'Feb',

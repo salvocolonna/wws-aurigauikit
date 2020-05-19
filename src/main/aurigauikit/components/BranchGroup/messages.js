@@ -16,3 +16,14 @@ export const notPublicMessages = defineMessages({
     defaultMessage: 'No',
   },
 })
+
+export const savingGroup = defineMessages({
+  ERROR: {
+    id: `${PATH}.error-saving`,
+    defaultMessage: 'Error saving',
+  },
+  SUCCESS: {
+    id: `${PATH}.saving-successfully`,
+    defaultMessage: 'Saving successfully',
+  },
+})
