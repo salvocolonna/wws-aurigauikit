@@ -1,5 +1,6 @@
 import React from 'react'
 import Workflow from 'aurigauikit/components/Workflow'
+import { FormattedMessage as Msg } from 'react-intl'
 
 const BUTTON_WIDTH = 180
 
@@ -36,7 +37,7 @@ export default class extends React.Component {
               className="confirmatory"
               onClick={!form && this.next}
               disabled={!canProceed || currentState >= states.length || saving}
-              text={saving ? 'Saving...' : 'Save'}
+              text={saving ? <Msg id="saving" /> : <Msg id="save" />}
             />
           )}
         </Right>
@@ -51,17 +52,19 @@ const Back = ({ onClick, disabled }) => (
     className="btn btn-primary-outline"
     onClick={onClick}
     style={{ width: BUTTON_WIDTH }}
-    disabled={disabled}>
-    Back
+    disabled={disabled}
+  >
+    <Msg id="back" />
   </button>
 )
 
-const Next = ({ text = 'Next', onClick, disabled, className = 'primary-outline' }) => (
+const Next = ({ text = <Msg id="next" />, onClick, disabled, className = 'primary-outline' }) => (
   <button
     className={`btn btn-${className}`}
     onClick={onClick}
     style={{ width: BUTTON_WIDTH }}
-    disabled={disabled}>
+    disabled={disabled}
+  >
     {text}
   </button>
 )
@@ -73,7 +76,8 @@ const Main = ({ children }) => (
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }}>
+      }}
+    >
       {children}
     </div>
   </section>
@@ -86,7 +90,8 @@ const Center = ({ children }) => (
     style={{
       width: '100%',
       textAlign: 'center',
-    }}>
+    }}
+  >
     {children}
   </div>
 )
