@@ -61,6 +61,8 @@ i18n.loadMessages('en', {
 
   'simple-table.loading-state': 'Loading...',
   'simple-table.empty-state': 'No data found',
+  'pagination.total-elements': '{size} of {count} {count, plural, one {element} other {elements}}',
+  'pagination.total-pages': 'Page {page} of {count}',
 
   'scheduler.days.FRIDAY': 'Friday',
   'scheduler.days.MONDAY': 'Monday',

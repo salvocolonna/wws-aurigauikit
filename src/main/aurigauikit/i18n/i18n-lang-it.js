@@ -94,6 +94,8 @@ i18n.loadMessages('it', {
 
   'simple-table.loading-state': 'Caricamento...',
   'simple-table.empty-state': 'Nessun dato trovato',
+  'pagination.total-elements': '{size} di {count} {count, plural, one {elemento} other {elementi}}',
+  'pagination.total-pages': 'Pagina {page} di {count}',
 
   'scheduler.days.FRIDAY': 'Venerdì',
   'scheduler.days.MONDAY': 'Lunedì',

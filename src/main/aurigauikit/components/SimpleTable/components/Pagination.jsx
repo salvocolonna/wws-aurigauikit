@@ -1,7 +1,8 @@
-import React from "react"
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 class Pagination extends React.Component {
-  static displayName = "Pagination"
+  static displayName = 'Pagination'
 
   constructor(props) {
     super(props)
@@ -44,51 +45,59 @@ class Pagination extends React.Component {
     return (
       this.props.totalPages > 1 && (
         <div>
-          <div style={{ textAlign: "right" }}>
+          <div style={{ textAlign: 'right' }}>
             <div
               className="text-info"
               style={{
-                float: "left",
-                textAlign: "left",
+                float: 'left',
+                textAlign: 'left',
                 paddingTop: 5,
-                fontWeight: "bold",
-                fontSize: "0.8em"
-              }}>
+                fontWeight: 'bold',
+                fontSize: '0.8em',
+              }}
+            >
               {this.props.totalElements && (
                 <div>
-                  {this.props.pageSize} of {this.props.totalElements} elements{" "}
+                  <FormattedMessage
+                    id="pagination.total-elements"
+                    values={{ size: this.props.pageSize, count: this.props.totalElements }}
+                  />
+                  &nbsp;
                 </div>
               )}
               <div>
-                Page {this.props.page} of {this.props.totalPages}
+                <FormattedMessage
+                  id="pagination.total-pages"
+                  values={{ page: this.props.page, count: this.props.totalPages }}
+                />
               </div>
             </div>
-            <ul className="pagination" style={{ paddingTop: "5px" }}>
+            <ul className="pagination" style={{ paddingTop: '5px' }}>
               <li onClick={() => this.goTo(1)}>
                 <div className="paginationButton out">
-                  <div className="paginationText">{"«"}</div>
+                  <div className="paginationText">{'«'}</div>
                 </div>
               </li>
               <li onClick={() => this.goBack()}>
                 <div className="paginationButton out">
-                  <div className="paginationText">{"<"}</div>
+                  <div className="paginationText">{'<'}</div>
                 </div>
               </li>
               {Pagination.getPages(this.props.page, this.props.totalPages).map(page => (
                 <li key={page} onClick={() => this.goTo(page)}>
-                  <div className={"paginationButton" + (this.props.page === page ? " active" : "")}>
+                  <div className={'paginationButton' + (this.props.page === page ? ' active' : '')}>
                     <div className="paginationText">{page}</div>
                   </div>
                 </li>
               ))}
               <li onClick={() => this.goForeward()}>
                 <div className="paginationButton out">
-                  <div className="paginationText">{">"}</div>
+                  <div className="paginationText">{'>'}</div>
                 </div>
               </li>
               <li onClick={() => this.goTo(this.props.totalPages)}>
                 <div className="paginationButton out">
-                  <div className="paginationText">{"»"}</div>
+                  <div className="paginationText">{'»'}</div>
                 </div>
               </li>
             </ul>
