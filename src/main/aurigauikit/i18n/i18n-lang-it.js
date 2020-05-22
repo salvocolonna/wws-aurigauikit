@@ -8,6 +8,10 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('it', {
+  back: 'Indietro',
+  save: 'Salva',
+  saving: 'Salvataggio...',
+  next: 'Avanti',
   'organizational-unit.no-items': 'Nessun elemento corrispondente a "{value}"',
   'organizational-unit.search': 'Cerca',
   'aurigauikit.groups.filter.not-public.ALL': 'Tutti',
