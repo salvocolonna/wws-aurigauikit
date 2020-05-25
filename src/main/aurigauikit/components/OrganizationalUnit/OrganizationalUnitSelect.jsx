@@ -124,9 +124,13 @@ const Single = injectIntl(({ element, intl }) => (
     type="text"
     disabled
     style={{ width: '100%', backgroundColor: '#fff' }}
-    value={`${intl.formatMessage(messages.type[element.type])} - ${element.description} (${
-      element.code
-    })`}
+    value={
+      element
+        ? `${intl.formatMessage(messages.type[element.type])} - ${element.description} (${
+            element.code
+          })`
+        : ''
+    }
   />
 ))
 

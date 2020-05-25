@@ -8,6 +8,10 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('en', {
+  back: 'Back',
+  save: 'Save',
+  saving: 'Saving...',
+  next: 'Next',
   'organizational-unit.no-items': 'No items matching "{value}"',
   'organizational-unit.search': 'Search',
   'aurigauikit.groups.filter.not-public.ALL': 'All',
@@ -61,6 +65,8 @@ i18n.loadMessages('en', {
 
   'simple-table.loading-state': 'Loading...',
   'simple-table.empty-state': 'No data found',
+  'pagination.total-elements': '{size} of {count} {count, plural, one {element} other {elements}}',
+  'pagination.total-pages': 'Page {page} of {count}',
 
   'scheduler.days.FRIDAY': 'Friday',
   'scheduler.days.MONDAY': 'Monday',
