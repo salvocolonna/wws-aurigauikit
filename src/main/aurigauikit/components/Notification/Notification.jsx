@@ -242,7 +242,11 @@ class Notification extends React.Component {
           <span ref={this.notificationRef} style={{ marginLeft: 9, verticalAlign: 'bottom' }}>
             <Icon type="bell" />
             {unreadCount > 0 && (
-              <Badge style={{ verticalAlign: 'bottom' }} count={unreadCount} offset={legacy? [-5, -5]: [2, -3]} />
+              <Badge
+                style={{ verticalAlign: 'bottom' }}
+                count={unreadCount}
+                offset={legacy ? [-5, -5] : [2, -3]}
+              />
             )}
           </span>
         </span>

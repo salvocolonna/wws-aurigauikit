@@ -17,6 +17,8 @@ i18n.loadMessages('it', {
   'aurigauikit.groups.filter.not-public.ALL': 'Tutti',
   'aurigauikit.groups.filter.not-public.YES': 'Si',
   'aurigauikit.groups.filter.not-public.NO': 'No',
+  'aurigauikit.groups.filter.selected-branches-error':
+    'Si prega di aggiungere almeno una filiale al gruppo',
   'aurigauikit.groups.filter.error-saving': 'Errore nel salvataggio del gruppo filiali',
   'aurigauikit.groups.filter.saving-successfully':
     'Salvataggio del gruppo filiali avvenuto con successo',
