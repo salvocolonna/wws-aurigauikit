@@ -8,6 +8,7 @@ import InfoLabel from 'aurigauikit/components/InfoLabel'
 import { ButtonsPanel } from 'aurigauikit/components/Page'
 import { showCriticalPanel, showConfirmatoryPanel } from 'aurigauikit/components/temporary-panels'
 import { savingGroup as savingGroupMessages } from './messages'
+import { Form } from 'aurigauikit/components/parsley'
 
 const ou = _userRoleMap.getOU()
 
@@ -73,10 +74,10 @@ class GroupModal extends React.Component {
     })
   }
 
-  async fetchData(selectedElements, service) {
+  async fetchData(selectedElements) {
     const selectedBranches = []
     for (let i = 0; i < selectedElements.length; i++) {
-      const branchInfo = await service.readBranch(selectedElements[i].id)
+      const branchInfo = await this.props.service.readBranch(selectedElements[i].id)
       selectedBranches.push(branchInfo.content)
     }
     this.setState({
@@ -92,26 +93,31 @@ class GroupModal extends React.Component {
     }))
   }
 
-  async saveGroup(service) {
-    try {
-      const branchGroupBeanRequest = {
-        branchGroupCode: this.state.groupCode,
-        branchGroupDescription: this.state.groupDescription,
-        branches: this.state.selectedBranches.map(b => ({
-          branchId: b.branchId,
-        })),
-        notPublic: this.state.notPublic,
+  saveGroup = async () => {
+    if (this.state.selectedBranches.length === 0) {
+      showCriticalPanel(this.props.intl.formatMessage(savingGroupMessages.selectedBranchesError))
+    } else {
+      try {
+        const branchGroupBeanRequest = {
+          branchGroupCode: this.state.groupCode,
+          branchGroupDescription: this.state.groupDescription,
+          branches: this.state.selectedBranches.map(b => ({
+            branchId: b.branchId,
+          })),
+          notPublic: this.state.notPublic,
+        }
+        await this.props.service.saveBranchGroup(branchGroupBeanRequest)
+        this.props.onSave()
+        this.onSelectionAborted()
+        showConfirmatoryPanel(this.props.intl.formatMessage(savingGroupMessages.SUCCESS))
+      } catch (error) {
+        console.log(error)
+        showCriticalPanel(this.props.intl.formatMessage(savingGroupMessages.ERROR))
       }
-      await service.saveBranchGroup(branchGroupBeanRequest)
-      this.props.onSave()
-      showConfirmatoryPanel(this.props.intl.formatMessage(savingGroupMessages.SUCCESS))
-    } catch (error) {
-      console.log(error)
-      showCriticalPanel(this.props.intl.formatMessage(savingGroupMessages.ERROR))
     }
   }
 
-  async editGroup(service) {
+  editGroup = async () => {
     const branchGroupBeanRequest = {
       branchGroupCode: this.state.groupCode,
       branchGroupDescription: this.state.groupDescription,
@@ -120,7 +126,7 @@ class GroupModal extends React.Component {
       })),
       notPublic: this.state.notPublic,
     }
-    await service.editBranchGroup(this.props.branchGroupId, branchGroupBeanRequest)
+    await this.props.service.editBranchGroup(this.props.branchGroupId, branchGroupBeanRequest)
     this.props.onSave()
   }
 
@@ -129,97 +135,99 @@ class GroupModal extends React.Component {
       minHeight: '500px',
       width: '70%',
     }
+
     if (!this.state.mode) return null
     return (
       <Modal style={style} show={this.props.show} onClose={() => this.onSelectionAborted()}>
         {this.state.mode === 'create' && (
           <section>
-            <Modal.Header
-              title={<FormattedMessage id="branch-groups-page.group-modal.create-group-title" />}
-            />
-            <Modal.Content style={{ minHeight: '300px' }}>
-              <section>
-                <div className="grid">
-                  <div className="col-1-1">
-                    <label>
-                      <FormattedMessage id="branch-groups-page.group-modal.insert-code" />
-                    </label>
-                    <input
-                      style={{ width: '100%' }}
-                      type="text"
-                      onChange={e => this.setState({ groupCode: e.target.value })}
-                    />
+            <Form onSubmit={this.saveGroup}>
+              <Modal.Header
+                title={<FormattedMessage id="branch-groups-page.group-modal.create-group-title" />}
+              />
+              <Modal.Content style={{ minHeight: '300px' }}>
+                <section>
+                  <div className="grid">
+                    <div className="col-1-1">
+                      <label>
+                        <FormattedMessage id="branch-groups-page.group-modal.insert-code" />
+                      </label>
+                      <input
+                        style={{ width: '100%' }}
+                        required
+                        type="text"
+                        onChange={e => this.setState({ groupCode: e.target.value })}
+                      />
+                    </div>
+                    <div className="col-1-1" style={{ marginTop: 20 }}>
+                      <label>
+                        <FormattedMessage id="branch-groups-page.group-modal.insert-desc" />
+                      </label>
+                      <input
+                        style={{ width: '100%' }}
+                        type="text"
+                        onChange={e => this.setState({ groupDescription: e.target.value })}
+                      />
+                    </div>
                   </div>
-                  <div className="col-1-1" style={{ marginTop: '10px' }}>
-                    <label>
-                      <FormattedMessage id="branch-groups-page.group-modal.insert-desc" />
-                    </label>
-                    <input
-                      style={{ width: '100%' }}
-                      type="text"
-                      onChange={e => this.setState({ groupDescription: e.target.value })}
+                </section>
+                <section>
+                  <ButtonsPanel>
+                    <button
+                      className="btn btn-confirmatory"
+                      onClick={() => this.setState({ showModal: true })}
+                    >
+                      <FormattedMessage id="branch-groups-page.group-modal.button-add-branch" />
+                    </button>
+                    <OrganizationalUnitModal
+                      show={this.state.showModal}
+                      onSelectionConfirmed={selectedElements => this.fetchData(selectedElements)}
+                      datasource={this.props.organizationalUnitDatasource}
+                      canSelect={element => element.type === 'BRANCH'}
+                      dataComparator={(e1, e2) =>
+                        e1 && e2 && e1.type === e2.type && e1.id === e2.id
+                      }
+                      onSelectionAborted={() => this.setState({ showModal: false })}
+                      selectedElements={this.state.selectedBranches}
+                      onSelect={items => this.setState({ selectedBranches: items })}
                     />
-                  </div>
-                </div>
-              </section>
-              <section>
-                <ButtonsPanel>
-                  <button
-                    className="btn btn-confirmatory"
-                    onClick={() => this.setState({ showModal: true })}
-                  >
-                    <FormattedMessage id="branch-groups-page.group-modal.button-add-branch" />
-                  </button>
-                  <OrganizationalUnitModal
-                    show={this.state.showModal}
-                    onSelectionConfirmed={selectedElements =>
-                      this.fetchData(selectedElements, this.props.service)
+                  </ButtonsPanel>
+                  <SelectedBranchesTable
+                    loading={this.state.loading}
+                    data={this.state.selectedBranches}
+                    emptyState={
+                      <FormattedHTMLMessage id="branch-groups-page.group-modal.static-panel" />
                     }
-                    datasource={this.props.organizationalUnitDatasource}
-                    canSelect={element => element.type === 'BRANCH'}
-                    dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
-                    onSelectionAborted={() => this.setState({ showModal: false })}
-                    selectedElements={this.state.selectedBranches}
-                    onSelect={items => this.setState({ selectedBranches: items })}
+                    mode={this.state.mode}
+                    onRemove={branch => this.removeBranch(branch.branchId)}
                   />
-                </ButtonsPanel>
-                <SelectedBranchesTable
-                  loading={this.state.loading}
-                  data={this.state.selectedBranches}
-                  emptyState={
-                    <FormattedHTMLMessage id="branch-groups-page.group-modal.static-panel" />
-                  }
-                  mode={this.state.mode}
-                  onRemove={branch => this.removeBranch(branch.branchId)}
-                />
-              </section>
-              <section>
-                <Checkbox
-                  isChecked={this.state.notPublic}
-                  onChange={event => this.setState({ notPublic: event.target.checked })}
-                >
-                  <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
-                </Checkbox>
-              </section>
-            </Modal.Content>
-            <Modal.Footer>
-              <div className="btn-group">
-                <button
-                  className="btn btn-warning-outline"
-                  style={{ marginRight: '20px' }}
-                  onClick={() => this.onSelectionAborted()}
-                >
-                  <FormattedMessage id="branch-groups-page.group-modal.button-cancel" />
-                </button>
-                <button
-                  className="btn btn-confirmatory"
-                  disabled={!this.state.groupCode || this.state.selectedBranches.length === 0}
-                  onClick={() => this.saveGroup(this.props.service)}
-                >
-                  <FormattedMessage id="branch-groups-page.group-modal.button-save" />
-                </button>
-              </div>
-            </Modal.Footer>
+                </section>
+                <section>
+                  <Checkbox
+                    isChecked={this.state.notPublic}
+                    onChange={event => this.setState({ notPublic: event.target.checked })}
+                  >
+                    <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
+                  </Checkbox>
+                </section>
+              </Modal.Content>
+
+              <Modal.Footer>
+                <div className="btn-group">
+                  <button
+                    type="button"
+                    className="btn btn-warning-outline"
+                    style={{ marginRight: '20px' }}
+                    onClick={() => this.onSelectionAborted()}
+                  >
+                    <FormattedMessage id="branch-groups-page.group-modal.button-cancel" />
+                  </button>
+                  <button className="btn btn-confirmatory">
+                    <FormattedMessage id="branch-groups-page.group-modal.button-save" />
+                  </button>
+                </div>
+              </Modal.Footer>
+            </Form>
           </section>
         )}
         {this.state.mode === 'view' && (
@@ -323,9 +331,7 @@ class GroupModal extends React.Component {
                   </button>
                   <OrganizationalUnitModal
                     show={this.state.showModal}
-                    onSelectionConfirmed={selectedElements =>
-                      this.fetchData(selectedElements, this.props.service)
-                    }
+                    onSelectionConfirmed={selectedElements => this.fetchData(selectedElements)}
                     datasource={this.props.organizationalUnitDatasource}
                     canSelect={element => element.type === 'BRANCH'}
                     dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
@@ -366,10 +372,7 @@ class GroupModal extends React.Component {
                 >
                   <FormattedMessage id="branch-groups-page.group-modal.button-cancel" />
                 </button>
-                <button
-                  className="btn btn-confirmatory"
-                  onClick={() => this.editGroup(this.props.service)}
-                >
+                <button className="btn btn-confirmatory" onClick={this.editGroup}>
                   <FormattedMessage id="branch-groups-page.group-modal.button-save" />
                 </button>
               </div>

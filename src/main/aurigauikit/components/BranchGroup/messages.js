@@ -26,4 +26,8 @@ export const savingGroup = defineMessages({
     id: `${PATH}.saving-successfully`,
     defaultMessage: 'Saving successfully',
   },
+  selectedBranchesError: {
+    id: `${PATH}.selected-branches-error`,
+    defaultMessage: 'Please add a branch',
+  },
 })
