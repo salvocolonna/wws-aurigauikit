@@ -14,6 +14,7 @@ function Topbar({
   onLogout,
   notificationFrontend,
   notificationBackend,
+  userCode,
   userName,
   notificationCustomUrl,
   notificationAppCode,
@@ -34,7 +35,7 @@ function Topbar({
   const hasNotification = notificationFrontend && notificationBackend
   const notification = hasNotification && (
     <Notification
-      userCode={userName}
+      userCode={userCode}
       frontend={notificationFrontend}
       backend={notificationBackend}
       customUrl={notificationCustomUrl}
@@ -67,12 +68,12 @@ function Topbar({
           {isTablet ? (
             <div />
           ) : (
-              <Icon
-                className="trigger"
-                type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={onCollapse}
-              />
-            )}
+            <Icon
+              className="trigger"
+              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={onCollapse}
+            />
+          )}
           {logo && <Logo src={logo} onClick={onLogoClick} />}
           {logoImage && logoImage.src && (
             <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
@@ -89,6 +90,7 @@ function Topbar({
           <MediaQuery minWidth={1000}>
             <>
               {hasNotification && <span> {notification} </span>}
+              {hasNotification && <Divider type="vertical" />}
               {parentBankCode && parentBankDescription && (
                 <span>
                   {bankImg} {`${parentBankDescription} (${parentBankCode})`}
@@ -164,7 +166,7 @@ const Logo = ({ src, onClick }) => (
 )
 
 const LogoImage = ({ src, onClick, marginLeft = 0, maxWidth = 300, style = {} }) => {
-  onClick = onClick || (() => { })
+  onClick = onClick || (() => {})
 
   return (
     <div
