@@ -174,6 +174,7 @@ class GroupModal extends React.Component {
                 <section>
                   <ButtonsPanel>
                     <button
+                      type="button"
                       className="btn btn-confirmatory"
                       onClick={() => this.setState({ showModal: true })}
                     >
