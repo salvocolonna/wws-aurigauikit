@@ -7,7 +7,7 @@ import Checkbox from 'aurigauikit/components/Checkbox'
 import InfoLabel from 'aurigauikit/components/InfoLabel'
 import { ButtonsPanel } from 'aurigauikit/components/Page'
 import { showCriticalPanel, showConfirmatoryPanel } from 'aurigauikit/components/temporary-panels'
-import { savingGroup as savingGroupMessages } from './messages'
+import { savingGroup as savingGroupMessages, editGroup as editGroupMessages } from './messages'
 import { Form } from 'aurigauikit/components/parsley'
 
 const ou = _userRoleMap.getOU()
@@ -78,13 +78,23 @@ class GroupModal extends React.Component {
     const selectedBranches = []
     for (let i = 0; i < selectedElements.length; i++) {
       const branchInfo = await this.props.service.readBranch(selectedElements[i].id)
-      selectedBranches.push(branchInfo.content)
+      selectedBranches.push({ ...branchInfo.content, path: selectedElements[i].path })
     }
-    this.setState({
-      loading: false,
-      showModal: false,
-      selectedBranches,
-    })
+    this.setState(
+      {
+        loading: false,
+        showModal: false,
+        selectedBranches,
+      },
+      () =>
+        this.props.onSelect(
+          selectedBranches.map(element => ({
+            type: 'BRANCH',
+            id: element.branchId,
+            path: element.path,
+          }))
+        )
+    )
   }
 
   removeBranch(branchId) {
@@ -111,23 +121,29 @@ class GroupModal extends React.Component {
         this.onSelectionAborted()
         showConfirmatoryPanel(this.props.intl.formatMessage(savingGroupMessages.SUCCESS))
       } catch (error) {
-        console.log(error)
+        console.error(error)
         showCriticalPanel(this.props.intl.formatMessage(savingGroupMessages.ERROR))
       }
     }
   }
 
   editGroup = async () => {
-    const branchGroupBeanRequest = {
-      branchGroupCode: this.state.groupCode,
-      branchGroupDescription: this.state.groupDescription,
-      branches: this.state.selectedBranches.map(b => ({
-        branchId: b.branchId,
-      })),
-      notPublic: this.state.notPublic,
+    try {
+      const branchGroupBeanRequest = {
+        branchGroupCode: this.state.groupCode,
+        branchGroupDescription: this.state.groupDescription,
+        branches: this.state.selectedBranches.map(b => ({
+          branchId: b.branchId,
+        })),
+        notPublic: this.state.notPublic,
+      }
+      await this.props.service.editBranchGroup(this.props.branchGroupId, branchGroupBeanRequest)
+      this.props.onSave()
+      showConfirmatoryPanel(this.props.intl.formatMessage(editGroupMessages.SUCCESS))
+    } catch (error) {
+      console.log(error)
+      showCriticalPanel(this.props.intl.formatMessage(editGroupMessages.ERROR))
     }
-    await this.props.service.editBranchGroup(this.props.branchGroupId, branchGroupBeanRequest)
-    this.props.onSave()
   }
 
   render() {
@@ -337,10 +353,8 @@ class GroupModal extends React.Component {
                     canSelect={element => element.type === 'BRANCH'}
                     dataComparator={(e1, e2) => e1 && e2 && e1.type === e2.type && e1.id === e2.id}
                     onSelectionAborted={() => this.setState({ showModal: false })}
-                    selectedElements={this.state.selectedBranches.map(branch => ({
-                      id: branch.branchId,
-                      type: 'BRANCH',
-                    }))}
+                    selectedElements={this.props.selectedElements}
+                    onSelect={this.props.onSelect}
                   />
                 </ButtonsPanel>
                 <SelectedBranchesTable
@@ -357,8 +371,8 @@ class GroupModal extends React.Component {
               <section>
                 <Checkbox
                   isChecked={this.state.notPublic}
-                  onChange={notPublic => this.setState({ notPublic: notPublic })}
-                  isDisabled={!this.state.notPublic}
+                  onChange={() => this.setState({ notPublic: !this.state.notPublic })}
+                  isDisabled={!this.props.notPublic}
                 >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>

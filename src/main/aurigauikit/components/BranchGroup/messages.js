@@ -31,3 +31,14 @@ export const savingGroup = defineMessages({
     defaultMessage: 'Please add a branch',
   },
 })
+
+export const editGroup = defineMessages({
+  ERROR: {
+    id: `${PATH}.edit-error`,
+    defaultMessage: 'Error update',
+  },
+  SUCCESS: {
+    id: `${PATH}.edit-successfully`,
+    defaultMessage: 'Updating successfully',
+  },
+})
