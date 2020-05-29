@@ -37,11 +37,14 @@ class BranchGroupFilter extends React.Component {
   }
 
   resetFilter() {
-    this.setState({
-      organizationalUnit: [ou],
-      branchGroupCode: '',
-      notPublic: notPublic[0],
-    })
+    this.setState(
+      {
+        organizationalUnit: [ou],
+        branchGroupCode: '',
+        notPublic: notPublic[0],
+      },
+      this.notifyApply
+    )
   }
 
   render() {

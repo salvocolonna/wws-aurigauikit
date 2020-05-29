@@ -71,12 +71,12 @@ class BranchGroupsTable extends React.Component {
           action: context => this.props.readGroup(context.currentRow.branchGroupId),
         },
         {},
-        // {
-        //   title: <FormattedMessage id="branch-groups-page.branch-groups-table.context-menu.edit" />,
-        //   iconName: 'pencil',
-        //   action: context => this.props.editGroup(context.currentRow.branchGroupId),
-        // },
-        // {},
+        {
+          title: <FormattedMessage id="branch-groups-page.branch-groups-table.context-menu.edit" />,
+          iconName: 'pencil',
+          action: context => this.props.editGroup(context.currentRow.branchGroupId),
+        },
+        {},
         {
           title: (
             <FormattedMessage id="branch-groups-page.branch-groups-table.context-menu.delete" />
