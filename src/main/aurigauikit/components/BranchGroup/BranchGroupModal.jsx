@@ -73,6 +73,10 @@ class GroupModal extends React.Component {
       groupDescription: null,
       selectedBranches: [],
       notPublic: false,
+      newGroupCode: null,
+      newGroupDescription: null,
+      newGroupSelectedBranches: [],
+      isNewGroupNotPublic: false,
     })
   }
 
@@ -374,7 +378,6 @@ class GroupModal extends React.Component {
                 <Checkbox
                   isChecked={this.state.notPublic}
                   onChange={() => this.setState({ notPublic: !this.state.notPublic })}
-                  isDisabled={!this.props.notPublic}
                 >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>
