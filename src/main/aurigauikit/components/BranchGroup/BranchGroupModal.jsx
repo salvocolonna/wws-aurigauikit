@@ -23,7 +23,9 @@ class GroupModal extends React.Component {
       groupCode: this.props.branchGroupCode,
       groupDescription: this.props.branchGroupDescription,
       selectedBranches: this.props.branches || [],
+      newGroupSelectedBranches: [],
       notPublic: this.props.notPublic,
+      isNewGroupNotPublic: false,
     }
   }
 
@@ -71,6 +73,10 @@ class GroupModal extends React.Component {
       groupDescription: null,
       selectedBranches: [],
       notPublic: false,
+      newGroupCode: null,
+      newGroupDescription: null,
+      newGroupSelectedBranches: [],
+      isNewGroupNotPublic: false,
     })
   }
 
@@ -109,12 +115,12 @@ class GroupModal extends React.Component {
     } else {
       try {
         const branchGroupBeanRequest = {
-          branchGroupCode: this.state.groupCode,
-          branchGroupDescription: this.state.groupDescription,
+          branchGroupCode: this.state.newGroupCode,
+          branchGroupDescription: this.state.newGroupDescription,
           branches: this.state.selectedBranches.map(b => ({
             branchId: b.branchId,
           })),
-          notPublic: this.state.notPublic,
+          notPublic: this.state.isNewGroupNotPublic,
         }
         await this.props.service.saveBranchGroup(branchGroupBeanRequest)
         this.props.onSave()
@@ -172,7 +178,7 @@ class GroupModal extends React.Component {
                         style={{ width: '100%' }}
                         required
                         type="text"
-                        onChange={e => this.setState({ groupCode: e.target.value })}
+                        onChange={e => this.setState({ newGroupCode: e.target.value })}
                       />
                     </div>
                     <div className="col-1-1" style={{ marginTop: 20 }}>
@@ -182,7 +188,7 @@ class GroupModal extends React.Component {
                       <input
                         style={{ width: '100%' }}
                         type="text"
-                        onChange={e => this.setState({ groupDescription: e.target.value })}
+                        onChange={e => this.setState({ newGroupDescription: e.target.value })}
                       />
                     </div>
                   </div>
@@ -205,8 +211,8 @@ class GroupModal extends React.Component {
                         e1 && e2 && e1.type === e2.type && e1.id === e2.id
                       }
                       onSelectionAborted={() => this.setState({ showModal: false })}
-                      selectedElements={this.state.selectedBranches}
-                      onSelect={items => this.setState({ selectedBranches: items })}
+                      selectedElements={this.state.newGroupSelectedBranches}
+                      onSelect={items => this.setState({ newGroupSelectedBranches: items })}
                     />
                   </ButtonsPanel>
                   <SelectedBranchesTable
@@ -221,8 +227,8 @@ class GroupModal extends React.Component {
                 </section>
                 <section>
                   <Checkbox
-                    isChecked={this.state.notPublic}
-                    onChange={event => this.setState({ notPublic: event.target.checked })}
+                    isChecked={this.state.isNewGroupNotPublic}
+                    onChange={event => this.setState({ isNewGroupNotPublic: event.target.checked })}
                   >
                     <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                   </Checkbox>
@@ -372,7 +378,6 @@ class GroupModal extends React.Component {
                 <Checkbox
                   isChecked={this.state.notPublic}
                   onChange={() => this.setState({ notPublic: !this.state.notPublic })}
-                  isDisabled={!this.props.notPublic}
                 >
                   <FormattedMessage id="branch-groups-page.group-modal.notPublic" />
                 </Checkbox>
