@@ -10,7 +10,7 @@ $.aurigauikit = {
   ...$.aurigauikit,
   supportedDateFormats: ['DD/MM/YYYY'],
   defaultDateFormat: 'DD/MM/YYYY',
-  'temporary-panels-persistence-time': 3500,
+  'temporary-panels-persistence-time': 5000,
   'temporary-panels-auto-dismiss-time': 300,
 }
 
