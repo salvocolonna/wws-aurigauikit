@@ -34,10 +34,12 @@ export const withParams = (resource, params) => {
   return resource
 }
 
-export const getURL = ({
-  protocol = location.protocol.substring(0, location.protocol.length - 1),
-  hostname = location.hostname,
-  port = location.port,
-  ['context-path']: contextPath = '',
-  version = 1,
-}) => `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v${version}`
+export const getURL = backend => {
+  if (typeof backend === 'string') return backend + '/api/v1'
+  if (backend.baseurl) return backend.baseurl + '/api/v1'
+  const protocol = backend.protocol || location.protocol.substring(0, location.protocol.length - 1)
+  const hostname = backend.hostname || location.hostname
+  const port = backend.port || location.port
+  const contextPath = backend['context-path'] || ''
+  return `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v1`
+}
