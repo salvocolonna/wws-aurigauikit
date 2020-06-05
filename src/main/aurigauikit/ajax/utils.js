@@ -40,6 +40,6 @@ export const getURL = backend => {
   const protocol = backend.protocol || location.protocol.substring(0, location.protocol.length - 1)
   const hostname = backend.hostname || location.hostname
   const port = backend.port || location.port
-  const contextPath = backend.contextPath || ''
+  const contextPath = backend['context-path'] || ''
   return `${protocol}://${hostname}${port ? ':' + port : ''}${contextPath}/api/v1`
 }
