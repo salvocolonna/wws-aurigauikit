@@ -7,7 +7,7 @@ Copyright 2016-2018 Auriga S.p.A.
 
 import i18n from '../i18n'
 
-import { RESPONSE, REQUEST, API_KEY } from './constants'
+import { RESPONSE, REQUEST } from './constants'
 import RequestMaker from './request-builder'
 import { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
@@ -37,20 +37,12 @@ function handleFailedAuthentication() {
 class Ajax extends RequestMaker {
   constructor(frontend, backend) {
     super()
-
-    this.api = typeof backend === 'string' ? `/${backend}/api/v1` : getURL(backend)
-
-    /* old token
-    const apiKey = API_KEY[frontend]
-    const sessionToken = getSessionToken()
-    const authorization = sessionToken ? `${apiKey}, ${sessionToken}` : apiKey
-    */
-
+    this.api = getURL(backend)
     this.headers = {
       'Content-Type': 'application/json',
       'Accept-Language': i18n.getCurrentLanguage(),
-      'Cache-Control': 'no-cache, no-store', 
-      'Pragma': 'no-cache',
+      'Cache-Control': 'no-cache, no-store',
+      Pragma: 'no-cache',
     }
   }
 

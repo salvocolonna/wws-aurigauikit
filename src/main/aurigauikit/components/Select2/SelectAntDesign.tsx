@@ -10,7 +10,8 @@ function getValue(value: number | string | Record): string {
   } else if (typeof value === 'number') {
     return value.toString()
   } else {
-    return JSON.stringify(value)
+    if (value) return JSON.stringify(value)
+    return ''
   }
 }
 
@@ -20,7 +21,8 @@ function convertToString(value: unknown): string {
   } else if (typeof value === 'number') {
     return value.toString()
   } else {
-    return JSON.stringify(value)
+    if (value) return JSON.stringify(value)
+    return ''
   }
 }
 
@@ -117,7 +119,7 @@ function SelectAnt({ didSelect, ...props }: SelectProps) {
         } else if (typeof v === 'number') {
           key = v.toString()
         } else {
-          key = v.key ? v.key.toString() : JSON.stringify(v)
+          key = !v ? '' : v.key ? v.key.toString() : JSON.stringify(v)
         }
         return (
           <Option key={key} value={getValue(v)}>
