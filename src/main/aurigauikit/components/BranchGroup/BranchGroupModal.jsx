@@ -136,8 +136,10 @@ class GroupModal extends React.Component {
   editGroup = async () => {
     try {
       const branchGroupBeanRequest = {
-        branchGroupCode: this.state.groupCode,
-        branchGroupDescription: this.state.groupDescription,
+        branchGroupCode: this.state.newGroupCode ? this.state.newGroupCode : this.state.groupCode,
+        branchGroupDescription: this.state.newGroupDescription
+          ? this.state.newGroupDescription
+          : this.state.groupDescription,
         branches: this.state.selectedBranches.map(b => ({
           branchId: b.branchId,
         })),
@@ -328,7 +330,7 @@ class GroupModal extends React.Component {
                       style={{ width: '100%' }}
                       type="text"
                       defaultValue={this.props.branchGroupCode}
-                      onChange={e => this.setState({ groupCode: e.target.value })}
+                      onChange={e => this.setState({ newGroupCode: e.target.value })}
                     />
                   </div>
                   <div className="col-1-1" style={{ marginTop: '10px' }}>
@@ -339,7 +341,7 @@ class GroupModal extends React.Component {
                       style={{ width: '100%' }}
                       type="text"
                       defaultValue={this.props.branchGroupDescription}
-                      onChange={e => this.setState({ groupDescription: e.target.value })}
+                      onChange={e => this.setState({ newGroupDescription: e.target.value })}
                     />
                   </div>
                 </div>
