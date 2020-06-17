@@ -29,13 +29,8 @@ export default injectIntl(
       onAdd(widget)
     }
 
-    getWidgets = () => {
-      const { widgets, onBuild, intl } = this.props
-      const widgetList = widgets
-        .filter(({ name }) => name !== 'active-assets')
-        .map(widget => widget.name)
-      return onBuild ? [intl.formatMessage(newId), ...widgetList] : widgetList
-    }
+    getWidgets = () =>
+      this.props.widgets.filter(({ name }) => name !== 'active-assets').map(widget => widget.name)
 
     render() {
       const { onClose, messages: widgetsMessages, intl } = this.props
@@ -62,22 +57,18 @@ export default injectIntl(
                 />
               </Div>
             </Grid>
-            {selectedWidget === intl.formatMessage(newId) ? (
-              <this.props.onBuild />
-            ) : (
-              <div
-                style={{
-                  height: 500,
-                  marginTop: 20,
-                  marginBottom: 20,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                {currentWidget.widget}
-              </div>
-            )}
+            <div
+              style={{
+                height: 500,
+                marginTop: 20,
+                marginBottom: 20,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {currentWidget.widget}
+            </div>
           </Modal.Content>
           <Modal.Footer>
             <div className="btn-group">

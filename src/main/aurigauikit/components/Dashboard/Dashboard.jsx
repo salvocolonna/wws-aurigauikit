@@ -149,7 +149,7 @@ export default class Dashboard extends React.Component {
                 <WidgetError>{children(this.state, () => this.removeWidget(name))}</WidgetError>
               </Wrapper>
             ) : (
-              <React.Fragment>
+              <>
                 {!loading && (
                   <DeleteWidget
                     show={canRemoveWidget && edit && !add && !saving}
@@ -167,7 +167,7 @@ export default class Dashboard extends React.Component {
                 >
                   <WidgetError>{children}</WidgetError>
                 </Wrapper>
-              </React.Fragment>
+              </>
             )}
           </div>
         )
@@ -175,7 +175,17 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    const { layouts, breakpoints, cols, margin = MARGIN, messages, onBuild, free } = this.props
+    const {
+      layouts,
+      breakpoints,
+      cols,
+      margin = MARGIN,
+      messages,
+      onAdd,
+      free,
+      canBuild,
+      onBuild,
+    } = this.props
     const { edit, layouts: currentLayouts, add, saving } = this.state
     const unAddedWidgets = this.getUnaddedWidgets()
     const widgets = this.getWidgets()
@@ -185,13 +195,13 @@ export default class Dashboard extends React.Component {
         {!free && (
           <div style={{ marginBottom: 40 }}>
             <Actions
-              canBuild={onBuild}
+              canBuild={canBuild}
               onBuild={onBuild}
-              canAdd={onBuild || unAddedWidgets.length > 0}
+              canAdd={unAddedWidgets.length > 0}
               onSave={this.save}
               onUndo={this.undoEdit}
               onEdit={this.edit}
-              onAdd={this.add}
+              onAdd={onAdd}
               editable={edit}
               saving={saving}
               margin={margin}
@@ -205,7 +215,6 @@ export default class Dashboard extends React.Component {
               messages={messages}
               onAdd={this.addWidget}
               onClose={this.undoAdd}
-              onBuild={onBuild}
             />
           )}
           <ResponsiveReactGridLayout
@@ -237,7 +246,8 @@ const collide = ({ x: x2, y: y2, w: w2, h: h2 }, { x: x1, y: y1, w: w1, h: h1 })
 const findEmptySpace = (layout, size, res) => {
   let y = 0
   if (!layout || layout.length === 0) return { x: 0, y, ...size }
-  while (true) { // eslint-disable-line
+  while (true) {
+    // eslint-disable-line
     for (let x = 0; x < res - size.w + 1; x++) {
       let found = false
       const position = { ...size, x, y }

@@ -6,11 +6,13 @@ import './style.less'
 
 export default ({
   onSave,
+  onBuild,
   onAdd,
   onEdit,
   onUndo,
   editable,
   canAdd,
+  canBuild,
   canEdit = true,
   saving,
   margin = 40,
@@ -24,7 +26,17 @@ export default ({
         Build widget
       </button>
     )} */}
-    {!editable && canAdd && (
+    {canBuild && (
+      <button
+        disabled={saving}
+        style={{ width: 180 }}
+        className="btn btn-primary"
+        onClick={onBuild}
+      >
+        BUILD* {/*FIXME intl message */}
+      </button>
+    )}
+    {editable && canAdd && (
       <button disabled={saving} style={{ width: 180 }} className="btn btn-primary" onClick={onAdd}>
         <Msg {...messages.addWidget} />
       </button>
