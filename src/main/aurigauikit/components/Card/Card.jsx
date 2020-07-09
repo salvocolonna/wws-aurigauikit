@@ -10,8 +10,8 @@ const UncontrolledCard = props => {
     <Card
       {...props}
       collapsed={props.controlled ? props.collapsed : collapsed}
-      onClick={() => {
-        props.onClick()
+      onHeaderClick={() => {
+        if (props.onHeaderClick) props.onHeaderClick()
         if (!props.controlled) setCollapsed(!collapsed)
       }}
     />
@@ -50,6 +50,7 @@ class Card extends React.Component {
       action,
       className,
       onClick,
+      onHeaderClick,
       fullscreenIcon = 'fa-external-link',
       fullscreen,
       collapsable,
@@ -87,7 +88,13 @@ class Card extends React.Component {
         ) : (
           <>
             {title && (
-              <div className="header" onClick={() => this.onClick()}>
+              <div
+                className="header"
+                onClick={() => {
+                  this.onClick()
+                  onHeaderClick()
+                }}
+              >
                 <div
                   className={`title ${onlyAction ? 'only-action' : isAction ? 'action' : ''}`}
                   style={{ cursor: 'pointer' }}
