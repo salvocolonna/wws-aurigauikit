@@ -3,16 +3,29 @@ import Modal from 'aurigauikit/components/Modal'
 import Loader from 'aurigauikit/components/Loader'
 import { FormattedMessage } from 'react-intl'
 
+const UncontrolledCard = props => {
+  const [collapsed, setCollapsed] = React.useState(true)
+
+  return (
+    <Card
+      {...props}
+      collapsed={props.controlled ? props.collapsed : collapsed}
+      onClick={() => {
+        props.onClick()
+        if (!props.controlled) setCollapsed(!collapsed)
+      }}
+    />
+  )
+}
+
 class Card extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { modal: false, collapsed: true }
+    this.state = { modal: false }
   }
 
   onClick() {
-    if (this.props.collapsable) {
-      this.setState(state => ({ collapsed: !state.collapsed }))
-    } else this.callAction()
+    if (!this.props.collapsable) this.callAction()
   }
 
   callAction(e) {
@@ -51,7 +64,7 @@ class Card extends React.Component {
 
     let { style } = this.props
 
-    if (collapsable && this.state.collapsed) style = { ...style, height: 40, paddingBottom: 50 }
+    if (collapsable && this.props.collapsed) style = { ...style, height: 40, paddingBottom: 50 }
     const isAction = fullscreen || action
     const onlyAction = (fullscreen || action) && !collapsable
     return (
@@ -86,9 +99,9 @@ class Card extends React.Component {
                         height: '100%',
                       }}
                     >
-                      {collapsable  && !loading && (
+                      {collapsable && !loading && (
                         <i
-                          className={`fa fa-angle-${this.state.collapsed ? 'right' : 'down'}`}
+                          className={`fa fa-angle-${this.props.collapsed ? 'right' : 'down'}`}
                           style={{
                             position: 'absolute',
                             right: 0,
@@ -106,14 +119,19 @@ class Card extends React.Component {
                         onClick={e => (!onlyAction ? this.callAction(e) : '')}
                       />
                     )}
-                    {loading && <Loader legacy style={{ marginRight: 15, marginTop: collapsable? 5: undefined }} />}
+                    {loading && (
+                      <Loader
+                        legacy
+                        style={{ marginRight: 15, marginTop: collapsable ? 5 : undefined }}
+                      />
+                    )}
                   </h4>
                 </div>
               </div>
             )}
           </>
         )}
-        {(!collapsable || (collapsable && !this.state.collapsed)) && (
+        {(!collapsable || (collapsable && !this.props.collapsed)) && (
           <CardContent title={title} onClick={() => this.onClick()}>
             {children}
           </CardContent>
@@ -154,4 +172,4 @@ const CardContent = ({ children, title }) => (
   </div>
 )
 
-export default Card
+export default UncontrolledCard
