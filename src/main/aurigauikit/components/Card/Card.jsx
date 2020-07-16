@@ -4,7 +4,7 @@ import Loader from 'aurigauikit/components/Loader'
 import { FormattedMessage } from 'react-intl'
 
 const UncontrolledCard = props => {
-  const [collapsed, setCollapsed] = React.useState(true)
+  const [collapsed, setCollapsed] = React.useState(props.defaultOpen ? false : true)
 
   return (
     <Card
