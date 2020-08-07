@@ -95,6 +95,14 @@ export default {
       id: `${SELECT_PATH}.type.BANK`,
       defaultMessage: 'Bank',
     },
+    BANK_LOC: {
+      id: `${SELECT_PATH}.type.BANK`,
+      defaultMessage: 'Bank',
+    },
+    ADDRESS: {
+      id: `${SELECT_PATH}.type.ADDRESS`,
+      defaultMessage: 'Location',
+    },
     PARENT_BANK: {
       id: `${SELECT_PATH}.type.PARENT_BANK`,
       defaultMessage: 'Parent bank',

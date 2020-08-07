@@ -99,7 +99,7 @@ export const createPage = (Topbar, Sidebar) => {
   return Component => props => {
     const legacy = !window.ANT_LAYOUT
     const isMobile = useMediaQuery({ query: '(max-width: 1024px)' })
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true)
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const toggle = () => setCollapsed(!collapsed)
     const isCollapsed = collapsed || isTabletOrMobile

@@ -42,7 +42,7 @@ const OuSelect = ({
         )
       : true
 
-  const display = useCallback(v => `${v.description} (${v.code})`, [])
+  const display = useCallback(v => `${v.description} ${v.code ? `(${v.code})` : ''}`, [])
 
   const disabledItem = disabled && defaultSelection ? defaultSelection : selectedItem
 
@@ -126,9 +126,11 @@ const Single = injectIntl(({ element, intl }) => (
     style={{ width: '100%', backgroundColor: '#fff' }}
     value={
       element
-        ? `${intl.formatMessage(messages.type[element.type])} - ${element.description} (${
-            element.code
-          })`
+        ? `${
+            messages.type[element.type]
+              ? intl.formatMessage(messages.type[element.type])
+              : element.type
+          } - ${element.description} ${element.code ? `(${element.code})` : ''}`
         : ''
     }
   />

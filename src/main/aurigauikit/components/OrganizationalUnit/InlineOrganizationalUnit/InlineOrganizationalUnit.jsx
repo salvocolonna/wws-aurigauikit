@@ -225,7 +225,7 @@ const TreeNode = ({ canSelect, selectElements, selectedElements, node, path, sel
         ) : (
           <Checkbox checked={checked} onClick={select} />
         ))}
-      <span>{`${node.getDescription()} (${node.getCode()})`}</span>
+      <span>{`${node.getDescription()} ${node.getCode() ? `(${node.getCode()})` : ''}`}</span>
     </span>
   )
 }
@@ -265,14 +265,22 @@ const updateTree = (tree, path, content) => {
 }
 
 const parseTable = (element, intl) => {
-  const caption = `${intl.formatMessage(
+  const caption = `${
     messages.type[element.node.getType()]
-  )} - ${element.node.getDescription()} (${element.node.getCode()})`
+      ? intl.formatMessage(messages.type[element.node.getType()])
+      : element.node.getType()
+  } - ${element.node.getDescription()} ${
+    element.node.getCode() ? `(${element.node.getCode()})` : ''
+  }`
   const headers = element.table.headers.map(header =>
-    intl.formatMessage(messages.modal.headers[header])
+    messages.modal.headers[header] ? intl.formatMessage(messages.modal.headers[header]) : header
   )
   const columns = element.table.columns.map(column => {
-    if (column === 'type') return { content: json => intl.formatMessage(messages.type[json.type]) }
+    if (column === 'type')
+      return {
+        content: json =>
+          messages.type[json.type] ? intl.formatMessage(messages.type[json.type]) : json.type,
+      }
     else return column
   })
   return { caption, headers, columns, data: element.table.rows }
