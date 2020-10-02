@@ -2,6 +2,8 @@ import React, { useMemo } from 'react'
 import { Popover } from 'antd'
 import Search from './OrganizationalUnitSearch'
 import './style.less'
+import messages from './messages'
+import { injectIntl } from 'react-intl'
 
 const getData = (data = []) => {
   const types = Array.from(
@@ -16,7 +18,7 @@ const getData = (data = []) => {
   })
 }
 
-export default ({ data, onRemove, canRemove }) => {
+export default injectIntl(({ data, onRemove, canRemove, intl }) => {
   const ouTypes = useMemo(() => getData(data), [data])
   if (ouTypes.length === 0) return null
   return (
@@ -29,10 +31,10 @@ export default ({ data, onRemove, canRemove }) => {
           content={<Search items={items} onRemove={onRemove} canRemove={canRemove} />}
         >
           <div className="OuType">
-            {items.length} {type}
+            {items.length} {messages.type[type] ? intl.formatMessage(messages.type[type]) : type}
           </div>
         </Popover>
       ))}
     </div>
   )
-}
+})
