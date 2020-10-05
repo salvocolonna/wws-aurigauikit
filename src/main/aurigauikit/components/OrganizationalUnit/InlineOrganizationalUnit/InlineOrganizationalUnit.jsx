@@ -205,6 +205,7 @@ const TreeNode = ({ canSelect, selectElements, selectedElements, node, path, sel
     id: node.getID(),
     type: node.getType(),
     code: node.getCode(),
+    hasChilds: node.hasChildren(),
     description: node.getDescription(),
   }
   const checked = !!selectedElements.find(a => dataComparator(a, element))
