@@ -1,8 +1,14 @@
 import React from 'react'
 import Notification from 'aurigauikit/components/Notification'
 import MediaQuery from 'react-responsive'
-import { Layout, Divider, Icon } from 'antd'
-
+import { Layout, Divider } from 'antd'
+import {
+  UserOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons'
 const bankImg = <i className="fa fa-bank" />
 const { Header } = Layout
 
@@ -67,12 +73,10 @@ function Topbar({
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {isTablet ? (
             <div />
+          ) : isCollapsed ? (
+            <MenuUnfoldOutlined className="trigger" onClick={onCollapse} />
           ) : (
-            <Icon
-              className="trigger"
-              type={isCollapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={onCollapse}
-            />
+            <MenuFoldOutlined className="trigger" onClick={onCollapse} />
           )}
           {logo && <Logo src={logo} onClick={onLogoClick} />}
           {logoImage && logoImage.src && (
@@ -84,7 +88,8 @@ function Topbar({
             {hasNotification && <span> {notification} </span>}
             {hasNotification && <Divider type="vertical" />}
             <span>
-              <Icon type="user" /> <span>{userName}</span>
+              <UserOutlined />
+              <span>{userName}</span>
             </span>
           </MediaQuery>
           <MediaQuery minWidth={1000}>
@@ -120,7 +125,8 @@ function Topbar({
               )}
               <Divider type="vertical" />
               <span>
-                <Icon type="user" /> <span>{userName}</span>
+                <UserOutlined />
+                <span>{userName}</span>
               </span>
             </>
           </MediaQuery>
@@ -138,7 +144,7 @@ function Topbar({
             <>
               <Divider type="vertical" />
               <span style={{ cursor: 'pointer' }} onClick={() => onLogout && onLogout()}>
-                <Icon type="logout" />
+                <LogoutOutlined />
                 <span> Logout</span>
               </span>
             </>

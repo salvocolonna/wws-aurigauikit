@@ -161,10 +161,6 @@ label .ant-select {
   border-right: 0;
 }
 
-.ant-menu-submenu-popup {
-  position: fixed;
-}
-
 .ant-menu-sub.ant-menu-inline > .ant-menu-item,
 .ant-menu-sub.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
   height: 30px;
@@ -207,7 +203,12 @@ label .ant-select {
   border-right: 4px solid @brand-color;
 }
 
+.ant-menu-submenu > .ant-menu {
+  background-color: transparent;
+}
+
 .ant-menu-submenu-popup {
+  position: fixed;
   background-color: @primary-color;
 }
 

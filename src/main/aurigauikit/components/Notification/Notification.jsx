@@ -8,7 +8,8 @@ import Popover from 'aurigauikit/components/Popover'
 import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill'
 import { getToken } from './utils'
 import { getURL } from '../../ajax/utils'
-import { Icon, Badge } from 'antd'
+import { Badge } from 'antd'
+import { BellOutlined } from '@ant-design/icons'
 
 window.EventSource = NativeEventSource || EventSourcePolyfill
 
@@ -240,7 +241,7 @@ class Notification extends React.Component {
           }}
         >
           <span ref={this.notificationRef} style={{ marginLeft: 9, verticalAlign: 'bottom' }}>
-            <Icon type="bell" />
+            <BellOutlined />
             {unreadCount > 0 && (
               <Badge
                 style={{ verticalAlign: 'bottom' }}
