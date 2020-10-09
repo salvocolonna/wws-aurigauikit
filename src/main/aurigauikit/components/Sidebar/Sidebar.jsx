@@ -1,6 +1,6 @@
 import React, { Children } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, Menu, Icon, Tooltip } from 'antd'
+import { Layout, Menu, Tooltip } from 'antd'
 import { Item, SubMenu } from './SidebarLegacy'
 import logoMini from './logo-mini.svg'
 import './sidebar.less'
@@ -97,12 +97,12 @@ const Sidebar = class extends React.Component {
                 <Menu.Item key={key}>
                   {router ? (
                     <Link to={href} style={{ textDecoration: 'none' }}>
-                      <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                      {icon}
                       <span>{name}</span>
                     </Link>
                   ) : (
                     <a href={href} style={{ textDecoration: 'none' }}>
-                      <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                      {icon}
                       <span>{name}</span>
                     </a>
                   )}
@@ -139,15 +139,13 @@ const Sidebar = class extends React.Component {
                       isCollapsed && openSubMenu !== '.$' + key ? (
                         <Tooltip title={name} placement="right">
                           <div style={{ width: 45 }}>
-                            <Icon
-                              type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon}
-                            />
+                            {icon}
                             <span>{name}</span>
                           </div>
                         </Tooltip>
                       ) : (
                         <span>
-                          <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                          {icon}
                           <span>{name}</span>
                         </span>
                       )

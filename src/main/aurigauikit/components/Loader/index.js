@@ -1,10 +1,10 @@
 import React from 'react'
-import { Spin, Icon } from 'antd'
+import { Spin } from 'antd'
 import './style.less'
+import { Loading3QuartersOutlined } from '@ant-design/icons'
 
 export default ({
   size = 'default',
-  iconType = 'loading-3-quarters',
   fontSize = 20,
   // legacy props
   style,
@@ -13,6 +13,6 @@ export default ({
   return legacy ? (
     <div className="loader" style={style} />
   ) : (
-    <Spin size={size} indicator={<Icon type={iconType} style={{ fontSize }} spin />} />
+    <Spin size={size} indicator={<Loading3QuartersOutlined style={{ fontSize }} spin />} />
   )
 }
