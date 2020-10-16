@@ -1,33 +1,33 @@
-import React from "react"
-import BasicFilterElement from "./components/BasicFilterElement"
-import ResetButton from "./components/ResetButton"
-import ApplyButton from "./components/ApplyButton"
-import RestoreButton from "./components/RestoreButton"
-import UndoButton from "./components/UndoButton"
-import SaveSearchButton from "./components/SaveSearchButton"
-import PreviousSearchesButton from "./components/PreviousSearchesButton"
-import SaveSearchModal from "./components/SaveSearchModal"
-import RemoveSearchModal from "./components/RemoveSearchModal"
-import SearchesTable from "./components/SearchesTable"
-import { Form } from "aurigauikit/components/parsley"
-import { Grid } from "aurigauikit/components/Grid"
-import temporaryPanels from "aurigauikit/components/temporary-panels"
-import "./basic-filter.less"
+import React from 'react'
+import BasicFilterElement from './components/BasicFilterElement'
+import ResetButton from './components/ResetButton'
+import ApplyButton from './components/ApplyButton'
+import RestoreButton from './components/RestoreButton'
+import UndoButton from './components/UndoButton'
+import SaveSearchButton from './components/SaveSearchButton'
+import PreviousSearchesButton from './components/PreviousSearchesButton'
+import SaveSearchModal from './components/SaveSearchModal'
+import RemoveSearchModal from './components/RemoveSearchModal'
+import SearchesTable from './components/SearchesTable'
+import { Form } from 'aurigauikit/components/parsley'
+import { Grid } from 'aurigauikit/components/Grid'
+import temporaryPanels from 'aurigauikit/components/temporary-panels'
+import './basic-filter.less'
 
 const DELAY = 100
 
 class BasicFilter extends React.Component {
   state = {
-    mode: "APPLY",
+    mode: 'APPLY',
     search: null,
     showSave: false,
     showRemove: false,
-    width: "100%",
+    width: '100%',
     opacity: 1,
-    maxHeight: "none",
+    maxHeight: 'none',
     saving: false,
     deleting: false,
-    name: ""
+    name: '',
   }
 
   changeSearch = search => this.setState({ search })
@@ -56,7 +56,7 @@ class BasicFilter extends React.Component {
         temporaryPanels.showCriticalTemporaryPanel(`Error saving search ${name}`)
         throw e
       } finally {
-        this.setState({ saving: false, name: "" }, () => this.changeMode("APPLY"))
+        this.setState({ saving: false, name: '' }, () => this.changeMode('APPLY'))
       }
     })
   }
@@ -66,7 +66,7 @@ class BasicFilter extends React.Component {
       try {
         await this.props.history.onRemove(search)
         this.closeRemove()
-        if (this.props.history.searches.length === 0) this.changeMode("APPLY")
+        if (this.props.history.searches.length === 0) this.changeMode('APPLY')
       } catch (e) {
         this.setState({ deleting: false })
       }
@@ -74,16 +74,16 @@ class BasicFilter extends React.Component {
   }
 
   changeMode = (mode, then) => {
-    this.setState({ width: "50%", opacity: 0 }, () => {
+    this.setState({ width: '50%', opacity: 0 }, () => {
       then && then()
       setTimeout(() => {
-        this.setState({ mode, width: "100%", opacity: 1 })
+        this.setState({ mode, width: '100%', opacity: 1 })
       }, DELAY)
     })
   }
 
   restore = search => {
-    this.changeMode("APPLY")
+    this.changeMode('APPLY')
     this.props.history.onRestore(search)
   }
 
@@ -94,10 +94,11 @@ class BasicFilter extends React.Component {
 
     const transition = `width ${DELAY / 1000}s, height ${DELAY / 1000}s, opacity ${DELAY / 1000}s`
     const gridStyle = {
+      overflow: 'initial',
       maxHeight,
       width: `calc(${width} + 20px)`,
       opacity,
-      transition
+      transition,
     }
 
     return (
@@ -116,7 +117,7 @@ class BasicFilter extends React.Component {
           search={search}
         />
         <Grid style={gridStyle}>
-          {mode === "RESTORE" && (
+          {mode === 'RESTORE' && (
             <SearchesTable
               data={history.searches}
               search={search}
@@ -130,38 +131,37 @@ class BasicFilter extends React.Component {
               loading={history.loading}
             />
           )}
-          {(mode === "APPLY" || mode === "SAVE") && children}
+          {(mode === 'APPLY' || mode === 'SAVE') && children}
           {withButtons && <Grid style={{ marginTop: 10, marginBottom: -55 }}>{withButtons}</Grid>}
-          {mode === "APPLY" && (
+          {mode === 'APPLY' && (
             <Grid className="react-basic-filter-buttons">
               <ApplyButton label={textApply} />
               <ResetButton label={textReset} onClick={this.reset} />
               {history.onSave && (
                 <SaveSearchButton
                   label={textApply}
-                  onClick={() => this.setState({ mode: "SAVE" })}
+                  onClick={() => this.setState({ mode: 'SAVE' })}
                 />
               )}
-              {history.searches &&
-                history.searches.length > 0 && (
-                  <PreviousSearchesButton
-                    label={textReset}
-                    onClick={() => this.changeMode("RESTORE")}
-                  />
-                )}
+              {history.searches && history.searches.length > 0 && (
+                <PreviousSearchesButton
+                  label={textReset}
+                  onClick={() => this.changeMode('RESTORE')}
+                />
+              )}
             </Grid>
           )}
-          {mode === "RESTORE" && (
+          {mode === 'RESTORE' && (
             <Grid className="react-basic-filter-buttons">
               <RestoreButton
                 disabled={!search}
                 label={textApply}
                 onClick={() => this.restore(search)}
               />
-              <UndoButton label={textReset} onClick={() => this.changeMode("APPLY")} />
+              <UndoButton label={textReset} onClick={() => this.changeMode('APPLY')} />
             </Grid>
           )}
-          {mode === "SAVE" && (
+          {mode === 'SAVE' && (
             <Grid className="react-basic-filter-buttons">
               <RestoreButton
                 disabled={!this.state.name || this.state.saving}
@@ -182,7 +182,7 @@ class BasicFilter extends React.Component {
               />
               <UndoButton
                 label={textReset}
-                onClick={() => this.setState({ name: "", mode: "APPLY" })}
+                onClick={() => this.setState({ name: '', mode: 'APPLY' })}
               />
             </Grid>
           )}
