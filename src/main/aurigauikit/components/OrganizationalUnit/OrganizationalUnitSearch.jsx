@@ -22,7 +22,7 @@ const OrganizationalUnitSearch = ({ items, onRemove, canRemove }) => {
   const [search, setSearch] = useState('')
   const currentItems = useMemo(() => {
     const found = ({ description, code }) => {
-      const value = description + ' (' + code + ')'
+      const value = description + (code ? ' (' + code + ')' : '')
       return value.toLowerCase().indexOf(search.toLowerCase()) > -1
     }
     return items.filter(found)
@@ -54,7 +54,12 @@ const OrganizationalUnitSearch = ({ items, onRemove, canRemove }) => {
       {currentItems.length > 0 ? (
         <div className="OuSearchItems">
           {currentItems.map(item => {
-            const { code, description, id, title = description + ' (' + code + ')' } = item
+            const {
+              code,
+              description,
+              id,
+              title = description + (code ? ' (' + code + ')' : ''),
+            } = item
             return (
               <div className="OuItem" key={title + id}>
                 {title}
