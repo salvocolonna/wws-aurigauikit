@@ -1,6 +1,6 @@
 import React, { Children } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu, Tooltip } from 'antd'
 import { Item, SubMenu } from './SidebarLegacy'
 import logoMini from './logo-mini.svg'
 import './sidebar.less'
@@ -54,7 +54,7 @@ const Sidebar = class extends React.Component {
       collapsed,
       isTablet,
       hash,
-      router
+      router,
     } = this.props
     const { openSubMenu } = this.state
     const isCollapsed = collapsed || isTablet
@@ -97,15 +97,15 @@ const Sidebar = class extends React.Component {
                 <Menu.Item key={key}>
                   {router ? (
                     <Link to={href} style={{ textDecoration: 'none' }}>
-                      <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
+                      {icon}
                       <span>{name}</span>
                     </Link>
                   ) : (
-                      <a href={href} style={{ textDecoration: 'none' }}>
-                        <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
-                        <span>{name}</span>
-                      </a>
-                    )}
+                    <a href={href} style={{ textDecoration: 'none' }}>
+                      {icon}
+                      <span>{name}</span>
+                    </a>
+                  )}
                 </Menu.Item>
               )
             } else if (child && child.type === SubMenu) {
@@ -120,10 +120,10 @@ const Sidebar = class extends React.Component {
                           <span>{child.props.name}</span>
                         </Link>
                       ) : (
-                          <a href={child.props.href} style={{ textDecoration: 'none' }}>
-                            <span>{child.props.name}</span>
-                          </a>
-                        )}
+                        <a href={child.props.href} style={{ textDecoration: 'none' }}>
+                          <span>{child.props.name}</span>
+                        </a>
+                      )}
                     </Menu.Item>
                   )
                 }
@@ -136,10 +136,19 @@ const Sidebar = class extends React.Component {
                     fixed
                     onTitleClick={() => this.onSubMenuClick('.$' + key)}
                     title={
-                      <span>
-                        <Icon type={icon && icon.startsWith('fa-') ? icon.substring(3) : icon} />
-                        <span>{name}</span>
-                      </span>
+                      isCollapsed && openSubMenu !== '.$' + key ? (
+                        <Tooltip title={name} placement="right">
+                          <div style={{ width: 45 }}>
+                            {icon}
+                            <span>{name}</span>
+                          </div>
+                        </Tooltip>
+                      ) : (
+                        <span>
+                          {icon}
+                          <span>{name}</span>
+                        </span>
+                      )
                     }
                   >
                     {submenuItems}

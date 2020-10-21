@@ -50,7 +50,7 @@ const OuSelect = ({
     <input
       type="text"
       disabled
-      style={{ width: '100%', backgroundColor: '#fff' }}
+      style={{ width: '100%' }}
       value={
         disabledItem
           ? `${intl.formatMessage(messages.type[disabledItem.type])} - ${

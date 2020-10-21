@@ -1,6 +1,6 @@
 {
   "name": "aurigauikit",
-  "version": "4.5.33",
+  "version": "4.6.1",
   "publishConfig": {
     "registry": "http://192.168.1.129:8081/repository/npm-snapshots"
   },
@@ -91,9 +91,9 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.6",
+    "@ant-design/icons": "^4.2.2",
     "@babel/polyfill": "^7.4.3",
-    "antd": "^3.26.15",
+    "antd": "^4.6.6",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.8.0",
     "concurrently": "^4.0.1",
