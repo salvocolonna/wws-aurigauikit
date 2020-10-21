@@ -94,7 +94,7 @@ class BasicFilter extends React.Component {
 
     const transition = `width ${DELAY / 1000}s, height ${DELAY / 1000}s, opacity ${DELAY / 1000}s`
     const gridStyle = {
-      overflow: 'initial',
+      overflow: 'inherit',
       maxHeight,
       width: `calc(${width} + 20px)`,
       opacity,

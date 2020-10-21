@@ -6,7 +6,7 @@ export function Grid({ padding = 20, children, style, className }) {
     <div
       className={`grid ${className || ''}`}
       style={{
-        overflow: 'initial',
+        overflow: 'inherit',
         marginLeft: -padding / 2,
         width: `calc(100% + ${padding}px)`,
         ...style,
