@@ -91,6 +91,9 @@ i18n.loadMessages('it', {
   'organizational-unit-select.type.AREA': 'Area',
   'organizational-unit-select.type.BRANCH': 'Filiale',
   'organizational-unit-select.type.PARENT_BANK': 'Capogruppo',
+  'organizational-unit-select.type.PROVINCE': 'Provincia',
+  'organizational-unit-select.type.REGION': 'Regione',
+  'organizational-unit-select.type.POSTAL_CODE': 'Codice postale',
   'organizational-unit-select.placeholder': 'Seleziona unità organizzativa',
 
   'basic-filter.apply': 'Applica',

@@ -99,6 +99,18 @@ export default {
       id: `${SELECT_PATH}.type.BANK`,
       defaultMessage: 'Bank',
     },
+    PROVINCE: {
+      id: `${SELECT_PATH}.type.PROVINCE`,
+      defaultMessage: 'Province',
+    },
+    REGION: {
+      id: `${SELECT_PATH}.type.REGION`,
+      defaultMessage: 'Region',
+    },
+    POSTAL_CODE: {
+      id: `${SELECT_PATH}.type.POSTAL_CODE`,
+      defaultMessage: 'Postal code',
+    },
     ADDRESS: {
       id: `${SELECT_PATH}.type.ADDRESS`,
       defaultMessage: 'Location',
