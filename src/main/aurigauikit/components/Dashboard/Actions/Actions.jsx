@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage as Msg } from 'react-intl'
-import Loader from 'aurigauikit/components/Loader'
 import messages from './messages'
 import './style.less'
 
@@ -15,7 +14,6 @@ export default ({
   canBuild,
   canEdit = true,
   saving,
-  margin = 40,
 }) => (
   <div className="dashboard-actions" style={{ textAlign: 'right' }}>
     {/* {!editable && canBuild && (
@@ -28,12 +26,12 @@ export default ({
     )} */}
     {canBuild && (
       <button
-        disabled={saving}
         style={{ width: 180 }}
         className="btn btn-primary"
+        disabled={editable || saving}
         onClick={onBuild}
       >
-        BUILD* {/*FIXME intl message */}
+        <Msg {...messages.buildWidget} />
       </button>
     )}
     {editable && canAdd && (

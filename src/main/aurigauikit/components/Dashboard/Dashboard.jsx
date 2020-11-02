@@ -185,6 +185,7 @@ export default class Dashboard extends React.Component {
       free,
       canBuild,
       onBuild,
+      canAdd,
     } = this.props
     const { edit, layouts: currentLayouts, add, saving } = this.state
     const unAddedWidgets = this.getUnaddedWidgets()
@@ -197,7 +198,7 @@ export default class Dashboard extends React.Component {
             <Actions
               canBuild={canBuild}
               onBuild={onBuild}
-              canAdd={unAddedWidgets.length > 0}
+              canAdd={canAdd && unAddedWidgets.length > 0}
               onSave={this.save}
               onUndo={this.undoEdit}
               onEdit={this.edit}
