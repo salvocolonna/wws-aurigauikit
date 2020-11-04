@@ -68,10 +68,10 @@ class ContextMenu extends React.Component {
               if (item.title) {
                 const disabled = item.enabled && !item.enabled(context)
                 const hidden = item.hidden && item.hidden(context)
-                const className = disabled
-                  ? 'disabled'
-                  : hidden
+                const className = hidden
                   ? 'hidden'
+                  : disabled
+                  ? 'disabled'
                   : item.style
                   ? item.style
                   : ''
