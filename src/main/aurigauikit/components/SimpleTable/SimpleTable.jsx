@@ -79,17 +79,15 @@ class SimpleTable extends React.Component {
   onMenuItemClick(rowIndex, position, target) {
     let realRowIndex = rowIndex
     if (!this.props.totalPages) realRowIndex += (this.state.page - 1) * this.props.pageSize
-    this.setState(prevState => ({
-      menu: {
-        context: {
-          table: this,
-          rowIndex: realRowIndex,
-          currentRow: prevState.data[realRowIndex],
-          position: position,
-          target,
-        },
-      },
-    }))
+    const context = {
+      table: this,
+      rowIndex: realRowIndex,
+      currentRow: this.state.data[realRowIndex],
+      position: position,
+      target,
+    }
+    if (this.props.onMenuItemClick) this.props.onMenuItemClick(context)
+    this.setState({ menu: { context } })
   }
 
   onRowClick = rowIndex => {
