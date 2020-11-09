@@ -5,8 +5,6 @@
  Copyright 2016-2017 Auriga S.p.A.
 */
 
-import $ from "jquery"
-
 class AppStorage {
   constructor(applicationId) {
     this.storage = localStorage
@@ -14,7 +12,7 @@ class AppStorage {
   }
 
   init(applicationId) {
-    this.applicationId = applicationId + "-"
+    this.applicationId = applicationId + '-'
   }
 
   clear() {
@@ -43,7 +41,7 @@ class AppStorage {
   }
 
   dump() {
-    $.each(this.storage, function(k, v) {
+    Object.entries(this.storage).forEach(([k, v]) => {
       /* eslint-disable no-console */
       try {
         console.log(k, JSON.parse(v))
