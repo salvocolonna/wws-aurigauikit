@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "noEmit": false,
+        "outDir": "dist/components",
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "esModuleInterop": true,
+        "isolatedModules": false
+    }
+}

@@ -1,7 +1,8 @@
 import React, { CSSProperties } from 'react'
-import { Select } from 'antd'
+import { Select as AntdSelect } from 'antd'
 import { SelectValue } from 'antd/lib/select'
 
+const Select = AntdSelect as any
 const Option = Select.Option
 
 function getValue(value: number | string | Record): string {
@@ -73,7 +74,7 @@ interface SelectProps {
 
 function SelectAnt({ didSelect, ...props }: SelectProps) {
   const [isOpened, setIsOpened] = React.useState(false)
-  const selectRef = React.useRef((null as unknown) as Select<(number | string | Record)[]>)
+  const selectRef = React.useRef((null as unknown) as any)
 
   const willDisplay = (v: string | number | Record) => {
     if (props.willDisplay && v !== null && v !== undefined) {
