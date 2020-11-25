@@ -225,7 +225,7 @@ export default class Dashboard extends React.Component {
             onBreakpointChange={this.changeBreakpoint}
             margin={[margin, margin]}
             measureBeforeMount
-            useCSSTransforms
+            useCSSTransforms={false}
             isDraggable={!saving && (free || edit)}
             isResizable={!saving && (free || edit)}
             cols={cols}
