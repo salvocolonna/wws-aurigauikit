@@ -59,6 +59,7 @@ class Card extends React.Component {
       bordered = true,
       fullscreenContent,
       fullscreenStyle: { content: fullscreenContentStyle, ...fullscreenStyle } = {},
+      icon,
     } = this.props
 
     const legacy = !window.ANT_LAYOUT
@@ -118,14 +119,15 @@ class Card extends React.Component {
                       )}
                       {title}
                     </div>
-                    {isAction && !loading && (
-                      <i
-                        className={
-                          `fa ${fullscreenIcon} ` + (onlyAction ? 'hoverable-on-title' : '')
-                        }
-                        onClick={e => (!onlyAction ? this.callAction(e) : '')}
-                      />
-                    )}
+                    {(!loading && icon) ||
+                      (isAction && !loading && (
+                        <i
+                          className={
+                            `fa ${fullscreenIcon} ` + (onlyAction ? 'hoverable-on-title' : '')
+                          }
+                          onClick={e => (!onlyAction ? this.callAction(e) : '')}
+                        />
+                      ))}
                     {loading && (
                       <Loader
                         legacy
