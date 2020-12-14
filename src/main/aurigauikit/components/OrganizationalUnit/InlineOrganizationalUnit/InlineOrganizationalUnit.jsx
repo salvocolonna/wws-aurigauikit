@@ -36,6 +36,7 @@ const useOuTree = (datasource, intl) => {
 
   async function update({ openPath, selectedPath }) {
     const element = search(tree.data, selectedPath)
+    if (!element.node.hasChildren()) return
     const newTree = { openPath, selectedPath, loadingPath: null }
     if (element.table && element.table.rows.length > 0) setTree(tree => ({ ...tree, ...newTree }))
     else {

@@ -52,7 +52,7 @@ class TreeElement extends React.Component {
     const canSee = !hidePrevious || !openPath || (hidePrevious && path === openPath)
     const showChildren = open && element.children && element.children.length > 0
     return (
-      <ul>
+      <ul className={hasChildren ? '' : 'leaf'}>
         <Li canSee={canSee} selected={this.selected()} hidePrevious={hidePrevious}>
           {canSee && !(hidePrevious && path === openPath) && (
             <Element
