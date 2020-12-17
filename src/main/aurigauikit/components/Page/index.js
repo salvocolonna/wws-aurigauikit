@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
-import errorPic from './images/error.png'
+import errorPic from './images/error.gif'
 import { FormattedMessage as Msg } from 'react-intl'
 import messages from './messages'
 import './style.less'
