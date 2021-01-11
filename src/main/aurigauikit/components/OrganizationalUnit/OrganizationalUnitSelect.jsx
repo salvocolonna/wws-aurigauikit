@@ -55,7 +55,7 @@ const OuSelect = ({
         disabledItem
           ? `${intl.formatMessage(messages.type[disabledItem.type])} - ${
               disabledItem.description
-            } (${disabledItem.code})`
+            } ${disabledItem.code ? `(${disabledItem.code})` : ''}`
           : placeholder || intl.formatMessage(messages.type.placeholder)
       }
     />
