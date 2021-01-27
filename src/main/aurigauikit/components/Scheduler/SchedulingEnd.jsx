@@ -58,84 +58,39 @@ const getMinDate = date => {
   return moment(-1)
 }
 
-export default injectIntl(
-  ({
-    endDate,
-    onEndDateChange,
-    occurrenciesEnd,
-    onOccurrenciesEndChange,
-    endMode,
-    onEndModeChange,
-    date,
-    intl,
-  }) => (
-    <div>
-      <label style={{ marginTop: 25 }}>
-        <Msg {...messages.labels.end} />
-      </label>
-      <Grid style={{ overflow: 'initial' }}>
-        <Div col="1-2" style={{ marginTop: 6 }}>
-          <Radio
-            style={{ paddingRight: 10 }}
-            isChecked={endMode === endModes[0]}
-            onChange={() => onEndModeChange(endModes[0])}
-          >
-            <Msg {...messages.labels.on} />
-          </Radio>
-          <div style={{ paddingTop: 5 }} key={buggyRemoveValidationMessagesKey(endDate)}>
-            <DatePicker
-              selected={endDate && moment(endDate)}
-              disabled={endMode !== endModes[0]}
-              required={endMode === endModes[0]}
-              minDate={getMinDate(date)}
-              minTime={getMinTime(date, endDate)}
-              maxTime={getMaxTime(date, endDate)}
-              onChange={onEndDateChange}
-              customInput={
-                endDate && (
-                  <input
-                    min={date ? moment(date).valueOf() + 30 : 0}
-                    data-validation-error-message={intl.formatMessage(
-                      messages.validations.endGreater
-                    )}
-                    data-validation-value={endDate && moment(endDate).valueOf()}
-                  />
-                )
-              }
-              showTimeSelect
-              dateFormat="LLL"
-              timeFormat="LT"
-            />
-          </div>
-        </Div>
-        <Div col="1-4" style={{ marginTop: 6 }}>
-          <Radio
-            style={{ paddingRight: 10 }}
-            isChecked={endMode === endModes[1]}
-            onChange={() => onEndModeChange(endModes[1])}
-          >
-            <Msg {...messages.labels.after} />
-          </Radio>
-          <div style={{ paddingTop: 5 }}>
-            <input
-              style={{ maxWidth: '5em', marginRight: 10, padding: 9.5 }}
-              disabled={endMode !== endModes[1]}
-              type="number"
-              min="1"
-              onChange={e => onOccurrenciesEndChange(e.target.value)}
-              value={occurrenciesEnd}
-            />
-            <label style={{ display: 'inline-block' }}>
-              <Msg {...messages.labels.OCCURRENCIES} values={{ occurrencies: occurrenciesEnd }} />
-            </label>
-          </div>
-        </Div>
-        <Div col="1-4" style={{ marginTop: 6 }}>
-          <Radio isChecked={endMode === endModes[2]} onChange={() => onEndModeChange(endModes[2])}>
-            <Msg {...messages.labels.never} />
-          </Radio>
-        </Div>
-      </Grid>
-    </div>
-  )
-)
+export default injectIntl(({ endDate, onEndDateChange, endMode, date, intl }) => (
+  <div>
+    <label style={{ marginTop: 25 }}>
+      <Msg {...messages.labels.end} />
+    </label>
+    <Grid style={{ overflow: 'initial' }}>
+      <Div col="1-2">
+        <div key={buggyRemoveValidationMessagesKey(endDate)}>
+          <DatePicker
+            selected={endDate && moment(endDate)}
+            disabled={endMode !== endModes[0]}
+            required={endMode === endModes[0]}
+            minDate={getMinDate(date)}
+            minTime={getMinTime(date, endDate)}
+            maxTime={getMaxTime(date, endDate)}
+            onChange={onEndDateChange}
+            customInput={
+              endDate && (
+                <input
+                  min={date ? moment(date).valueOf() + 30 : 0}
+                  data-validation-error-message={intl.formatMessage(
+                    messages.validations.endGreater
+                  )}
+                  data-validation-value={endDate && moment(endDate).valueOf()}
+                />
+              )
+            }
+            showTimeSelect
+            dateFormat="LLL"
+            timeFormat="LT"
+          />
+        </div>
+      </Div>
+    </Grid>
+  </div>
+))

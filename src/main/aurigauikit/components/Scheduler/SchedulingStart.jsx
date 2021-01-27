@@ -37,6 +37,7 @@ export default injectIntl(
     onRecurringChange,
     existing,
     recurrings,
+    children,
     intl,
   }) => (
     <Grid style={{ overflow: 'initial' }}>
@@ -74,12 +75,12 @@ export default injectIntl(
         />
       </Div>
       {recurring !== 'NEVER' && recurring !== 'WEEKLY' && (
-        <Div col="1-4">
+        <Div col="1-12">
           <label>
             <Msg {...messages.labels.repeatEvery} />
           </label>
           <input
-            style={{ width: '5em', padding: 10 }}
+            style={{ width: '5em' }}
             type="number"
             min="1"
             onChange={e => onRepeatEveryChange(e.target.value)}
@@ -90,6 +91,7 @@ export default injectIntl(
           </label>
         </Div>
       )}
+      <Div col="1-12">{children}</Div>
     </Grid>
   )
 )

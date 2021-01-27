@@ -12,6 +12,7 @@ i18n.loadMessages('it', {
   save: 'Salva',
   saving: 'Salvataggio...',
   next: 'Avanti',
+  'scheduler.validations.at-least-a-day': 'Seleziona almeno un giorno',
   'organizational-unit.no-items': 'Nessun elemento corrispondente a "{value}"',
   'organizational-unit.search': 'Cerca',
   'aurigauikit.groups.filter.not-public.ALL': 'Tutti',

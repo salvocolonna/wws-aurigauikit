@@ -3,15 +3,10 @@ import { FormattedMessage as Msg } from 'react-intl'
 import { Grid, Div } from 'aurigauikit/components/Grid'
 import Select2 from 'aurigauikit/components/Select2'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
-import DatePicker from 'aurigauikit/components/DatePicker'
-import Checkbox from 'aurigauikit/components/Checkbox'
-import { toExpression } from 'aurigauikit/components/Scheduler/utils'
 import Scheduler from 'aurigauikit/components/Scheduler'
-import moment from 'moment'
 import messages from './messages'
 
 const { data: scheduler } = Scheduler.defaultProps
-const { cronExp } = toExpression(scheduler)
 
 export const defaultProps = {
   data: {
@@ -23,7 +18,6 @@ export const defaultProps = {
     duration: 0,
     previousMonth: true,
     scheduler,
-    cron: cronExp,
   },
 }
 
@@ -55,7 +49,7 @@ export default class extends React.Component {
 
   changePreviousMonth = previousMonth => this.change({ previousMonth })
 
-  changeScheduler = (scheduler, cron) => this.change({ scheduler, cron })
+  changeScheduler = scheduler => this.change({ scheduler })
 
   render() {
     const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading, mode } = this.props
@@ -96,7 +90,7 @@ export default class extends React.Component {
               existing={mode === 'edit'}
               data={{ ...scheduler }}
               onChange={this.changeScheduler}
-              recurrings={['NEVER', 'MONTHLY']}
+              recurrings={['NEVER', 'DAILY', 'WEEKLY', 'MONTHLY']}
             />
           </section>
         </div>
