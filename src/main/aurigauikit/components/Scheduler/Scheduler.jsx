@@ -6,7 +6,6 @@ import MonthlyRecurring from './MonthlyRecurring'
 import YearlyRecurring from './YearlyRecurring'
 import moment from 'moment'
 import { days, endModes, monthlyModes, months, orders, recurrings, yearlyModes } from './constants'
-import { toExpression } from './utils'
 
 const getInitialDate = () => {
   const date = moment()
@@ -53,8 +52,7 @@ export default class extends React.Component {
   change = data => {
     const { data: oldData, onChange } = this.props
     const newData = { ...oldData, ...data }
-    const res = toExpression(newData)
-    onChange(newData, res.cronExp)
+    onChange(newData)
   }
 
   dateChanged = date => this.change({ date })
