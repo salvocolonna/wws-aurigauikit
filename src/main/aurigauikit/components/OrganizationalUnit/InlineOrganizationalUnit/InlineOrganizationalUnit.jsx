@@ -100,7 +100,7 @@ const InlineOu = ({
     const newElements = elements.filter(n => !selectedElements.find(e => dataComparator(e, n)))
     const oldElements = elements.filter(n => selectedElements.find(e => dataComparator(e, n)))
     const getParents = path => {
-      if (!path || path === '0') return []
+      if (!path || path === '0' || path === 'x') return []
       const paths = (path || '0').split('-')
       paths.pop()
       const parentPath = paths.join('-')
