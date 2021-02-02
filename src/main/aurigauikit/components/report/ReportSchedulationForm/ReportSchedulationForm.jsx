@@ -39,7 +39,14 @@ export default class extends React.Component {
 
   changeReportName = reportName => this.change({ reportName })
 
-  changeTemplate = template => this.change({ template })
+  changeTemplate = template => {
+    const { organizationalUnitProps } = this.props
+    this.change({
+      template,
+      organizationalUnit: organizationalUnitProps.defaultSelection,
+      organizationalUnits: [organizationalUnitProps.defaultSelection],
+    })
+  }
 
   changeOrganizationalUnits = organizationalUnits => this.change({ organizationalUnits })
 
@@ -60,6 +67,14 @@ export default class extends React.Component {
           <section>
             <Grid style={{ overflow: 'inherit' }}>
               <Div col="1-2">
+                <Template
+                  loading={loading}
+                  onChange={this.changeTemplate}
+                  template={template}
+                  templates={templates}
+                />
+              </Div>
+              <Div col="1-2">
                 <label style={{ marginTop: 12 }}>
                   <Msg {...messages.organizationalUnit} />
                 </label>
@@ -67,14 +82,6 @@ export default class extends React.Component {
                   selectedElements={organizationalUnits}
                   onSelectionChange={this.changeOrganizationalUnits}
                   {...organizationalUnitProps}
-                />
-              </Div>
-              <Div col="1-2">
-                <Template
-                  loading={loading}
-                  onChange={this.changeTemplate}
-                  template={template}
-                  templates={templates}
                 />
               </Div>
               <Div col="1-2">
