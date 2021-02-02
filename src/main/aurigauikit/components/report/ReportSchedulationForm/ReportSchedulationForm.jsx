@@ -148,7 +148,7 @@ const ReportName = ({ onChange, reportName }) => (
 )
 
 const Template = ({ onChange, template, templates, loading }) => (
-  <label style={{ marginTop: 12 }}>
+  <label style={{ margin: 0, marginTop: 12 }}>
     <Msg {...messages.template} />
     <Select2
       style={{ width: '100%' }}
