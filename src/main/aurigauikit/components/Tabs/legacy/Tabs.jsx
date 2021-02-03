@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route, withRouter, Switch } from 'react-router-dom'
+import { Route, withRouter, Switch } from 'react-router-dom'
 
 import './tabs.less'
 
@@ -40,7 +40,13 @@ class Tabs extends React.Component {
         )
       )
 
-    const content = this.props.router ? (
+    const content = this.props.virtual ? (
+      children.map((child, index) => (
+        <div style={{ display: this.state.current === index ? undefined : 'none' }} key={index}>
+          {child.props.children}
+        </div>
+      ))
+    ) : this.props.router ? (
       <Switch>
         {React.Children.toArray(this.props.children)
           .filter(Boolean)
