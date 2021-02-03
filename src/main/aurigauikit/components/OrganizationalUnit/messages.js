@@ -87,6 +87,10 @@ export default {
       id: `${SELECT_PATH}.type.BRANCH`,
       defaultMessage: 'Branch',
     },
+    BRANCH_LOC: {
+      id: `${SELECT_PATH}.type.BRANCH`,
+      defaultMessage: 'Branch',
+    },
     AREA: {
       id: `${SELECT_PATH}.type.AREA`,
       defaultMessage: 'Area',
