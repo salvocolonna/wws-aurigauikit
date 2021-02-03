@@ -36,7 +36,14 @@ export default class extends React.Component {
   }
 
   changeReportName = reportName => this.change({ reportName })
-  changeTemplate = template => this.change({ template })
+  changeTemplate = template => {
+    const { organizationalUnitProps } = this.props
+    this.change({
+      template,
+      organizationalUnit: organizationalUnitProps.defaultSelection,
+      organizationalUnits: [organizationalUnitProps.defaultSelection],
+    })
+  }
   changeOrganizationalUnits = organizationalUnits => this.change({ organizationalUnits })
   changeStartDate = startDate => this.change({ startDate })
   changeEndDate = endDate => this.change({ endDate })
@@ -45,10 +52,19 @@ export default class extends React.Component {
     const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading } = this.props
     if (!data) return null
     const { templates, template, reportName, organizationalUnits, startDate, endDate } = data
+    const showDates = !template || template.dates !== false
     return (
       <Fragment>
         <div style={{ padding: 20, backgroundColor: '#fafafa' }}>
           <Grid style={{ overflow: 'inherit' }}>
+            <Div col="1-2">
+              <Template
+                loading={loading}
+                onChange={this.changeTemplate}
+                template={template}
+                templates={templates}
+              />
+            </Div>
             <Div col="1-2">
               <label style={{ marginTop: 12 }}>
                 <Msg {...messages.organizationalUnit} />
@@ -60,21 +76,23 @@ export default class extends React.Component {
               />
             </Div>
             <Div col="1-2">
-              <Template
-                loading={loading}
-                onChange={this.changeTemplate}
-                template={template}
-                templates={templates}
-              />
-            </Div>
-            <Div col="1-2">
               <ReportName reportName={reportName} onChange={this.changeReportName} />
             </Div>
             <Div col="3-12">
-              <StartDate onChange={this.changeStartDate} startDate={startDate} endDate={endDate} />
+              <StartDate
+                disabled={!showDates}
+                onChange={this.changeStartDate}
+                startDate={startDate}
+                endDate={endDate}
+              />
             </Div>
             <Div col="3-12">
-              <EndDate onChange={this.changeEndDate} startDate={startDate} endDate={endDate} />
+              <EndDate
+                disabled={!showDates}
+                onChange={this.changeEndDate}
+                startDate={startDate}
+                endDate={endDate}
+              />
             </Div>
           </Grid>
         </div>
@@ -125,7 +143,7 @@ const ReportName = ({ onChange, reportName }) => (
 )
 
 const Template = ({ onChange, template, templates, loading }) => (
-  <label style={{ marginTop: 12 }}>
+  <label style={{ margin: 0, marginTop: 12 }}>
     <Msg {...messages.template} />
     <Select2
       style={{ width: '100%' }}
@@ -139,7 +157,7 @@ const Template = ({ onChange, template, templates, loading }) => (
   </label>
 )
 
-const StartDate = ({ onChange, startDate, endDate }) => (
+const StartDate = ({ disabled, onChange, startDate, endDate }) => (
   <Fragment>
     <label style={{ marginTop: 12 }}>
       <Msg {...messages.startDate} />
@@ -152,6 +170,7 @@ const StartDate = ({ onChange, startDate, endDate }) => (
         endDate={endDate && moment(endDate)}
         maxDate={(endDate && moment(endDate)) || moment()}
         onChange={onChange}
+        disabled={disabled}
       />
     )}
     {!startDate && (
@@ -161,7 +180,8 @@ const StartDate = ({ onChange, startDate, endDate }) => (
         endDate={endDate && moment(endDate)}
         maxDate={(endDate && moment(endDate)) || moment()}
         onChange={onChange}
-        required
+        disabled={disabled}
+        required={!disabled}
       />
     )}
   </Fragment>
@@ -180,7 +200,7 @@ const buggyRemoveValidationMessagesKey = date => {
   return value
 }
 
-const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
+const EndDate = injectIntl(({ disabled, onChange, startDate, endDate, intl }) => (
   <Fragment>
     <label style={{ marginTop: 12 }}>
       <Msg {...messages.endDate} />
@@ -188,7 +208,6 @@ const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
     {endDate && (
       <div key={buggyRemoveValidationMessagesKey(endDate)}>
         <DatePicker
-          required
           selectsEnd
           startDate={startDate && moment(startDate)}
           endDate={endDate && moment(endDate)}
@@ -210,6 +229,8 @@ const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
               />
             )
           }
+          disabled={disabled}
+          required={!disabled}
         />
       </div>
     )}
@@ -222,7 +243,8 @@ const EndDate = injectIntl(({ onChange, startDate, endDate, intl }) => (
           minDate={startDate && moment(startDate)}
           maxDate={moment()}
           onChange={onChange}
-          required
+          disabled={disabled}
+          required={!disabled}
         />
       </div>
     )}

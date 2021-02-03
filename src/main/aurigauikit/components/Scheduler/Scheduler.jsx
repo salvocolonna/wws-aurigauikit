@@ -6,7 +6,6 @@ import MonthlyRecurring from './MonthlyRecurring'
 import YearlyRecurring from './YearlyRecurring'
 import moment from 'moment'
 import { days, endModes, monthlyModes, months, orders, recurrings, yearlyModes } from './constants'
-import { toExpression } from './utils'
 
 const getInitialDate = () => {
   const date = moment()
@@ -21,7 +20,7 @@ export const defaultProps = {
     recurring: recurrings[0],
     repeatEvery: 1,
     end: {
-      mode: endModes[2],
+      mode: endModes[0],
       date: null,
       occurrencies: 1,
     },
@@ -30,7 +29,7 @@ export const defaultProps = {
       day: 1,
       weekDay: days[0],
       order: orders[0],
-      mode: monthlyModes[0],
+      mode: monthlyModes[1],
     },
     yearly: {
       day: 1,
@@ -53,8 +52,7 @@ export default class extends React.Component {
   change = data => {
     const { data: oldData, onChange } = this.props
     const newData = { ...oldData, ...data }
-    const res = toExpression(newData)
-    onChange(newData, res.cronExp)
+    onChange(newData)
   }
 
   dateChanged = date => this.change({ date })
@@ -128,22 +126,23 @@ export default class extends React.Component {
           recurrings={recurrings}
           recurring={recurring}
           onRecurringChange={this.recurringChanged}
-        />
+        >
+          {recurring === 'MONTHLY' && (
+            <MonthlyRecurring
+              date={date}
+              day={monthly.day}
+              onDayChange={this.monthlyDayChanged}
+              order={monthly.order}
+              onOrderChange={this.monthlyOrderChanged}
+              mode={monthly.mode}
+              onModeChange={this.monthlyModeChanged}
+              weekDay={monthly.weekDay || days[0]}
+              onWeekDayChange={this.monthlyWeekDayChanged}
+            />
+          )}
+        </SchedulingStart>
         {recurring === 'WEEKLY' && (
           <WeeklyRecurring onChange={this.weeklyDaysChanged} selectedDays={weekly.days} />
-        )}
-        {recurring === 'MONTHLY' && (
-          <MonthlyRecurring
-            date={date}
-            day={monthly.day}
-            onDayChange={this.monthlyDayChanged}
-            order={monthly.order}
-            onOrderChange={this.monthlyOrderChanged}
-            mode={monthly.mode}
-            onModeChange={this.monthlyModeChanged}
-            weekDay={monthly.weekDay || days[0]}
-            onWeekDayChange={this.monthlyWeekDayChanged}
-          />
         )}
         {recurring === 'YEARLY' && (
           <YearlyRecurring

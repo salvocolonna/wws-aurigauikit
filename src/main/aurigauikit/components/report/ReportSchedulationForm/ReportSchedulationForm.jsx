@@ -3,15 +3,10 @@ import { FormattedMessage as Msg } from 'react-intl'
 import { Grid, Div } from 'aurigauikit/components/Grid'
 import Select2 from 'aurigauikit/components/Select2'
 import OrganizationalUnitSelect from 'aurigauikit/components/OrganizationalUnit/OrganizationalUnitSelect'
-import DatePicker from 'aurigauikit/components/DatePicker'
-import Checkbox from 'aurigauikit/components/Checkbox'
-import { toExpression } from 'aurigauikit/components/Scheduler/utils'
 import Scheduler from 'aurigauikit/components/Scheduler'
-import moment from 'moment'
 import messages from './messages'
 
 const { data: scheduler } = Scheduler.defaultProps
-const { cronExp } = toExpression(scheduler)
 
 export const defaultProps = {
   data: {
@@ -23,7 +18,6 @@ export const defaultProps = {
     duration: 0,
     previousMonth: true,
     scheduler,
-    cron: cronExp,
   },
 }
 
@@ -45,7 +39,14 @@ export default class extends React.Component {
 
   changeReportName = reportName => this.change({ reportName })
 
-  changeTemplate = template => this.change({ template })
+  changeTemplate = template => {
+    const { organizationalUnitProps } = this.props
+    this.change({
+      template,
+      organizationalUnit: organizationalUnitProps.defaultSelection,
+      organizationalUnits: [organizationalUnitProps.defaultSelection],
+    })
+  }
 
   changeOrganizationalUnits = organizationalUnits => this.change({ organizationalUnits })
 
@@ -55,7 +56,7 @@ export default class extends React.Component {
 
   changePreviousMonth = previousMonth => this.change({ previousMonth })
 
-  changeScheduler = (scheduler, cron) => this.change({ scheduler, cron })
+  changeScheduler = scheduler => this.change({ scheduler })
 
   render() {
     const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading, mode } = this.props
@@ -66,6 +67,14 @@ export default class extends React.Component {
           <section>
             <Grid style={{ overflow: 'inherit' }}>
               <Div col="1-2">
+                <Template
+                  loading={loading}
+                  onChange={this.changeTemplate}
+                  template={template}
+                  templates={templates}
+                />
+              </Div>
+              <Div col="1-2">
                 <label style={{ marginTop: 12 }}>
                   <Msg {...messages.organizationalUnit} />
                 </label>
@@ -73,14 +82,6 @@ export default class extends React.Component {
                   selectedElements={organizationalUnits}
                   onSelectionChange={this.changeOrganizationalUnits}
                   {...organizationalUnitProps}
-                />
-              </Div>
-              <Div col="1-2">
-                <Template
-                  loading={loading}
-                  onChange={this.changeTemplate}
-                  template={template}
-                  templates={templates}
                 />
               </Div>
               <Div col="1-2">
@@ -96,7 +97,7 @@ export default class extends React.Component {
               existing={mode === 'edit'}
               data={{ ...scheduler }}
               onChange={this.changeScheduler}
-              recurrings={['NEVER', 'MONTHLY']}
+              recurrings={['NEVER', 'DAILY', 'WEEKLY', 'MONTHLY']}
             />
           </section>
         </div>
@@ -147,7 +148,7 @@ const ReportName = ({ onChange, reportName }) => (
 )
 
 const Template = ({ onChange, template, templates, loading }) => (
-  <label style={{ marginTop: 12 }}>
+  <label style={{ margin: 0, marginTop: 12 }}>
     <Msg {...messages.template} />
     <Select2
       style={{ width: '100%' }}

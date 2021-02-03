@@ -4,11 +4,11 @@ import MediaQuery from 'react-responsive'
 import { Layout, Divider } from 'antd'
 import {
   UserOutlined,
-  LoginOutlined,
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from '@ant-design/icons'
+import { useState } from 'react'
 const bankImg = <i className="fa fa-bank" />
 const { Header } = Layout
 
@@ -36,6 +36,7 @@ function Topbar({
   collapsed,
   isTablet,
 }) {
+  const [logoError, setLogoError] = useState(false)
   const isCollapsed = collapsed || isTablet
 
   const hasNotification = notificationFrontend && notificationBackend
@@ -48,6 +49,8 @@ function Topbar({
       appCode={notificationAppCode}
     />
   )
+  const onLogoError = () => setLogoError(true)
+
   return (
     <Header
       className="header"
@@ -79,8 +82,12 @@ function Topbar({
             <MenuFoldOutlined className="trigger" onClick={onCollapse} />
           )}
           {logo && <Logo src={logo} onClick={onLogoClick} />}
-          {logoImage && logoImage.src && (
-            <LogoImage {...logoImage} style={{ ...logoImage.style, maxHeight: 80 }} />
+          {!logoError && logoImage && logoImage.src && (
+            <LogoImage
+              onError={onLogoError}
+              {...logoImage}
+              style={{ ...logoImage.style, maxHeight: 80 }}
+            />
           )}
         </div>
         <div style={{ marginRight: 40 }}>
