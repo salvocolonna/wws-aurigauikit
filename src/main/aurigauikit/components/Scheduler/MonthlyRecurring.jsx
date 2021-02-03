@@ -3,6 +3,7 @@ import { Row, Col } from 'antd'
 import { FormattedMessage as Msg, injectIntl } from 'react-intl'
 import messages from './messages'
 import { monthlyModes } from './constants'
+import moment from 'moment'
 import './style.less'
 
 export default injectIntl(({ mode, day, onDayChange, date }) => (
@@ -16,7 +17,9 @@ export default injectIntl(({ mode, day, onDayChange, date }) => (
           style={{ width: '5em' }}
           type="number"
           disabled={mode !== monthlyModes[1]}
-          max={date.endOf('month').format('DD')}
+          max={moment(date)
+            .endOf('month')
+            .format('DD')}
           min="1"
           onChange={e => onDayChange(e.target.value)}
           value={day}
