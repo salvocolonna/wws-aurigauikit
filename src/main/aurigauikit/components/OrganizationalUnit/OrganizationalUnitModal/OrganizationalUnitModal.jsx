@@ -95,7 +95,7 @@ const ResetButton = ({ disabled, onClick }) => {
   )
 }
 
-const AbortButton = ({ onClick }) => (
+export const AbortButton = ({ onClick }) => (
   <button
     className="btn btn-warning-outline"
     style={{ marginRight: '20px' }}
@@ -105,7 +105,7 @@ const AbortButton = ({ onClick }) => (
   </button>
 )
 
-const ConfirmButton = ({ disabled, onClick }) => (
+export const ConfirmButton = ({ disabled, onClick }) => (
   <button disabled={disabled} className="btn btn-confirmatory" onClick={() => onClick()}>
     <FormattedMessage {...messages.modal.general.select} />
   </button>

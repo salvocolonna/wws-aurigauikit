@@ -136,7 +136,7 @@ const Single = injectIntl(({ element, intl }) => (
   />
 ))
 
-const ModalButton = ({ onClick }) => {
+export const ModalButton = ({ onClick }) => {
   const style = {
     marginLeft: '10px',
     padding: '0 0.8em',
