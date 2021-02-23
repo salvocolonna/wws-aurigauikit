@@ -173,21 +173,18 @@ class SimpleTable extends React.Component {
           const aValue = this.evaluate(a, column)
           const bValue = this.evaluate(b, column)
           let result = 0
-          if (
-            (aValue || aValue === '' || aValue === 0) &&
-            (bValue || bValue === '' || bValue === 0)
-          ) {
-            if (!isNaN(aValue)) {
-              a = Number(aValue)
-              b = Number(bValue)
-              result = sort.direction === 'ASC' ? a - b : b - a
-            } else if (typeof aValue === 'string') {
-              a = aValue.toUpperCase()
-              b = bValue.toUpperCase()
-              if (a < b) result = sort.direction === 'ASC' ? -1 : 1
-              if (a > b) result = sort.direction === 'ASC' ? 1 : -1
-            }
+
+          if (typeof aValue === 'number' || typeof bValue === 'number') {
+            a = Number(aValue || 0)
+            b = Number(bValue || 0)
+            result = sort.direction === 'ASC' ? a - b : b - a
+          } else {
+            a = (aValue || '').toUpperCase()
+            b = (bValue || '').toUpperCase()
+            if (a < b) result = sort.direction === 'ASC' ? -1 : 1
+            if (a > b) result = sort.direction === 'ASC' ? 1 : -1
           }
+
           return result
         }),
       })
@@ -256,7 +253,7 @@ class SimpleTable extends React.Component {
         pageSize={this.props.pageSize}
         page={(this.props.onPageChange && this.props.page) || this.state.page}
         totalPages={this.props.totalPages}
-        totalElements={this.props.totalElements}
+        totalElements={this.props.totalElements || this.props.data.length}
         onPageChange={page => this.onPageChange(page)}
         sortable={this.props.sortable}
         rowStyle={this.props.rowStyle}

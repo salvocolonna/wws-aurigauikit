@@ -68,6 +68,7 @@ class Table extends React.Component {
   render() {
     const unselectedRows = this.getUnselectedRows()
     const hasMenu = this.props.menu.items.length > 0
+    const last = this.props.pageSize * (this.props.page - 1) + this.props.pageSize
     return (
       <div style={{ width: '100%', overflowX: 'auto', overflowY: 'hidden', ...this.props.style }}>
         {this.props.editable && this.props.cellEditor.context && (
@@ -176,7 +177,11 @@ class Table extends React.Component {
           <Pagination
             page={this.props.page}
             totalElements={this.props.totalElements}
-            pageSize={this.props.data.length}
+            pageSize={
+              this.props.pageable && this.props.pageSize > 0 && this.props.totalPages === 0
+                ? this.props.data.slice(this.props.pageSize * (this.props.page - 1), last).length
+                : this.props.data.length
+            }
             totalPages={this.getTotalPages()}
             onPageChange={page => this.props.onPageChange(page)}
           />
