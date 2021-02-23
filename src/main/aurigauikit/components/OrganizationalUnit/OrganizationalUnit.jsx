@@ -18,9 +18,14 @@ const getData = (data = []) => {
   })
 }
 
-export default injectIntl(({ data, onRemove, canRemove, intl }) => {
+export default injectIntl(({ data, onRemove, canRemove, placeholder, intl }) => {
   const ouTypes = useMemo(() => getData(data), [data])
-  if (ouTypes.length === 0) return null
+  if (ouTypes.length === 0)
+    return placeholder ? (
+      <div className="Ou" style={{ color: '#bbb', paddingLeft: 10 }}>
+        {placeholder}
+      </div>
+    ) : null
   return (
     <div className="Ou">
       {ouTypes.map(({ type, items }) => (

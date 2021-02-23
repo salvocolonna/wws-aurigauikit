@@ -112,10 +112,13 @@ const InlineOu = ({
       .filter(Boolean)
     const children = newElements
       .reduce((children, e) => {
-        return [
-          ...children,
-          ...oldElements.filter(n => n.path && n.path !== e.path && n.path.startsWith(e.path)),
-        ]
+        const elements = oldElements.filter(n => {
+          if (!n.path || n.path === e.path) return null
+          const paths = n.path.split('-')
+          paths.pop()
+          return paths.join('-') === e.path
+        })
+        return [...children, ...elements]
       }, [])
       .filter(Boolean)
     const filtered = elements.filter(e => {

@@ -49,7 +49,15 @@ export default class extends React.Component {
   changeEndDate = endDate => this.change({ endDate })
 
   render() {
-    const { data, onUndo, onConfirm, organizationalUnitProps, saving, loading } = this.props
+    const {
+      data,
+      onUndo,
+      onConfirm,
+      organizationalUnitProps,
+      saving,
+      loading,
+      fixedDates,
+    } = this.props
     if (!data) return null
     const { templates, template, reportName, organizationalUnits, startDate, endDate } = data
     const showDates = !template || template.dates !== false
@@ -82,16 +90,16 @@ export default class extends React.Component {
               <StartDate
                 disabled={!showDates}
                 onChange={this.changeStartDate}
-                startDate={startDate}
-                endDate={endDate}
+                startDate={fixedDates ? fixedDates.startDate : startDate}
+                endDate={fixedDates ? fixedDates.endDate : endDate}
               />
             </Div>
             <Div col="3-12">
               <EndDate
                 disabled={!showDates}
                 onChange={this.changeEndDate}
-                startDate={startDate}
-                endDate={endDate}
+                startDate={fixedDates ? fixedDates.startDate : startDate}
+                endDate={fixedDates ? fixedDates.endDate : endDate}
               />
             </Div>
           </Grid>
