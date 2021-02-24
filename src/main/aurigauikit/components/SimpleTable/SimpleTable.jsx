@@ -253,7 +253,7 @@ class SimpleTable extends React.Component {
         pageSize={this.props.pageSize}
         page={(this.props.onPageChange && this.props.page) || this.state.page}
         totalPages={this.props.totalPages}
-        totalElements={this.props.totalElements || this.props.data.length}
+        totalElements={this.props.onPageChange ? this.props.totalElements : this.props.data.length}
         onPageChange={page => this.onPageChange(page)}
         sortable={this.props.sortable}
         rowStyle={this.props.rowStyle}
