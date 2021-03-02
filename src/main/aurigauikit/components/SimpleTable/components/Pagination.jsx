@@ -74,13 +74,13 @@ class Pagination extends React.Component {
             </div>
             <ul className="pagination" style={{ paddingTop: '5px' }}>
               <li onClick={() => this.goTo(1)}>
-                <div className="paginationButton out">
-                  <div className="paginationText">{'«'}</div>
+                <div className={`paginationButton out ${this.props.page === 1 ? 'disabled' : ''}`}>
+                  {'«'}
                 </div>
               </li>
               <li onClick={() => this.goBack()}>
-                <div className="paginationButton out">
-                  <div className="paginationText">{'<'}</div>
+                <div className={`paginationButton out ${this.props.page === 1 ? 'disabled' : ''}`}>
+                  {'<'}
                 </div>
               </li>
               {Pagination.getPages(this.props.page, this.props.totalPages).map(page => (
@@ -91,12 +91,20 @@ class Pagination extends React.Component {
                 </li>
               ))}
               <li onClick={() => this.goForeward()}>
-                <div className="paginationButton out">
+                <div
+                  className={`paginationButton out ${
+                    this.props.page === this.props.totalPages ? 'disabled' : ''
+                  }`}
+                >
                   <div className="paginationText">{'>'}</div>
                 </div>
               </li>
               <li onClick={() => this.goTo(this.props.totalPages)}>
-                <div className="paginationButton out">
+                <div
+                  className={`paginationButton out ${
+                    this.props.page === this.props.totalPages ? 'disabled' : ''
+                  }`}
+                >
                   <div className="paginationText">{'»'}</div>
                 </div>
               </li>
