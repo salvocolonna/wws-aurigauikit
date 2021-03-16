@@ -64,7 +64,7 @@ i18n.loadMessages('en', {
   'basic-filter.save': 'Save search',
   'basic-filter.restore': 'Restore',
   'basic-filter.undo': 'Undo',
-  'card.fullscreen.close-button': 'Chiudi',
+  'card.fullscreen.close-button': 'Close',
 
   'simple-table.loading-state': 'Loading...',
   'simple-table.empty-state': 'No data found',
