@@ -117,7 +117,7 @@
     "react-center": "^1.1.1",
     "react-center-component": "^3.0.0",
     "react-chartjs-2": "^2.7.2",
-    "react-datepicker": "^1.5.0",
+    "react-datepicker": "^3.8.0",
     "react-dom": "^16.4.1",
     "react-grid-layout": "^0.16.6",
     "react-intl": "^2.7.1",
