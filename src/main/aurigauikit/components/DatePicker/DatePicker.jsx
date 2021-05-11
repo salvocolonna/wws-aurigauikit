@@ -53,6 +53,13 @@ class DatePicker extends React.Component {
           ref={instance => (this.instance = instance)}
           {...this.props}
           selected={this.props.selected && moment(this.props.selected).toDate()}
+          startDate={this.props.startDate && moment(this.props.startDate).toDate()}
+          endDate={this.props.endDate && moment(this.props.endDate).toDate()}
+          maxDate={this.props.maxDate && moment(this.props.maxDate).toDate()}
+          minDate={this.props.minDate && moment(this.props.minDate).toDate()}
+          maxTime={this.props.maxTime && moment(this.props.maxTime).toDate()}
+          minTime={this.props.minTime && moment(this.props.minTime).toDate()}
+          onChange={date => this.props.onChange(date && moment(date))}
           showTimeSelect={time || this.props.showTimeSelect}
           dateFormat={time ? 'HH:mm' : this.props.dateFormat}
         />
