@@ -5,6 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 import './datepicker.less'
 
+import moment from 'moment'
+
 class DatePicker extends React.Component {
   constructor(props) {
     super(props)
@@ -44,11 +46,13 @@ class DatePicker extends React.Component {
     return (
       <div
         ref={container => (this.container = container)}
+        style={{ display: 'flex' }}
         className={'auriga-date-picker ' + (time ? 'only-time' : '')}
       >
         <ReactDatePicker
           ref={instance => (this.instance = instance)}
           {...this.props}
+          selected={this.props.selected && moment(this.props.selected).toDate()}
           showTimeSelect={time || this.props.showTimeSelect}
           dateFormat={time ? 'HH:mm' : this.props.dateFormat}
         />
