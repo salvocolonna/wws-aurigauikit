@@ -61,7 +61,7 @@ class DatePicker extends React.Component {
           minTime={this.props.minTime && moment(this.props.minTime).toDate()}
           onChange={date => this.props.onChange(date && moment(date))}
           showTimeSelect={time || this.props.showTimeSelect}
-          dateFormat={time ? 'HH:mm' : this.props.dateFormat}
+          dateFormat={time ? 'HH:mm' : this.props.dateFormat || 'P'}
         />
         <Icon
           translate={props.isClearable && props.selected !== null ? 20 : 0}
