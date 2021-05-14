@@ -1,6 +1,7 @@
 import React from 'react'
 import { Spinner } from 'spin.js'
 import 'spin.js/spin.css'
+import HideBodyScroll from './HideBodyScroll'
 
 export default class extends React.Component {
   static defaultProps = {
@@ -8,19 +9,19 @@ export default class extends React.Component {
     color: 'black',
   }
 
-  state = { opacity: 0 }
+  state = { opacity: 0.4 }
 
   componentDidMount() {
-    const { target, color = '#999', config } = this.props
+    const { target, color = 'rgba(153,153,153,0.1)', config } = this.props
     const spinConfig = {
       lines: 13,
       length: 56,
-      width: 10,
+      width: 12,
       radius: 84,
       scale: 0.2,
       corners: 1,
       color,
-      opacity: 0.15,
+      opacity: 0.05,
       rotate: 1,
       direction: 1,
       speed: 1.5,
@@ -28,7 +29,7 @@ export default class extends React.Component {
       fps: 20,
       zIndex: 2e9,
       className: 'spinner',
-      position: 'relative',
+      position: target ? 'relative' : 'fixed',
       //shadow: true,
       hwaccel: true,
       // config will overwrite anything else
@@ -37,7 +38,7 @@ export default class extends React.Component {
 
     this.spinner = new Spinner(spinConfig)
     this.spinner.spin(target ? document.getElementById(target) : document.body)
-    setTimeout(() => this.setState({ opacity: 0.85 }), 50)
+    setTimeout(() => this.setState({ opacity: 0.85 }), 0)
   }
 
   componentWillUnmount() {
@@ -45,20 +46,23 @@ export default class extends React.Component {
   }
 
   render = () => (
-    <div
-      onClick={this.props.onClick}
-      style={{
-        position: 'absolute',
-        zIndex: 199999999,
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%',
-        opacity: this.state.opacity,
-        transition: 'opacity 1s',
-        ...this.props.style,
-      }}
-    />
+    <>
+      <HideBodyScroll />
+      <div
+        onClick={this.props.onClick}
+        style={{
+          position: this.props.target ? 'absolute' : 'fixed',
+          zIndex: 199999999,
+          backgroundColor: this.props.target ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.25)',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%',
+          opacity: this.state.opacity,
+          transition: 'opacity .4s',
+          ...this.props.style,
+        }}
+      />
+    </>
   )
 }

@@ -1,19 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import sizeMe from 'react-sizeme'
 import './modal.less'
 import debounce from 'lodash/debounce'
 import { Header, Content, Footer } from './components'
-
-const HideBodyScroll = () => {
-  useEffect(() => {
-    const styleTag = document.createElement('style')
-    styleTag.innerHTML = 'body { overflow: hidden !important; }'
-    document.head.appendChild(styleTag)
-    return () => document.head.removeChild(styleTag)
-  }, [])
-  return null
-}
+import HideBodyScroll from 'aurigauikit/components/HideBodyScroll'
 
 const ESC = 27
 
