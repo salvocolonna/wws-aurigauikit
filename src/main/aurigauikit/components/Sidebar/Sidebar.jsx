@@ -59,6 +59,7 @@ const Sidebar = class extends React.Component {
     const { openSubMenu } = this.state
     const isCollapsed = collapsed || isTablet
     const activeKeys = getActiveKeys(children, basename, isCollapsed, hash)
+    console.log({ isCollapsed, openSubMenu, activeKeys })
     return (
       <Sider
         style={{
@@ -89,6 +90,7 @@ const Sidebar = class extends React.Component {
           mode="inline"
           selectedKeys={activeKeys}
           openKeys={[...activeKeys, openSubMenu]}
+          key={String(isCollapsed)}
         >
           {Children.map(children, child => {
             if (child && child.type === Item && canView(items, child)) {
