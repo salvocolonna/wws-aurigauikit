@@ -24,7 +24,7 @@ const StatusLabel = ({ status }) => (
 )
 
 const headers = [
-  { content: <Msg id="report.report-table.columns.state" /> },
+  { content: <Msg id="report.report-table.columns.status" /> },
   { content: <Msg id="report.report-table.report-name.head-table" /> },
   { content: <Msg id="report.report-table.columns.report-template" /> },
   { content: <Msg id="report.report-table.columns.period" /> },

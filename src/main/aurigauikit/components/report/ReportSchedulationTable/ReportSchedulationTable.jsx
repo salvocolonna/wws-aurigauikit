@@ -21,7 +21,7 @@ const StatusLabel = ({ status }) => (
 )
 
 const headers = [
-  { content: <Msg id="report.schedulation-table.columns.state" /> },
+  { content: <Msg id="report.schedulation-table.columns.status" /> },
   { content: <Msg id="report.schedulation-table.report-name.head-table" /> },
   { content: <Msg id="report.schedulation-table.columns.report-template" /> },
   { content: <Msg id="report.schedulation-table.columns.start-date" /> },
