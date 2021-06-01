@@ -86,7 +86,7 @@ export default injectIntl(({ endDate, onEndDateChange, endMode, date, intl }) =>
               )
             }
             showTimeSelect
-            dateFormat="LLL"
+            dateFormat="P, HH:mm"
           />
         </div>
       </Div>

@@ -46,14 +46,14 @@ export default injectIntl(
           <Msg {...messages.labels.date} />
         </label>
         {existing && (
-          <DatePicker selected={date && moment(date)} dateFormat="LLL" disabled required />
+          <DatePicker selected={date && moment(date)} dateFormat="P, HH:mm" disabled required />
         )}
         {!existing && (
           <DatePicker
             selected={date && moment(date)}
             onChange={onDateChange}
             showTimeSelect
-            dateFormat="LLL"
+            dateFormat="P, HH:mm"
             minDate={moment()}
             minTime={getMinTime(date)}
             maxTime={getMaxTime(date)}
