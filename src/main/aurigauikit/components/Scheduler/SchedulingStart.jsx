@@ -54,7 +54,6 @@ export default injectIntl(
             onChange={onDateChange}
             showTimeSelect
             dateFormat="LLL"
-            timeFormat="LT"
             minDate={moment()}
             minTime={getMinTime(date)}
             maxTime={getMaxTime(date)}
