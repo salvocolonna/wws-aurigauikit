@@ -34,27 +34,15 @@ function buildAuth({ authParams, tokenPath, type, username, password }) {
   return [authUrl, authOptions]
 }
 
-async function authenticateAndGetUser(authUrl, authOptions, userProfilePath) {
+async function authenticateAndGetUser(authUrl, authOptions) {
   const authResponse = await fetch(authUrl, authOptions)
   const authData = await authResponse.json()
   localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(authData))
-
-  const userResponse = await fetch(userProfilePath, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${authData.access_token}`,
-    },
-  })
-
-  if (userResponse.status !== 200) throw new Error(userResponse.statusText)
-  const userData = await userResponse.json()
-  return userData
 }
 
 function LoginPage(props) {
   const {
     logo,
-    userProfilePath,
     tokenPath,
     authParams,
     type = 'basic',
@@ -82,8 +70,8 @@ function LoginPage(props) {
         })
 
         try {
-          const userData = await authenticateAndGetUser(authUrl, authOptions, userProfilePath)
-          onLogin(userData)
+          await authenticateAndGetUser(authUrl, authOptions)
+          onLogin()
           setLoading(false)
         } catch (error) {
           setLoading(false)
@@ -98,16 +86,7 @@ function LoginPage(props) {
     }
 
     login()
-  }, [
-    authParams,
-    authParams.grant_type,
-    tokenPath,
-    type,
-    userProfilePath,
-    onLogin,
-    onError,
-    messages.error,
-  ])
+  }, [authParams, authParams.grant_type, tokenPath, type, onLogin, onError, messages.error])
 
   async function submit(event) {
     if (event) event.preventDefault()
@@ -122,9 +101,9 @@ function LoginPage(props) {
 
     try {
       setLoading(true)
-      const userData = await authenticateAndGetUser(authUrl, authOptions, userProfilePath)
+      await authenticateAndGetUser(authUrl, authOptions)
       setLoading(false)
-      onLogin(userData)
+      onLogin()
     } catch (error) {
       setLoading(false)
       if (onError && typeof onError === 'function') {
