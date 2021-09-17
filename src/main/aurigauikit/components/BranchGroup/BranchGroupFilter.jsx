@@ -5,7 +5,6 @@ import Select2 from 'aurigauikit/components/Select2'
 import { injectIntl } from 'react-intl'
 import { notPublicMessages } from './messages'
 
-const ou = _userRoleMap.getOU()
 
 const notPublic = [{ id: 'ALL' }, { id: 'YES' }, { id: 'NO' }]
 
@@ -14,7 +13,7 @@ class BranchGroupFilter extends React.Component {
     super(props)
 
     this.state = {
-      organizationalUnit: [ou],
+      organizationalUnit: [this.props.getOU()],
       branchGroupCode: '',
       notPublic: notPublic[0],
     }
@@ -39,7 +38,7 @@ class BranchGroupFilter extends React.Component {
   resetFilter() {
     this.setState(
       {
-        organizationalUnit: [ou],
+        organizationalUnit: [this.props.getOU()],
         branchGroupCode: '',
         notPublic: notPublic[0],
       },
@@ -57,7 +56,7 @@ class BranchGroupFilter extends React.Component {
               datasource={this.props.organizationalUnitDatasource}
               canSelect={element => element.type === 'BRANCH'}
               selectedElements={this.state.organizationalUnit}
-              defaultSelection={ou}
+              defaultSelection={this.props.getOU()}
               onSelectionChange={selectedItem => this.onOUSelected(selectedItem)}
             />
           </BasicFilterElement>

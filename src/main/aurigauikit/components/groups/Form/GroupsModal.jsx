@@ -10,13 +10,13 @@ import Select2 from "aurigauikit/components/Select2"
 import { Grid, Div } from "aurigauikit/components/Grid"
 import messages from "./messages"
 import { defaultGroupTypes } from "../constants"
-const ou = _userRoleMap.getOU()
+
 
 class GroupModal extends React.Component {
   state = {
     mode: this.props.mode,
     showModal: false,
-    organizationalUnit: ou,
+    organizationalUnit: this.props.getOU(),
     groupCode: this.props.branchGroupCode,
     groupDescription: this.props.branchGroupDescription,
     selectedBranches: this.props.branches || [],
@@ -63,7 +63,7 @@ class GroupModal extends React.Component {
   onSelectionAborted() {
     if (this.props.onSelectionAborted) this.props.onSelectionAborted()
     this.setState({
-      organizationalUnit: ou,
+      organizationalUnit: this.props.getOU(),
       showModal: false,
       groupCode: null,
       groupDescription: null,

@@ -135,7 +135,7 @@ class BasicFilter extends React.Component {
           {withButtons && <Grid style={{ marginTop: 10, marginBottom: -55 }}>{withButtons}</Grid>}
           {mode === 'APPLY' && (
             <Grid className="react-basic-filter-buttons">
-              <ApplyButton label={textApply} />
+              {onApply && <ApplyButton label={textApply} />}
               <ResetButton label={textReset} onClick={this.reset} />
               {history.onSave && (
                 <SaveSearchButton

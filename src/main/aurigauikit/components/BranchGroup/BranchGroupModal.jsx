@@ -10,8 +10,6 @@ import { showCriticalPanel, showConfirmatoryPanel } from 'aurigauikit/components
 import { savingGroup as savingGroupMessages, editGroup as editGroupMessages } from './messages'
 import { Form } from 'aurigauikit/components/parsley'
 
-const ou = _userRoleMap.getOU()
-
 class GroupModal extends React.Component {
   constructor(props) {
     super(props)
@@ -19,7 +17,7 @@ class GroupModal extends React.Component {
     this.state = {
       mode: this.props.mode,
       showModal: false,
-      organizationalUnit: ou,
+      organizationalUnit: this.props.getOU(),
       groupCode: this.props.branchGroupCode,
       groupDescription: this.props.branchGroupDescription,
       selectedBranches: this.props.branches || [],
@@ -67,7 +65,7 @@ class GroupModal extends React.Component {
   onSelectionAborted() {
     if (this.props.onSelectionAborted) this.props.onSelectionAborted()
     this.setState({
-      organizationalUnit: ou,
+      organizationalUnit: this.props.getOU(),
       showModal: false,
       groupCode: null,
       groupDescription: null,
