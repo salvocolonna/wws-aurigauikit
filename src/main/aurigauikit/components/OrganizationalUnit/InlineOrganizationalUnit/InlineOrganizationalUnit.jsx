@@ -74,6 +74,8 @@ const InlineOu = ({
   onSelect = () => {},
   canRemove,
   onRemove,
+  treeOnly,
+  bordered = true,
 }) => {
   const intitialData = useRef(selectedElements)
   const [option, setOption] = useState(null)
@@ -153,44 +155,73 @@ const InlineOu = ({
           onChange={changeOption}
         />
       )}
-      <div id="org-modal-body" className="grid organizational-unit-grid">
+      <div
+        id="org-modal-body"
+        className="grid organizational-unit-grid"
+        style={{ border: !bordered ? 0 : undefined }}
+      >
         {tree.loading && <Spinner target="org-modal-body" config={{ top: '220px' }} />}
-        <div className="col-7-12 organizational-unit-tree">
-          <Tree
-            onElementClick={tree.update}
-            openPath={tree.openPath}
-            selectedPath={tree.selectedPath}
-            willDisplay={(node, path) => (
-              <TreeNode
-                selectableType={selectableType}
-                node={node}
-                path={path}
-                selectedElements={selectedElements}
-                selectElements={selectElements}
-                canSelect={canSelect}
-              />
-            )}
-            loadingPath={tree.loadingPath}
-            canView={(option ? option.canView : canView) || canView}
-            data={tree.data}
-          />
-        </div>
-        <div className="col-5-12 organizational-unit-table">
-          {tree.element && tree.element.table && (
-            <SimpleTable
-              sortable
-              selectable
-              selectableType={selectableType}
-              pageable
-              pageSize={8}
-              canSelect={(option ? option.canSelect : canSelect) || canSelect}
-              onSelectionChange={selectElements}
-              selectedRows={selectedElements}
-              dataComparator={dataComparator}
-              {...tree.table}
+        {treeOnly ? (
+          <div className="col-1-1 organizational-unit-tree">
+            <Tree
+              onElementClick={tree.update}
+              openPath={tree.openPath}
+              selectedPath={tree.selectedPath}
+              willDisplay={(node, path) => (
+                <TreeNode
+                  selectableType={selectableType}
+                  node={node}
+                  path={path}
+                  selectedElements={selectedElements}
+                  selectElements={selectElements}
+                  canSelect={canSelect}
+                />
+              )}
+              loadingPath={tree.loadingPath}
+              canView={(option ? option.canView : canView) || canView}
+              data={tree.data}
             />
-          )}
-        </div>
+          </div>
+        ) : (
+          <>
+            <div className="col-7-12 organizational-unit-tree">
+              <Tree
+                onElementClick={tree.update}
+                openPath={tree.openPath}
+                selectedPath={tree.selectedPath}
+                willDisplay={(node, path) => (
+                  <TreeNode
+                    selectableType={selectableType}
+                    node={node}
+                    path={path}
+                    selectedElements={selectedElements}
+                    selectElements={selectElements}
+                    canSelect={canSelect}
+                  />
+                )}
+                loadingPath={tree.loadingPath}
+                canView={(option ? option.canView : canView) || canView}
+                data={tree.data}
+              />
+            </div>
+            <div className="col-5-12 organizational-unit-table">
+              {tree.element && tree.element.table && (
+                <SimpleTable
+                  sortable
+                  selectable
+                  selectableType={selectableType}
+                  pageable
+                  pageSize={8}
+                  canSelect={(option ? option.canSelect : canSelect) || canSelect}
+                  onSelectionChange={selectElements}
+                  selectedRows={selectedElements}
+                  dataComparator={dataComparator}
+                  {...tree.table}
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
       <div style={{ float: 'left', marginTop: 20 }}>
         <OrganizationalUnit
