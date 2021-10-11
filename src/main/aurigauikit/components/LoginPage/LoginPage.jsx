@@ -36,6 +36,7 @@ function buildAuth({ authParams, tokenPath, type, username, password }) {
 
 async function authenticateAndGetUser(authUrl, authOptions) {
   const authResponse = await fetch(authUrl, authOptions)
+  if (!authResponse.ok) throw new Error('authentication failed')
   const authData = await authResponse.json()
   localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(authData))
 }
