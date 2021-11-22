@@ -2,7 +2,8 @@ import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import TimeSlotElement from './components/TimeSlotElement'
 import NewTimeSlotModal from './components/NewTimeSlotModal'
-import  './branch-configuration-timeslots.less'
+import Card from '../Card'
+import './branch-configuration-timeslots.less'
 
 class BranchConfigurationTimeSlots extends React.Component {
   static defaultProps = { editable: true }
@@ -86,19 +87,11 @@ class BranchConfigurationTimeSlots extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          padding: '20px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          marginBottom: '1em',
-        }}
+      <Card
+        title={<FormattedMessage id="branch-configuration-page.time-slots-title" />}
+        fullscreen={false}
+        style={{ paddingBottom: 45 }}
       >
-        <div>
-          <h4 className="branch-configuration-timeslots-title">
-            <FormattedMessage id="branch-configuration-page.time-slots-title" />
-          </h4>
-        </div>
         <div className="grid" style={{ textAlign: 'center', overflow: 'initial' }}>
           {this.props.times &&
             this.props.times.map(time => (
@@ -125,7 +118,7 @@ class BranchConfigurationTimeSlots extends React.Component {
           onSelectionAborted={() => this.closeModal()}
           saveSlot={newSlot => this.saveSlot(this.state.selectedDay, newSlot)}
         />
-      </div>
+      </Card>
     )
   }
 }
