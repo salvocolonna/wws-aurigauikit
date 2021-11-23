@@ -22,13 +22,13 @@ class TimeSlotElement extends React.Component {
           }}
         >
           <div
-            className={editable ? 'col-1-3' : 'col-1-2'}
+            className={editable ? 'col-1-3' : 'col-3-4'}
             style={{ float: 'none', display: 'inline-block' }}
           >
             <input style={style} type="text" value={slot.startTime} readOnly />
           </div>
           <div
-            className={editable ? 'col-1-3' : 'col-1-2'}
+            className={editable ? 'col-1-3' : 'col-3-4'}
             style={{ float: 'none', display: 'inline-block' }}
           >
             <input style={style} type="text" value={slot.endTime} readOnly />
