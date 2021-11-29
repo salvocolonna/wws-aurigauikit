@@ -1,6 +1,6 @@
-import $ from "jquery"
-import "./temporary-panels"
-import "./temporary-panel-message-queue"
+import $ from 'jquery'
+import './temporary-panels'
+import './temporary-panel-message-queue'
 
 window.temoraryPanels = {
   showInfoTemporaryPanel: $.showInfoTemporaryPanel,
@@ -8,7 +8,7 @@ window.temoraryPanels = {
   showWarningTemporaryPanel: $.showWarningTemporaryPanel,
   showCriticalTemporaryPanel: $.showCriticalTemporaryPanel,
   showTemporaryPanel: $.showTemporaryPanel,
-  messagesQueue: $.messagesQueue
+  messagesQueue: $.messagesQueue,
 }
 
 export const showInfoPanel = window.temoraryPanels.showInfoTemporaryPanel

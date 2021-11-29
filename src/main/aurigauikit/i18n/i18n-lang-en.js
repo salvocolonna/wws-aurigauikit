@@ -8,6 +8,7 @@
 import i18n from 'aurigauikit/i18n'
 
 i18n.loadMessages('en', {
+  'session-expired': 'The session has expired, re-authenticate',
   back: 'Back',
   save: 'Save',
   saving: 'Saving...',
