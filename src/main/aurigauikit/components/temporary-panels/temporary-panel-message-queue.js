@@ -9,7 +9,7 @@
  Automatically shows next messages in queue when the page loads
  */
 
-import $ from "jquery"
+import $ from 'jquery'
 
 $(() => $.messagesQueue.dequeue())
 
@@ -17,7 +17,7 @@ $(() => $.messagesQueue.dequeue())
  Message Queue implementation
  */
 
-let _cookieKey = "_auik_temporary_messages"
+let _cookieKey = '_auik_temporary_messages'
 let _messages
 
 function TemporaryPanelMessageQueue() {
@@ -39,7 +39,7 @@ $.extend(TemporaryPanelMessageQueue.prototype, {
     _messages.unshift({
       text: text,
       style: style,
-      timestamp: new Date()
+      timestamp: new Date(),
     })
     sessionStorage.setItem(_cookieKey, JSON.stringify(_messages))
   },
@@ -47,7 +47,7 @@ $.extend(TemporaryPanelMessageQueue.prototype, {
   dequeue: function() {
     let message = _messages.pop()
 
-    if (typeof message === "undefined") {
+    if (typeof message === 'undefined') {
       return false
     } else {
       $.showTemporaryPanel(message.text, message.style)
@@ -58,7 +58,7 @@ $.extend(TemporaryPanelMessageQueue.prototype, {
 
   length: function() {
     return _messages.length
-  }
+  },
 })
 
 $.messagesQueue = new TemporaryPanelMessageQueue()

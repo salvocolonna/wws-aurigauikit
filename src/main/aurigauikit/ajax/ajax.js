@@ -9,7 +9,7 @@ import i18n from '../i18n'
 
 import { RESPONSE, REQUEST } from './constants'
 import RequestMaker from './request-builder'
-import { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
+import temporaryPanels, { showCriticalPanel } from 'aurigauikit/components/temporary-panels'
 import { TOKEN_STORAGE_KEY } from 'aurigauikit/constants'
 
 import { isResponseType, getURL } from './utils'
@@ -30,6 +30,12 @@ function getAuthToken() {
 }
 
 function handleFailedAuthentication() {
+  if (temporaryPanels.messagesQueue.length() === 0) {
+    temporaryPanels.messagesQueue.enqueue(
+      i18n.messages[i18n.getCurrentLanguage()]['session-expired'],
+      'critical'
+    )
+  }
   localStorage.removeItem(TOKEN_STORAGE_KEY)
   window.location.reload()
 }
