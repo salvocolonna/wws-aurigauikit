@@ -249,7 +249,7 @@ class BranchConfigurationMap extends React.Component {
                 />
               </AddressElement>
             </Address>
-            {this.props.mode !== 'view' && (
+            {this.props.mode !== 'view' && !this.props.hiddenButtons && (
               <div style={{ marginTop: '10px', float: 'right' }}>
                 <button
                   style={{ marginRight: '10px' }}
