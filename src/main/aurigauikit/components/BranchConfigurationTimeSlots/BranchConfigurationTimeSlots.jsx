@@ -4,6 +4,7 @@ import TimeSlotElement from './components/TimeSlotElement'
 import NewTimeSlotModal from './components/NewTimeSlotModal'
 import Card from '../Card'
 import './branch-configuration-timeslots.less'
+import moment from 'moment'
 
 class BranchConfigurationTimeSlots extends React.Component {
   static defaultProps = { editable: true }
@@ -46,19 +47,15 @@ class BranchConfigurationTimeSlots extends React.Component {
 
   saveSlot(day, newSlot) {
     let error
-    if (newSlot.startTime > newSlot.endTime) {
-      error = 'invalid-time'
-    } else {
-      let timeSlot = this.props.times.find(x => x.day === day)
-      let ok = timeSlot.dailySlots.every((item, index) => {
-        return (
-          newSlot.startTime > item.endTime ||
-          newSlot.endTime < item.startTime ||
-          index === this.state.selectedIndex
-        )
-      })
-      if (!ok) error = 'conflict'
-    }
+    let timeSlot = this.props.times.find(x => x.day === day)
+    let ok = timeSlot.dailySlots.every((item, index) => {
+      return (
+        moment(newSlot.startTime, 'hh:mm').valueOf() > moment(item.endTime, 'hh:mm').valueOf() ||
+        moment(newSlot.endTime, 'hh:mm').valueOf() < moment(item.startTime, 'hh:mm').valueOf() ||
+        index === this.state.selectedIndex
+      )
+    })
+    if (!ok) error = 'conflict'
     if (!error) {
       this.props.saveSlot(day, newSlot, this.state.selectedIndex)
       this.closeModal()
