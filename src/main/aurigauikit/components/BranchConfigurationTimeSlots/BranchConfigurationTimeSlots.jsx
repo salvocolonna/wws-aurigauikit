@@ -83,6 +83,7 @@ class BranchConfigurationTimeSlots extends React.Component {
   }
 
   render() {
+    console.log({ times: this.props.times })
     return (
       <Card
         title={<FormattedMessage id="branch-configuration-page.time-slots-title" />}
