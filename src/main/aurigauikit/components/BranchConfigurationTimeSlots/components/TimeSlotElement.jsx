@@ -1,14 +1,18 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-const style = { width: '4em', display: 'inline-block', margin: 2.5 }
-
 class TimeSlotElement extends React.Component {
   constructor(props) {
     super(props)
   }
 
   createSlot(slot, index, editable) {
+    const style = {
+      width: '4em',
+      display: 'inline-block',
+      margin: 2.5,
+      pointerEvents: !editable && 'none',
+    }
     return (
       <div key={index}>
         <div
@@ -102,7 +106,11 @@ class TimeSlotElement extends React.Component {
           )}
         </div>
 
-        {this.props.slots.map((slot, index) => this.createSlot(slot, index, this.props.editable))}
+        {this.props.slots.length === 0 && !this.props.editable ? (
+          <FormattedMessage id="closed" />
+        ) : (
+          this.props.slots.map((slot, index) => this.createSlot(slot, index, this.props.editable))
+        )}
       </div>
     )
   }
